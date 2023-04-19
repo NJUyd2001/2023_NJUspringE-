@@ -8,7 +8,7 @@ let util = {
 };
 
 util.title = function (title) {
-    title = title ? title + ' - Home' : '南京大学软件在线测试项目';
+    title = title ? title + ' - Home' : '晓风轻 Element Vue Springboot 代码模板';
     window.document.title = title;
 };
 
