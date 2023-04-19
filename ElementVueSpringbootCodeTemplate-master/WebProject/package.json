@@ -8,7 +8,6 @@
     "dev": "vue-cli-service serve"
   },
   "dependencies": {
-    "@escook/request-miniprogram": "^0.2.1",
     "axios": "^0.18.0",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.6",

@@ -1,20 +1,23 @@
-import Vue from 'vue';
-
-import VueRouter from 'vue-router';
-import Routers from './router';
+import Vue from 'vue'
+import App from './app.vue'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import VueRouter from 'vue-router'
+import router from './router'
 import Vuex from 'vuex';
 import Util from './libs/util';
-import App from './App.vue';
+
 import store from './stores';
 
-Vue.use(VueRouter);
-Vue.use(Vuex);
+
+
 
 // ---------------------------------------- element ui
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-Vue.use(ElementUI)
 
+Vue.use(ElementUI)
+Vue.use(VueRouter)
+
+Vue.use(Vuex);
 Vue.config.lang = 'zh-cn'
 
 // ---------------------------------------- charts
@@ -81,23 +84,23 @@ function switchLanguage(value){
 }
 
 switchLanguage();
-
+/*
 // ---------------------------------------- 路由配置
 const RouterConfig = {
     mode: 'history',
-    routes: Routers
+    routes: router
 };
-const router = new VueRouter(RouterConfig);
+const routers = new VueRouter(RouterConfig);
 
 let loading;
 
-router.beforeEach((to, from, next) => {
+routers.beforeEach((to, from, next) => {
     loading = ElementUI.Loading.service({ fullscreen: true });
     Util.title(to.meta.title);
     next();
 });
 
-router.afterEach(() => {
+routers.afterEach(() => {
     loading.close();
     window.scrollTo(0, 0);
 });
@@ -120,7 +123,8 @@ const store = new Vuex.Store({
 */
 
 
-var instance = new Vue({
+
+  var instance = new Vue({
     el: '#app',
     router: router,
     store: store,
