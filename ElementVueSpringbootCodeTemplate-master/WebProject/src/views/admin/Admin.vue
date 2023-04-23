@@ -1,20 +1,24 @@
+<!-- hdw添加 -->
 <template>
     <el-container style="height:100%">
       <el-header style="height: 30px">
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="12"><div class="grid-content bg-purple">
-            <span class="logo-title">晓风轻 Element Vue Springboot 代码模板</span>
+            <span class="logo-title">管理员操作界面</span>
             </div></el-col>
           <el-col :span="4"><div class="grid-content bg-purple-light">
-            <el-button  plain size="mini" type="primary" @click="handleStart">Hello World</el-button></div></el-col>
+            <!-- <el-button  plain size="mini" type="primary" @click="handleStart">Hello World</el-button> -->
+          </div></el-col>
           <el-col :span="8">
             <div class="grid-content bg-purple-light text-right">
-              <span v-if="user != null">
+              <router-link to="/home">
+              <el-button type='success' plain size="middle" style="margin-left:10px">退出</el-button>
+              </router-link>
+              <!-- <span v-if="user != null">
                 <span class="user">{{user.nick}}</span><el-button  plain size="mini"  type="danger" @click="logout">退出</el-button>
               </span>
-              <span v-else><el-button type="success" plain size="mini" @click="loginOpen">点击登陆</el-button></span>
-              
-              <el-dropdown  @command="switchLang">
+              <span v-else><el-button type="success" plain size="mini" @click="loginOpen">点击登陆</el-button></span> -->
+              <!-- <el-dropdown  @command="switchLang">
                 <el-button  plain size="mini"  type="primary">
                   {{lang.startsWith('zh') ? '中': 'En' }}<i class="el-icon-arrow-down el-icon--right"></i>
                 </el-button>
@@ -22,8 +26,7 @@
                   <el-dropdown-item command="zh">中</el-dropdown-item>
                   <el-dropdown-item command="en">En</el-dropdown-item>
                 </el-dropdown-menu>
-              </el-dropdown>
-    
+              </el-dropdown> -->
             </div></el-col>
         </el-row>
       </el-header>
@@ -45,54 +48,29 @@
             <el-submenu index="1">
               <template slot="title" collapse=false>
                 <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
-                <span> 基本组件</span>
+                <span> 功能</span>
               </template>
               <el-menu-item-group>
-                <template slot="title">表格</template>
-                <el-menu-item index="1-11" @click="addTab('最基本表格', 'ConfigTableSimple')">最基本表格</el-menu-item>
-                <el-menu-item index="1-12" @click="addTab('前台数据过滤', 'ConfigTableSimpleFilter')">前台数据过滤</el-menu-item>
-                <el-menu-item index="1-13" @click="addTab('后台数据过滤', 'ConfigTable')">后台数据过滤</el-menu-item>
+                <template slot="title">委托功能栏</template>
+                <el-menu-item index="1-11" @click="addTab('所有委托记录', 'ConfigTableSimple')">所有委托记录</el-menu-item>
+                <el-menu-item index="1-12" @click="addTab('测试报告审核', 'ConfigTableSimpleFilter')">测试报告审核</el-menu-item>
               </el-menu-item-group>
-              <el-menu-item-group title="树">
+              <!-- <el-menu-item-group title="树">
                 <el-menu-item index="1-21" @click="addTab('简单树', 'SimpleTree')">简单树</el-menu-item>
                 <el-menu-item index="1-22" @click="addTab('简单的带图标树', 'SimpleTreeWithIcon')">简单的带图标树</el-menu-item>
-              </el-menu-item-group>
-              <el-menu-item index="1-31" @click="addTab('上传组件', 'UploadFile')">上传组件</el-menu-item>
+              </el-menu-item-group> -->
             </el-submenu>
     
             <el-submenu index="9">
               <template slot="title" collapse=false>
                 <i class="el-icon-setting"></i>
-                <span>系统配置</span>
+                <span>用户信息管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="9-1" @click="addTab('系统配置', 'ConfigTable2')">系统配置</el-menu-item>
-                <el-menu-item index="9-2" @click="addTab('用户管理', 'UserTable')">用户管理</el-menu-item>
+                <el-menu-item index="9-1" @click="addTab('测试中心账号管理', 'ConfigTable2')">测试中心账号管理</el-menu-item>
+                <el-menu-item index="9-2" @click="addTab('客户管理', 'UserTable')">客户管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
-    
-            <el-submenu index="4">
-              <template slot="title" collapse=false>
-                <i class="el-icon-setting"></i>
-                <span>日志分析</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="4-1" @click="addTab('上传日志', 'UploadFile')">上传日志</el-menu-item>
-                <el-menu-item index="4-2" @click="addTab('上传记录', 'UploadHistory')">上传记录</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-    
-            <el-submenu index="0">
-              <template slot="title" collapse=false>
-                <i class="el-icon-setting"></i>
-                <span>自定义组件</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="0-1" >分页组件</el-menu-item>
-                <el-menu-item index="0-2" @click="addTab('选人组件', 'SelectUser')">选人组件</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-    
           </el-menu>
         </el-aside>
         <el-main>      
