@@ -50,8 +50,9 @@ export default {
 
 <style scoped>
 .header {
-  background:url(../../assets/logo.png);
-	background-size:120px 90px;
+  background: purple;
+  background-image:url(../../assets/logo.png);
+	background-size:180px 60px;
 	background-repeat:no-repeat;
   background-origin:content-box;
 	padding-top:40px;

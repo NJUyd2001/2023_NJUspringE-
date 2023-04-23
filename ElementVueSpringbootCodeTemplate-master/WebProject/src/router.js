@@ -7,6 +7,7 @@ import Home from './views/home/Home'
 import Login from './views/login/Login'
 import Register from './views/register/Register'
 import Client from './views/client/Client'
+import Market from './views/market/Market'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -31,6 +32,10 @@ export default new VueRouter({
         {
             path: '/client',     // 路径
             component: Client    // 跳转到的组件
+        },
+        {
+            path: '/market',     // 路径
+            component: Market    // 跳转到的组件
         }
     ]
 })

@@ -1,5 +1,5 @@
 <template>
-  <div>
+    
     <el-card class="box-card">
       <h2>登录</h2>
       <el-form
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$router.push({path: "./client", replace:true});
+      this.$router.push({path: "./market", replace:true});
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
