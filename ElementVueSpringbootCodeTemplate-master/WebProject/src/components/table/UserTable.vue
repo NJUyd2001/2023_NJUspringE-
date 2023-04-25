@@ -1,7 +1,7 @@
 /**
  * 表格组件范例
  * 
- * @author xiaowenjie https://github.com/xwjie
+ * 黄大伟修改
  */
 <template>
   <div>
@@ -21,9 +21,9 @@
       <el-table-column
         fixed
         sortable
-        prop="id"
-        label="ID"        
-        width="70">
+        prop="uid"
+        label="UID"        
+        width="150">
       </el-table-column>
       <el-table-column
         prop="name"
@@ -33,11 +33,11 @@
       </el-table-column>
       <el-table-column
         sortable
-        prop="nick"
+        prop="nickname"
         label="昵称"
         width="200">
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="roles"
         label="角色">
         <template scope="scope">
@@ -45,15 +45,33 @@
           :type="item.name === 'admin' ? 'primary' : 'success'"
           disable-transitions>{{item.name}}</el-tag>
         </template>
+      </el-table-column> -->
+      <el-table-column
+        sortable
+        prop="email"
+        label="邮箱"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        sortable
+        prop="phone"
+        label="电话"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        sortable
+        prop="job"
+        label="工作单位"
+        width="200">
       </el-table-column>
       <el-table-column
         sortable
         prop="createTime"
         label="创建时间"
         :formatter="dateFormat"
-        width="150">
+        width="200">
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         sortable
         prop="updateTime"
         label="最后修改时间"
@@ -68,7 +86,7 @@
           <el-button @click="showPasswordDlg(scope.row)" type="text" size="small"  icon="el-icon-edit"></el-button>
           <el-button @click="deleteConfig(scope.row)" type="text" size="small"  icon="el-icon-delete"></el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
 
     <Pagination ref="page1" url="/user/list" :keyword="keyword" :sort="sort" v-model="datas"/>

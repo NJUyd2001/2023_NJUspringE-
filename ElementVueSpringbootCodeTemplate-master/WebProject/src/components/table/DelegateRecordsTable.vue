@@ -1,7 +1,7 @@
 /**
  * 表格组件范例
  * 
- * @author xiaowenjie https://github.com/xwjie
+ * 黄大伟添加
  */
 <template>
   <div>

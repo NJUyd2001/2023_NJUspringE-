@@ -1,7 +1,7 @@
 /**
  * 表格组件范例
  * 
- * @author xiaowenjie https://github.com/xwjie
+ * 黄大伟修改
  */
 <template>
   <div>
@@ -21,8 +21,8 @@
       <el-table-column
         fixed
         sortable
-        prop="id"
-        label="ID"
+        prop="uid"
+        label="UID"
         
         width="150">
       </el-table-column>
@@ -34,16 +34,23 @@
       </el-table-column>
       <el-table-column
         sortable
-        prop="value"
-        label="取值"
+        prop="password"
+        label="密码"
         width="300">
       </el-table-column>
       <el-table-column
         sortable
-        prop="description"
-        label="描述">
+        prop="jobtype"
+        label="岗位类型"
+        width="300">
       </el-table-column>
-      
+      <el-table-column
+        sortable
+        prop="username"
+        label="使用者姓名"
+        width="300">
+      </el-table-column>
+<!--       
       <el-table-column
         fixed="right"
         label="操作"
@@ -52,7 +59,7 @@
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="deleteConfig(scope.row)" type="text" size="small"><i class="el-icon-delete"></i></el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
 
     <Pagination ref="page1" url="/config/list" :keyword="keyword" :sort="sort" v-model="configs"/>

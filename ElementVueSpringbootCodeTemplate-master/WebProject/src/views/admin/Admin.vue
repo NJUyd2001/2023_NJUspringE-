@@ -52,8 +52,8 @@
               </template>
               <el-menu-item-group>
                 <template slot="title">委托功能栏</template>
-                <el-menu-item index="1-11" @click="addTab('所有委托记录', 'ConfigTableSimple')">所有委托记录</el-menu-item>
-                <el-menu-item index="1-12" @click="addTab('测试报告审核', 'ConfigTableSimpleFilter')">测试报告审核</el-menu-item>
+                <el-menu-item index="1-11" @click="addTab('所有委托记录', 'DelegateRecordsTable')">所有委托记录</el-menu-item>
+                <el-menu-item index="1-12" @click="addTab('测试文档审核', 'TestDocAuditTable')">测试文档审核</el-menu-item>
               </el-menu-item-group>
               <!-- <el-menu-item-group title="树">
                 <el-menu-item index="1-21" @click="addTab('简单树', 'SimpleTree')">简单树</el-menu-item>
@@ -67,7 +67,7 @@
                 <span>用户信息管理</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="9-1" @click="addTab('测试中心账号管理', 'ConfigTable2')">测试中心账号管理</el-menu-item>
+                <el-menu-item index="9-1" @click="addTab('测试中心账号管理', 'ConfigTable')">测试中心账号管理</el-menu-item>
                 <el-menu-item index="9-2" @click="addTab('客户管理', 'UserTable')">客户管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>

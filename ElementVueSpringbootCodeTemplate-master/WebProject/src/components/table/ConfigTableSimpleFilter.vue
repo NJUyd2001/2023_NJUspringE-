@@ -1,7 +1,7 @@
 /**
  * 表格组件范例
  * 
- * @author xiaowenjie https://github.com/xwjie
+ * 黄大伟修改
  */
 <template>
   <div>
@@ -19,27 +19,27 @@
       <el-table-column
         fixed
         sortable
-        prop="id"
-        label="ID"
+        prop="aid"
+        label="AID"
         
-        width="150">
+        width="300">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="applicantID"
         sortable
-        label="名称"
+        label="客户ID"
         width="300">
       </el-table-column>
       <el-table-column
         sortable
-        prop="value"
-        label="取值"
+        prop="time"
+        label="递交文档时间"
         width="300">
       </el-table-column>
       <el-table-column
         sortable
-        prop="description"
-        label="描述">
+        prop="doc"
+        label="附件">
       </el-table-column>
     </el-table>
 

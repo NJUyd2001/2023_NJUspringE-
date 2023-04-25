@@ -1,7 +1,7 @@
 /**
  * 表格组件范例
  * 
- * @author xiaowenjie https://github.com/xwjie
+ * 黄大伟添加
  */
 <template>
   <div>
@@ -12,7 +12,7 @@
     </el-input>
     <p/>
     <el-table
-      :data="configs"
+      :data="configs | filterKeyword(keyword)"
       border
       stripe
       style="width: 100%">
@@ -27,22 +27,26 @@
       <el-table-column
         prop="applicantID"
         sortable
-        label="申请人ID"
+        label="客户ID"
         width="300">
       </el-table-column>
       <el-table-column
         sortable
         prop="time"
-        label="上次更新时间"
+        label="递交文档时间"
         width="300">
       </el-table-column>
       <el-table-column
         sortable
-        prop="CurrentPorgress"
-        label="当前进度">
+        prop="doc"
+        label="附件">
       </el-table-column>
     </el-table>
-
+    <el-table-column
+        sortable
+        prop="passornot"
+        label="通过与否">
+      </el-table-column>
     <Pagination url="/config/list" v-model="configs"/>
   </div>
 </template>
@@ -51,6 +55,7 @@
 export default {
   data() {
     return {
+      keyword: '',
       configs: []
     };
   }
