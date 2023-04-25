@@ -8,6 +8,7 @@ import Login from './views/login/Login'
 import Register from './views/register/Register'
 import Client from './views/client/Client'
 import Market from './views/market/Market'
+import Admin  from './views/admin/Admin'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -36,6 +37,10 @@ export default new VueRouter({
         {
             path: '/market',     // 路径
             component: Market    // 跳转到的组件
+        },
+        {
+            path:'/admin',   // 路径 hdw添加
+            component:Admin // 跳转到的组件
         }
     ]
 })

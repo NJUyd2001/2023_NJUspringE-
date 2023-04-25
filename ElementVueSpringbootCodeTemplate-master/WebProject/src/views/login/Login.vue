@@ -32,6 +32,10 @@
         <router-link to="/home">
           <el-button style="margin-left:10px">返回</el-button>
         </router-link>
+        <!-- 黄大伟添加 -->
+        <router-link to="/admin">
+          <el-button style="margin-left:10px, margin-top:5px">管理员界面</el-button>
+        </router-link>
       </div>
     </el-card>
   </div>
