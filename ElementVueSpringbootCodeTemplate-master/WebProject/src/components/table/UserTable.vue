@@ -170,7 +170,16 @@ export default {
   data() {
     return {
       keyword:"",
-      datas: [],
+      datas: [{
+        uid:'2005220016',
+        name:'H958902573',
+        nickname:'风车村吹风车',
+        email:"9589025@qq.com",
+        phone:'15968774896',
+        job:'测试人员',
+        createTime:'2023-04-29:16:20',
+      }
+      ],
       sort: {},
       passwordDlg:{
         row: null,

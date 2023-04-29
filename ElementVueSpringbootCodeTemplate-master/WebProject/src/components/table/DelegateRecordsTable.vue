@@ -42,7 +42,6 @@
         label="当前进度">
       </el-table-column>
     </el-table>
-
     <Pagination url="/config/list" v-model="configs"/>
   </div>
 </template>
@@ -51,7 +50,12 @@
 export default {
   data() {
     return {
-      configs: []
+      configs: [{
+        aid:'00001',
+        applicantID:205220016,
+        time:'2023-04-29',
+        CurrentPorgress:'发起委托'
+      }]
     };
   }
 };

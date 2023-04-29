@@ -21,7 +21,6 @@
         sortable
         prop="aid"
         label="AID"
-        
         width="300">
       </el-table-column>
       <el-table-column
@@ -56,7 +55,12 @@ export default {
   data() {
     return {
       keyword: '',
-      configs: []
+      configs: [{
+        aid:'00000001',
+        applicantID:205220016,
+        time:'2023-04-29',
+        doc:'Green.doc'
+      }]
     };
   }
 };

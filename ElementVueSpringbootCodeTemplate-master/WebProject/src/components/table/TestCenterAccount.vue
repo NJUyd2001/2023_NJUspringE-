@@ -60,7 +60,7 @@
           <el-button @click="deleteConfig(scope.row)" type="text" size="small"><i class="el-icon-delete"></i></el-button>
         </template>
       </el-table-column> -->
-    你说得对
+    
     </el-table>
 
     <Pagination ref="page1" url="/config/list" :keyword="keyword" :sort="sort" v-model="configs"/>
@@ -94,7 +94,13 @@ export default {
   data() {
     return {
       keyword:"",
-      configs: [],
+      configs: [{
+        uid:'205220016',
+        name:"你说得对",
+        password:'shazihuang007',
+        jobtype:'你爹',
+        username:'黄大伟',
+      }],
       sort: {}
     };
   }
