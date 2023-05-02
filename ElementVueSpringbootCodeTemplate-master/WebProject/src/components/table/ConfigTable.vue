@@ -60,7 +60,7 @@
           <el-button @click="deleteConfig(scope.row)" type="text" size="small"><i class="el-icon-delete"></i></el-button>
         </template>
       </el-table-column> -->
-    你说得对
+    
     </el-table>
 
     <Pagination ref="page1" url="/config/list" :keyword="keyword" :sort="sort" v-model="configs"/>

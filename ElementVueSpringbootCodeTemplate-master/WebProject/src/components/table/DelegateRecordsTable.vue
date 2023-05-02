@@ -12,7 +12,8 @@
     </el-input>
     <p/>
     <el-table
-      :data="configs"
+      :data="filterinfors"
+      size="mini"
       border
       stripe
       style="width: 100%">
@@ -50,13 +51,35 @@
 export default {
   data() {
     return {
-      configs: [{
-        aid:'00001',
-        applicantID:205220016,
+      keyword:'',
+      infors: [{
+        aid:'0001',
+        applicantID:'205220016',
         time:'2023-04-29',
         CurrentPorgress:'发起委托'
-      }]
+      },
+      {
+        aid:'0002',
+        applicantID:'205220017',
+        time:'2023-04-29',
+        CurrentPorgress:'发起委托'
+      },
+      {
+        aid:'0003',
+        applicantID:'205220018',
+        time:'2023-04-29',
+        CurrentPorgress:'发起委托'
+      }],
+      sort:{}
     };
-  }
+  },
+  computed:{
+    filterinfors(){
+      return this.infors.filter((i)=>{
+        return i.aid.indexOf(this.keyword)!==-1||i.applicantID.indexOf(this.keyword)!==-1||i.time.indexOf(this.keyword)!==-1
+                ||i.CurrentPorgress.indexOf(this.keyword)!==-1
+      })
+    }
+}
 };
 </script>

@@ -12,7 +12,7 @@
     </el-input>
     <p/>
     <el-table
-      :data="datas"
+      :data="filterdatas"
       size = "mini"
       border
       stripe
@@ -174,9 +174,18 @@ export default {
         uid:'2005220016',
         name:'H958902573',
         nickname:'风车村吹风车',
-        email:"9589025@qq.com",
+        email:"958902573@qq.com",
         phone:'15968774896',
         job:'测试人员',
+        createTime:'2023-04-29:16:20',
+      },
+      {
+        uid:'2005220016',
+        name:'H958902573',
+        nickname:'风车村吹风车',
+        email:"958902573@qq.com",
+        phone:'15968774896',
+        job:'质量部人员',
         createTime:'2023-04-29:16:20',
       }
       ],
@@ -189,6 +198,15 @@ export default {
         }
       }
     };
+  },
+  computed:{
+  filterdatas(){
+      return this.datas.filter((i)=>{
+        return i.uid.indexOf(this.keyword)!==-1||i.name.indexOf(this.keyword)!==-1||i.nickname.indexOf(this.keyword)!==-1
+                ||i.email.indexOf(this.keyword)!==-1||i.phone.indexOf(this.keyword)!==-1||i.job.indexOf(this.keyword)!==-1
+                ||i.createTime.indexOf(this.keyword)!==-1
+      })
+    }
   }
 };
 </script>
