@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 晓风轻SpringBoot+Vue代码模板
 
 使用Vue+VueX+ElementUI+SpringBoot的代码框架。
@@ -22,3 +23,6 @@ npm run docs:dev
 npm run deploy:build
 ```
 
+=======
+这里是内部文档
+>>>>>>> 1d08763648340095c7498c2958ea635c141a594d

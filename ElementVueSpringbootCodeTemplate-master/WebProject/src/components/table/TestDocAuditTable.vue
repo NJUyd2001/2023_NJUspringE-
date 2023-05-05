@@ -1,7 +1,7 @@
 /**
  * 表格组件范例
  * 
- * 黄大伟修改
+ * 黄大伟添加
  */
 <template>
   <div>
@@ -12,7 +12,7 @@
     </el-input>
     <p/>
     <el-table
-      :data="configs | filterKeyword(keyword)"
+      :data="filterinfors"
       border
       stripe
       style="width: 100%">
@@ -21,7 +21,6 @@
         sortable
         prop="aid"
         label="AID"
-        
         width="300">
       </el-table-column>
       <el-table-column
@@ -42,7 +41,11 @@
         label="附件">
       </el-table-column>
     </el-table>
-
+    <el-table-column
+        sortable
+        prop="passornot"
+        label="通过与否">
+      </el-table-column>
     <Pagination url="/config/list" v-model="configs"/>
   </div>
 </template>
@@ -52,8 +55,34 @@ export default {
   data() {
     return {
       keyword: '',
-      configs: []
+      infors: [{
+        aid:'0001',
+        applicantID:'205220016',
+        time:'2023-04-29',
+        doc:'Green.doc'
+      },
+      {
+        aid:'0002',
+        applicantID:'205220017',
+        time:'2023-04-29',
+        doc:'Blue.doc'
+      },
+      {
+        aid:'0001',
+        applicantID:'205220018',
+        time:'2023-04-29',
+        doc:'Red.doc'
+      }
+    ]
     };
+  },
+  computed:{
+    filterinfors(){
+      return this.infors.filter((i)=>{
+        return i.aid.indexOf(this.keyword)!==-1||i.applicantID.indexOf(this.keyword)!==-1||i.time.indexOf(this.keyword)!==-1
+                ||i.doc.indexOf(this.keyword)!==-1
+      })
+    }
   }
 };
 </script>

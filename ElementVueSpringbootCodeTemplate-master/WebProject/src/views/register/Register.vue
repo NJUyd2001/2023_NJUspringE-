@@ -28,6 +28,7 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
+<<<<<<< HEAD
         <el-form-item label="电话" prop="phone">
           <el-input v-model="ruleForm.phone"></el-input>
         </el-form-item>
@@ -36,6 +37,8 @@
           <input type="radio" name="gender" value="testing"> 测试部</td>
         </el-form-item>
         
+=======
+>>>>>>> 1d08763648340095c7498c2958ea635c141a594d
         <el-form-item label="邮箱" prop="email">
           <el-input
             v-model="ruleForm.email"
@@ -43,10 +46,18 @@
         </el-form-item>
       </el-form>
       <div class="btnGroup">
+<<<<<<< HEAD
         <el-button type="primary" @click="submitForm('ruleForm')" style = "margin: 18px"
           >提交</el-button>
         <el-button @click="resetForm('ruleForm')" style = "margin: 18px">重置</el-button>
         <el-button @click="goBack">登录</el-button>
+=======
+        <el-button type="primary" @click="submitForm('ruleForm')"
+          >提交</el-button
+        >
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button @click="goBack">返回</el-button>
+>>>>>>> 1d08763648340095c7498c2958ea635c141a594d
       </div>
     </el-card>
   </div>
@@ -93,6 +104,7 @@ export default {
           { required: true, message: "邮箱不能为空！", trigger: "blur" },
           {pattern: /(^[a-zA-Z]\w{5,17}@((126|163)\.com|yeah\.net)$)|(^[1-9]\d{4,10}@qq\.com$)/, message:"邮箱格式不符合规则"}
         ],
+<<<<<<< HEAD
         department: [
           { required: true,message: "请选择您的部门", trigger: "blur" },
         ],
@@ -100,6 +112,8 @@ export default {
           { required: true, message: "电话号码不能为空", trigger: "blur" },
           {pattern: /^[1]+[3,5,8]+\d{9}$/, message: "请输入正确的电话号码"}
         ],
+=======
+>>>>>>> 1d08763648340095c7498c2958ea635c141a594d
       },
     };
   },

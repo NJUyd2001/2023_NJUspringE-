@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <template>
 <el-container style="height:100%">
@@ -282,5 +283,23 @@ export default {
 .logo-title{
   font-size: 18px;
   font-weight: bold;
+=======
+<template>
+  
+  <div>
+    <el-card class="box-card">    
+    </el-card>
+
+  </div>
+</template>
+
+<style scoped>
+.box-card {
+    width:360px;
+    height: 780px;
+    background: url(../../assets/Messigoat.jpg);
+    background-size: 100% 100%;
+    background-position: center;
+>>>>>>> 1d08763648340095c7498c2958ea635c141a594d
 }
 </style>

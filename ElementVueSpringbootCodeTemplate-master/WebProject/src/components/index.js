@@ -9,6 +9,9 @@ import CTMENT from './table/CTM-ENT';
 import LoginDialog from './LoginDialog';
 import ConfigTableSimple from './table/ConfigTableSimple';
 import ConfigTableSimpleFilter from './table/ConfigTableSimpleFilter';
+import DelegateRecordsTable from './table/DelegateRecordsTable';//黄大伟添加
+import TestDocAuditTable from './table/TestDocAuditTable';//黄大伟添加
+import TestCenterAccount  from './table/TestCenterAccount';//黄大伟添加
 
 //tree
 import SimpleTree from './tree/SimpleTree';
@@ -35,7 +38,9 @@ function registerComponents(){
     Vue.component('LoginDialog', LoginDialog);
     Vue.component('ConfigTableSimple', ConfigTableSimple);
     Vue.component('ConfigTableSimpleFilter', ConfigTableSimpleFilter);
-    
+    Vue.component('DelegateRecordsTable', DelegateRecordsTable);//黄大伟添加
+    Vue.component('TestDocAuditTable', TestDocAuditTable);//黄大伟添加
+    Vue.component('TestCenterAccount', TestCenterAccount);//黄大伟添加
     //tree
     Vue.component('SimpleTree', SimpleTree);
     Vue.component('SimpleTreeWithIcon', SimpleTreeWithIcon);

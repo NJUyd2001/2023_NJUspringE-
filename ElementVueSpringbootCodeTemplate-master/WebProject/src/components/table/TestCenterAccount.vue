@@ -12,7 +12,7 @@
     </el-input>
     <p/>
     <el-table
-      :data="configs"
+      :data="filterinfors"
       size = "mini"
       border
       stripe
@@ -23,7 +23,6 @@
         sortable
         prop="uid"
         label="UID"
-        
         width="150">
       </el-table-column>
       <el-table-column
@@ -50,8 +49,8 @@
         label="使用者姓名"
         width="300">
       </el-table-column>
-<!--       
-      <el-table-column
+      
+      <!-- <el-table-column
         fixed="right"
         label="操作"
         width="100">
@@ -60,7 +59,6 @@
           <el-button @click="deleteConfig(scope.row)" type="text" size="small"><i class="el-icon-delete"></i></el-button>
         </template>
       </el-table-column> -->
-    
     </el-table>
 
     <Pagination ref="page1" url="/config/list" :keyword="keyword" :sort="sort" v-model="configs"/>
@@ -91,12 +89,40 @@ export default {
       this.$refs.page1.reload();
     }
   },
-  data() {
+   data() {
     return {
       keyword:"",
-      configs: [],
+      infors: [{
+        uid:'205220016',
+        name:"你说得对",
+        password:'shazihuang007',
+        jobtype:'你爹',
+        username:'黄大伟',
+      },
+      {
+        uid:'205220017',
+        name:"你说得错",
+        password:'shazihuang007',
+        jobtype:'你爸',
+        username:'黄中伟',
+      },
+      {
+        uid:'205220018',
+        name:"你说得既对又错",
+        password:'shazihuang007',
+        jobtype:'你爷',
+        username:'黄小伟',
+      }],
       sort: {}
     };
+  },
+  computed:{
+    filterinfors(){
+      return this.infors.filter((i)=>{
+        return i.uid.indexOf(this.keyword)!==-1|| i.name.indexOf(this.keyword)!==-1||i.password.indexOf(this.keyword)!==-1
+                ||i.jobtype.indexOf(this.keyword)!==-1|| i.username.indexOf(this.keyword)!==-1
+      })
+    }
   }
 };
 </script>
