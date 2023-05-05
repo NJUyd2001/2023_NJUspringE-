@@ -1,6 +1,10 @@
 import ConfigAdd from './ConfigAdd.vue';
 import ConfigTable from './table/ConfigTable';
 import ConfigTable2 from './table/ConfigTable2';
+import ConfigTable3 from './table/ConfigTable3';
+
+import CTMENT from './table/CTM-ENT';
+
 
 import LoginDialog from './LoginDialog';
 import ConfigTableSimple from './table/ConfigTableSimple';
@@ -28,6 +32,9 @@ function registerComponents(){
     
     Vue.component('ConfigTable', ConfigTable);
     Vue.component('ConfigTable2', ConfigTable2);
+    Vue.component('ConfigTable3', ConfigTable3);
+    Vue.component('CTMENT', CTMENT);
+
     Vue.component('LoginDialog', LoginDialog);
     Vue.component('ConfigTableSimple', ConfigTableSimple);
     Vue.component('ConfigTableSimpleFilter', ConfigTableSimpleFilter);

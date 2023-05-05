@@ -1,11 +1,10 @@
-<<<<<<< HEAD
 
 <template>
 <el-container style="height:100%">
   <el-header style="height: 30px">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="12"><div class="grid-content bg-purple">
-        <span class="logo-title">客户界面</span>
+        <span class="logo-title">市场部</span>
         </div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
         <el-button  plain size="mini" type="primary" @click="handleStart">Hello World</el-button></div></el-col>
@@ -47,20 +46,21 @@
         <el-submenu index="1">
           <template slot="title" collapse=false>
             <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
-            <span> 我的委托</span>
+            <span> 委托状态</span>
           </template>
           <el-menu-item-group>
-            <template slot="title">委托准备</template>
-            <el-menu-item index="1-11" @click="addTab('发起委托', 'UploadFile')">发起委托</el-menu-item>
-            <el-menu-item index="1-13" @click="addTab('报价处理', 'ConfigTable')">报价处理</el-menu-item>
+            <el-menu-item index="1-11" @click="addTab('委托状态', 'CTMENT')">委托状态</el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group title="委托处理">
-            <el-menu-item index="1-21" @click="addTab('合同处理', 'SimpleTree')">合同处理</el-menu-item>
-            <el-menu-item index="1-22" @click="addTab('样品发送', 'UploadFile')">样品发送</el-menu-item>
+        </el-submenu>
+
+        <el-submenu index="0">
+          <template slot="title" collapse=false>
+            <i class="el-icon-setting"></i>
+            <span>生成报价</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="0-2" @click="addTab('委托审核结果', 'SelectUser')">委托审核结果</el-menu-item>
           </el-menu-item-group>
-          <el-menu-item index="1-31" @click="addTab('确认接收', 'UploadFile')">确认接收</el-menu-item>
-          <el-menu-item index="1-31" @click="addTab('审核测试报告', 'UploadFile')">审核测试报告</el-menu-item>
-          <el-menu-item index="1-31" @click="addTab('接受测试报告', 'UploadFile')">接受测试报告</el-menu-item>
         </el-submenu>
 
         <el-submenu index="9">
@@ -80,18 +80,6 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="4-1" @click="addTab('委托处理记录', 'UploadFile')">委托处理记录</el-menu-item>
-            <el-menu-item index="4-2" @click="addTab('上传记录', 'UploadHistory')">上传记录</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-
-        <el-submenu index="0">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span>自定义组件</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="0-1" >分页组件</el-menu-item>
-            <el-menu-item index="0-2" @click="addTab('选人组件', 'SelectUser')">选人组件</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -283,23 +271,5 @@ export default {
 .logo-title{
   font-size: 18px;
   font-weight: bold;
-=======
-<template>
-  
-  <div>
-    <el-card class="box-card">    
-    </el-card>
-
-  </div>
-</template>
-
-<style scoped>
-.box-card {
-    width:360px;
-    height: 780px;
-    background: url(../../assets/Messigoat.jpg);
-    background-size: 100% 100%;
-    background-position: center;
->>>>>>> 1d08763648340095c7498c2958ea635c141a594d
 }
 </style>

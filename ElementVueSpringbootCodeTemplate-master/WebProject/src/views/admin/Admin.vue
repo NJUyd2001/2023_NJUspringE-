@@ -67,7 +67,11 @@
                 <span>用户信息管理</span>
               </template>
               <el-menu-item-group>
+<<<<<<< HEAD
+                <el-menu-item index="9-1" @click="addTab('测试中心账号管理', 'ConfigTable')">测试中心账号管理</el-menu-item>
+=======
                 <el-menu-item index="9-1" @click="addTab('测试中心账号管理', 'TestCenterAccount')">测试中心账号管理</el-menu-item>
+>>>>>>> 1d08763648340095c7498c2958ea635c141a594d
                 <el-menu-item index="9-2" @click="addTab('客户管理', 'UserTable')">客户管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>

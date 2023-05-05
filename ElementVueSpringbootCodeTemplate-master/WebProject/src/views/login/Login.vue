@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
+    
+=======
   <div>
+>>>>>>> 1d08763648340095c7498c2958ea635c141a594d
     <el-card class="box-card">
       <h2>登录</h2>
       <el-form
@@ -34,7 +38,11 @@
         </router-link>
         <!-- 黄大伟添加 -->
         <router-link to="/admin">
+<<<<<<< HEAD
+          <el-button style="margin-left:10px, margin-top:5px">管理员界面</el-button>
+=======
           <el-button style="margin-left:10px">管理员界面</el-button>
+>>>>>>> 1d08763648340095c7498c2958ea635c141a594d
         </router-link>
       </div>
     </el-card>
@@ -61,7 +69,11 @@ export default {
   },
   methods: {
     submitForm(formName) {
+<<<<<<< HEAD
+      this.$router.push({path: "./market", replace:true});
+=======
       this.$router.push({path: "./client", replace:true});
+>>>>>>> 1d08763648340095c7498c2958ea635c141a594d
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
