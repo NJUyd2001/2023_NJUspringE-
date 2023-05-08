@@ -13,6 +13,7 @@
     <p/>
     <el-table
       :data="filterinfors"
+      size="mini"
       border
       stripe
       style="width: 100%">
@@ -40,18 +41,35 @@
         prop="doc"
         label="附件">
       </el-table-column>
-    </el-table>
-    <el-table-column
+      <el-table-column
         sortable
         prop="passornot"
         label="通过与否">
       </el-table-column>
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="100">
+        <template slot-scope="scope">
+          <el-button @click="Pass(scope.row)" :disabled="scope.row.passornot!=='未处理'" type="text" size="small">通过</el-button>
+          <el-button @click="NotPass(scope.row)" :disabled="scope.row.passornot!=='未处理'" type="text" size="small">不通过</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <Pagination url="/config/list" v-model="configs"/>
   </div>
 </template>
 
 <script>
 export default {
+  methods:{
+    Pass(row){
+        row.passornot='通过';
+    },
+    NotPass(row){
+      row.passornot='不通过';
+    }
+  },
   data() {
     return {
       keyword: '',
@@ -59,19 +77,22 @@ export default {
         aid:'0001',
         applicantID:'205220016',
         time:'2023-04-29',
-        doc:'Green.doc'
+        doc:'Green.doc',
+        passornot:'未处理'
       },
       {
         aid:'0002',
         applicantID:'205220017',
         time:'2023-04-29',
-        doc:'Blue.doc'
+        doc:'Blue.doc',
+        passornot:'未处理'
       },
       {
         aid:'0001',
         applicantID:'205220018',
         time:'2023-04-29',
-        doc:'Red.doc'
+        doc:'Red.doc',
+        passornot:'未处理'
       }
     ]
     };

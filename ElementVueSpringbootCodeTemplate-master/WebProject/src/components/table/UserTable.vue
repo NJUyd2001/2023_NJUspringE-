@@ -178,6 +178,7 @@ export default {
         phone:'15968774896',
         job:'测试人员',
         createTime:'2023-04-29:16:20',
+        active:true,
       },
       {
         uid:'2005220016',
@@ -187,6 +188,7 @@ export default {
         phone:'15968774896',
         job:'质量部人员',
         createTime:'2023-04-29:16:20',
+        active:true,
       }
       ],
       sort: {},

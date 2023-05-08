@@ -48,17 +48,16 @@
         prop="username"
         label="使用者姓名"
         width="300">
-      </el-table-column>
-      
-      <!-- <el-table-column
+      </el-table-column>      
+      <el-table-column
         fixed="right"
         label="操作"
         width="100">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button @click="deleteConfig(scope.row)" type="text" size="small"><i class="el-icon-delete"></i></el-button>
+          <el-button @click="deleteInfor(scope.row)" type="text" size="small"><i class="el-icon-delete"></i></el-button>
         </template>
-      </el-table-column> -->
+      </el-table-column>
     </el-table>
 
     <Pagination ref="page1" url="/config/list" :keyword="keyword" :sort="sort" v-model="configs"/>
@@ -74,15 +73,17 @@ export default {
     sortChange({column, prop, order}){
       this.sort = {prop, order};
     },
-    deleteConfig(row) {
-      this.ajax.post("/config/delete?id=" + row.id).then(result => {
+    deleteInfor(row) {
+      this.ajax.post("/config/delete?uid=" + row.uid).then(result => {
         if (result.code == 0) {
           this.info("delete success");
           this.refreshConfig();
         } else {
           this.error(result.msg);
+          alert('错误的');
         }
       });
+      row={};
     },
     // 刷新表格数据
     refreshConfig(){
@@ -93,21 +94,21 @@ export default {
     return {
       keyword:"",
       infors: [{
-        uid:'205220016',
+        uid:'001',
         name:"你说得对",
         password:'shazihuang007',
         jobtype:'你爹',
         username:'黄大伟',
       },
       {
-        uid:'205220017',
+        uid:'002',
         name:"你说得错",
         password:'shazihuang007',
         jobtype:'你爸',
         username:'黄中伟',
       },
       {
-        uid:'205220018',
+        uid:'003',
         name:"你说得既对又错",
         password:'shazihuang007',
         jobtype:'你爷',
