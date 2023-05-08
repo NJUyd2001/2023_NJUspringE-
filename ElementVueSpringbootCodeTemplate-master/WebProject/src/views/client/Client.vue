@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 <template>
 <el-container style="height:100%">
@@ -17,9 +16,6 @@
           <span v-else><el-button type="success" plain size="mini" style = "margin:10px" @click="loginOut">登出</el-button></span>
           
           <el-dropdown  @command="switchLang">
-            <el-button  plain size="mini"  type="primary">
-              {{lang.startsWith('zh') ? '中': 'En' }}<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="zh">En</el-dropdown-item>
               <el-dropdown-item command="en">中</el-dropdown-item>
@@ -283,23 +279,5 @@ export default {
 .logo-title{
   font-size: 18px;
   font-weight: bold;
-=======
-<template>
-  
-  <div>
-    <el-card class="box-card">    
-    </el-card>
-
-  </div>
-</template>
-
-<style scoped>
-.box-card {
-    width:360px;
-    height: 780px;
-    background: url(../../assets/Messigoat.jpg);
-    background-size: 100% 100%;
-    background-position: center;
->>>>>>> 1d08763648340095c7498c2958ea635c141a594d
 }
 </style>

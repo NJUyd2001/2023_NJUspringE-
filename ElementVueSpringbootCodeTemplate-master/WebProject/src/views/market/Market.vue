@@ -16,9 +16,6 @@
           <span v-else><el-button type="success" plain size="mini" style = "margin:10px" @click="loginOut">登出</el-button></span>
           
           <el-dropdown  @command="switchLang">
-            <el-button  plain size="mini"  type="primary">
-              {{lang.startsWith('zh') ? '中': 'En' }}<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="zh">En</el-dropdown-item>
               <el-dropdown-item command="en">中</el-dropdown-item>

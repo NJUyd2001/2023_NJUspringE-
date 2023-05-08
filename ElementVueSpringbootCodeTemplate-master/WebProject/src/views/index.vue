@@ -4,11 +4,7 @@
   <el-header style="height: 30px">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="12"><div class="grid-content bg-purple">
-<<<<<<< HEAD
         <span class="logo-title">南京大学在线测试业务系统</span>
-=======
-        <span class="logo-title">晓风轻 Element Vue Springboot 代码模板</span>
->>>>>>> 1d08763648340095c7498c2958ea635c141a594d
         </div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
         <el-button  plain size="mini" type="primary" @click="handleStart">Hello World</el-button></div></el-col>
