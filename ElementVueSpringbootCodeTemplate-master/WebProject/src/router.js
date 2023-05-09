@@ -9,6 +9,7 @@ import Register from './views/register/Register'
 import Client from './views/client/Client'
 import Market from './views/market/Market'
 import Admin  from './views/admin/Admin'
+import Test from './views/test/Test'
 // 创建并暴露一个路由器
 export default new VueRouter({
     mode: 'history',    // 路由模式，该模式不会在地址中显示井号#
@@ -40,6 +41,10 @@ export default new VueRouter({
         {
             path:'/admin',   // 路径 hdw添加
             component:Admin // 跳转到的组件
+        },
+        {
+            path: '/test',       // 路径
+            component: Test      // 跳转到的组件 
         }
     ]
 })
