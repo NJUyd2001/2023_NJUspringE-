@@ -35,6 +35,7 @@
         sortable
         prop="time"
         label="上次更新时间"
+        :formatter="Timechange"
         width="300">
       </el-table-column>
       <el-table-column
@@ -49,6 +50,12 @@
 
 <script>
 export default {
+  methods:{
+    Timechange(row){
+      var t = new Date(row.time).toLocaleString(); 
+      return t;
+    }
+  },
   data() {
     return {
       keyword:'',

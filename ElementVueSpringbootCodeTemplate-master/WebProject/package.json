@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "dayjs": "^1.11.7",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.6",
     "v-charts": "^1.17.10",

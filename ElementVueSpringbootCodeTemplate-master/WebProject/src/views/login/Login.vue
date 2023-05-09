@@ -38,7 +38,6 @@
         </router-link>
       </div>
     </el-card>
-  </div>
 </template>
 
 <script>

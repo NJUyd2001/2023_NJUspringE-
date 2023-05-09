@@ -34,6 +34,7 @@
         sortable
         prop="time"
         label="递交文档时间"
+        :formatter="Timechange"
         width="300">
       </el-table-column>
       <el-table-column
@@ -52,6 +53,7 @@
         width="100">
         <template slot-scope="scope">
           <el-button @click="Pass(scope.row)" :disabled="scope.row.passornot!=='未处理'" type="text" size="small">通过</el-button>
+          <!-- 增加的内容用于对按钮禁用 -->
           <el-button @click="NotPass(scope.row)" :disabled="scope.row.passornot!=='未处理'" type="text" size="small">不通过</el-button>
         </template>
       </el-table-column>
@@ -68,6 +70,10 @@ export default {
     },
     NotPass(row){
       row.passornot='不通过';
+    },
+    Timechange(row){
+      var t = new Date(row.time).toLocaleString(); 
+      return t;
     }
   },
   data() {
@@ -76,21 +82,21 @@ export default {
       infors: [{
         aid:'0001',
         applicantID:'205220016',
-        time:'2023-04-29',
+        time:Date.now(),
         doc:'Green.doc',
         passornot:'未处理'
       },
       {
         aid:'0002',
         applicantID:'205220017',
-        time:'2023-04-29',
+        time:Date.now(),
         doc:'Blue.doc',
         passornot:'未处理'
       },
       {
         aid:'0001',
         applicantID:'205220018',
-        time:'2023-04-29',
+        time:Date.now(),//采取时间戳
         doc:'Red.doc',
         passornot:'未处理'
       }
@@ -102,7 +108,7 @@ export default {
       return this.infors.filter((i)=>{
         return i.aid.indexOf(this.keyword)!==-1||i.applicantID.indexOf(this.keyword)!==-1||i.time.indexOf(this.keyword)!==-1
                 ||i.doc.indexOf(this.keyword)!==-1
-      })
+      })//过滤，实现搜索栏的模糊搜索
     }
   }
 };
