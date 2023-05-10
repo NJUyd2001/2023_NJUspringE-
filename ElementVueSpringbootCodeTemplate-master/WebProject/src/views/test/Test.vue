@@ -42,10 +42,11 @@
         <el-submenu index="1">
           <template slot="title" collapse=false>
             <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
-            <span> 委托结果</span>
+            <span> 分成审核/提交</span>
           </template>
           <el-menu-item-group>
             <el-menu-item index="1-11" @click="addTab('样品验收', 'TestResultTable')">样品验收</el-menu-item>
+            <el-menu-item index="1-12" @click="addTab('发送测试报告','TestReportTable')">发送测试报告</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
