@@ -13,6 +13,7 @@ import DelegateRecordsTable from './table/DelegateRecordsTable';//黄大伟添�
 import TestDocAuditTable from './table/TestDocAuditTable';//黄大伟添加
 import TestCenterAccount  from './table/TestCenterAccount';//黄大伟添加
 import TestResultTable from './table/TestResultTable';//文炫添加
+import TestReportTable from './table/TestReportTable';//文炫添加
 
 //tree
 import SimpleTree from './tree/SimpleTree';
@@ -42,7 +43,8 @@ function registerComponents(){
     Vue.component('DelegateRecordsTable', DelegateRecordsTable);//黄大伟添加
     Vue.component('TestDocAuditTable', TestDocAuditTable);//黄大伟添加
     Vue.component('TestCenterAccount', TestCenterAccount);//黄大伟添加
-    Vue.component('TestResultTable', TestResultTable);
+    Vue.component('TestResultTable', TestResultTable); //文炫添加
+    Vue.component('TestReportTable', TestReportTable); //文炫添加
     //tree
     Vue.component('SimpleTree', SimpleTree);
     Vue.component('SimpleTreeWithIcon', SimpleTreeWithIcon);
