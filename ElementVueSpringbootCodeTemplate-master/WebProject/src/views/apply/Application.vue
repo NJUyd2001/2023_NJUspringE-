@@ -172,7 +172,7 @@
             <el-date-picker
             v-model="value1"
             type="date"
-            placeholder="Pick a day"
+            placeholder="完成时间选择"
             :size=large
               />
             </div>
