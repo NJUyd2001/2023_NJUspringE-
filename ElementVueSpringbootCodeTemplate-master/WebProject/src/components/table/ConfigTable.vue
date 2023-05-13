@@ -50,7 +50,7 @@
         label="使用者姓名"
         width="300">
       </el-table-column>
-<!--       
+      
       <el-table-column
         fixed="right"
         label="操作"
@@ -59,8 +59,7 @@
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="deleteConfig(scope.row)" type="text" size="small"><i class="el-icon-delete"></i></el-button>
         </template>
-      </el-table-column> -->
-    
+      </el-table-column>
     </el-table>
 
     <Pagination ref="page1" url="/config/list" :keyword="keyword" :sort="sort" v-model="configs"/>
