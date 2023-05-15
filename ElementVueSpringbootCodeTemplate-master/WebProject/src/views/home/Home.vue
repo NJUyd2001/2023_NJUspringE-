@@ -6,7 +6,7 @@
 </div>
     <h2></h2>
     <el-card class="box-card-l">
-    <router-link to="/login">
+    <router-link to="/clientlogin">
       <el-button> 客户 </el-button>
     </router-link>
       

@@ -47,7 +47,7 @@
           </template>
           <el-menu-item-group>
             <template slot="title">委托准备</template>
-            <el-menu-item index="1-11" @click="addTab('发起委托', 'UploadFile')">发起委托</el-menu-item>
+            <el-menu-item index="1-11" @click="jump2application()">发起委托</el-menu-item>
             <el-menu-item index="1-13" @click="addTab('报价处理', 'ConfigTable')">报价处理</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="委托处理">
@@ -193,6 +193,9 @@ export default {
           this.error(result.msg);
         }
       });
+    },
+    jump2application() {
+      this.$router.push('/application');
     },
     addTab(targetName, commentName) {
       // 如果已经存在

@@ -5,6 +5,7 @@ import VueRouter from "vue-router"
 // 引入组件
 import Home from './views/home/Home'
 import Login from './views/login/Login'
+import ClientLogin from './views/login/ClientLogin'
 import Register from './views/register/Register'
 import Client from './views/client/Client'
 import Market from './views/market/Market'
@@ -22,6 +23,10 @@ export default new VueRouter({
         {
             path: '/login',     // 路径
             component: Login    // 跳转到的组件
+        },
+        {
+            path: '/clientlogin',     // 路径
+            component: ClientLogin    // 跳转到的组件
         },
         {
             path: '/register',     // 路径
@@ -48,7 +53,7 @@ export default new VueRouter({
             component: Test      // 跳转到的组件 
         },
         {
-            path: '/apply/application',       // 路径
+            path: '/application',       // 路径
             component: Application      // 跳转到的组件 
         }
     ]
