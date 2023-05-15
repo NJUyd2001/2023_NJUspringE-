@@ -129,3 +129,6 @@ SampleAndQuantity.Document-文档资料
 SampleAndQuantity.SamplesSubmitted-提交样品
 
 WantedFinishTime-希望测试完成时间
+
+2023.5.15
+对表单再次进行了修改，解决了其他多选的问题，对标题和整体样式进行了调整
