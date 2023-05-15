@@ -12,7 +12,7 @@
 2023.4.21
 完成UML图的增加与修改，登录与注册及客户的基本使用界面框架搭建完成，后端-通信(1)与数据库(2)部分分工完成
 前端
-黄大伟---接口设计及管理员界面
+黄大伟---接口设计及管理员界面，申请界面设计
 魏郑希---登录及注册页面设计，客户界面，市场部人员界面设计
 文炫---测试部人员设计
 后端
@@ -54,7 +54,7 @@ user.URL-网址
 
 TypeOfTest-测试类型
 
-OtherTypeOfTest-测试类型(其他)
+OtherType-测试类型(其他)
 
 SoftWareName-软件名称
 
@@ -77,6 +77,8 @@ Standard-测试依据
 OtherStandard-其他测试依据
 
 TechnicalIndex-需要测试的测试指标
+
+OtherTechnicalIndex-其他测试指标
 
 SoftWareSize.Number-软件规模功能数
 

@@ -134,21 +134,27 @@
           <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:其他要求' v-model="RuntimeEnvironment.Server.SoftWare.Other" ></el-input>
           <el-input style="width: 100px;padding:10px;" placeholder='服务器端:网络环境' v-model="RuntimeEnvironment.NetWork"></el-input>
       </el-form-item>
-        <el-form-item label="样品和数量">
+        <el-form-item label="样品软件介质:">
         <el-checkbox-group v-model="SampleAndQuantity.SoftwareMedium">
             <el-checkbox label="光盘"></el-checkbox>
             <el-checkbox label="U盘"></el-checkbox>
             <el-checkbox label="其他"></el-checkbox>
           </el-checkbox-group>
-          <el-input placeholder='文档资料' v-model="SampleAndQuantity.Document" type="textarea" ></el-input>
+        </el-form-item>
+        <el-form-item label="样品文档">
+          <el-input placeholder='文档资料((1、需求文档:（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）
+          2、用户文档（例如：用户手册、用户指南等）（必须）
+          3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）))' style="width:700px;" v-model="SampleAndQuantity.Document" type="textarea" ></el-input>
+        </el-form-item>
+        <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:">
           <el-radio-group v-model="SampleAndQuantity.SamplesSubmitted">
             <el-radio label="中心直接销毁"></el-radio>
             <el-radio label="样品退还"></el-radio>>
           </el-radio-group>
       </el-form-item>
+      <el-form-item label='希望测试完成时间:'>
           <div class="demo-date-picker">
           <div class="block">
-            <span class="demonstration">希望测试完成时间</span>
             <el-date-picker
             v-model="WantedFinishTime"
             type="date"
@@ -505,9 +511,6 @@ export default {
 .el-header{
   margin: 10px 0 10px 0;  
 }
-
-
-
 .header .nav {
   height: 40px;
   color: #fff;
@@ -555,7 +558,7 @@ export default {
 
 .demo-date-picker .block {
   padding: 30px 0;
-  text-align: center;
+  text-align: left;
   border-right: solid 1px var(--el-border-color);
   flex: 1;
 }
