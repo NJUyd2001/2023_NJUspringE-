@@ -40,10 +40,9 @@
     <el-main>
       <el-form :label-position="top" label-width="500px">
         <el-form-item label="测试类型:"> 
-        <el-select v-model="TypeTest" multiple>
+        <el-select v-model="TypeTest" multiple allow-create filterable>
         <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
-        <el-input style="width: 200px;padding:10px;" v-model="OtherType" placeholder="其他测试类型"></el-input>
        </el-form-item>
       <el-form-item label="软件名称:"> 
         <el-input style="width:200px;padding:10px" v-model="SoftWareName"></el-input>
@@ -79,16 +78,14 @@
           v-model="MainFunction" type="textarea" />
         </el-form-item>
         <el-form-item label="测试依据:">
-          <el-select v-model="NeededStandard" multiple  >
+          <el-select v-model="NeededStandard" multiple allow-create filterable>
         <el-option   v-for='item in Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
-        <el-input style="width: 200px;padding:10px;" v-model="OtherStand" placeholder="其他测试依据"></el-input>
         </el-form-item> 
         <el-form-item label="需要测试的技术指标:">
-          <el-select v-model="NeededTechnicalIndex" multiple  >
+          <el-select v-model="NeededTechnicalIndex" multiple  allow-create filterable>
         <el-option   v-for='item in TechnicalIndex' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
-        <el-input style="width: 200px;padding:10px;" v-model="OtherTechnicalIndex" placeholder="其他技术指标"></el-input>
         </el-form-item>
           <el-form-item label="软件规模:功能数"><el-input-number  v-model="SoftWareSize.Number"></el-input-number></el-form-item>
           <el-form-item label="软件规模:功能点数"><el-input-number  v-model="SoftWareSize.Point"></el-input-number></el-form-item>
@@ -428,7 +425,6 @@ export default {
                       },
                       ],
             TypeTest:[],
-            OtherType:'',
             SoftWareName:'',
             VersionNumber:'',
             EntrustingCompany:{
@@ -440,9 +436,7 @@ export default {
             SoftwareUserObjectDescription:'',
             MainFunction:'',
             NeededStandard:[],
-            OtherStandard:'',
             NeededTechnicalIndex:[],
-            OtherTechnicalIndex:'',
             SoftWareSize:{
               Number:0,
               Point:0,
