@@ -75,7 +75,7 @@
           v-model="SoftwareUserObjectDescription" type="textarea" />
         </el-form-item>
         <el-form-item label="主要功能及用途简介:">
-          <el-input placeholder="限200字" style="width:500px;" maxlength='200' show-word-limit :autosize="{ minRows: 2, maxRows: 4 }" 
+          <el-input placeholder="限200字以内" style="width:500px;" maxlength="200" show-word-limit="true" :rows="3"
           v-model="MainFunction" type="textarea" />
         </el-form-item>
         <el-form-item label="测试依据:">
@@ -91,7 +91,7 @@
         <el-input style="width: 200px;padding:10px;" v-model="OtherTechnicalIndex" placeholder="其他技术指标"></el-input>
         </el-form-item>
           <el-form-item label="软件规模:功能数"><el-input-number  v-model="SoftWareSize.Number"></el-input-number></el-form-item>
-          <el-form-item label="软件规模:功能点数"><el-input-number  v-model="SoftWareSize.point"></el-input-number></el-form-item>
+          <el-form-item label="软件规模:功能点数"><el-input-number  v-model="SoftWareSize.Point"></el-input-number></el-form-item>
           <el-form-item label="软件规模:代码行数"><el-input-number  v-model="SoftWareSize.RowNumber"></el-input-number></el-form-item>
         <el-form-item label='软件类型:'>
           <el-select v-model="SoftWareType">
@@ -144,7 +144,8 @@
         <el-form-item label="样品文档">
           <el-input placeholder='文档资料((1、需求文档:（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）
           2、用户文档（例如：用户手册、用户指南等）（必须）
-          3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）))' style="width:700px;" v-model="SampleAndQuantity.Document" type="textarea" ></el-input>
+          3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）))' 
+          style="width:700px;" :rows="5" v-model="SampleAndQuantity.Document" type="textarea" ></el-input>
         </el-form-item>
         <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:">
           <el-radio-group v-model="SampleAndQuantity.SamplesSubmitted">
@@ -443,9 +444,9 @@ export default {
             NeededTechnicalIndex:[],
             OtherTechnicalIndex:'',
             SoftWareSize:{
-              Number:'',
-              Point:'',
-              RowNumber:'',
+              Number:0,
+              Point:0,
+              RowNumber:0,
             },
             SoftWareType:'',
             RuntimeEnvironment:{
@@ -534,11 +535,6 @@ export default {
     padding:15px,
     
 }
-/*
-* {
-  outline: 1px solid;
-}
-*/
 
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
