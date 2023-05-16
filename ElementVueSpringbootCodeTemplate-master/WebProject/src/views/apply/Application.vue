@@ -4,9 +4,10 @@
   <el-header style="height: 30px ">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="6">
-        <router-link to="/admin">
-        <el-button  size="middle" type="danger">上一步</el-button>
+        <router-link to>
+        <el-button  size="middle" type="danger" @click="$router.back(-1)">上一步</el-button>
         </router-link>
+        
       </el-col>
       <el-col :span="6" push="4"><div class="grid-content bg-purple">
         <span class="logo-title">申请界面-申请表</span>
