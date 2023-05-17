@@ -71,7 +71,6 @@
             <el-menu-item index="9-1" @click="addTab('用户信息', 'ConfigTable2')">用户信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-
         <el-submenu index="4">
           <template slot="title" collapse=false>
             <i class="el-icon-setting"></i>
