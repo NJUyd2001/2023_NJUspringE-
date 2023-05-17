@@ -1,8 +1,8 @@
 <template>
   
-  <div>
+  <div id="logo">
   <div class="header">
-  <h1>软件测试中心在线测试系统</h1>
+  <h1 class="font-face">软件测试中心在线测试系统</h1>
 </div>
     <h2></h2>
     <el-card class="box-card-l">
@@ -49,6 +49,14 @@ export default {
 </script>
 
 <style scoped>
+  #logo{
+    background: url("../../assets/NJUbg.jpg");
+    background-size: 100% 100%;
+    height: 100%;
+    position: fixed;
+    width: 100%
+  }
+
 .header {
   background: purple;
   background-image:url(../../assets/logo.png);
@@ -59,8 +67,15 @@ export default {
   text-align: center;
   padding: 20px;
 }
+.font-face {
+  font-family: "阿里妈妈东方大楷 Regular";
+  font-weight: 400;
+  src: url("../../assets/font/Alimama_DongFangDaKai_Regular.woff2") format("woff2"),
+  url("../../assets/font/Alimama_DongFangDaKai_Regular.woff") format("woff");
+  font-display: swap;
+}
 .box-card-l {
-        background: white;
+        background: rgba(0,0,0,0);
         position: absolute;
         top: 50%;
         left: 30%;
@@ -69,7 +84,7 @@ export default {
         border-radius: 5px;
 }
 .box-card-r {
-        background: white;
+        background: rgba(0,0,0,0);
         position: absolute;
         top: 50%;
         left: 70%;

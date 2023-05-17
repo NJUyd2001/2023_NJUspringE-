@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id="logo">
     <el-card class="box-card">
-      <h2>注册</h2>
+      <h2 style="text-align: center">注册</h2>
       <el-form
         :model="ruleForm"
         status-icon
@@ -126,9 +126,16 @@ export default {
 </script>
 
 <style scoped>
+#logo{
+    background: url("../../assets/NJUbg.jpg");
+    background-size: 100% 100%;
+    height: 100%;
+    position: fixed;
+    width: 100%
+  }
 .box-card {
   width: 340px;
-        background: white;
+        background: rgba(255, 255, 255, 0.8);
         position: absolute;
         top: 50%;
         left: 50%;

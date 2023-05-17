@@ -1,12 +1,19 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px ">
+  <el-header style="height: 30px " @back="goback">
+    <el-breadcrumb separator="->">
+    <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/application">申请表填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/functionlist">委托功能列表填写</a></el-breadcrumb-item>
+  </el-breadcrumb>
+  <br>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="6">
-        <router-link to="/admin">
-        <el-button  size="middle" type="danger">上一步</el-button>
+        <router-link to>
+        <el-button  size="middle" type="danger" @click="$router.back(-1)">上一步</el-button>
         </router-link>
+        
       </el-col>
       <el-col :span="6" push="4"><div class="grid-content bg-purple">
         <span class="logo-title">申请界面-申请表</span>
@@ -25,20 +32,15 @@
           </el-dropdown>
         </div></el-col>
       <el-col :span="6" push="4">
-        <router-link to="/admin">
+        <router-link to="/functionlist">
         <el-button  size="middle" type="success">下一步</el-button>
         </router-link>
       </el-col>
     </el-row>
-    <!-- <template #content>
-      <span class="logo-title"> 申请界面-申请表 </span>
-      <div><router-link to="/admin">
-        <el-button  size="middle" type="success">下一步</el-button>
-        </router-link></div>
-    </template> -->
   </el-header>
+    <br><br><br>
     <el-main>
-      <el-form :label-position="top" label-width="500px">
+      <el-form :label-position="top" label-width="550px">
         <el-form-item label="测试类型:"> 
         <el-select v-model="TypeTest" multiple allow-create filterable>
         <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>

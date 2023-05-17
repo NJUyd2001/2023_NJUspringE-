@@ -12,7 +12,9 @@ import Market from './views/market/Market'
 import Admin  from './views/admin/Admin'
 import Test from './views/test/Test'
 import Application from './views/apply/Application'
+import FunctionList from './views/apply/FunctionList'
 import Report from './views/report/Report'
+
 // 创建并暴露一个路由器
 export default new VueRouter({
     mode: 'history',    // 路由模式，该模式不会在地址中显示井号#
@@ -58,8 +60,12 @@ export default new VueRouter({
             component: Application      // 跳转到的组件 
         },
         {
+            path: '/functionlist',       // 路径
+            component: FunctionList      // 跳转到的组件 
+        },
+        {
             path: '/report',     // 路径
             component: Report    // 跳转到的组件
-        }
+        },
     ]
 })
