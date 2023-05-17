@@ -93,15 +93,60 @@
           <el-form-item label="批准人:"> 
             <el-input style="width:200px;padding:10px" v-model="Approver"></el-input>
           </el-form-item> 
-        <el-table :data="tableData" label="功能性测试" style="width:600px; margin-left:auto; margin-right: auto">
-          <el-table-column prop="date" label="功能模块" width="180">
-            <template>
-              <el-input placeholder="hh"></el-input>
-            </template>
-          </el-table-column>
-          <el-table-column prop="name" label="功能要求" width="180" />
-          <el-table-column prop="address" label="测试结果" />
-        </el-table>
+          <div id="app">	
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-8 col-xs-push-2">
+					<div class="box">
+						<h3>功能性测试</h3>
+						<div class="form-wrap">
+							<form action="#">
+								<div class="form-group">
+									<label for="FunctionalModule">功能模块</label>
+									<input type="text" class="form-control" id="FunctionalModule" v-model="FunctionalModule">
+								</div>
+								<div class="form-group">
+									<label for="FunctionalRequirement">功能要求</label>
+									<input type="text" class="form-control" id="FunctionalRequirement" v-model="FunctionalRequirement">
+								</div>
+                <div class="form-group">
+									<label for="TestResult">测试结果</label>
+									<input type="text" class="form-control" id="TestResult" v-model="TestResult">
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-default" v-on:click.prevent="addData">push</button>
+								</div>
+							</form>						
+						</div>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>功能模块</th>
+									<th>功能要求</th>
+									<th>测试结果</th>
+                  <th>
+
+                  </th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(report, index) in reports">
+									<td>{{report.FunctionalModule}}</td>
+									<td>{{report.FunctionalRequirement}}</td>
+									<td>{{report.TestResult}}</td>
+                  <td>
+                    <button @click="remove(car)">
+                      Remove
+                    </button>
+                  </td>
+								</tr>	
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
         </el-form>
         </el-main>
       <LoginDialog :show='showLogin'/>
@@ -111,6 +156,14 @@
     export default {
         data(){
            return{
+                reports:[
+		               {FunctionalModule: '无', 
+                    FunctionalRequirement: '无', 
+                    TestResult:'无'}
+		            ],
+                    FunctionalModule: '',
+                    FunctionalRequirement: '',
+                    TestResult: '',
                 user:{
                     name:'风车村',
                     password:'shazihuang',
@@ -427,7 +480,23 @@
       methods:{
         goback(){
         },
-      }
+        addData(){
+			this.reports.push({
+				'FunctionalModule' : this.FunctionalModule,
+        'FunctionalRequirement' : this.FunctionalRequirement,
+        'TestResult' : this.TestResult,
+        });
+        this.FunctionalModule = '',
+        this.FunctionalRequirement = '';
+        this.TestResult = '';
+      },
+        remove(obj){
+          var tr = $j(obj).parent ().parent()
+          tr.prev().remove();
+          tr.prev().remove();
+          tr.remove();
+        },
+    }
     }
     
     </script>
@@ -506,5 +575,30 @@
       color: var(--el-text-color-secondary);
       font-size: 14px;
       margin-bottom: 20px;
+    }
+
+    .box {
+      background-color: whitesmoke;
+      padding: 20px;
+      margin: 40px;
+    }
+
+    h3 {
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .form-wrap {
+      margin: 20px 0;
+    }
+
+    .table {
+      border: 1px solid;
+      width: 100%;
+    }
+
+    .th, td {
+      border: 1px solid;
     }
     </style>
