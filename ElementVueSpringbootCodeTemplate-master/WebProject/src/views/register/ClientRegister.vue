@@ -34,10 +34,6 @@
         <el-form-item label="电话" prop="phone">
           <el-input v-model="ruleForm.phone"></el-input>
         </el-form-item>
-        <el-form-item label="所属部门" rule: required = true>
-          <td class="td_right"><input type="radio" name="gender" value="market" checked> 市场部
-          <input type="radio" name="gender" value="testing"> 测试部</td>
-        </el-form-item>
         
         <el-form-item label="邮箱" prop="email">
           <el-input
@@ -46,9 +42,10 @@
         </el-form-item>
       </el-form>
       <div class="btnGroup">
-        <el-button type="primary" @click="submitForm('ruleForm')" style = "margin: 40px"
+        <el-button type="primary" @click="submitForm('ruleForm')" style = "margin: 18px"
           >提交</el-button>
-        <el-button @click="resetForm('ruleForm')" style = "margin: 40px">重置</el-button>
+        <el-button @click="resetForm('ruleForm')" style = "margin: 18px">重置</el-button>
+        <el-button @click="goBack">登录</el-button>
       </div>
     </el-card>
   </div>
@@ -95,9 +92,6 @@ export default {
           { required: true, message: "邮箱不能为空！", trigger: "blur" },
           {pattern: /(^[a-zA-Z]\w{5,17}@((126|163)\.com|yeah\.net)$)|(^[1-9]\d{4,10}@qq\.com$)/, message:"邮箱格式不符合规则"}
         ],
-        department: [
-          { required: true,message: "请选择您的部门", trigger: "blur" },
-        ],
         phone: [
           { required: true, message: "电话号码不能为空", trigger: "blur" },
           {pattern: /^[1]+[3,5,8]+\d{9}$/, message: "请输入正确的电话号码"}
@@ -115,7 +109,7 @@ export default {
           return false;
         }
       });*/
-      this.$router.go(-1);
+      this.$router.push({path: "./login", replace:true});
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
