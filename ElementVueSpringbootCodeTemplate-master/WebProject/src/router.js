@@ -7,6 +7,7 @@ import Home from './views/home/Home'
 import Login from './views/login/Login'
 import ClientLogin from './views/login/ClientLogin'
 import Register from './views/register/Register'
+import ClientRegister from './views/register/ClientRegister'
 import Client from './views/client/Client'
 import Market from './views/market/Market'
 import Admin  from './views/admin/Admin'
@@ -31,6 +32,10 @@ export default new VueRouter({
         {
             path: '/register',     // 路径
             component: Register    // 跳转到的组件
+        },
+        {
+            path: '/clientregister',     // 路径
+            component: ClientRegister    // 跳转到的组件
         },
         {
             path: '/home',     // 路径

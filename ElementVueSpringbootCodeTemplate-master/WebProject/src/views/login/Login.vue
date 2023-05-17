@@ -1,5 +1,8 @@
 <template>
     <div id="logo">
+    <div class="header">
+  <h1 class="font-face">软件测试中心在线测试系统</h1>
+</div>
     <el-card class="box-card">
       <h2 style="text-align: center">登录</h2>
       <el-form
@@ -25,15 +28,13 @@
       <div class="btnGroup">
         <el-button style="margin: 14px" type="primary" @click="submitForm('ruleForm')"
           >登录</el-button>
-        <router-link to>
-	          <el-button style="margin: 14px" @click="$router.back(-1)">返回</el-button>
+        <router-link to to="/home">
+	          <el-button style="margin: 14px">返回</el-button>
         </router-link>
         <!-- 黄大伟添加 -->
         <router-link to="/admin">
           <el-button style="margin: 14px">管理员</el-button>
         </router-link>
-        <div class="tips"  style="float:right;">         
-          <el-link type="white" @click="regis">还没有账号？点击注册</el-link></div>
       </div>
     </el-card>
   </div>
@@ -101,5 +102,22 @@ export default {
 /* 设置登录面板中的表单居中 */
 .login-from {
   margin: auto auto;
+}
+.header {
+  background: purple;
+  background-image:url(../../assets/logo.png);
+	background-size:180px 60px;
+	background-repeat:no-repeat;
+  background-origin:content-box;
+	padding-top:40px;
+  text-align: center;
+  padding: 20px;
+}
+.font-face {
+  font-family: "阿里妈妈东方大楷 Regular";
+  font-weight: 400;
+  src: url("../../assets/font/Alimama_DongFangDaKai_Regular.woff2") format("woff2"),
+  url("../../assets/font/Alimama_DongFangDaKai_Regular.woff") format("woff");
+  font-display: swap;
 }
 </style>
