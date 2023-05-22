@@ -11,6 +11,8 @@
         v-model="keyword">
     </el-input>
     <p/>
+    <el-button @click="Reg" size="small">工作人员账号注册</el-button>
+    <p/>
     <el-table
       :data="configs"
       size = "mini"
@@ -71,6 +73,9 @@ export default {
   methods: {
     handleClick(row) {
       console.log(row);
+    },
+    Reg() {
+      this.$router.push({path: "./register", replace:true});
     },
     sortChange({column, prop, order}){
       this.sort = {prop, order};
