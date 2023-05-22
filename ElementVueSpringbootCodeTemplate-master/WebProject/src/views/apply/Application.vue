@@ -5,15 +5,13 @@
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
     <el-breadcrumb-item><a href="/application">申请表填写</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/functionlist">委托功能列表填写</a></el-breadcrumb-item>
   </el-breadcrumb>
   <br>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="6">
-        <router-link to>
-        <el-button  size="middle" type="danger" @click="$router.back(-1)">上一步</el-button>
+        <router-link to="/Client">
+        <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
-        
       </el-col>
       <el-col :span="6" push="4"><div class="grid-content bg-purple">
         <span class="logo-title">申请界面-申请表</span>
@@ -32,37 +30,35 @@
           </el-dropdown>
         </div></el-col>
       <el-col :span="6" push="4">
-        <router-link to="/functionlist">
-        <el-button  size="middle" type="success">下一步</el-button>
-        </router-link>
+        <el-button  @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
       </el-col>
     </el-row>
   </el-header>
     <br><br><br>
     <el-main>
-      <el-form :label-position="top" label-width="550px">
-        <el-form-item label="测试类型:"> 
-        <el-select v-model="TypeTest" multiple allow-create filterable>
-        <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
+      <el-form :label-position="top" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+        <el-form-item label="测试类型:" prop="choose"> 
+        <el-select v-model="ruleForm.TypeTest" multiple allow-create filterable>
+        <el-option   v-for='item in ruleForm.TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
        </el-form-item>
-      <el-form-item label="软件名称:"> 
-        <el-input style="width:200px;padding:10px" v-model="SoftWareName"></el-input>
+      <el-form-item label="软件名称:" prop="common"> 
+        <el-input style="width:200px;padding:10px" v-model="ruleForm.SoftWareName"></el-input>
       </el-form-item> 
-      <el-form-item label="版本号:"> 
-        <el-input style="width:200px;padding:10px" v-model="VersionNumber"></el-input>
+      <el-form-item label="版本号:" prop="common"> 
+        <el-input style="width:200px;padding:10px" v-model="ruleForm.VersionNumber"></el-input>
       </el-form-item>
-      <el-form-item label="委托单位(中文):">  
-            <el-input style="width:200px;padding:10px" v-model="EntrustingCompany.Chinese"></el-input>
+      <el-form-item label="委托单位(中文):" prop="common">  
+            <el-input style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.Chinese"></el-input>
       </el-form-item>
-      <el-form-item label="委托单位(英文):">  
-        <el-input style="width:200px;padding:10px" v-model="EntrustingCompany.English"></el-input>
+      <el-form-item label="委托单位(英文):" prop="common">  
+        <el-input style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.English"></el-input>
       </el-form-item>
-      <el-form-item label="开发单位:">  
-         <el-input style="width:200px;padding:10px" v-model="DevelopmentCompany"></el-input>
+      <el-form-item label="开发单位:" prop="common">  
+         <el-input style="width:200px;padding:10px" v-model="ruleForm.DevelopmentCompany"></el-input>
       </el-form-item>
-      <el-form-item label="单位性质:">   
-        <el-radio-group v-model="AttributeOfCompany">
+      <el-form-item label="单位性质:" prop="choose">   
+        <el-radio-group v-model="ruleForm.AttributeOfCompany">
         <el-radio label="内资企业"></el-radio>
         <el-radio label="外(合)资企业"></el-radio>
         <el-radio label="港澳台(合)企业"></el-radio>
@@ -70,32 +66,32 @@
         <el-radio label="政府事业团体"></el-radio>
         <el-radio label="其他"></el-radio>
         </el-radio-group>
-      </el-form-item> 
-        <el-form-item label="软件用户对象描述:">
+      </el-form-item > 
+        <el-form-item label="软件用户对象描述:" prop="common">
           <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
-          v-model="SoftwareUserObjectDescription" type="textarea" />
+          v-model="ruleForm.SoftwareUserObjectDescription" type="textarea" />
         </el-form-item>
-        <el-form-item label="主要功能及用途简介:">
+        <el-form-item label="主要功能及用途简介:" prop="common">
           <el-input placeholder="限200字以内" style="width:500px;" maxlength="200" show-word-limit="true" :rows="3"
-          v-model="MainFunction" type="textarea" />
+          v-model="ruleForm.MainFunction" type="textarea" />
         </el-form-item>
-        <el-form-item label="测试依据:">
-          <el-select v-model="NeededStandard" multiple allow-create filterable>
-        <el-option   v-for='item in Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
+        <el-form-item label="测试依据:" prop="common">
+          <el-select v-model="ruleForm.NeededStandard" multiple allow-create filterable>
+        <el-option   v-for='item in ruleForm.Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
         </el-form-item> 
-        <el-form-item label="需要测试的技术指标:">
-          <el-select v-model="NeededTechnicalIndex" multiple  allow-create filterable>
-        <el-option   v-for='item in TechnicalIndex' :key='item.id' :label="item.value" :value="item.value"></el-option>
+        <el-form-item label="需要测试的技术指标:" prop="common">
+          <el-select v-model="ruleForm.NeededTechnicalIndex" multiple  allow-create filterable>
+        <el-option   v-for='item in ruleForm.TechnicalIndex' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
-        </el-form-item>
-          <el-form-item label="软件规模:功能数"><el-input-number  v-model="SoftWareSize.Number"></el-input-number></el-form-item>
-          <el-form-item label="软件规模:功能点数"><el-input-number  v-model="SoftWareSize.Point"></el-input-number></el-form-item>
-          <el-form-item label="软件规模:代码行数"><el-input-number  v-model="SoftWareSize.RowNumber"></el-input-number></el-form-item>
-        <el-form-item label='软件类型:'>
-          <el-select v-model="SoftWareType">
+        </el-form-item >
+          <el-form-item prop="common" label="软件规模:功能数"><el-input-number  v-model="ruleForm.SoftWareSize.Number"></el-input-number></el-form-item>
+          <el-form-item prop="common" label="软件规模:功能点数"><el-input-number  v-model="ruleForm.SoftWareSize.Point"></el-input-number></el-form-item>
+          <el-form-item prop="common" label="软件规模:代码行数"><el-input-number  v-model="ruleForm.SoftWareSize.RowNumber"></el-input-number></el-form-item>
+        <el-form-item label='软件类型:' prop="choose">
+          <el-select v-model="ruleForm.SoftWareType">
             <el-option-group 
-            v-for='group in TypeOfSoftWare'
+            v-for='group in ruleForm.TypeOfSoftWare'
             :key="group.label"
             :label="group.label">
             <el-option v-for="item in group.options"
@@ -105,58 +101,58 @@
           </el-option-group>
           </el-select>
         </el-form-item>
-        <el-form-item label="运行环境:">
-          <el-input placeholder="客户端:Windows(版本)" style="width: 200px;padding:10px;"  v-model="RuntimeEnvironment.Client.OS.Windows"></el-input>
-          <el-input placeholder="客户端:Linux(版本)" style="width: 200px;padding:10px;" v-model="RuntimeEnvironment.Client.OS.Linux"></el-input>
-         <el-input placeholder=" 客户端:其他" style="width: 200px;padding:10px;"  v-model="RuntimeEnvironment.Client.OS.Other"></el-input>
-          <el-input placeholder=" 客户端:内存要求" style="width: 200px;padding:10px;" v-model="RuntimeEnvironment.Client.Mermory"></el-input>
-          <el-input placeholder=" 客户端:其他要求" style="width: 200px;padding:10px;" v-model="RuntimeEnvironment.Client.Other"></el-input>
-          <el-checkbox-group  v-model="RuntimeEnvironment.Server.HardWare.FrameWork">
+        <el-form-item label="运行环境:" prop="common">
+          <el-input placeholder="客户端:Windows(版本)" style="width: 200px;padding:10px;"  v-model="ruleForm.RuntimeEnvironment.Client.OS.Windows"></el-input>
+          <el-input placeholder="客户端:Linux(版本)" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.OS.Linux"></el-input>
+         <el-input placeholder=" 客户端:其他" style="width: 200px;padding:10px;"  v-model="ruleForm.RuntimeEnvironment.Client.OS.Other"></el-input>
+          <el-input placeholder=" 客户端:内存要求" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.Mermory"></el-input>
+          <el-input placeholder=" 客户端:其他要求" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.Other"></el-input>
+          <el-checkbox-group  v-model="ruleForm.RuntimeEnvironment.Server.HardWare.FrameWork">
             <el-checkbox label="服务器端架构:PC服务器"></el-checkbox>
             <el-checkbox label="服务器端架构:UNIX/Linux服务器"></el-checkbox>
             <el-checkbox label="服务器端架构:其他"></el-checkbox>
           </el-checkbox-group>
-          <el-input style="width: 200px;padding:10px;" placeholder='服务器端硬件:内存要求' v-model="RuntimeEnvironment.Server.HardWare.Mermory" ></el-input>
-          <el-input style="width: 200px;padding:10px;" placeholder='服务器端硬件:硬盘要求' v-model="RuntimeEnvironment.Server.HardWare.HardDisk" ></el-input>
-          <el-input style="width: 300px;padding:10px;" placeholder='服务器端硬件:其他要求' v-model="RuntimeEnvironment.Server.HardWare.Other" ></el-input>
+          <el-input style="width: 200px;padding:10px;" placeholder='服务器端硬件:内存要求' v-model="ruleForm.RuntimeEnvironment.Server.HardWare.Mermory" ></el-input>
+          <el-input style="width: 200px;padding:10px;" placeholder='服务器端硬件:硬盘要求' v-model="ruleForm.RuntimeEnvironment.Server.HardWare.HardDisk" ></el-input>
+          <el-input style="width: 300px;padding:10px;" placeholder='服务器端硬件:其他要求' v-model="ruleForm.RuntimeEnvironment.Server.HardWare.Other" ></el-input>
             <br>
-          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:操作系统' v-model="RuntimeEnvironment.Server.SoftWare.OS" ></el-input>
-          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:版本' v-model="RuntimeEnvironment.Server.SoftWare.Versions" ></el-input>
-          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:编程语言' v-model="RuntimeEnvironment.Server.SoftWare.PL" ></el-input>
-          <el-checkbox-group placeholder='软件架构' v-model="RuntimeEnvironment.Server.SoftWare.FrameWork">
+          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:操作系统' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.OS" ></el-input>
+          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:版本' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.Versions" ></el-input>
+          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:编程语言' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.PL" ></el-input>
+          <el-checkbox-group placeholder='软件架构' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.FrameWork">
             <el-checkbox label="服务器端软件架构:C/S"></el-checkbox>
             <el-checkbox label="服务器端软件架构:B/S"></el-checkbox>
             <el-checkbox label="服务器端软件架构:其它"></el-checkbox>
           </el-checkbox-group>
-          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:数据库' v-model="RuntimeEnvironment.Server.SoftWare.database" ></el-input>
-          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:中间件' v-model="RuntimeEnvironment.Server.SoftWare.MiddleWare" ></el-input>
-          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:其他要求' v-model="RuntimeEnvironment.Server.SoftWare.Other" ></el-input>
-          <el-input style="width: 100px;padding:10px;" placeholder='服务器端:网络环境' v-model="RuntimeEnvironment.NetWork"></el-input>
+          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:数据库' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.database" ></el-input>
+          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:中间件' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.MiddleWare" ></el-input>
+          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:其他要求' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.Other" ></el-input>
+          <el-input style="width: 100px;padding:10px;" placeholder='服务器端:网络环境' v-model="ruleForm.RuntimeEnvironment.NetWork"></el-input>
       </el-form-item>
-        <el-form-item label="样品软件介质:">
-        <el-checkbox-group v-model="SampleAndQuantity.SoftwareMedium">
+        <el-form-item label="样品软件介质:" prop="choose">
+        <el-checkbox-group v-model="ruleForm.SampleAndQuantity.SoftwareMedium">
             <el-checkbox label="光盘"></el-checkbox>
             <el-checkbox label="U盘"></el-checkbox>
             <el-checkbox label="其他"></el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <el-form-item label="样品文档">
+        <el-form-item label="样品文档" prop="common">
           <el-input placeholder='文档资料((1、需求文档:（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）
           2、用户文档（例如：用户手册、用户指南等）（必须）
           3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）))' 
-          style="width:700px;" :rows="5" v-model="SampleAndQuantity.Document" type="textarea" ></el-input>
+          style="width:700px;" :rows="5" v-model="ruleForm.SampleAndQuantity.Document" type="textarea" ></el-input>
         </el-form-item>
-        <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:">
-          <el-radio-group v-model="SampleAndQuantity.SamplesSubmitted">
+        <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="common">
+          <el-radio-group v-model="ruleForm.SampleAndQuantity.SamplesSubmitted">
             <el-radio label="中心直接销毁"></el-radio>
             <el-radio label="样品退还"></el-radio>>
           </el-radio-group>
       </el-form-item>
-      <el-form-item label='希望测试完成时间:'>
+      <el-form-item label='希望测试完成时间:' prop="common">
           <div class="demo-date-picker">
           <div class="block">
             <el-date-picker
-            v-model="WantedFinishTime"
+            v-model="ruleForm.WantedFinishTime"
             type="date"
             placeholder="完成时间选择"
             :size=large
@@ -167,13 +163,17 @@
     </el-form>
     </el-main>
   <LoginDialog :show='showLogin'/>
+  <template>
+  <el-backtop :right="50" :bottom="50" />
+</template>
 </el-container>
 </template>
 <script>
 export default {
     data(){
        return{
-            user:{
+        ruleForm:{
+          user:{
                 name:'风车村',
                 password:'shazihuang',
                 telephone:'',
@@ -480,11 +480,33 @@ export default {
             SamplesSubmitted:'',
             },
             WantedFinishTime:'',
+        },
+        rules:{
+          common:[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        choose:[
+          { required: true, message: "不能为空！", trigger: "change" },
+        ],
+        }
     }
 }, 
   methods:{
     goback(){
     },
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert("submit!");
+          this.$router.push({path: "./Client", replace:true});
+        } else {
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
   },
 }
 

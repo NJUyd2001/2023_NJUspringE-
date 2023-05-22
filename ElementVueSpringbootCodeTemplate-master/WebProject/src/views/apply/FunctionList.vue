@@ -4,9 +4,7 @@
   <el-header style="height: 30px " @back="goback">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
-    <el-breadcrumb-item
-      ><a href="/application">申请表填写</a></el-breadcrumb-item
-    >
+    <el-breadcrumb-item><a href="/application">申请表填写</a></el-breadcrumb-item>
     <el-breadcrumb-item><a href="/functionlist">委托功能列表填写</a></el-breadcrumb-item>
   </el-breadcrumb>
   <br>
@@ -34,24 +32,29 @@
         </div></el-col>
       <el-col :span="6" push="4">
         <router-link to="/admin">
-        <el-button  size="middle" type="success">完成</el-button>
+        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
         </router-link>
       </el-col>
     </el-row>
   </el-header>
     <br><br>
     <el-main>
-      <el-form label-width="550px">
-        <el-form-item label="软件名称:" >
-          <el-input v-model="SoftwareName" style="width: 200px;"></el-input>
+      <el-form label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+        <el-form-item label="软件名称:" prop="common">
+          <el-input v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="版本号:" >
-          <el-input v-model="Versions" style="width: 200px;"></el-input>
+        <el-form-item label="版本号:" prop="common">
+          <el-input v-model="ruleForm.Versions" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item v-for="(Table,index) in TableData"
-         :label='"功能项目"+index+":"' >
+        <el-form-item v-for="(Table,index) in ruleForm.TableData" 
+         :label='"功能项目"+index+":"' :key="index" prop="common">
           <el-input placeholder="功能项目" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
           <el-input placeholder="功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.function"></el-input>
+          <el-form-item v-for="(ChildTable,ChildIndex) in Table.children" :key="ChildTable.id"
+          :label='"子功能项目"+ChildIndex+":"' >
+          <el-input placeholder="子功能项目" style="width: 100px;padding-right:20px;" v-model="ChildTable.name"></el-input>
+          <el-input placeholder="子功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="ChildTable.function"></el-input>
+        </el-form-item>
           <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
         </el-form-item>
         <el-form-item> 
@@ -78,8 +81,9 @@ export default {
                 email:'',
                 URL:'',
             },
-            SoftwareName:'',
-            Versions:'',
+            ruleForm:{
+              SoftwareName:'',
+              Versions:'',
             TableData:[
               {
                 id:1,
@@ -88,23 +92,32 @@ export default {
                 children:[],
             },
           ],
+            },
+            rules:{
+                common:[
+                      { required: true, message: "不能为空！", trigger: "blur" },
+                    ],
+                    choose:[
+                      { required: true, message: "不能为空！", trigger: "change" },
+                    ],
+                    }
     }
 }, 
   methods:{
     goback(){
     },
     addfatherItem(){
-      this.TableData.push({
-        id:this.TableData[this.TableData.length-1]+1,
+      this.ruleForm.TableData.push({
+        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
         name:'',
         function:'',
         children:[],
       })
     },
     removefatherItem(Table){
-      const index = this.TableData.indexOf(Table)
+      const index = this.ruleForm.TableData.indexOf(Table)
       if (index !== -1) {
-      this.TableData.splice(index, 1);
+      this.ruleForm.TableData.splice(index, 1);
   }
     },
     addchildrenItem(Node){
@@ -114,8 +127,19 @@ export default {
             
           }
         )
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert("submit!");
+          this.$router.push({path: "./Client", replace:true});
+        } else {
+          return false;
+        }
+      });
     }
   },
+
 }
 
 </script>
