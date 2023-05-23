@@ -1,13 +1,15 @@
 package cn.xiaowenjie.chartbeans;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.LinkedHashMap;
 
 /**
  *  图表数据的一条数据
  */
-@Data
+//@EqualsAndHashCode(callSuper = false)
+//@Data
 public class Entry extends LinkedHashMap<String, Object> {
 
     /**

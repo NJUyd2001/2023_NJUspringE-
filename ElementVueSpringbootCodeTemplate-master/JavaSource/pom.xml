@@ -32,6 +32,13 @@
     </properties>
 
     <dependencies>
+            <!--lombok加载-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- 更新代码自动重启 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
