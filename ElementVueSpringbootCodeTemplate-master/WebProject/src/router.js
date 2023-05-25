@@ -15,6 +15,7 @@ import Test from './views/test/Test'
 import Application from './views/apply/Application'
 import FunctionList from './views/apply/FunctionList'
 import Report from './views/report/Report'
+import MyInformation from './views/apply/MyInformation'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -67,6 +68,10 @@ export default new VueRouter({
         {
             path: '/functionlist',       // 路径
             component: FunctionList      // 跳转到的组件 
+        },
+        {
+            path: '/myinf',       // 路径
+            component: MyInformation      // 跳转到的组件 
         },
         {
             path: '/report',     // 路径

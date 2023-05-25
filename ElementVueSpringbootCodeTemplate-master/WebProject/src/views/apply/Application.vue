@@ -495,14 +495,17 @@ export default {
     goback(){
     },
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      /*this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");
-          this.$router.push({path: "./Client", replace:true});
+          this.$router.push({path: "./client", replace:true});
         } else {
           return false;
         }
-      });
+      });*/
+      this.info("提交成功，正在返回用户界面！");
+      setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
