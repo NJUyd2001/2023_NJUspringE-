@@ -31,30 +31,31 @@
           </el-dropdown>
         </div></el-col>
       <el-col :span="6" push="4">
-        <router-link to="/admin">
         <el-button  size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
-        </router-link>
       </el-col>
     </el-row>
   </el-header>
     <br><br>
     <el-main>
       <el-form label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item label="软件名称:" prop="common">
+        <el-form-item label="软件名称:" prop="SoftwareName">
           <el-input v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="版本号:" prop="common">
+        <el-form-item label="版本号:" prop="Versions">
           <el-input v-model="ruleForm.Versions" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item v-for="(Table,index) in ruleForm.TableData" 
-         :label='"功能项目"+index+":"' :key="index" prop="common">
+        <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+        required: true,
+        message: '功能项目不能为空！',
+        trigger: 'blur',
+      }" :label='"功能项目"+index+":"' :key="index" >
           <el-input placeholder="功能项目" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
           <el-input placeholder="功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.function"></el-input>
-          <el-form-item v-for="(ChildTable,ChildIndex) in Table.children" :key="ChildTable.id"
+          <!-- <el-form-item v-for="(ChildTable,ChildIndex) in Table.children" :key="ChildTable.id"
           :label='"子功能项目"+ChildIndex+":"' >
           <el-input placeholder="子功能项目" style="width: 100px;padding-right:20px;" v-model="ChildTable.name"></el-input>
           <el-input placeholder="子功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="ChildTable.function"></el-input>
-        </el-form-item>
+        </el-form-item> -->
           <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
         </el-form-item>
         <el-form-item> 
@@ -65,6 +66,7 @@
   <LoginDialog :show='showLogin'/>
 </el-container>
 </template>
+<el-backtop :right="50" :bottom="50" />
 <script>
 export default {
     data(){
@@ -94,13 +96,13 @@ export default {
           ],
             },
             rules:{
-                common:[
+              SoftwareName:[
                       { required: true, message: "不能为空！", trigger: "blur" },
                     ],
-                    choose:[
-                      { required: true, message: "不能为空！", trigger: "change" },
-                    ],
-                    }
+              Versions:[
+                { required: true, message: "不能为空！", trigger: "blur"  },
+              ],
+              }
     }
 }, 
   methods:{

@@ -15,7 +15,7 @@ import Test from './views/test/Test'
 import Application from './views/apply/Application'
 import FunctionList from './views/apply/FunctionList'
 import Report from './views/report/Report'
-
+import MarketAuditApplication from './views/market/MarketAuditApplication'
 // 创建并暴露一个路由器
 export default new VueRouter({
     mode: 'history',    // 路由模式，该模式不会在地址中显示井号#
@@ -71,6 +71,10 @@ export default new VueRouter({
         {
             path: '/report',     // 路径
             component: Report    // 跳转到的组件
+        },
+        {
+            path: '/marketauditapplication',     // 路径
+            component: MarketAuditApplication    // 跳转到的组件
         },
     ]
 })
