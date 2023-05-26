@@ -83,10 +83,10 @@
         <el-submenu index="0">
           <template slot="title" collapse=false>
             <i class="el-icon-setting"></i>
-            <span>自定义组件</span>
+            <span>我的</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="0-1" >分页组件</el-menu-item>
+            <el-menu-item index="0-1" @click="jump2myinf()">个人信息完善</el-menu-item>
             <el-menu-item index="0-2" @click="addTab('选人组件', 'SelectUser')">选人组件</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -196,6 +196,9 @@ export default {
     },
     jump2application() {
       this.$router.push('/application');
+    },
+    jump2myinf(){
+      this.$router.push('/myinf');
     },
     addTab(targetName, commentName) {
       // 如果已经存在

@@ -43,7 +43,7 @@
         <el-submenu index="1">
           <template slot="title" collapse=false>
             <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
-            <span> 分成审核/提交</span>
+            <span> 审核/提交</span>
           </template>
           <el-menu-item-group>
             <el-menu-item index="1-11" @click="addTab('样品验收', 'TestResultTable')">样品验收</el-menu-item>
@@ -171,10 +171,10 @@ export default {
       this.showLogin = false;
       this.user = user;
     },
-    loginCancel() {
-      console.log("loginCancel");
-      this.showLogin = false;
-    },
+    // loginCancel() {
+    //   console.log("loginCancel");
+    //   this.showLogin = false;
+    // },
     logout() {
       this.ajax.post("/app/logout").then(result => {
         if (result.code == 0) {

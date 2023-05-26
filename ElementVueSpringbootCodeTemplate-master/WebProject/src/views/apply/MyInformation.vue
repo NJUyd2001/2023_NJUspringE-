@@ -1,11 +1,10 @@
-<!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
   <el-header style="height: 30px " @back="goback">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/application">申请表填写</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/functionlist">委托功能列表填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item>申请表填写</el-breadcrumb-item>
+    <el-breadcrumb-item><a/>个人信息完善</el-breadcrumb-item>
   </el-breadcrumb>
   <br>
     <el-row  type="flex" justify="center" align="middle">
@@ -15,14 +14,10 @@
         </router-link>
       </el-col>
       <el-col :span="6" push="3"><div class="grid-content bg-purple">
-        <span class="logo-title">申请界面-功能列表</span>
+        <span class="logo-title">个人信息完善</span>
         </div></el-col>
         <el-col :span="6" pull="3">
         <div class="grid-content bg-purple-light text-right">
-          <span v-if="user != null">
-            <span class="user">{{user.nick}}</span><el-button  plain size="middle"  type="danger" @click="logout">退出</el-button>
-          </span>
-          <span v-else><el-button type="success" plain size="middle" style = "margin:10px" @click="loginOut">登出</el-button></span>
           <el-dropdown  @command="switchLang">
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="zh">En</el-dropdown-item>
@@ -35,38 +30,38 @@
       </el-col>
     </el-row>
   </el-header>
-    <br><br>
+    <br><br><br><br>
     <el-main>
       <el-form label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item label="软件名称:" prop="SoftwareName">
-          <el-input v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
+        <el-form-item label="电话号码:" prop="common">
+          <el-input v-model="ruleForm.Telephone" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="版本号:" prop="Versions">
-          <el-input v-model="ruleForm.Versions" style="width: 200px;"></el-input>
+        <el-form-item label="传真:" prop="common">
+          <el-input v-model="ruleForm.Fax" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-        required: true,
-        message: '功能项目不能为空！',
-        trigger: 'blur',
-      }" :label='"功能项目"+index+":"' :key="index" >
-          <el-input placeholder="功能项目" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
-          <el-input placeholder="功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.function"></el-input>
-          <!-- <el-form-item v-for="(ChildTable,ChildIndex) in Table.children" :key="ChildTable.id"
-          :label='"子功能项目"+ChildIndex+":"' >
-          <el-input placeholder="子功能项目" style="width: 100px;padding-right:20px;" v-model="ChildTable.name"></el-input>
-          <el-input placeholder="子功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="ChildTable.function"></el-input>
-        </el-form-item> -->
-          <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
+        <el-form-item label="地址:" prop="common">
+          <el-input v-model="ruleForm.Address" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item> 
-          <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
+        <el-form-item label="邮编:" prop="common">
+          <el-input v-model="ruleForm.Postcode" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item label="联系人:" prop="common">
+          <el-input v-model="ruleForm.Contacts" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item label="联系人电话:" prop="common">
+          <el-input v-model="ruleForm.ContactPhone" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item label="E-mail:" prop="common">
+          <el-input v-model="ruleForm.Email" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item label="网址:" prop="common">
+          <el-input v-model="ruleForm.URL" style="width: 200px;"></el-input>
         </el-form-item>
       </el-form>
     </el-main>
   <LoginDialog :show='showLogin'/>
 </el-container>
 </template>
-<el-backtop :right="50" :bottom="50" />
 <script>
 export default {
     data(){
@@ -86,6 +81,15 @@ export default {
             ruleForm:{
               SoftwareName:'',
               Versions:'',
+              Telephone:'',
+              Fax:'',
+              Address:'',
+              Postcode:'',
+              Contacts:'',
+              ContactPhone:'',
+              Email:'',
+              URL:'',
+
             TableData:[
               {
                 id:1,
@@ -96,39 +100,17 @@ export default {
           ],
             },
             rules:{
-              SoftwareName:[
+                common:[
                       { required: true, message: "不能为空！", trigger: "blur" },
                     ],
-              Versions:[
-                { required: true, message: "不能为空！", trigger: "blur"  },
-              ],
-              }
+                    choose:[
+                      { required: true, message: "不能为空！", trigger: "change" },
+                    ],
+                    }
     }
 }, 
   methods:{
     goback(){
-    },
-    addfatherItem(){
-      this.ruleForm.TableData.push({
-        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-        name:'',
-        function:'',
-        children:[],
-      })
-    },
-    removefatherItem(Table){
-      const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1) {
-      this.ruleForm.TableData.splice(index, 1);
-  }
-    },
-    addchildrenItem(Node){
-        Node.children.push(
-          {
-            id:'',
-            
-          }
-        )
     },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {

@@ -78,7 +78,10 @@ export default {
         uname: "",
         pass: "",
         password: "",
+        email:"",
+        phone:"",
       },
+      
       rules: {
         uname: [
           { required: true, message: "用户名不能为空！", trigger: "blur" },
@@ -101,15 +104,16 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      /*this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");
+          this.$router.push({path: "./login", replace:true});
         } else {
           console.log("error submit!!");
           return false;
         }
-      });*/
-      this.$router.push({path: "./login", replace:true});
+      });
+      
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

@@ -28,7 +28,7 @@
       <div class="btnGroup">
         <el-button style="margin: 14px" type="primary" @click="submitForm('ruleForm')"
           >登录</el-button>
-        <router-link to to="/home">
+        <router-link to="/home">
 	          <el-button style="margin: 14px">返回</el-button>
         </router-link>
         <!-- 黄大伟添加 -->
