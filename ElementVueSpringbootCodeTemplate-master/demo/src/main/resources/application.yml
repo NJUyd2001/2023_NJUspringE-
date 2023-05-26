@@ -1,0 +1,14 @@
+
+#spring:
+#    datasource:
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mysql://mysql.sqlpub.com:3306/selabspringe
+#        username: neoabridges
+#        password: 86bc514d3780ac7e
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.sqlpub.com:3306/selabspringe
+    username: neoabridges
+    password: 86bc514d3780ac7e
