@@ -62,7 +62,6 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
           this.$router.push({path: "./market", replace:true});
         } else {
           return false;

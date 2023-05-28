@@ -15,7 +15,8 @@ import Test from './views/test/Test'
 import Application from './views/apply/Application'
 import FunctionList from './views/apply/FunctionList'
 import Report from './views/report/Report'
-import MarketAuditApplication from './views/market/MarketAuditApplication'
+import AuditApplication from './views/market/AuditApplication'
+import AuditInfor from './views/market/AuditInfor'
 import MyInformation from './views/apply/MyInformation'
 import TestContent from './views/report/TestContent'
 import TestScheme from './views/test/TestScheme'
@@ -85,8 +86,12 @@ export default new VueRouter({
             component: Report    // 跳转到的组件
         },
         {
-            path: '/marketauditapplication',     // 路径
-            component: MarketAuditApplication    // 跳转到的组件
+            path: '/auditapplication',     // 路径
+            component: AuditApplication    // 跳转到的组件
+        },
+        {
+            path: '/auditinfor',     // 路径
+            component: AuditInfor    // 跳转到的组件
         },
         {
             path: '/testcontent',   // 路径
