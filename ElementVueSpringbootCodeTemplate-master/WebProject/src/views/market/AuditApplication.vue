@@ -36,7 +36,7 @@
   </el-header>
     <br><br><br>
     <el-main>
-      <el-form :label-position="top" label-width="550px">
+      <el-form disabled :label-position="top" label-width="550px">
         <el-form-item label="测试类型:"> 
         <el-select  v-model="ruleForm.TypeTest" multiple allow-create filterable>
         <el-option   v-for='item in ruleForm.TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
@@ -494,7 +494,23 @@ export default {
   methods:{
     goback(){
     },
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$router.push({path: "./auditinfor", replace:true});
+        } else {
+          return false;
+        }
+      });
+      // this.info("提交成功，正在返回用户界面！");
+      // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      
+    },
   },
+  created:{
+    mounted(){
+    }
+  }
 }
 
 </script>
