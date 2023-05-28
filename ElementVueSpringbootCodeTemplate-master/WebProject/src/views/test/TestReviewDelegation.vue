@@ -1,19 +1,20 @@
-<!-- 文炫添加 -->
+<!--文炫-->
 <template>
     <el-container style="height:100%">
-      <el-header style="height: 30px ">
+      <el-header style="height: 30px " @back="goback">
         <el-breadcrumb separator="->">
-          <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
-          <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
-        </el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
+            <el-breadcrumb-item><a href="/testscheme">测试部人员审核委托</a></el-breadcrumb-item>
+      </el-breadcrumb>
+      <br>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/admin">
+            <router-link to="/Client">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
           <el-col :span="6" push="4"><div class="grid-content bg-purple">
-            <span class="logo-title">测试报告</span>
+            <span class="logo-title">测试部人员审核委托</span>
             </div></el-col>
             <el-col :span="6" pull="3">
             <div class="grid-content bg-purple-light text-right">
@@ -29,30 +30,130 @@
               </el-dropdown>
             </div></el-col>
           <el-col :span="6" push="4">
-            <router-link to="/admin">
-            <el-button  size="middle" type="success">下一步</el-button>
-            </router-link>
+            <el-button  @click="scrollToElement('ruleForm')" size="middle" type="warning">驳回</el-button>
+            <el-button  @click="submitForm('ruleForm')" size="middle" type="success">通过</el-button>
           </el-col>
         </el-row>
       </el-header>
+        <br><br><br>
         <el-main>
-          <el-form :label-position="top" label-width="500px">
-            <el-form-item label="测试类型:"> 
-            <el-select v-model="TypeTest" multiple allow-create filterable>
-            <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
+          <el-form :label-position="top" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item label="测试类型:" prop="TypeTest"> 
+            <el-select v-model="ruleForm.TypeTest" multiple allow-create filterable>
+            <el-option   v-for='item in ruleForm.TypeOfTest' :key='item.id' :label="item.value" :value="item.value" ></el-option>
             </el-select>
            </el-form-item>
-          <el-form-item label="样品名称:"> 
-            <el-input style="width:200px;padding:10px" v-model="SoftWareName"></el-input>
+          <el-form-item label="软件名称:" prop="SoftWareName"> 
+            <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.SoftWareName"></el-input>
           </el-form-item> 
-          <el-form-item label="项目编号:"> 
-            <el-input style="width:200px;padding:10px" v-model="VersionNumber"></el-input>
+          <el-form-item label="版本号:" prop="VersionNumber"> 
+            <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.VersionNumber"></el-input>
           </el-form-item>
-          <el-form-item label='来样日期:'>
+          <el-form-item label="委托单位(中文):" rules="{ required: true, message: '不能为空！', trigger: 'blur' }">  
+                <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.Chinese"></el-input>
+          </el-form-item>
+          <el-form-item label="委托单位(英文):" rules="{ required: true, message: '不能为空！', trigger: 'blur' }">  
+            <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.English"></el-input>
+          </el-form-item>
+          <el-form-item label="开发单位:" prop="DevelopmentCompany">  
+             <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.DevelopmentCompany"></el-input>
+          </el-form-item>
+          <el-form-item label="单位性质:" prop="AttributeOfCompany">   
+            <el-radio-group v-model="ruleForm.AttributeOfCompany">
+            <el-radio label="内资企业"></el-radio>
+            <el-radio label="外(合)资企业"></el-radio>
+            <el-radio label="港澳台(合)企业"></el-radio>
+            <el-radio label="科研院校"></el-radio>
+            <el-radio label="政府事业团体"></el-radio>
+            <el-radio label="其他"></el-radio>
+            </el-radio-group>
+          </el-form-item > 
+            <el-form-item label="软件用户对象描述:" prop="SoftwareUserObjectDescription">
+              <el-input readonly style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
+              v-model="ruleForm.SoftwareUserObjectDescription" type="textarea" />
+            </el-form-item>
+            <el-form-item label="主要功能及用途简介:" prop="MainFunction">
+              <el-input readonly placeholder="限200字以内" style="width:500px;" maxlength="200" show-word-limit="true" :rows="3"
+              v-model="ruleForm.MainFunction" type="textarea" />
+            </el-form-item>
+            <el-form-item label="测试依据:" prop="NeededStandard">
+              <el-select v-model="ruleForm.NeededStandard" multiple allow-create filterable>
+            <el-option   v-for='item in ruleForm.Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
+            </el-select>
+            </el-form-item> 
+            <el-form-item label="需要测试的技术指标:" prop="NeededTechnicalIndex">
+              <el-select v-model="ruleForm.NeededTechnicalIndex" multiple  allow-create filterable>
+            <el-option   v-for='item in ruleForm.TechnicalIndex' :key='item.id' :label="item.value" :value="item.value"></el-option>
+            </el-select>
+            </el-form-item >
+              <el-form-item rules="{ required: true, message: '不能为空！', trigger: 'blur' }" label="软件规模:功能数"><el-input-number  v-model="ruleForm.SoftWareSize.Number"></el-input-number></el-form-item>
+              <el-form-item rules="{ required: true, message: '不能为空！', trigger: 'blur' }" label="软件规模:功能点数"><el-input-number  v-model="ruleForm.SoftWareSize.Point"></el-input-number></el-form-item>
+              <el-form-item rules="{ required: true, message: '不能为空！', trigger: 'blur' }" label="软件规模:代码行数"><el-input-number  v-model="ruleForm.SoftWareSize.RowNumber"></el-input-number></el-form-item>
+            <el-form-item label='软件类型:' prop="choose">
+              <el-select v-model="ruleForm.SoftWareType">
+                <el-option-group 
+                v-for='group in ruleForm.TypeOfSoftWare'
+                :key="group.label"
+                :label="group.label">
+                <el-option v-for="item in group.options"
+                :key="item.id"
+                :label="item.name"
+                :value="item.name"/>
+              </el-option-group>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="运行环境:" prop="common">
+              <el-input readonly placeholder="客户端:Windows(版本)" style="width: 200px;padding:10px;"  v-model="ruleForm.RuntimeEnvironment.Client.OS.Windows"></el-input>
+              <el-input readonly placeholder="客户端:Linux(版本)" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.OS.Linux"></el-input>
+             <el-input readonly placeholder=" 客户端:其他" style="width: 200px;padding:10px;"  v-model="ruleForm.RuntimeEnvironment.Client.OS.Other"></el-input>
+              <el-input readonly placeholder=" 客户端:内存要求" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.Mermory"></el-input>
+              <el-input readonly placeholder=" 客户端:其他要求" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.Other"></el-input>
+              <el-checkbox-group  v-model="ruleForm.RuntimeEnvironment.Server.HardWare.FrameWork">
+                <el-checkbox label="服务器端架构:PC服务器"></el-checkbox>
+                <el-checkbox label="服务器端架构:UNIX/Linux服务器"></el-checkbox>
+                <el-checkbox label="服务器端架构:其他"></el-checkbox>
+              </el-checkbox-group>
+              <el-input readonly style="width: 200px;padding:10px;" placeholder='服务器端硬件:内存要求' v-model="ruleForm.RuntimeEnvironment.Server.HardWare.Mermory" ></el-input>
+              <el-input readonly style="width: 200px;padding:10px;" placeholder='服务器端硬件:硬盘要求' v-model="ruleForm.RuntimeEnvironment.Server.HardWare.HardDisk" ></el-input>
+              <el-input readonly style="width: 300px;padding:10px;" placeholder='服务器端硬件:其他要求' v-model="ruleForm.RuntimeEnvironment.Server.HardWare.Other" ></el-input>
+                <br>
+              <el-input readonly style="width: 200px;padding:10px;" placeholder='服务器端软件:操作系统' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.OS" ></el-input>
+              <el-input readonly style="width: 200px;padding:10px;" placeholder='服务器端软件:版本' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.Versions" ></el-input>
+              <el-input readonly style="width: 200px;padding:10px;" placeholder='服务器端软件:编程语言' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.PL" ></el-input>
+              <el-checkbox-group placeholder='软件架构' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.FrameWork">
+                <el-checkbox label="服务器端软件架构:C/S"></el-checkbox>
+                <el-checkbox label="服务器端软件架构:B/S"></el-checkbox>
+                <el-checkbox label="服务器端软件架构:其它"></el-checkbox>
+              </el-checkbox-group>
+              <el-input readonly style="width: 200px;padding:10px;" placeholder='服务器端软件:数据库' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.database" ></el-input>
+              <el-input readonly style="width: 200px;padding:10px;" placeholder='服务器端软件:中间件' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.MiddleWare" ></el-input>
+              <el-input readonly style="width: 200px;padding:10px;" placeholder='服务器端软件:其他要求' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.Other" ></el-input>
+              <el-input readonly style="width: 100px;padding:10px;" placeholder='服务器端:网络环境' v-model="ruleForm.RuntimeEnvironment.NetWork"></el-input>
+          </el-form-item>
+            <el-form-item label="样品软件介质:" prop="choose">
+            <el-checkbox-group v-model="ruleForm.SampleAndQuantity.SoftwareMedium">
+                <el-checkbox label="光盘"></el-checkbox>
+                <el-checkbox label="U盘"></el-checkbox>
+                <el-checkbox label="其他"></el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+            <el-form-item label="样品文档" prop="common">
+              <el-input placeholder='文档资料((1、需求文档:（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）
+              2、用户文档（例如：用户手册、用户指南等）（必须）
+              3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）))' 
+              style="width:700px;" :rows="5" v-model="ruleForm.SampleAndQuantity.Document" type="textarea" readonly></el-input>
+            </el-form-item>
+            <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="common">
+              <el-radio-group v-model="ruleForm.SampleAndQuantity.SamplesSubmitted">
+                <el-radio label="中心直接销毁"></el-radio>
+                <el-radio label="样品退还"></el-radio>>
+              </el-radio-group>
+          </el-form-item>
+          <el-form-item label='希望测试完成时间:' prop="common">
               <div class="demo-date-picker">
               <div class="block">
                 <el-date-picker
-                v-model="SampleDate"
+                v-model="ruleForm.WantedFinishTime"
                 type="date"
                 placeholder="完成时间选择"
                 :size=large
@@ -60,61 +161,48 @@
                 </div>
                 </div>
             </el-form-item>
-          <el-form-item label="委托单位(中文):">  
-                <el-input style="width:200px;padding:10px" v-model="EntrustingCompany.Chinese"></el-input>
-          </el-form-item>
-          <el-form-item label="委托单位(英文):">  
-            <el-input style="width:200px;padding:10px" v-model="EntrustingCompany.English"></el-input>
-          </el-form-item>
-          <el-form-item label="测试单位:">  
-             <el-input style="width:200px;padding:10px" v-model="DevelopmentCompany"></el-input>
-          </el-form-item>
-            <el-form-item label="样品状态:">
-              <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
-              v-model="SoftwareUserObjectDescription" type="textarea" />
-            </el-form-item>
-            <el-form-item label="测试依据:">
-              <el-select v-model="NeededStandard" multiple allow-create filterable>
-            <el-option   v-for='item in Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
-            </el-select>
-            </el-form-item> 
-            <el-form-item label="样品清单">
-              <el-input placeholder='文档资料((1、需求文档:（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）
-              2、用户文档（例如：用户手册、用户指南等）（必须）
-              3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）))' 
-              style="width:700px;" :rows="5" v-model="SampleAndQuantity.Document" type="textarea" ></el-input>
-            </el-form-item>
-            <el-form-item label="测试结论:">
-              <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
-              v-model="SoftwareUserObjectDescription" type="textarea" />
-            </el-form-item>
-          <el-form-item label="编制人:"> 
-            <el-input style="width:200px;padding:10px" v-model="Organizer"></el-input>
-          </el-form-item> 
-          <el-form-item label="审核人:"> 
-            <el-input style="width:200px;padding:10px" v-model="Auditor"></el-input>
-          </el-form-item> 
-          <el-form-item label="批准人:"> 
-            <el-input style="width:200px;padding:10px" v-model="Approver"></el-input>
-          </el-form-item>    
+        </el-form>
+        <el-form label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+        <el-form-item label="软件名称:" prop="SoftwareName">
+          <el-input readonly v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item label="版本号:" prop="Versions">
+          <el-input readonly v-model="ruleForm.Versions" style="width: 200px;"></el-input>
+        </el-form-item>
+        <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+        required: true,
+        message: '功能项目不能为空！',
+        trigger: 'blur',
+      }" :label='"功能项目"+index+":"' :key="index" >
+          <el-input readonly placeholder="功能项目" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
+          <el-input readonly placeholder="功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.function"></el-input>
+          <!-- <el-form-item v-for="(ChildTable,ChildIndex) in Table.children" :key="ChildTable.id"
+          :label='"子功能项目"+ChildIndex+":"' >
+          <el-input placeholder="子功能项目" style="width: 100px;padding-right:20px;" v-model="ChildTable.name"></el-input>
+          <el-input placeholder="子功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="ChildTable.function"></el-input>
+        </el-form-item> -->
+          <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
+        </el-form-item>
+        <el-form-item> 
+          <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
+        </el-form-item>
+        <el-form-item label="修改意见" prop="common">
+          <el-input style="width:700px;" :rows="5" v-model="ruleForm.SampleAndQuantity.Document" type="textarea" ></el-input>
+        </el-form-item>
         </el-form>
         </el-main>
       <LoginDialog :show='showLogin'/>
+      <template>
+      <el-backtop :right="50" :bottom="50" />
+    </template>
     </el-container>
     </template>
     <script>
     export default {
         data(){
            return{
-                reports:[
-		               {FunctionalModule: '无', 
-                    FunctionalRequirement: '无', 
-                    TestResult:'无'}
-		            ],
-                    FunctionalModule: '',
-                    FunctionalRequirement: '',
-                    TestResult: '',
-                user:{
+            ruleForm:{
+              user:{
                     name:'风车村',
                     password:'shazihuang',
                     telephone:'',
@@ -421,32 +509,94 @@
                 SamplesSubmitted:'',
                 },
                 WantedFinishTime:'',
-                SampleDate:'',
-                Organizer:'',
-                Auditor:'',
-                Approver:'',
+            },
+            ruleForm1:{
+              SoftwareName:'',
+              Versions:'',
+            TableData:[
+              {
+                id:1,
+                name:'',
+                function:'',
+                children:[],
+            },
+          ],
+            },
+            rules:{
+              TypeTest:[
+              { required: true, message: "不能为空！", trigger: "change" },
+            ],
+            SoftWareName:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            VersionNumber:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            Chinese:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            English:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            DevelopmentCompany:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            AttributeOfCompany:[
+              { required: true, message: "不能为空！", trigger: "change" },
+            ],
+            SoftwareUserObjectDescription:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            MainFunction:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            NeededStandard:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            NeededTechnicalIndex:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            Number:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            Point:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            RowNumber:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            }
         }
     }, 
       methods:{
         goback(){
         },
-        addData(){
-			this.reports.push({
-				'FunctionalModule' : this.FunctionalModule,
-        'FunctionalRequirement' : this.FunctionalRequirement,
-        'TestResult' : this.TestResult,
-        });
-        this.FunctionalModule = '',
-        this.FunctionalRequirement = '';
-        this.TestResult = '';
-      },
-        remove(obj){
-          var tr = $j(obj).parent ().parent()
-          tr.prev().remove();
-          tr.prev().remove();
-          tr.remove();
+        submitForm(formName) {
+          this.info("提交成功，正在返回用户界面！");
+          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
         },
-    }
+        scrollToElement(formName) {
+          this.info("请反馈意见写在修改意见栏");
+          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+        },
+        resetForm(formName) {
+          this.$refs[formName].resetFields();
+        },
+        addfatherItem(){
+        this.ruleForm1.TableData.push({
+          id:this.ruleForm1.TableData[this.ruleForm1.TableData.length-1]+1,
+          name:'',
+          function:'',
+          children:[],
+        })
+        },
+        removefatherItem(Table){
+          const index = this.ruleForm1.TableData.indexOf(Table)
+          if (index !== -1) {
+          this.ruleForm1.TableData.splice(index, 1);
+      }
+        },
+          },
     }
     
     </script>
@@ -525,30 +675,5 @@
       color: var(--el-text-color-secondary);
       font-size: 14px;
       margin-bottom: 20px;
-    }
-
-    .box {
-      background-color: whitesmoke;
-      padding: 20px;
-      margin: 40px;
-    }
-
-    h3 {
-      text-align: center;
-      text-transform: uppercase;
-      font-weight: bold;
-    }
-
-    .form-wrap {
-      margin: 20px 0;
-    }
-
-    .table {
-      border: 1px solid;
-      width: 100%;
-    }
-
-    .th, td {
-      border: 1px solid;
     }
     </style>

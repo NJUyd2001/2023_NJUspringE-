@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SElab.iml" filepath="$PROJECT_DIR$/.idea/SElab.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ElementVueSpringbootCodeTemplate-master/JavaSource/blog/blog.iml" filepath="$PROJECT_DIR$/ElementVueSpringbootCodeTemplate-master/JavaSource/blog/blog.iml" />
       <module fileurl="file://$PROJECT_DIR$/ElementVueSpringbootCodeTemplate-master/demo/demo.iml" filepath="$PROJECT_DIR$/ElementVueSpringbootCodeTemplate-master/demo/demo.iml" />
     </modules>
   </component>
