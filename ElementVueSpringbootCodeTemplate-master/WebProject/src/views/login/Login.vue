@@ -1,7 +1,7 @@
 <template>
     <div id="logo">
     <div class="header">
-  <h1 class="font-face">软件测试中心在线测试系统</h1>
+  <h1 :class="font-face">软件测试中心在线测试系统</h1>
 </div>
     <el-card class="box-card">
       <h2 style="text-align: center">登录</h2>
@@ -81,7 +81,7 @@ export default {
 
 <style scoped>
 #logo{
-    background: url("../../assets/NJUbg.jpg");
+    background: url("../../assets/b6.jpg");
     background-size: 100% 100%;
     height: 100%;
     position: fixed;

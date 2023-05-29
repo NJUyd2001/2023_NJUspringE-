@@ -32,7 +32,7 @@
   </el-header>
     <br><br><br><br>
     <el-main>
-      <el-form label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+      <el-form label-width=50% :model="ruleForm" :rules="rules" ref="ruleForm">
         <el-form-item label="电话号码:" prop="common">
           <el-input v-model="ruleForm.Telephone" style="width: 200px;"></el-input>
         </el-form-item>
