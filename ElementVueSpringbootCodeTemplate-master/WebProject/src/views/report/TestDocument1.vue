@@ -38,7 +38,7 @@
       </el-header>
         <br><br>
         <el-main>
-            <el-form label-width="50px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form label-width="300px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -46,7 +46,8 @@
           }" :label='"审核表格"+index+":"' :key="index" >
               <el-input placeholder="测试分类" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
               <el-input placeholder="ID" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
-              <el-input placeholder="测试用例设计说明" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
+              <el-input placeholder="测试用例设计说明" style="width: 200px;padding-right:20px;" v-model="Table.name"></el-input>
+              
               <el-input placeholder="与本测试用例有关的规约说明" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
               <el-input placeholder="预期的结果" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
               <el-input placeholder="测试用例设计者" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>

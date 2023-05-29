@@ -24,7 +24,8 @@ Vue.config.lang = 'zh-cn'
 // ---------------------------------------- charts
 import VCharts from 'v-charts';
 Vue.use(VCharts)
-
+axios.defaults.baseURL = '/api' 
+Vue.prototype.$axios = axios
 // ---------------------------------------- 提示信息工具类
 Vue.prototype.info = function (msg) {
     //this.$message(msg);

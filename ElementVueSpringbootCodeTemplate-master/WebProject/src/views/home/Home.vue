@@ -50,7 +50,7 @@ export default {
 
 <style scoped>
   #logo{
-    background: url("../../assets/NJUbg.jpg");
+    background: url("../../assets/img/homeBG.jpeg");  
     background-size: 100% 100%;
     height: 100%;
     position: fixed;

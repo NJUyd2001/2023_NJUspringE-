@@ -528,23 +528,17 @@ export default {
     }
 }, 
   methods:{
-    goback(){
-    },
     submitForm(formName) {
-      /*this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");
-<<<<<<< HEAD
           this.$router.push({path: "./functionlist", replace:true});
-=======
-          this.$router.push({path: "./client", replace:true});
->>>>>>> 38617f0cad5bfd590d62f2772a8ca5a1613e9b78
         } else {
           return false;
         }
-      });*/
-      this.info("提交成功，正在返回用户界面！");
-      setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      });
+      // this.info("提交成功，正在返回用户界面！");
+      // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
       
     },
     resetForm(formName) {

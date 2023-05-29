@@ -16,9 +16,9 @@ export default {
     data() {
         return {
             form: {
-                name: '你爹',
-                value: '205220016',
-                Permissions:0,
+                name: this.$store.state.user.name,
+                value: this.$store.state.user.value,
+                Permissions:this.$store.state.user.Permissions,
             }
         }
     },
@@ -35,14 +35,13 @@ export default {
                     self.error(result.msg);
                 }
             })
-        }
+        },
+        // testVux(){
+        //     alert(this.$store.state.user.name);
+        //     this.name=this.$store.state.user.name;
+        //     this.value=this.$store.state.user.value;
+        //     this.Permissions=this.$store.state.user.Permissions;
+        // }
     },
-    created:{
-        mounted(){
-            this.name=this.$store.state.user.name;
-            this.value=this.$store.state.user.value;
-            //this.Permissions=this.$store.state.user.Permissions;
-        }
-    }
 }
 </script>
