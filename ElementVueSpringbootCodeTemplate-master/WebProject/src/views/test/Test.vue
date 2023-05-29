@@ -47,7 +47,8 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="1-11" @click="addTab('样品验收', 'TestResultTable')">样品验收</el-menu-item>
-            <el-menu-item index="1-12" @click="addTab('发送测试报告','TestReportTable')">发送测试报告</el-menu-item>
+            <el-menu-item index="1-11" @click="jump2report()">发送测试报告</el-menu-item>
+            <!--<el-menu-item index="1-12" @click="addTab('发送测试报告','TestReportTable')">发送测试报告</el-menu-item>-->
           </el-menu-item-group>
         </el-submenu>
 
@@ -170,6 +171,9 @@ export default {
 
       this.showLogin = false;
       this.user = user;
+    },
+    jump2report() {
+      this.$router.push('/report');
     },
     // loginCancel() {
     //   console.log("loginCancel");

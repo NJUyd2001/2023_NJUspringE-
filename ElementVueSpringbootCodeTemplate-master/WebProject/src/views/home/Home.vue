@@ -51,7 +51,7 @@ export default {
 
 <style scoped>
   #logo{
-    background: url("../../assets/b2.jpg");
+    background: url("../../assets/b6.jpg");
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
@@ -92,6 +92,7 @@ export default {
         left: 70%;
         padding: 120px 120px 120px 120px;
         transform: translate(-50%, -50%);
+        border-radius: 5px;
         border-style:none;
 }
 .login-from {

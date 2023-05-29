@@ -8,7 +8,7 @@
         <span class="logo-title">市场部</span>
         </div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain size="mini" type="primary" @click="handleStart">Hello World</el-button></div></el-col>
+        <el-button  plain size="mini" type="primary" class="el-icon-user" @click="handleStart">我的</el-button></div></el-col>
       <el-col :span="8">
         <div class="grid-content bg-purple-light text-right">
           <span v-if="user != null">
@@ -164,7 +164,7 @@ export default {
       this.lang = command;
     },
     handleStart() {
-      this.info("工作正常");
+      this.$router.push('client/Personal');
     },
     loginOut() {
       //this.showLogin = true;

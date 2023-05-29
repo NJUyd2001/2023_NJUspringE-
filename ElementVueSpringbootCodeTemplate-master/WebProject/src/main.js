@@ -10,8 +10,7 @@ import Vuex from 'vuex';
 import Util from './libs/util';
 
 import store from './stores';
-
-
+import axios from 'axios'
 
 
 // ---------------------------------------- element ui

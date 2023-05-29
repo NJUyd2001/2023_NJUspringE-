@@ -76,7 +76,7 @@ export default {
 
 <style scoped>
 #logo{
-    background: url("../../assets/b2.jpg");
+    background: url("../../assets/b6.jpg");
     background-size: 100% 100%;
     height: 100%;
     position: fixed;

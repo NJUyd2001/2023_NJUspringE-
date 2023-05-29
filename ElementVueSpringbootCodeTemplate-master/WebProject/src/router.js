@@ -15,10 +15,17 @@ import Test from './views/test/Test'
 import Application from './views/apply/Application'
 import FunctionList from './views/apply/FunctionList'
 import Report from './views/report/Report'
-import MarketAuditApplication from './views/market/MarketAuditApplication'
 import MyInformation from './views/apply/MyInformation'
 import Personal from "./views/client/Personal";
 import Info from "./views/client/Info";
+import AuditApplication from './views/market/AuditApplication'
+import AuditInfor from './views/market/AuditInfor'
+import TestContent from './views/report/TestContent'
+import TestScheme from './views/test/TestScheme'
+import TestDocument1 from './views/report/TestDocument1'
+import TestDocument2 from './views/report/TestDocument2'
+import TestReviewDelegation from './views/test/TestReviewDelegation'
+
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -81,8 +88,32 @@ export default new VueRouter({
             component: Report    // 跳转到的组件
         },
         {
-            path: '/marketauditapplication',     // 路径
-            component: MarketAuditApplication    // 跳转到的组件
+            path: '/auditapplication',     // 路径
+            component: AuditApplication    // 跳转到的组件
+        },
+        {
+            path: '/auditinfor',     // 路径
+            component: AuditInfor    // 跳转到的组件
+        },
+        {
+            path: '/testcontent',   // 路径
+            component: TestContent  // 跳转到的组件
+        },
+        {
+            path: '/testscheme',   // 路径
+            component: TestScheme  // 跳转到的组件
+        },
+        {
+            path: '/testdocument1',   // 路径
+            component: TestDocument1  // 跳转到的组件
+        },
+        {
+            path: '/testdocument2',   // 路径
+            component: TestDocument2  // 跳转到的组件
+        },
+        {
+            path: '/testreviewdelegation',   // 路径
+            component: TestReviewDelegation  // 跳转到的组件
         },
         {
             path: '/client/Personal',     // 路径
