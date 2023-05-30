@@ -37,7 +37,7 @@
       </el-header>
         <br><br><br>
         <el-main>
-          <el-form :label-position="top" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form :label-position="top" disabled label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item label="测试类型:" prop="TypeTest"> 
             <el-select v-model="ruleForm.TypeTest" multiple allow-create filterable>
             <el-option   v-for='item in ruleForm.TypeOfTest' :key='item.id' :label="item.value" :value="item.value" ></el-option>

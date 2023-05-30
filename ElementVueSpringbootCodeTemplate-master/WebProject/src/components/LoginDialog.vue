@@ -47,7 +47,7 @@ export default {
       let self = this;
       //
       this.ajax.postForm("/app/login", this.form).then(result => {
-        if (result.code == 0) {
+      if (result.code == 0) {
           // 发送登录成功消息
           self.$bus.emit("login-success", result.data);
         } else {

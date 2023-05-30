@@ -8,5 +8,5 @@ import org.springframework.context.annotation.Bean;
 @Mapper
 public interface InsertDao {
     @Insert("INSERT INTO selabspringe.test(data) VALUE (#{data})")
-    void insert(String data); // insert a sqlLine
+    void insertTest(String data); // insert a sqlLine
 }

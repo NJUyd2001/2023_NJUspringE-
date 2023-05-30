@@ -13,7 +13,7 @@
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="6" push="3"><div class="grid-content bg-purple">
+      <el-col :span="6" push="4"><div class="grid-content bg-purple">
         <span class="logo-title">个人信息完善</span>
         </div></el-col>
         <el-col :span="6" pull="3">
@@ -32,7 +32,7 @@
   </el-header>
     <br><br><br><br>
     <el-main>
-      <el-form label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+      <el-form label-width=40% :model="ruleForm" :rules="rules" ref="ruleForm">
         <el-form-item label="电话号码:" prop="common">
           <el-input v-model="ruleForm.Telephone" style="width: 200px;"></el-input>
         </el-form-item>

@@ -15,6 +15,8 @@ import Test from './views/test/Test'
 import Application from './views/apply/Application'
 import FunctionList from './views/apply/FunctionList'
 import Report from './views/report/Report'
+import Personal from "./views/client/Personal";
+import Info from "./views/client/Info";
 import AuditApplication from './views/market/AuditApplication'
 import AuditInfor from './views/market/AuditInfor'
 import AuditFunctionList from './views/market/AuditFunctionList'
@@ -117,6 +119,14 @@ export default new VueRouter({
         {
             path: '/testreviewdelegation',   // 路径
             component: TestReviewDelegation  // 跳转到的组件
+        },
+        {
+            path: '/client/Personal',     // 路径
+            component: Personal    // 跳转到的组件
+        },
+        {
+            path: '/client/Info',     // 路径
+            component: Info    // 跳转到的组件
         },
     ]
 })
