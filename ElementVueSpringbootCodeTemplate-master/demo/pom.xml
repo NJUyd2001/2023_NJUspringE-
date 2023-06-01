@@ -66,6 +66,12 @@
 			<version>1.2.67_noneautotype2</version>
 		</dependency>
 		<!-- Json字符转换结束 -->
+		<!-- https://mvnrepository.com/artifact/javax.persistence/persistence-api -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
