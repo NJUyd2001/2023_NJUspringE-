@@ -26,7 +26,7 @@ import TestScheme from './views/test/TestScheme'
 import TestDocument1 from './views/report/TestDocument1'
 import TestDocument2 from './views/report/TestDocument2'
 import TestReviewDelegation from './views/test/TestReviewDelegation'
-
+import TestContract from './views/test/Contract'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -127,6 +127,10 @@ export default new VueRouter({
         {
             path: '/client/Info',     // 路径
             component: Info    // 跳转到的组件
+        },
+        {
+            path: '/test/Contract',     // 路径
+            component: TestContract    // 跳转到的组件
         },
     ]
 })

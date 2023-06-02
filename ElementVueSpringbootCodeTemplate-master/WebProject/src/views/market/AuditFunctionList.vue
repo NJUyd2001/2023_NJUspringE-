@@ -4,7 +4,6 @@
   <el-header style="height: 30px " @back="goback">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Market' }">市场部主页-审核委托</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="">申请表及功能列表数据查看</a></el-breadcrumb-item>
     <el-breadcrumb-item><a href="/auditapplication">申请表查看</a></el-breadcrumb-item>
     <el-breadcrumb-item><a href="/auditfunctionlist">功能列表数据查看</a></el-breadcrumb-item>
   </el-breadcrumb>
