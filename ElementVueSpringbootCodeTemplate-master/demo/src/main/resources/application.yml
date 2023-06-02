@@ -11,11 +11,6 @@ server:
     uri-encoding: utf-8
 
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-  profiles:
-    active: dev
   datasource:
     hikari:
       max-lifetime: 60000
@@ -23,8 +18,6 @@ spring:
     url: jdbc:mysql://mysql.sqlpub.com:3306/selabspringe
     username: neoabridges
     password: 86bc514d3780ac7e
-#mybatis:
-#  mapper-locations: classpath:mapper/*.xml
 
 
 

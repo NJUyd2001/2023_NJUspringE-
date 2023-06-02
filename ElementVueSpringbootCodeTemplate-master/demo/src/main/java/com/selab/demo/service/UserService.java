@@ -17,7 +17,7 @@ public class UserService {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Gender gender = jsonObject.getObject("gender", Gender.class);
         UserType userType = jsonObject.getObject("type", UserType.class);
-        String nickname = jsonObject.getString("nickname");
+        String nickname = jsonObject.getString("uname");
         String njuNumber = jsonObject.getString("njuNumber");
         String emailAddr = jsonObject.getString("emailAddr");
         String password = jsonObject.getString("password");
@@ -30,7 +30,7 @@ public class UserService {
     // 用户登录
     public String login(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        String nickname = jsonObject.getString("nickname");
+        String nickname = jsonObject.getString("uname");
         String password = jsonObject.getString("password");
 
         String result =  userDao.login(nickname, password);
