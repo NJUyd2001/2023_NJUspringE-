@@ -162,33 +162,35 @@
                 </div>
             </el-form-item>
         </el-form>
+        <el-form label-width="550px" disabled :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form-item label="软件名称:" prop="SoftwareName">
+            <el-input readonly v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
+          </el-form-item>
+          <el-form-item label="版本号:" prop="Versions">
+            <el-input readonly v-model="ruleForm.Versions" style="width: 200px;"></el-input>
+          </el-form-item>
+          <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+          required: true,
+          message: '功能项目不能为空！',
+          trigger: 'blur',
+        }" :label='"功能项目"+index+":"' :key="index" >
+            <el-input readonly placeholder="功能项目" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
+            <el-input readonly placeholder="功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.function"></el-input>
+            <!-- <el-form-item v-for="(ChildTable,ChildIndex) in Table.children" :key="ChildTable.id"
+            :label='"子功能项目"+ChildIndex+":"' >
+            <el-input placeholder="子功能项目" style="width: 100px;padding-right:20px;" v-model="ChildTable.name"></el-input>
+            <el-input placeholder="子功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="ChildTable.function"></el-input>
+          </el-form-item> -->
+            <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
+          </el-form-item>
+          <el-form-item> 
+            <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
+          </el-form-item>
+        </el-form>
         <el-form label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item label="软件名称:" prop="SoftwareName">
-          <el-input readonly v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
-        </el-form-item>
-        <el-form-item label="版本号:" prop="Versions">
-          <el-input readonly v-model="ruleForm.Versions" style="width: 200px;"></el-input>
-        </el-form-item>
-        <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-        required: true,
-        message: '功能项目不能为空！',
-        trigger: 'blur',
-      }" :label='"功能项目"+index+":"' :key="index" >
-          <el-input readonly placeholder="功能项目" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
-          <el-input readonly placeholder="功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.function"></el-input>
-          <!-- <el-form-item v-for="(ChildTable,ChildIndex) in Table.children" :key="ChildTable.id"
-          :label='"子功能项目"+ChildIndex+":"' >
-          <el-input placeholder="子功能项目" style="width: 100px;padding-right:20px;" v-model="ChildTable.name"></el-input>
-          <el-input placeholder="子功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="ChildTable.function"></el-input>
-        </el-form-item> -->
-          <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
-        </el-form-item>
-        <el-form-item> 
-          <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
-        </el-form-item>
-        <el-form-item label="修改意见" prop="common">
-          <el-input style="width:700px;" :rows="5" v-model="ruleForm.SampleAndQuantity.Document" type="textarea" ></el-input>
-        </el-form-item>
+          <el-form-item label="修改意见" prop="common">
+            <el-input style="width:700px;" :rows="5" v-model="ruleForm.SampleAndQuantity.Document" type="textarea" ></el-input>
+          </el-form-item>
         </el-form>
         </el-main>
       <LoginDialog :show='showLogin'/>
