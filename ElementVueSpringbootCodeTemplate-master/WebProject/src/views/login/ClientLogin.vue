@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      alert(JSON.stringify(this.ruleForm));
+      
       this.$router.push({path: "./client", replace:true});
       //alert(JSON.stringify(this.ruleForm));
       // Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{

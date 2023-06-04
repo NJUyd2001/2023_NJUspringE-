@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
-       alert(JSON.stringify(this.ruleForm));
+       //alert(JSON.stringify(this.ruleForm));
       // Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
       //   console.log(ret.data)
       // })
