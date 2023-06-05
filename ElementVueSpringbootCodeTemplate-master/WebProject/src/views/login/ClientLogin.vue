@@ -62,7 +62,15 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      
       this.$router.push({path: "./client", replace:true});
+      //alert(JSON.stringify(this.ruleForm));
+      // Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
+      //   console.log(ret.data)
+      // })
+      // .catch(function (error) { // 请求失败处理
+      //   console.log(error);
+      // });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

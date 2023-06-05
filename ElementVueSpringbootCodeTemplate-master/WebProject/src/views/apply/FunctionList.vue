@@ -68,6 +68,8 @@
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
+import Axios from 'axios';
+
 export default {
     data(){
        return{
@@ -106,7 +108,8 @@ export default {
     }
 }, 
   methods:{
-    goback(){
+    TestInfor(){
+      alert(JSON.stringify(this.ruleForm));
     },
     addfatherItem(){
       this.ruleForm.TableData.push({
@@ -139,8 +142,14 @@ export default {
           return false;
         }
       });*/
-      this.info("提交成功，正在返回用户界面！");
-      setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
+        console.log(ret.data)
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+      // this.info("提交成功，正在返回用户界面！");
+      // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
     }
   },
 

@@ -404,28 +404,6 @@ export default {
                                     ]
                                   },
             ],
-            shortcuts:[
-                      {
-                        text: 'Today',
-                        value: new Date(),
-                      },
-                      {
-                        text: 'Yesterday',
-                        value: () => {
-                          const date = new Date()
-                          date.setTime(date.getTime() - 3600 * 1000 * 24)
-                          return date
-                        },
-                      },
-                      {
-                        text: 'A week ago',
-                        value: () => {
-                          const date = new Date()
-                          date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-                          return date
-                        },
-                      },
-                      ],
             TypeTest:[],
             SoftWareName:'',
             VersionNumber:'',
@@ -528,17 +506,15 @@ export default {
     }
 }, 
   methods:{
-    goback(){
-    },
     submitForm(formName) {
-      /*this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");
           this.$router.push({path: "./functionlist", replace:true});
         } else {
           return false;
         }
-      });*/
+      });
       this.info("提交成功！");
       setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       

@@ -1,0 +1,28 @@
+
+#spring:
+#    datasource:
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        url: jdbc:mysql://mysql.sqlpub.com:3306/selabspringe
+#        username: neoabridges
+#        password: 86bc514d3780ac7e
+server:
+  port: 1234
+  tomcat:
+    uri-encoding: utf-8
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.sqlpub.com:3306/selabspringe
+    username: neoabridges
+    password: 86bc514d3780ac7e
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+
+
+

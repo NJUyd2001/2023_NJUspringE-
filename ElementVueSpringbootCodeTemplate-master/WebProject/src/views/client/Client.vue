@@ -127,7 +127,7 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="0-1" @click="jump2myinf()">个人信息完善</el-menu-item>
-            <el-menu-item index="0-2" @click="addTab('选人组件', 'SelectUser')">选人组件</el-menu-item>
+            <!-- <el-menu-item index="0-2" @click="addTab('选人组件', 'SelectUser')">选人组件</el-menu-item> -->
           </el-menu-item-group>
         </el-submenu>
 

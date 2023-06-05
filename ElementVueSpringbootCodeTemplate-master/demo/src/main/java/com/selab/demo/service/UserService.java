@@ -25,7 +25,7 @@ public class UserService {
         User user = new User(nickname, njuNumber, emailAddr, password, gender, phone, userType);
 
         userDao.insert(user);
-        return "inserted successfully";
+        return "user inserted successfully";
     }
     // 用户登录
     public String login(String postJson){
