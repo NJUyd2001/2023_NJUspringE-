@@ -1,5 +1,6 @@
 <!-- 文炫添加 -->
 <template>
+<div id="logo">
 <el-container style="height:100%">
   <el-header style="height: 30px">
     <el-row  type="flex" justify="center" align="middle">
@@ -7,7 +8,7 @@
         <span class="logo-title">测试部</span>
         </div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain size="mini" type="primary" @click="handleStart">Hello World</el-button></div></el-col>
+        <el-button  plain size="mini" type="primary" @click="handleStart">我的</el-button></div></el-col>
       <el-col :span="8">
         <div class="grid-content bg-purple-light text-right">
           <span v-if="user != null">
@@ -97,8 +98,13 @@
       </el-tabs>
     </el-main>
   </el-container>
+  <el-footer>
+  <p>南京大学 计算机软件新技术国家重点实验室 软件测试中心<br>
+  江苏省 南京市 栖霞区 仙林大道163号南京大学仙林校区计算机科学与技术楼<br>
+  电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
+  </el-footer>
   <LoginDialog :show='showLogin'/>
-</el-container>
+</el-container></div>
 </template>
 <script>
 import Vue from "vue";
@@ -218,6 +224,14 @@ export default {
 </script>
 
 <style>
+#logo{
+    background: url("../../assets/b3.jpg");
+    background-size: 100% 100%;
+    height: 100%;
+    position: fixed;
+    width: 100%
+  }
+
 .text-right {
   padding-right: 0px;
   text-align: right;
@@ -237,7 +251,12 @@ export default {
   margin: 10px 0 10px 0;  
 }
 
-
+.el-footer {
+    color: #333;
+    text-align: center;
+    font-size:3px;
+    line-height: 20px;
+}
 
 .header .nav {
   height: 40px;

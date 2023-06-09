@@ -37,7 +37,7 @@
       </el-header>
         <br><br>
         <el-main>
-          <el-form label-width="550px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
+          <el-form label-width="500px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
             <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -50,7 +50,7 @@
               <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="550px" :model="ruleForm2" :rules="rules" ref="ruleForm2">
+          <el-form label-width="500px" :model="ruleForm2" :rules="rules" ref="ruleForm2">
             <el-form-item v-for="(Table,index) in ruleForm2.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -63,7 +63,7 @@
               <el-button @click="addfatherItem2()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="550px" :model="ruleForm3" :rules="rules" ref="ruleForm3">
+          <el-form label-width="500px" :model="ruleForm3" :rules="rules" ref="ruleForm3">
             <el-form-item v-for="(Table,index) in ruleForm3.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -76,7 +76,7 @@
               <el-button @click="addfatherItem3()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="550px" :model="ruleForm4" :rules="rules" ref="ruleForm4">
+          <el-form label-width="500px" :model="ruleForm4" :rules="rules" ref="ruleForm4">
             <el-form-item v-for="(Table,index) in ruleForm4.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -89,7 +89,7 @@
               <el-button @click="addfatherItem4()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="550px" :model="ruleForm5" :rules="rules" ref="ruleForm5">
+          <el-form label-width="500px" :model="ruleForm5" :rules="rules" ref="ruleForm5">
             <el-form-item v-for="(Table,index) in ruleForm5.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -102,7 +102,7 @@
               <el-button @click="addfatherItem5()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="550px" :model="ruleForm6" :rules="rules" ref="ruleForm6">
+          <el-form label-width="500px" :model="ruleForm6" :rules="rules" ref="ruleForm6">
             <el-form-item v-for="(Table,index) in ruleForm6.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',

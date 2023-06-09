@@ -45,7 +45,7 @@
             trigger: 'blur',
           }" :label='"审核表格"+index+":"' :key="index" >
               <el-input placeholder="测试分类" style="width: 100px;padding-right:20px;" v-model="Table.testclassification"></el-input>
-              <el-input placeholder="ID" style="width: 100px;padding-right:20px;" v-model="Table.id"></el-input>
+              <el-input placeholder="ID" style="width: 100px;padding-right:20px;" v-model="Table.num"></el-input>
               <el-input placeholder="测试用例设计说明" style="width: 200px;padding-right:20px;" v-model="Table.testcasedesign"></el-input>
               
               <el-input placeholder="与本测试用例有关的规约说明" style="width: 100px;padding-right:20px;" v-model="Table.stockdescription"></el-input>
@@ -65,18 +65,6 @@
     export default {
         data(){
            return{
-            ruleForm1:{
-                  SoftwareName:'',
-                  Versions:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
-                },
-              ],
-                },
                 user:{
                     name:'风车村',
                     password:'shazihuang',
@@ -90,6 +78,13 @@
                     URL:'',
                 },
                 ruleForm:{
+                    testclassification:'',
+                    num:'',
+                    testcasedesign:'',
+                    stockdescription:'',
+                    expectedresult:'',
+                    designer:'',
+                    time:'',
                 
                 TableData:[
                   {

@@ -69,7 +69,7 @@
               <el-input v-model="ruleForm.ParticipatingOrganization" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="3.5人员:" prop="Personnel" style="font-weight: normal; font-size: 15px; ">
-              </el-form-item>
+            </el-form-item>
             <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
             <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
@@ -255,7 +255,7 @@
     export default {
         data(){
            return{
-            ruleForm1:{
+                ruleForm1:{
                   SoftwareName:'',
                   Versions:'',
                 TableData:[
