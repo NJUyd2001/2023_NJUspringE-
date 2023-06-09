@@ -12,9 +12,46 @@
         <div>
     <div class="mask" v-if="showModal" @click="showModal=false"></div>
     <div class="pop" v-if="showModal">
-        <button @click="showModal=false" class="btn" >点击</button>
+        <div class="main">
+    <el-steps direction="vertical" :space="110" :active="active" finish-status="success">
+      <el-step
+        v-for="(item,index) of stepTitle"
+        :key="index"
+        :title="item"
+        :class="stepClassObj(index)"
+        @click.native="handleStep(index)"
+      />
+    </el-steps>
+    <!-- 内容展示区 -->
+    <step-content1
+      v-show="active === 0 "
+      @handleNextStep="handleNextStep()"
+    />
+    <step-content2
+      v-show="active === 1 "
+      @handleLastStep="handleLastStep()"
+      @handleNextStep="handleNextStep()"
+    />
+    <step-content3
+      v-show="active === 2 "
+      @handleLastStep="handleLastStep()"
+      @handleNextStep="handleNextStep()"
+    />
+    <step-content4
+      v-show="active === 3 "
+      @handleLastStep="handleNextStep()"
+    />
+    <step-content4
+      v-show="active === 4 "
+      @handleLastStep="handleNextStep()"
+    />
+    <step-content5
+      v-show="active === 5 "
+      @handleLastStep="handleLastStep()"
+    />
+
+  </div>
     </div>
-    <p style="right: 5px;"><button class="btn el-icon-avatar" @click="showModal=true"><Avatar /></button></p>
   </div> 
   </div></el-col>
     </el-row>
@@ -33,15 +70,10 @@
           <el-menu-item-group>
             <template slot="title">委托准备</template>
             <el-menu-item index="1-11" @click="jump2application()">发起委托</el-menu-item>
-            <el-menu-item index="1-13" @click="addTab('报价处理', 'ConfigTable')">报价处理</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="委托处理">
-            <el-menu-item index="1-21" @click="addTab('合同处理', 'SimpleTree')">合同处理</el-menu-item>
-            <el-menu-item index="1-22" @click="addTab('样品发送', 'UploadFile')">样品发送</el-menu-item>
+            <el-menu-item index="1-21" @click="showModal=true">进度查询</el-menu-item>
           </el-menu-item-group>
-          <el-menu-item index="1-31" @click="addTab('确认接收', 'UploadFile')">确认接收</el-menu-item>
-          <el-menu-item index="1-21" @click="addTab('审核测试报告', 'UploadFile')">审核测试报告</el-menu-item>
-          <el-menu-item index="1-31" @click="addTab('接受测试报告', 'UploadFile')">接受测试报告</el-menu-item>
         </el-submenu>
 
         <el-submenu index="9">
@@ -115,6 +147,12 @@ export default {
   },
   data() {
     return {
+      // 步骤
+      active: 0,
+      // 已选步骤
+      stepSuc: [0],
+      // 步骤标题
+      stepTitle: ['发起委托', '报价处理', '合同处理', '样品发送', '确认接收', '测试报告'],
       showLogin: false,
       user: null,
       keyword: "",
@@ -135,6 +173,15 @@ export default {
     };
   },
   computed: {
+    // 动态给步骤加样式
+    stepClassObj(val) {
+      return (val) => {
+        return {
+          stepSuc: this.stepSuc.includes(val),
+          stepErr: !this.stepSuc.includes(val)
+        }
+      }
+    },
     lang: {
       get: function() {
         console.log("config", Vue.config);
@@ -156,6 +203,20 @@ export default {
     });
   },
   methods: {
+    // 点击步骤条
+    handleStep(val) {
+      if (this.stepSuc.includes(val) === true) {
+        this.active = val
+      }
+    },
+    // 组件点击上一步
+    handleLastStep() {
+      if (--this.active === 0) { this.active = 0 }
+    },
+    // 组件点击下一步
+    handleNextStep() {
+      this.stepSuc.push(++this.active)
+    },
     switchLang(command) {
       this.lang = command;
     },
@@ -233,6 +294,13 @@ export default {
 </script>
 
 <style>
+.stepSuc :hover{
+  cursor: pointer;
+}
+.stepErr :hover{
+  cursor: not-allowed;
+}
+
 #logo{
   background: url("../../assets/b3.jpg");
     background-size: 100% 100%;
@@ -327,12 +395,11 @@ export default {
 }
 .pop {
   background-color: #fff;
- 
   position: fixed;
   top: 100px;
   left: 100px;
-  width: calc(10%);
-  height:calc(10%);
+  width: calc(70%);
+  height:calc(70%);
   z-index: 2
 }
 .btn {

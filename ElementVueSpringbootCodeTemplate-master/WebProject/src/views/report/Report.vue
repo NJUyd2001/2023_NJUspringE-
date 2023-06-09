@@ -79,11 +79,9 @@
             <el-option   v-for='item in Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
             </el-select>
             </el-form-item> 
-            <el-form-item label="样品清单">
-              <el-input placeholder='文档资料((1、需求文档:（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）
-              2、用户文档（例如：用户手册、用户指南等）（必须）
-              3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）))' 
-              style="width:700px;" :rows="5" v-model="SampleAndQuantity.Document" type="textarea" ></el-input>
+            <el-form-item label="样品清单:">
+              <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
+              v-model="SoftwareUserObjectDescription" type="textarea" />
             </el-form-item>
             <el-form-item label="测试结论:">
               <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
@@ -97,8 +95,33 @@
           </el-form-item> 
           <el-form-item label="批准人:"> 
             <el-input style="width:200px;padding:10px" v-model="Approver"></el-input>
-          </el-form-item>    
-        </el-form>
+          </el-form-item>  
+          <el-form-item label="测试环境" prop="Introduction" style="font-weight: bold; font-size: 15px;">
+            </el-form-item>  
+          </el-form>
+          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
+            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"硬件环境"' :key="index" >
+              <el-input placeholder="硬件类别" style="width: 100px;padding-right:20px;" v-model="Table.hardwarecategory"></el-input>
+              <el-input placeholder="硬件名称" style="width: 100px;padding-right:20px;" v-model="Table.hardwarename"></el-input>
+              <el-input placeholder="配置" style="width: 100px;padding-right:20px;" v-model="Table.setting"></el-input>
+              <el-input placeholder="数量" style="width: 100px;padding-right:20px;" v-model="Table.quantity"></el-input>
+          </el-form-item> 
+          </el-form>
+          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
+            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"软件环境"' :key="index" >
+              <el-input placeholder="软件类别" style="width: 100px;padding-right:20px;" v-model="Table.softwarecategory"></el-input>
+              <el-input placeholder="软件名称" style="width: 100px;padding-right:20px;" v-model="Table.softwarename"></el-input>
+              <el-input placeholder="版本" style="width: 100px;padding-right:20px;" v-model="Table.edition"></el-input>
+          </el-form-item> 
+          </el-form>
         </el-main>
       <LoginDialog :show='showLogin'/>
     </el-container>
@@ -107,6 +130,23 @@
     export default {
         data(){
            return{
+                ruleForm1:{
+                  hardwarecategory:'',
+                  hardwarename:'',
+                  setting:'',
+                  quantity:'',
+                  softwarecategory:'',
+                  softwarename:'',
+                  category:'',
+                TableData:[
+                  {
+                    id:1,
+                    name:'',
+                    function:'',
+                    children:[],
+                },
+              ],
+                },
                 reports:[
 		               {FunctionalModule: '无', 
                     FunctionalRequirement: '无', 

@@ -38,7 +38,7 @@
       </el-header>
         <br><br>
         <el-main>
-            <el-form label-width="100px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form label-width="200px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -71,18 +71,6 @@
     export default {
         data(){
            return{
-            ruleForm1:{
-                  SoftwareName:'',
-                  Versions:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
-                },
-              ],
-                },
                 user:{
                     name:'风车村',
                     password:'shazihuang',
@@ -96,6 +84,19 @@
                     URL:'',
                 },
                 ruleForm:{
+                    testclassification:'',
+                    serialnum:'',
+                    designspecification:'',
+                    regulation:'',
+                    precondition:'',
+                    executionprocess:'',
+                    expectedresult:'',
+                    designer:'',
+                    actualresult:'',
+                    bugnum:'',
+                    usecaseexecutor:'',
+                    testingtime:'',
+                    confirmperson:'',
                 
                 TableData:[
                   {
