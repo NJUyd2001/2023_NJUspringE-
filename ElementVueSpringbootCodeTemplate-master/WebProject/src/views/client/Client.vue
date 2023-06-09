@@ -1,21 +1,14 @@
 <template>
-<div id="logo">
-<el-container style="height: 880px">
-  <el-header style="height: 30px">
+<el-container style="height: 900px;">
+  <el-header style="height: 50px;">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="12"><div class="grid-content bg-purple">
         <span class="logo-title">客户界面</span>
         </div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light">
+      <el-col :span="6"><div class="grid-content bg-purple-light">
         <el-button  plain size="mini" type="primary" class="el-icon-user" @click="handleStart">我的</el-button></div></el-col>
       <el-col :span="8">
         <div class="box1">
-        <!--
-          <span v-if="user != null">
-            <span class="user">{{user.nick}}</span><el-button  plain size="mini"  type="danger" @click="logout">退出</el-button>
-          </span>
-          <span v-else><el-button type="success" plain size="mini" style = "margin:10px" @click="loginOut">登出</el-button></span>
-        -->
         <div>
     <div class="mask" v-if="showModal" @click="showModal=false"></div>
     <div class="pop" v-if="showModal">
@@ -23,29 +16,13 @@
     </div>
     <p style="right: 5px;"><button class="btn el-icon-avatar" @click="showModal=true"><Avatar /></button></p>
   </div> 
-          <el-dropdown  @command="switchLang">
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="zh">En</el-dropdown-item>
-              <el-dropdown-item command="en">中</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-
-        </div></el-col>
+  </div></el-col>
     </el-row>
   </el-header>
-
-
   <el-container >
-    <el-aside>
-      <!--
-      <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-        <el-radio-button :label="false" v-show="isCollapse">展开</el-radio-button>
-        <el-radio-button :label="true"v-show="!isCollapse">收起</el-radio-button>
-      </el-radio-group>
-      -->
+    <el-aside width="200px">
       <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
+        default-active="1"
         :collapse="isCollapse"
         >
         <el-submenu index="1">
@@ -63,7 +40,7 @@
             <el-menu-item index="1-22" @click="addTab('样品发送', 'UploadFile')">样品发送</el-menu-item>
           </el-menu-item-group>
           <el-menu-item index="1-31" @click="addTab('确认接收', 'UploadFile')">确认接收</el-menu-item>
-          <el-menu-item index="1-31" @click="addTab('审核测试报告', 'UploadFile')">审核测试报告</el-menu-item>
+          <el-menu-item index="1-21" @click="addTab('审核测试报告', 'UploadFile')">审核测试报告</el-menu-item>
           <el-menu-item index="1-31" @click="addTab('接受测试报告', 'UploadFile')">接受测试报告</el-menu-item>
         </el-submenu>
 
@@ -95,12 +72,12 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="0-1" @click="jump2myinf()">个人信息完善</el-menu-item>
-            <!-- <el-menu-item index="0-2" @click="addTab('选人组件', 'SelectUser')">选人组件</el-menu-item> -->
           </el-menu-item-group>
         </el-submenu>
 
       </el-menu>
     </el-aside>
+  <el-container>
     <el-main>      
       <el-tabs v-model="selectTabName" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
@@ -113,14 +90,15 @@
         </el-tab-pane>
       </el-tabs>
     </el-main>
-     
-  </el-container><el-footer>
+  <el-footer>
   <p>南京大学 计算机软件新技术国家重点实验室 软件测试中心<br>
   江苏省 南京市 栖霞区 仙林大道163号南京大学仙林校区计算机科学与技术楼<br>
   电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
   </el-footer>
+</el-container>
+</el-container>
   <LoginDialog :show='showLogin'/>
-</el-container></div>
+</el-container>
 </template>
 
 
@@ -256,7 +234,7 @@ export default {
 
 <style>
 #logo{
-    background: url("../../assets/b3.jpg");
+  background: url("../../assets/b3.jpg");
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
@@ -304,6 +282,7 @@ export default {
 }
 
 .el-container .el-main{
+  
   padding: 0px 5px 5px 5px;
 }
 
@@ -316,7 +295,9 @@ export default {
   outline: 1px solid;
 }
 */
-
+.el-aside::-webkit-scrollbar{
+  display:none;
+}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   height: 100%;

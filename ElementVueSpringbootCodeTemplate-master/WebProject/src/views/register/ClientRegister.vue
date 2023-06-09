@@ -108,12 +108,13 @@ export default {
   methods: {
     submitForm(formName) {
       //alert(JSON.stringify(this.ruleForm));
-      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-        console.log(ret.data)
+      Axios.post("http://localhost:9090/api/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
+        alert("注册成功");
+        this.$router.push({path: "./clientlogin", replace:true});
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);
-        //alert("error!");
+        // alert("error!");
       });
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {

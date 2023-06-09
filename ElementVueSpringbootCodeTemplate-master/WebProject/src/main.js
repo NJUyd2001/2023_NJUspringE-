@@ -45,7 +45,6 @@ Vue.prototype.confirm = function () {
 
 // ---------------------------------------- 请求
 Vue.prototype.ajax = Util.ajax;
-
 // ----------------------------------------  组件
 import { registerCommonComponents } from './commons';
 registerCommonComponents();

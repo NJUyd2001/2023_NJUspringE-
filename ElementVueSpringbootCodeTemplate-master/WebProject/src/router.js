@@ -32,7 +32,7 @@ import AuditQuote from './views/Quote/AuditQuote'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
-    mode: 'history',    // 路由模式，该模式不会在地址中显示井号#
+    //mode: 'history',    // 路由模式，该模式不会在地址中显示井号#
     routes: [
         {
             path: '/',          // 路径
