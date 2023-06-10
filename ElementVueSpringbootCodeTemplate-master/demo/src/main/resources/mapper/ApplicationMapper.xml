@@ -6,4 +6,21 @@
         INSERT INTO selabspringe.application(appplicantID, auditorID, curr_state, doc_path, phone, time, title)
         VALUES (#{applicantID}, #{audtiorID}, #{curr_state}, #{doc_path}, #{phone}, #{time}, #{title})
     </insert>
+    <select id="checkbyuserA" parameterType="String" resultType="String">
+        SELECT applicantID, auditorID, curr_state, doc_path, phone, time, title FROM application WHERE applicantID=#{arg0}
+    </select>
+    <select id="checkbyuserB" parameterType="String" resultType="String">
+        SELECT applicantID, auditorID, curr_state, doc_path, phone, time, title FROM application WHERE auditor=#{arg0}
+    </select>
+    <select id="checkbyAID" parameterType="int" resultType="String">
+        SELECT applicantID, auditorID, curr_state, doc_path, phone, time, title FROM application WHERE AID=#{arg0}
+    </select>
+    <update id="updateapplicant" parameterType="com.selab.demo.model.ApplicationModel" >
+        UPDATE selabspringe.application
+        SET applicantID = {applicantID}, auditorID = #{audtiorID}, curr_state = #{curr_state},doc_path = #{doc_path},phone = #{phone},time = #{time},title = #{title}
+        WHERE AID=#{AID}
+    </update>
+    <delete id="deleteapplicant" parameterType="int" >
+        DELETE FROM selabspringe.application WHERE AID = #{arg0}s
+    </delete>
 </mapper>
