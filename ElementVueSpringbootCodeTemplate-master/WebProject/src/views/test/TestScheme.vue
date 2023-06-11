@@ -9,7 +9,7 @@
       <br>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/test">
+            <router-link to="/Test">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
@@ -368,7 +368,7 @@
             }
           });*/
           this.info("提交成功，正在返回用户界面！");
-          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
         }
       },
     
