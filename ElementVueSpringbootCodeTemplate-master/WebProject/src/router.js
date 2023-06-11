@@ -13,7 +13,11 @@ import Market from './views/market/Market'
 import Admin  from './views/admin/Admin'
 import Test from './views/test/Test'
 import Application from './views/apply/Application'
+import ApplicationAmend from './views/apply/ApplicationAmend'
 import FunctionList from './views/apply/FunctionList'
+import FunctionListAmend from './views/apply/FunctionListAmend'
+import CheckAuditInfor from './views/apply/CheckAuditInfor'
+import CheckAuditInforFailed from './views/apply/CheckAuditInforFailed'
 import Report from './views/report/Report'
 import Personal from "./views/client/Personal";
 import Info from "./views/client/Info";
@@ -79,8 +83,24 @@ export default new VueRouter({
             component: Application      // 跳转到的组件 
         },
         {
+            path: '/applicationamend',       // 路径
+            component: ApplicationAmend      // 跳转到的组件 
+        },
+        {
             path: '/functionlist',       // 路径
             component: FunctionList      // 跳转到的组件 
+        },
+        {
+            path: '/functionlistAmend',       // 路径
+            component: FunctionListAmend      // 跳转到的组件 
+        },
+        {
+            path: '/checkauditinfor',     // 路径
+            component: CheckAuditInfor    // 跳转到的组件
+        },
+        {
+            path: '/checkauditinforfailed',     // 路径
+            component: CheckAuditInforFailed    // 跳转到的组件
         },
         {
             path: '/myinf',       // 路径

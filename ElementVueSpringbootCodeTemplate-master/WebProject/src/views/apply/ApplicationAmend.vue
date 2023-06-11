@@ -5,8 +5,9 @@
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
-    <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/application">申请表填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/Client' }">用户主页-委托修改</el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/checkauditinfor">审核意见查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/applicationamend">申请表修改</a></el-breadcrumb-item>
     </el-breadcrumb>
   </el-col>
   <el-col :span="2">
@@ -23,10 +24,11 @@
         <span class="logo-title">申请界面-申请表</span>
       </div></el-col>
       <el-col :span="8">
-        <el-steps :space="200" :active="0" finish-status="success">
-          <el-step title="申请表填写"></el-step>
-          <el-step title="功能列表填写"></el-step>
-          <el-step title="完成"></el-step>
+        <el-steps :space="200" :active="1" finish-status="success" >
+          <el-step title="审核信息查看"></el-step>
+          <el-step title="申请表修改"></el-step>
+          <el-step title="功能列表修改"></el-step>
+          <el-step title="修改完成"></el-step>
         </el-steps>
       </el-col>
       <el-col :span="2">
@@ -567,13 +569,12 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
          
-          this.$router.push({path: "./functionlist", replace:true});
+          this.$router.push({path: "./functionlistamend", replace:true});
         } else {
           return false;
         }
       });
-      this.info("提交成功！");
-      setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+      setTimeout(() => {this.$router.push({path: "./functionlistamend", replace:true});}, 2000);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

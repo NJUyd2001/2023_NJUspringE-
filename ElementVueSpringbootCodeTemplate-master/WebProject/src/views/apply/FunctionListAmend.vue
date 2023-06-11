@@ -5,9 +5,10 @@
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
-    <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/application">申请表填写</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/functionlist">委托功能列表填写</a></el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/Client' }">用户主页-委托修改</el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/checkauditinfor">审核意见查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/applicationamend">申请表修改</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/functionlistamend">功能列表修改</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
   <el-col :span="2">
@@ -16,7 +17,7 @@
     </el-row>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="10">
-        <router-link to="/application">
+        <router-link to="/applicationamend">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
@@ -24,10 +25,11 @@
         <span class="logo-title">申请界面-功能列表</span>
         </div></el-col>
         <el-col :span="8">
-        <el-steps :space="200" :active="1" finish-status="success">
-          <el-step title="申请表填写"></el-step>
-          <el-step title="功能列表填写"></el-step>
-          <el-step title="完成"></el-step>
+          <el-steps :space="200" :active="StepNumber" finish-status="success" >
+          <el-step title="审核信息查看"></el-step>
+          <el-step title="申请表修改"></el-step>
+          <el-step title="功能列表修改"></el-step>
+          <el-step title="修改完成"></el-step>
         </el-steps>
       </el-col>
       <el-col :span="2">
@@ -97,6 +99,7 @@ export default {
             },
           ],
             },
+            StepNumber:2,
             rules:{
               SoftwareName:[
                       { required: true, message: "不能为空！", trigger: "blur" },
@@ -108,6 +111,7 @@ export default {
     }
 }, 
   methods:{
+    
     TestInfor(){
       alert(JSON.stringify(this.ruleForm));
     },
@@ -142,14 +146,9 @@ export default {
           return false;
         }
       });*/
-      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-        console.log(ret.data)
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });
-      // this.info("提交成功，正在返回用户界面！");
-      // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      this.info("提交成功，正在返回用户界面！");
+      this.StepNumber+=2;
+      setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
     }
   },
 

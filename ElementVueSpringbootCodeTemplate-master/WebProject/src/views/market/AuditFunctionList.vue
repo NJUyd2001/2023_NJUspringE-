@@ -2,37 +2,40 @@
 <template>
 <el-container style="height:100%">
   <el-header style="height: 30px " @back="goback">
+    <el-row>
+      <el-col :span="22">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Market' }">市场部主页-审核委托</el-breadcrumb-item>
     <el-breadcrumb-item><a href="/auditapplication">申请表查看</a></el-breadcrumb-item>
     <el-breadcrumb-item><a href="/auditfunctionlist">功能列表数据查看</a></el-breadcrumb-item>
   </el-breadcrumb>
-  <br>
+  </el-col>
+  <el-col :span="2">
+    <el-button style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+  </el-col>
+</el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="6">
+      <el-col :span="10">
         <router-link to="/auditapplication">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="6" push="3"><div class="grid-content bg-purple">
+      <el-col :span="4" ><div class="grid-content bg-purple">
         <span class="logo-title">审核界面-功能列表</span>
         </div></el-col>
-        <el-col :span="6" pull="3">
-        <div class="grid-content bg-purple-light text-right">
-          <span v-if="user != null">
-            <span class="user">{{user.nick}}</span><el-button  plain size="middle"  type="danger" @click="logout">退出</el-button>
-          </span>
-          <span v-else><el-button type="success" plain size="middle" style = "margin:10px" @click="loginOut">登出</el-button></span>
-          <el-dropdown  @command="switchLang">
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="zh">En</el-dropdown-item>
-              <el-dropdown-item command="en">中</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div></el-col>
+        <el-col :span="8">
+        <el-steps :space="200" :active="1" finish-status="success" >
+          <el-step title="申请表审核"></el-step>
+          <el-step title="功能列表审核"></el-step>
+          <el-step title="审核信息填写"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+        </el-col>
+       <el-col :span="2">
          <router-link to="/Auditinfor">
 	          <el-button type="success" style="margin: 14px">下一步</el-button>
         </router-link>
+       </el-col>
     </el-row>
   </el-header>
     <br><br><br>

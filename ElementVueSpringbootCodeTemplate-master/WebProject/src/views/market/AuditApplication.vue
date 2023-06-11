@@ -1,20 +1,34 @@
 <template>
   <el-container style="height:100%">
     <el-header style="height: 30px " @back="goback">
+      <el-row>
+        <el-col :span="22">
       <el-breadcrumb separator="->">
-      <el-breadcrumb-item :to="{ path: '/test' }">测试部主页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/market' }">市场部主页-审核委托</el-breadcrumb-item>
       <el-breadcrumb-item><a href="">申请表审核</a></el-breadcrumb-item>
     </el-breadcrumb>
-    <br>
+  </el-col>
+  <el-col :span="2">
+    <el-button style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+  </el-col>
+      </el-row>
       <el-row  type="flex" justify="center" align="middle">
         <el-col :span="10">
-          <router-link to="/test">
+          <router-link to="/market">
           <el-button  size="middle" type="danger">上一步</el-button>
           </router-link>
         </el-col>
-        <el-col :span="12" ><div class="grid-content bg-purple">
-          <span class="logo-title">申请界面-申请表审核</span> 
+        <el-col :span="4" ><div class="grid-content bg-purple">
+          <span class="logo-title">审核界面-申请表审核</span> 
         </div></el-col>
+        <el-col :span="8">
+        <el-steps :space="200" :active="0" finish-status="success">
+          <el-step title="申请表审核"></el-step>
+          <el-step title="功能列表审核"></el-step>
+          <el-step title="审核信息填写"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+        </el-col>
         <el-col :span="2">
           <el-button  @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
         </el-col>

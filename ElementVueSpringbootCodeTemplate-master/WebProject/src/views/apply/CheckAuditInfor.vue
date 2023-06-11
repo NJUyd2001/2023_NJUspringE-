@@ -5,10 +5,8 @@
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
-    <el-breadcrumb-item :to="{ path: '/market' }">市场部主页-审核委托</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/auditapplication">申请表查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/auditfunctionlist">功能列表数据查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/application">审核信息填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/Client' }">用户主页-委托修改</el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/auditapplication">审核意见查看</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
 <el-col :span="2">
@@ -17,7 +15,7 @@
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="10">
-        <router-link to="/auditfunctionlist">
+        <router-link to="/Client">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
@@ -25,21 +23,21 @@
         <span class="logo-title">审核-审核信息填写</span>
         </div></el-col>
         <el-col :span="8">
-        <el-steps :space="200" :active="stepnumber" finish-status="success" >
-          <el-step title="申请表审核"></el-step>
-          <el-step title="功能列表审核"></el-step>
-          <el-step title="审核信息填写"></el-step>
-          <el-step title="完成"></el-step>
+        <el-steps :space="200" :active="0" finish-status="success" >
+          <el-step title="审核信息查看"></el-step>
+          <el-step title="申请表修改"></el-step>
+          <el-step title="功能列表修改"></el-step>
+          <el-step title="修改完成"></el-step>
         </el-steps>
         </el-col>
       <el-col :span="2">
-        <el-button  @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
+        <el-button  @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
       </el-col>
     </el-row>
   </el-header>
     <br><br><br>
     <el-main>
-      <el-form :label-position="top" label-width="550px">
+      <el-form :label-position="top" label-width="550px" disabled>
         <el-form-item label="密级：">
           <el-radio-group v-model="ruleForm.Security">
             <el-radio label="无密级"></el-radio>
@@ -138,21 +136,19 @@ export default {
           Number:'',
           PS:'',
         },
-        stepnumber:2,
         }
         },
     methods:{
       submitForm(formName) {
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {
-      //     this.$router.push({path: "./market", replace:true});
+          this.$router.push({path: "./applicationamend", replace:true});
       //   } else {
       //     return false;
       //   }
       // });
-      this.info("提交成功，正在返回测试部界面！");
-      this.stepnumber+=2;
-      setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+      // this.info("提交成功，正在返回测试部界面！");
+      // setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
     },
 }
 }
