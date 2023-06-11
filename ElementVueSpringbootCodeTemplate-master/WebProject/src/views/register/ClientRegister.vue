@@ -1,7 +1,7 @@
 <template>
   <div id="logo">
   <div class="header">
-  <h1 class="font-face">软件测试中心在线测试系统</h1>
+    <img src="../../assets/l3.png" style="height:80px"/>
 </div>
     <el-card class="box-card">
       <h2 style="text-align: center">注册</h2>
@@ -108,24 +108,19 @@ export default {
   methods: {
     submitForm(formName) {
       //alert(JSON.stringify(this.ruleForm));
-      Axios.post("http://localhost:9090/api/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-        alert("注册成功");
-        this.$router.push({path: "./clientlogin", replace:true});
+      // Axios.get("http://localhost:9090/api/user/")
+      Axios.post("http://localhost:9090/api/user/insert",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        this.info("提交成功！");
+        setTimeout(() => {this.$router.push({path: "./clientlogin", replace:true});}, 2000);
+        //this.$router.push({path: "./clientlogin", replace:true});
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);
         // alert("error!");
-      });
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //     alert("submit!");
-      //     this.$router.push({path: "./login", replace:true});
-      //   } else {
-      //     console.log("error submit!!");
-      //     return false;
-      //   }
-      // });
-      
+      });    
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

@@ -1,7 +1,7 @@
 <template>
     <div id="logo">
     <div class="header">
-  <h1 :class="font-face">软件测试中心在线测试系统</h1>
+      <img src="../../assets/l3.png" style="height:80px"/>
 </div>
     <el-card class="box-card">
       <h2 style="text-align: center">登录</h2>

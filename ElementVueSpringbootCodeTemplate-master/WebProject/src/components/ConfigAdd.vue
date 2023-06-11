@@ -3,8 +3,8 @@
         <el-form-item label="名称">
             <el-input v-model="form.name" placeholder="名称在这里"></el-input>
         </el-form-item>
-        <el-form-item label="学号">
-            <el-input v-model="form.value" placeholder="学号在这里"></el-input>
+        <el-form-item label="密码">
+            <el-input v-model="form.password" placeholder="密码在这里"></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit">添加</el-button>
@@ -17,7 +17,7 @@ export default {
         return {
             form: {
                 name: this.$store.state.user.name,
-                value: this.$store.state.user.value,
+                password: this.$store.state.user.password,
                 Permissions:this.$store.state.user.Permissions,
             }
         }
