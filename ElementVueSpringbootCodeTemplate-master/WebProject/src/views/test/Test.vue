@@ -1,29 +1,14 @@
 <!-- 文炫添加 -->
 <template>
-<div id="logo">
-<el-container style="height:100%">
+<el-container style="height:700px;">
   <el-header style="height: 30px">
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="12"><div class="grid-content bg-purple">
+      <el-col :span="20"><div class="grid-content bg-purple">
         <span class="logo-title">测试部</span>
         </div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain size="mini" type="primary" @click="handleStart">我的</el-button></div></el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple-light text-right">
-          <span v-if="user != null">
-            <span class="user">{{user.nick}}</span><el-button  plain size="mini"  type="danger" @click="logout">退出</el-button>
-          </span>
-          <span v-else><el-button type="success" plain size="mini" style = "margin:10px" @click="loginOut">登出</el-button></span>
-          
-          <el-dropdown  @command="switchLang">
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="zh">En</el-dropdown-item>
-              <el-dropdown-item command="en">中</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-
-        </div></el-col>
+        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
+        <el-button type="primary"  @click="loginOut">登出</el-button></div></el-col>
     </el-row>
   </el-header>
 
@@ -85,6 +70,7 @@
 
       </el-menu>
     </el-aside>
+    <el-container>
     <el-main>      
       <el-tabs v-model="selectTabName" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
@@ -97,14 +83,15 @@
         </el-tab-pane>
       </el-tabs>
     </el-main>
-  </el-container>
   <el-footer>
   <p>南京大学 计算机软件新技术国家重点实验室 软件测试中心<br>
   江苏省 南京市 栖霞区 仙林大道163号南京大学仙林校区计算机科学与技术楼<br>
   电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
   </el-footer>
+</el-container>
+</el-container>
   <LoginDialog :show='showLogin'/>
-</el-container></div>
+</el-container>
 </template>
 <script>
 import Vue from "vue";
@@ -120,7 +107,10 @@ export default {
   data() {
     return {
       showLogin: false,
-      user: null,
+      user: {
+        uname:this.$store.state.user.name,
+        password:""
+      },
       keyword: "",
       isCollapse: false,
 

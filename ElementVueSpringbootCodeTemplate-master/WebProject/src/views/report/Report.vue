@@ -6,6 +6,7 @@
           <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
           <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
         </el-breadcrumb>
+        <br>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
             <router-link to="/admin">

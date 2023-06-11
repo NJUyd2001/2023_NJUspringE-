@@ -15,7 +15,7 @@
             </router-link>
           </el-col>
           <el-col :span="6" push="3"><div class="grid-content bg-purple">
-            <span class="logo-title">测试部-审核表格</span>
+            <span class="logo-title">测试部-测试文档填写</span>
             </div></el-col>
             <el-col :span="6" pull="3">
             <div class="grid-content bg-purple-light text-right">
@@ -43,7 +43,7 @@
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
-          }" :label='"审核表格"+index+":"' :key="index" >
+          }" :label='"测试用例"+(index+1)+":"' :key="index" >
               <el-input placeholder="测试分类" style="width: 100px;padding-right:20px;" v-model="Table.testclassification"></el-input>
               <el-input placeholder="ID" style="width: 100px;padding-right:20px;" v-model="Table.num"></el-input>
               <el-input placeholder="测试用例设计说明" style="width: 200px;padding-right:20px;" v-model="Table.testcasedesign"></el-input>
