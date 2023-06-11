@@ -9,7 +9,7 @@
         <br>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/admin">
+            <router-link to="/Test">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
@@ -100,7 +100,7 @@
           <el-form-item label="测试环境" prop="Introduction" style="font-weight: bold; font-size: 15px;">
             </el-form-item>  
           </el-form>
-          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
+          <el-form label-width="750px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
             <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -112,7 +112,7 @@
               <el-input placeholder="数量" style="width: 100px;padding-right:20px;" v-model="Table.quantity"></el-input>
           </el-form-item> 
           </el-form>
-          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
+          <el-form label-width="750px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
             <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -138,7 +138,7 @@
                   quantity:'',
                   softwarecategory:'',
                   softwarename:'',
-                  category:'',
+                  edition:'',
                 TableData:[
                   {
                     id:1,
@@ -169,224 +169,15 @@
                     URL:'',
                 },
                 TypeOfTest:[
-                  {
-                    id:1,
-                    value:'软件确认测试',
-                  },
-                  {
-                    id:2,
-                    value:'成果/技术鉴定测试',
-                  },
-                  {
-                    id:3,
-                    value:'专项资金验收测试',
-                  },
+                  
                 ],
                 Standard:[
-                    {
-                      id:1,
-                      value:'GB/T 25000.51-2016',
-                    },
-                    {
-                      id:2,
-                      value:'GB/T 25000.10-2016',
-                    },
-                    {
-                      id:3,
-                      value:'GB/T 28452-2012',
-                    },
-                    {
-                      id:4,
-                      value:'GB/T 30961-2014',
-                    },
-                    {
-                      id:5,
-                      value:'NST-03-WI12-2011',
-                    },
-                    {
-                      id:6,
-                      value:'NST-03-WI13-2011',
-                    },
-                    {
-                      id:7,
-                      value:'NST-03-WI22-2014',
-                    }
+                    
                 ],
-                TechnicalIndex:[{
-                      id:1,
-                      value:'功能性',
-                    },
-                    {
-                      id:2,
-                      value:'可靠性',
-                    },
-                    {
-                      id:3,
-                      value:'易用性',
-                    },
-                    {
-                      id:4,
-                      value:'效率',
-                    },
-                    {
-                      id:5,
-                      value:'可维护性',
-                    },
-                    {
-                      id:6,
-                      value:'可移植性',
-                    },
-                    {
-                      id:7,
-                      value:'代码覆盖度',
-                    },
-                    {
-                      id:8,
-                      value:'缺陷检测率',
-                    },
-                    {
-                      id:9,
-                      value:'代码风格符合度',
-                    },
-                    {
-                      id:10,
-                      value:'代码不符合项检测率',
-                    },
-                    {
-                      id:11,
-                      value:'产品说明要求',
-                    },
-                    {
-                      id:12,
-                      value:'用户文档集要求',
-                    },
-                    {
-                      id:13,
-                      value:'可移植性',
-                    },
-                    {
-                      id:14,
-                      value:'代码覆盖度',
-                    }],
-                TypeOfSoftWare:[
-        {
-          label:'系统软件',
-          options:[{
-                                        name:'操纵系统',
-                                        id:1,
-                                      },
-                                      {
-                                        name:'中文处理系统',
-                                        id:2,
-                                      },
-                                      {
-                                        name:'网络系统',
-                                        id:3,
-                                      },
-                                      {
-                                        name:'嵌入式操作系统',
-                                        id:4,
-                                      },
-                                      {
-                                        name:'其他(系统软件)',
-                                        id:5,
-                                      }],
-                                      },
-                                      {
-                                        label:'支持软件',
-                                        options:[{            
-                                      name:'程序设计语言',
-                                        id:6,
-                                      },
-                                      {
-                                        name:'数据库系统设计',
-                                        id:7,
-                                      },
-                                      {
-                                        name:'工具软件',
-                                        id:8,
-                                      },
-                                      {
-                                        name:'网络通信软件',
-                                        id:9,
-                                      },
-                                      {
-                                        name:'中间件',
-                                        id:10,
-                                      },
-                                      {
-                                        name:'其他(支持软件)',
-                                        id:11,
-                                      }
-                                      ],
-                                      },
-                                      {
-                                        label:'应用软件',
-                                        options:[
-                                      {            
-                                        name:'行业管理软件',
-                                        id:12,
-                                      },
-                                      {
-                                        name:'办公软件',
-                                        id:13,
-                                      },
-                                      {
-                                        name:'模式识别软件',
-                                        id:14,
-                                      },
-                                      {
-                                        name:'图形图像软件',
-                                        id:15,
-                                      },
-                                      {
-                                        name:'控制软件',
-                                        id:16,
-                                      },
-                                      {            
-                                        name:'网络应用软件',
-                                        id:17,
-                                      },
-                                      {
-                                        name:'信息管理软件',
-                                        id:18,
-                                      },
-                                      {
-                                        name:'数据库管理应用软件',
-                                        id:19,
-                                      },
-                                      {
-                                        name:'安全与保密软件',
-                                        id:20,
-                                      },
-                                      {
-                                        name:'嵌入式应用软件',
-                                        id:21,
-                                      },
-                                      {
-                                        name:'教育软件',
-                                        id:22,
-                                      },
-                                      {
-                                        name:'游戏软件',
-                                        id:23,
-                                      },
-                                      {
-                                        name:'其他(应用软件)',
-                                        id:24,
-                                      }
-                                    ],
-                                      },
-                                      {
-                                        label:'其他',
-                                        options:[
-                                        {
-                                        name:'其他',
-                                        id:25,
-                                        }
-                                        ]
-                                      },
+                TechnicalIndex:[
+                
                 ],
+                
                 shortcuts:[
                           {
                             text: 'Today',
@@ -429,15 +220,6 @@
                 },
                 SoftWareType:'',
                 RuntimeEnvironment:{
-                    Client:{
-                    OS:{
-                      Windows:'',
-                      Linux:'',
-                      other:''
-                  },
-                  Mermory:'',
-                  Other:''
-                  },
                   Server:{
                     HardWare:{
                     FrameWork:[],  

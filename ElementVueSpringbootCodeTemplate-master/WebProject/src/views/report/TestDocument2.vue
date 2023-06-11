@@ -10,12 +10,12 @@
       <br>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/test">
+            <router-link to="/report">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
           <el-col :span="6" push="3"><div class="grid-content bg-purple">
-            <span class="logo-title">测试部-填写表格</span>
+            <span class="logo-title">测试记录</span>
             </div></el-col>
             <el-col :span="6" pull="3">
             <div class="grid-content bg-purple-light text-right">
@@ -38,26 +38,26 @@
       </el-header>
         <br><br>
         <el-main>
-            <el-form label-width="200px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form style="padding-top:40px;" label-width="100px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
-          }" :label='"审核表格"+index+":"' :key="index" >
-              <el-input placeholder="测试分类" style="width: 100px;padding-right:20px;" v-model="Table.testclassification"></el-input>
-              <el-input placeholder="序号" style="width: 100px;padding-right:20px;" v-model="Table.serialnum"></el-input>
-              <el-input placeholder="测试用例设计说明" style="width: 100px;padding-right:20px;" v-model="Table.designspecification"></el-input>
-              <el-input placeholder="与本测试用例有关的规约说明" style="width: 100px;padding-right:20px;" v-model="Table.regulation"></el-input>
-              <el-input placeholder="前提条件" style="width: 100px;padding-right:20px;" v-model="Table.precondition"></el-input>
-              <el-input placeholder="测试用例执行过程" style="width: 100px;padding-right:20px;" v-model="Table.executionprocess"></el-input>
+          }" :label='"测试记录"+index+":"' :key="index" >
+              <el-input placeholder="测试分类" style="width: 90px;padding-right:20px;" v-model="Table.testclassification"></el-input>
+              <el-input placeholder="序号" style="width: 60px;padding-right:20px;" v-model="Table.serialnum"></el-input>
+              <el-input placeholder="测试用例设计说明" style="width: 150px;padding-right:20px;" v-model="Table.designspecification"></el-input>
+              <el-input placeholder="与本测试用例有关的规约说明" style="width: 215px;padding-right:20px;" v-model="Table.regulation"></el-input>
+              <el-input placeholder="前提条件" style="width: 90px;padding-right:20px;" v-model="Table.precondition"></el-input>
+              <el-input placeholder="测试用例执行过程" style="width: 150px;padding-right:20px;" v-model="Table.executionprocess"></el-input>
               <el-input placeholder="预期的结果" style="width: 100px;padding-right:20px;" v-model="Table.expectedresult"></el-input>
-              <el-input placeholder="测试用例设计者" style="width: 100px;padding-right:20px;" v-model="Table.designer"></el-input>
-              <el-input placeholder="实际结果" style="width: 100px;padding-right:20px;" v-model="Table.actualresult"></el-input>
-              <el-input placeholder="是否与预期结果一致" style="width: 100px;padding-right:20px;" v-model="Table.conformity"></el-input>
-              <el-input placeholder="相关的BUG编号" style="width: 100px;padding-right:20px;" v-model="Table.bugnum"></el-input>
+              <el-input placeholder="测试用例设计者" style="width: 140px;padding-right:20px;" v-model="Table.designer"></el-input>
+              <el-input placeholder="实际结果" style="width: 90px;padding-right:20px;" v-model="Table.actualresult"></el-input>
+              <el-input placeholder="是否与预期结果一致" style="width: 160px;padding-right:20px;" v-model="Table.conformity"></el-input>
+              <el-input placeholder="相关的BUG编号" style="width: 140px;padding-right:20px;" v-model="Table.bugnum"></el-input>
               <el-input placeholder="用例执行者" style="width: 100px;padding-right:20px;" v-model="Table.usecaseexecutor"></el-input>
-              <el-input placeholder="执行测试时间" style="width: 100px;padding-right:20px;" v-model="Table.testingtime"></el-input>
-              <el-input placeholder="确认人" style="width: 100px;padding-right:20px;" v-model="Table.confirmperson"></el-input>
+              <el-input placeholder="执行测试时间" style="width: 120px;padding-right:20px;" v-model="Table.testingtime"></el-input>
+              <el-input placeholder="确认人" style="width: 80px;padding-right:20px;" v-model="Table.confirmperson"></el-input>
               <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -125,7 +125,7 @@
         },
         removefatherItem(Table){
           const index = this.ruleForm.TableData.indexOf(Table)
-          if (index !== -1) {
+          if (index !== 0) {
           this.ruleForm.TableData.splice(index, 1);
       }
         },
@@ -147,7 +147,7 @@
             }
           });*/
           this.info("提交成功，正在返回用户界面！");
-          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
         },
         saveForm(formName) {
           /*this.$refs[formName].validate((valid) => {
