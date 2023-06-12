@@ -1,7 +1,7 @@
 <template>
     <div id="logo">
     <div class="header">
-  <h1 class="font-face">软件测试中心在线测试系统</h1>
+      <img src="../../assets/l3.png" style="height:80px"/>
 </div>
     <el-card class="box-card">
       <h2 style="text-align: center">登录</h2>
@@ -63,15 +63,15 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-        console.log(ret.data)
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-        //alert("error!");
-      });
-      //this.$router.push({path: "./client", replace:true});
-      alert(JSON.stringify(this.ruleForm));
+      // Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
+      //   console.log(ret.data)
+      // })
+      // .catch(function (error) { // 请求失败处理
+      //   console.log(error);
+      //   //alert("error!");
+      // });
+      this.$router.push({path: "./client", replace:true});
+      // alert(JSON.stringify(this.ruleForm));
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

@@ -1,61 +1,20 @@
 <template>
-<el-container style="height: 900px;">
+<el-container style="height: 700px;">
   <el-header style="height: 50px;">
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="12"><div class="grid-content bg-purple">
-        <span class="logo-title">客户界面</span>
+      <el-col :span="8"><div class="grid-content bg-purple">
+        <span class="logo-title">{{user.uname}},您好</span>
         </div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple-light">
-        <el-button  plain size="mini" type="primary" class="el-icon-user" @click="handleStart">我的</el-button></div></el-col>
-      <el-col :span="8">
-        <div class="box1">
-        <div>
-    <div class="mask" v-if="showModal" @click="showModal=false"></div>
-    <div class="pop" v-if="showModal">
-        <div class="main">
-    <el-steps direction="vertical" :space="110" :active="active" finish-status="success">
-      <el-step
-        v-for="(item,index) of stepTitle"
-        :key="index"
-        :title="item"
-        :class="stepClassObj(index)"
-        @click.native="handleStep(index)"
-      />
-    </el-steps>
-    <!-- 内容展示区 -->
-    <step-content1
-      v-show="active === 0 "
-      @handleNextStep="handleNextStep()"
-    />
-    <step-content2
-      v-show="active === 1 "
-      @handleLastStep="handleLastStep()"
-      @handleNextStep="handleNextStep()"
-    />
-    <step-content3
-      v-show="active === 2 "
-      @handleLastStep="handleLastStep()"
-      @handleNextStep="handleNextStep()"
-    />
-    <step-content4
-      v-show="active === 3 "
-      @handleLastStep="handleNextStep()"
-    />
-    <step-content4
-      v-show="active === 4 "
-      @handleLastStep="handleNextStep()"
-    />
-    <step-content5
-      v-show="active === 5 "
-      @handleLastStep="handleLastStep()"
-    />
-
-  </div>
-    </div>
-  </div> 
-  </div></el-col>
+        <el-col :span="12">
+          <img src="../../assets/l3.png" style="height:80px"/>
+        </el-col>
+      <el-col :span="4"><div class="grid-content bg-purple-light">
+        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
+        <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
+      </el-col>
     </el-row>
   </el-header>
+  <br>
   <el-container >
     <el-aside width="200px">
       <el-menu
@@ -154,11 +113,12 @@ export default {
       // 步骤标题
       stepTitle: ['发起委托', '报价处理', '合同处理', '样品发送', '确认接收', '测试报告'],
       showLogin: false,
-      user: null,
+      user:{
+        uname:this.$store.state.user.name,
+      },
       keyword: "",
       isCollapse: false,
       showModal: false,
-
       menus: [{}],
 
       //Tabs
@@ -194,13 +154,13 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(function() {
-      this.ajax.post("/app/user").then(result => {
-        if (result.code == 0) {
-          this.user = result.data;
-        }
-      });
-    });
+    // this.$nextTick(function() {
+    //   this.ajax.post("/app/user").then(result => {
+    //     if (result.code == 0) {
+    //       this.user = result.data;
+    //     }
+    //   });
+    // });
   },
   methods: {
     // 点击步骤条

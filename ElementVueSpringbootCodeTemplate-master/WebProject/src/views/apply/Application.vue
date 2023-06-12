@@ -2,20 +2,33 @@
 <template>
 <el-container style="height:100%">
   <el-header style="height: 30px " @back="goback">
+    <el-row>
+    <el-col :span="22">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/application">申请表填写</a></el-breadcrumb-item>
-  </el-breadcrumb>
-  <br>
+    <el-breadcrumb-item><a href="/#/application">申请表填写</a></el-breadcrumb-item>
+    </el-breadcrumb>
+  </el-col>
+  <el-col :span="2">
+    <el-button style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+  </el-col>
+  </el-row>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="10">
         <router-link to="/Client">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="12" ><div class="grid-content bg-purple">
-        <span class="logo-title">申请界面-申请表</span> 
+      <el-col :span="4" ><div class="grid-content bg-purple">
+        <span class="logo-title">申请界面-申请表</span>
       </div></el-col>
+      <el-col :span="8">
+        <el-steps :space="200" :active="0" finish-status="success">
+          <el-step title="申请表填写"></el-step>
+          <el-step title="功能列表填写"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+      </el-col>
       <el-col :span="2">
         <el-button  @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
       </el-col>
@@ -138,10 +151,10 @@
               :on-exceed="handleExceed"
               :file-list="ruleForm.SamplesSubmitted">
   <el-button size="small" type="primary">点击上传</el-button>
-  <div slot="tip" class="el-upload__tip">注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
-                                              2、用户文档（例如：用户手册、用户指南等）（必须）<br>
+  <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
+                                              2、用户文档（例如：用户手册、用户指南等）(必须)<br>
                                               3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）
-                                            </div>
+                                            </strong></div>
             </el-upload>
         </el-form-item>
         <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="SamplesSubmitted">
@@ -553,7 +566,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+         
           this.$router.push({path: "./functionlist", replace:true});
         } else {
           return false;

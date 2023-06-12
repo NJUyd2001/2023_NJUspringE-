@@ -9,7 +9,7 @@
       <br>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/Client">
+            <router-link to="/Test">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>

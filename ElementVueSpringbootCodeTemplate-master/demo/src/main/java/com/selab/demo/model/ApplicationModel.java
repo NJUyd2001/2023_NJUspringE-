@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * */
 @Table
 public class ApplicationModel extends BaseEntity{
-    //private String AID;
+    private int AID;
     private int applicantID;//申请单ID
     private int audtiorID;//审核员ID
     private ApplicationState curr_state;//审核状态
@@ -20,11 +20,12 @@ public class ApplicationModel extends BaseEntity{
     private Date time;//时间
     private String title;//标题
 
-    //public String getAID(){return AID;}
+    public int getAID(){return AID;}
 
-    //public void setAID(String AID){this.AID = AID;}
+    public void setAID(int AID){this.AID = AID;}
 
-    public ApplicationModel(int applicantID, int audtiorID, ApplicationState curr_state,String doc_path, String phone, Date time, String title){
+    public ApplicationModel(int AID, int applicantID, int audtiorID, ApplicationState curr_state,String doc_path, String phone, Date time, String title){
+        this.AID = AID;
         this.applicantID = applicantID;
         this.audtiorID = audtiorID;
         this.curr_state = curr_state;

@@ -4,7 +4,7 @@ const config = {
     namespaced: true,
     state: {
         configs: [
-            { id: 1, 'name': '初始化配置项', value: '晓风轻' }
+            { id: 1, 'name': '初始化配置项', value: '' }
         ]
     },
     mutations: {
