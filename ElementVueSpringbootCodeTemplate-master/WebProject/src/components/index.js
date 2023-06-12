@@ -4,6 +4,7 @@ import ConfigTable2 from './table/ConfigTable2';
 import ConfigTable3 from './table/ConfigTable3';
 
 import CTMENT from './table/CTM-ENT';
+import ProgressQuery from './table/ProgressQuery';
 
 
 import LoginDialog from './LoginDialog';
@@ -36,6 +37,7 @@ function registerComponents(){
     Vue.component('ConfigTable2', ConfigTable2);
     Vue.component('ConfigTable3', ConfigTable3);
     Vue.component('CTMENT', CTMENT);
+    Vue.component('ProgressQuery', ProgressQuery); 
 
     Vue.component('LoginDialog', LoginDialog);
     Vue.component('ConfigTableSimple', ConfigTableSimple);

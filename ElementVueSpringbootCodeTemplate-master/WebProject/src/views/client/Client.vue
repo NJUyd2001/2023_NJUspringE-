@@ -72,7 +72,7 @@
             <el-menu-item index="1-11" @click="jump2application()">发起委托</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="委托处理">
-            <el-menu-item index="1-21" @click="showModal=true">进度查询</el-menu-item>
+            <el-menu-item index="1-21" @click="addTab('进度查询', 'ProgressQuery')">进度查询</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
