@@ -3,14 +3,14 @@
   <el-header style="height: 50px;">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
-        <span class="logo-title">客户界面</span>
+        <span class="logo-title">{{user.uname}},您好</span>
         </div></el-col>
         <el-col :span="12">
           <img src="../../assets/l3.png" style="height:80px"/>
         </el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
         <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
-        <el-button type="primary"  @click="loginOut">登出</el-button></div>
+        <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
       </el-col>
     </el-row>
   </el-header>
@@ -70,7 +70,7 @@
     </el-aside>
   <el-container>
     <el-main>      
-      <el-tabs v-model="selectTabName" type="border-card" closable @tab-remove="removeTab">
+      <el-tabs v-model="selectTabName" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
           v-for="item in tabs"
           :key="item.name"

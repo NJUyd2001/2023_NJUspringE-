@@ -3,36 +3,38 @@
 <el-container style="height:100%">
   <el-header style="height: 30px " @back="goback">
     <el-row>
-      <el-col :span="22">
+      <el-col :span="23">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Market' }">市场部主页-审核委托</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/auditapplication">申请表查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/auditfunctionlist">功能列表数据查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/marketaudituser' }">客户信息审核</el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/marketauditapplication">申请表查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/marketauditfunctionlist">功能列表数据查看</a></el-breadcrumb-item>
   </el-breadcrumb>
   </el-col>
-  <el-col :span="2">
+  <el-col :span="1">
     <el-button style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
   </el-col>
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="10">
-        <router-link to="/auditapplication">
+      <el-col :span="9">
+        <router-link to="/marketauditapplication">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="4" ><div class="grid-content bg-purple">
-        <span class="logo-title">审核界面-功能列表</span>
+      <el-col :span="3" ><div class="grid-content bg-purple">
+        <span class="logo-title">功能列表审核</span>
         </div></el-col>
-        <el-col :span="8">
-        <el-steps :space="200" :active="1" finish-status="success" >
-          <el-step title="申请表审核"></el-step>
-          <el-step title="功能列表审核"></el-step>
-          <el-step title="审核信息填写"></el-step>
+        <el-col :span="10">
+          <el-steps :space="200" :active="2" finish-status="success">
+          <el-step title="客户信息查看"></el-step>
+          <el-step title="申请表查看"></el-step>
+          <el-step title="功能列表查看"></el-step>
+          <el-step title="审核意见填写"></el-step>
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-       <el-col :span="2">
-         <router-link to="/Auditinfor">
+       <el-col :span="1">
+         <router-link to="/marketAuditinfor">
 	          <el-button type="success" style="margin: 14px">下一步</el-button>
         </router-link>
        </el-col>
@@ -40,6 +42,7 @@
   </el-header>
     <br><br><br>
     <el-main>
+      <br>
       <el-form label-width="550px" disabled :model="ruleForm" ref="ruleForm">
         <el-form-item label="软件名称:" prop="SoftwareName">
           <el-input v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>

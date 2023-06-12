@@ -2,40 +2,42 @@
   <el-container style="height:100%">
     <el-header style="height: 30px " @back="goback">
       <el-row>
-        <el-col :span="22">
+        <el-col :span="23">
       <el-breadcrumb separator="->">
       <el-breadcrumb-item :to="{ path: '/market' }">市场部主页-审核委托</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="">申请表审核</a></el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/marketaudituser' }">客户信息查看</el-breadcrumb-item>
+      <el-breadcrumb-item><a href="">申请表查看</a></el-breadcrumb-item>
     </el-breadcrumb>
   </el-col>
-  <el-col :span="2">
+  <el-col :span="1">
     <el-button style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
   </el-col>
       </el-row>
       <el-row  type="flex" justify="center" align="middle">
-        <el-col :span="10">
-          <router-link to="/market">
+        <el-col :span="9">
+          <router-link to="/marketaudituser">
           <el-button  size="middle" type="danger">上一步</el-button>
           </router-link>
         </el-col>
-        <el-col :span="4" ><div class="grid-content bg-purple">
-          <span class="logo-title">审核界面-申请表审核</span> 
+        <el-col :span="3" ><div class="grid-content bg-purple">
+          <span class="logo-title">申请表查看</span> 
         </div></el-col>
-        <el-col :span="8">
-        <el-steps :space="200" :active="0" finish-status="success">
-          <el-step title="申请表审核"></el-step>
-          <el-step title="功能列表审核"></el-step>
-          <el-step title="审核信息填写"></el-step>
+        <el-col :span="10">
+        <el-steps :space="200" :active="1" finish-status="success">
+          <el-step title="客户信息查看"></el-step>
+          <el-step title="申请表查看"></el-step>
+          <el-step title="功能列表查看"></el-step>
+          <el-step title="审核意见填写"></el-step>
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="1">
           <el-button  @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
         </el-col>
       </el-row>
     </el-header>
       <br><br><br>
-      <el-main style="border-radius: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
+      <el-main>
         <br>
         <el-form disabled :label-position="top" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
           <el-form-item label="测试类型:"> 
@@ -511,7 +513,7 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$router.push({path: "./auditfunctionlist", replace:true});
+            this.$router.push({path: "./marketauditfunctionlist", replace:true});
           } else {
             return false;
           }
@@ -565,6 +567,10 @@
   
   .el-header{
     margin: 10px 0 10px 0;  
+  }
+  .el-main{
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   }
   .header .nav {
     height: 40px;

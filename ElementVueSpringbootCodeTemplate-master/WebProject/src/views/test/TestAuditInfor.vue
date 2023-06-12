@@ -3,36 +3,40 @@
 <el-container style="height:100%">
   <el-header style="height: 30px " @back="goback">
     <el-row>
-    <el-col :span="22">
+    <el-col :span="23">
     <el-breadcrumb separator="->">
-    <el-breadcrumb-item :to="{ path: '/market' }">市场部主页-审核委托</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/auditapplication">申请表查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/auditfunctionlist">功能列表数据查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/application">审核信息填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/market' }">测试部主页-审核委托</el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/testaudituser' }">客户信息查看</el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/testauditapplication">申请表查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/testauditfunctionlist">功能列表查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/testaudit">审核意见查看(市场部)</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/testapplication">审核信息填写</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
-<el-col :span="2">
+<el-col :span="1">
   <el-button style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
   </el-col> 
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="10">
-        <router-link to="/auditfunctionlist">
+        <router-link to="/testcheckmarketinfor">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="4" ><div class="grid-content bg-purple">
-        <span class="logo-title">审核-审核信息填写</span>
+      <el-col :span="3" ><div class="grid-content bg-purple">
+        <span class="logo-title">审核信息填写</span>
         </div></el-col>
-        <el-col :span="8">
-        <el-steps :space="200" :active="stepnumber" finish-status="success" >
-          <el-step title="申请表审核"></el-step>
-          <el-step title="功能列表审核"></el-step>
+        <el-col :span="10">
+        <el-steps :space="200" :active="StepNumber" finish-status="success" >
+          <el-step title="客户信息查看"></el-step>
+          <el-step title="申请表查看"></el-step>
+          <el-step title="功能列表查看"></el-step>
+          <el-step title="审核意见查看"></el-step>
           <el-step title="审核信息填写"></el-step>
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-      <el-col :span="2">
+      <el-col :span="1">
         <el-button  @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
       </el-col>
     </el-row>
@@ -138,7 +142,7 @@ export default {
           Number:'',
           PS:'',
         },
-        stepnumber:2,
+        StepNumber:4,
         }
         },
     methods:{
@@ -151,8 +155,8 @@ export default {
       //   }
       // });
       this.info("提交成功，正在返回测试部界面！");
-      this.stepnumber+=2;
-      setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+      this.StepNumber+=2;
+      setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
     },
 }
 }
