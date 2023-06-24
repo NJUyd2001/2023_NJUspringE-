@@ -286,34 +286,4 @@ export default {
     line-height: 20px;
 }
 
-.logo-title{
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.mask {
-  background-color: #000;
-  opacity: 0.3;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1
-}
-.pop {
-  background-color: #fff;
-  position: fixed;
-  top: 100px;
-  left: 100px;
-  width: calc(70%);
-  height:calc(70%);
-  z-index: 2
-}
-.btn {
-  background-color: #fff;
-  border-radius: 4px;
-  border: 1px solid blue;
-  padding: 4px 12px;
-}
 </style>

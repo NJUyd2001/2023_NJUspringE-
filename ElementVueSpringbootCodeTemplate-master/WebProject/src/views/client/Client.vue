@@ -1,4 +1,5 @@
 <template>
+<div class ="Person">
 <el-container style="height: 700px;">
   <el-header style="height: 50px;">
     <el-row  type="flex" justify="center" align="middle">
@@ -90,6 +91,7 @@
 </el-container>
   <LoginDialog :show='showLogin'/>
 </el-container>
+</div>
 </template>
 
 
@@ -326,10 +328,7 @@ export default {
 .el-aside::-webkit-scrollbar{
   display:none;
 }
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  height: 100%;
-}
+
 
 .el-footer {
     color: #333;
@@ -367,5 +366,13 @@ export default {
   border-radius: 4px;
   border: 1px solid blue;
   padding: 4px 12px;
+}
+
+.Person{
+  background: url("../../assets/b3.jpg");
+  background-size: 100% 100%;
+  height: 100%;
+  position: fixed;
+  width: 100%
 }
 </style>
