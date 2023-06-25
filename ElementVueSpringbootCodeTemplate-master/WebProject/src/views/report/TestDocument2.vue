@@ -37,9 +37,25 @@
         </el-row>
       </el-header>
         <br><br>
-        <el-main>
-            <el-form style="padding-top:40px;" label-width="100px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+        <el-main style="margin-top:50px;">
+            <el-form style="border-bottom-style:double; border-color: rgb(199, 196, 196); width:1425px; margin-top: 20px; margin-left: 100px; height: 40px;">
+              <el-label style="margin-left: 10px;">测试分类</el-label>
+              <el-label style="margin-left: 50px;">序号</el-label>
+              <el-label style="margin-left: 50px;">测试用例设计说明</el-label>
+              <el-label style="margin-left: 30px;">与本测试用例有关的规约说明</el-label>
+              <el-label style="margin-left: 35px;">前提条件</el-label>
+              <el-label style="margin-left: 40px;">测试用例执行过程</el-label>
+              <el-label style="margin-left: 40px;">预期的结果</el-label>
+              <el-label style="margin-left: 45px;">测试用例设计者</el-label>
+              <el-label style="margin-left: 45px;">实际结果</el-label>
+              <el-label style="margin-left: 40px;">是否与预期结果一致</el-label><br><br><br>
+              <el-label style="margin-left: 10px;">相关的BUG编号</el-label>
+              <el-label style="margin-left: 40px;">用例执行者</el-label>
+              <el-label style="margin-left: 40px;">执行测试时间</el-label>
+              <el-label style="margin-left: 45px;">确认人</el-label>
+            </el-form>
+            <el-form style="padding-top:55px;"  label-width="100px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item style="width: 1590px;" v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',

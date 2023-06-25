@@ -14,7 +14,8 @@
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="3"><div class="grid-content bg-purple">
+          <el-col :span="6" push="3">
+            <div class="grid-content bg-purple">
             <span class="logo-title">测试文档填写</span>
             </div></el-col>
             <el-col :span="6" pull="3">
@@ -37,20 +38,28 @@
         </el-row>
       </el-header>
         <br><br>
-        <el-main>
-            <el-form style="padding-top:40px;" label-width="100px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"测试用例"+index+":"' :key="index" >
+        <el-main style="margin-top:50px;">
+            <el-form style="border-bottom-style:double; border-color: rgb(199, 196, 196); width:1020px; margin-top: 20px; margin-left: 100px; height: 40px;">
+              <el-label style="margin-left: 20px;">测试分类</el-label>
+              <el-label style="margin-left: 70px;">ID</el-label>
+              <el-label style="margin-left: 80px;">测试用例设计说明</el-label>
+              <el-label style="margin-left: 35px;">与本测试用例有关的规约说明</el-label>
+              <el-label style="margin-left: 40px;">预期的结果</el-label>
+              <el-label style="margin-left: 40px;">测试用例设计者</el-label>
+              <el-label style="margin-left: 40px;">测试时间</el-label>
+            </el-form>
+            <el-form style="padding-top:20px;" label-width="100px" :model="ruleForm" :rules="rules" ref="ruleForm">
+              <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+              required: true,
+              message: '功能项目不能为空！',
+              trigger: 'blur',
+            }" :label='"测试用例"+index+":"' :key="index" >
               <el-input placeholder="测试分类" style="width: 100px;padding-right:20px;" v-model="Table.testclassification"></el-input>
               <el-input placeholder="ID" style="width: 100px;padding-right:20px;" v-model="Table.num"></el-input>
-              <el-input placeholder="测试用例设计说明" style="width: 200px;padding-right:20px;" v-model="Table.testcasedesign"></el-input>
-              
-              <el-input placeholder="与本测试用例有关的规约说明" style="width: 100px;padding-right:20px;" v-model="Table.stockdescription"></el-input>
+              <el-input placeholder="测试用例设计说明" style="width: 150px;padding-right:20px;" v-model="Table.testcasedesign"></el-input>
+              <el-input placeholder="与本测试用例有关的规约说明" style="width: 220px;padding-right:20px;" v-model="Table.stockdescription"></el-input>
               <el-input placeholder="预期的结果" style="width: 100px;padding-right:20px;" v-model="Table.expectedresult"></el-input>
-              <el-input placeholder="测试用例设计者" style="width: 100px;padding-right:20px;" v-model="Table.designer"></el-input>
+              <el-input placeholder="测试用例设计者" style="width: 130px;padding-right:20px;" v-model="Table.designer"></el-input>
               <el-input placeholder="测试时间" style="width: 100px;padding-right:20px;" v-model="Table.time"></el-input>
               <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
