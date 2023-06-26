@@ -20,12 +20,12 @@ public class ApplicationController {
 
     @GetMapping("/checkbyapplicant")
     public String checkbyuserA(@RequestBody String postJson){
-        return applicationService.checkbyuserA(postJson);
+        return applicationService.checkbyuserA(Integer.valueOf(postJson).intValue());
     }
 
     @GetMapping("/checkbyauditor")
     public String checkbyuserB(@RequestBody String postJson){
-        return applicationService.checkbyuserB(postJson);
+        return applicationService.checkbyuserB(Integer.valueOf(postJson).intValue());
     }
 
     @GetMapping("/checkbyAID")

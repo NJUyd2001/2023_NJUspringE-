@@ -33,13 +33,13 @@ public class ApplicationService {
         return "application inserted successfully";
     }
 
-   public String checkbyuserA(String username){
+   public String checkbyuserA(int username){
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyuserA(username)));
         return JSON.toJSONString(res);
     }
 
-    public String checkbyuserB(String username){
+    public String checkbyuserB(int username){
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyuserB(username)));
         return JSON.toJSONString(res);

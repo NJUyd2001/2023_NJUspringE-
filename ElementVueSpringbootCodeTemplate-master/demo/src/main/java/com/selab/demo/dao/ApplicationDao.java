@@ -12,9 +12,9 @@ public interface ApplicationDao {
     @Insert("INSERT INTO selabspringe.application(applicantID, auditorID, curr_state, doc_path, phone, time, title) VALUES (#{applicantID}, #{audtiorID}, #{curr_state}, #{doc_path}, #{phone}, #{time}, #{title})")
     void insertApp(ApplicationModel applicationModel);
     @Select("SELECT * FROM selabspringe.application WHERE applicantID=#{username} ")
-    ApplicationModel findbyuserA(String username);
+    ApplicationModel findbyuserA(int username);
     @Select("SELECT * FROM selabspringe.application WHERE auditorID=#{username} ")
-    ApplicationModel findbyuserB(String username);
+    ApplicationModel findbyuserB(int username);
     @Select("SELECT * FROM selabspringe.application WHERE AID=#{AID} ")
     ApplicationModel findbyAID(int AID);
     @Select("SELECT title FROM selabspringe.application WHERE AID=#{AID} ")
