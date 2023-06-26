@@ -6,17 +6,18 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Delete;
+import java.util.List;
 
 @Mapper
 public interface ApplicationDao {
     @Insert("INSERT INTO selabspringe.application(applicantID, auditorID, curr_state, doc_path, phone, time, title) VALUES (#{applicantID}, #{audtiorID}, #{curr_state}, #{doc_path}, #{phone}, #{time}, #{title})")
     void insertApp(ApplicationModel applicationModel);
     @Select("SELECT * FROM selabspringe.application WHERE applicantID=#{username} ")
-    ApplicationModel findbyuserA(int username);
+    List<ApplicationModel> findbyuserA(int username);
     @Select("SELECT * FROM selabspringe.application WHERE auditorID=#{username} ")
-    ApplicationModel findbyuserB(int username);
+    List<ApplicationModel> findbyuserB(int username);
     @Select("SELECT * FROM selabspringe.application WHERE AID=#{AID} ")
-    ApplicationModel findbyAID(int AID);
+    List<ApplicationModel> findbyAID(int AID);
     @Select("SELECT title FROM selabspringe.application WHERE AID=#{AID} ")
     String findbyAID2(int AID);
     @Update("UPDATE selabspringe.application SET applicantID = {applicantID}, auditorID = #{audtiorID}, curr_state = #{curr_state},doc_path = #{doc_path},phone = #{phone},time = #{time},title = #{title} WHERE AID=#{AID}")
