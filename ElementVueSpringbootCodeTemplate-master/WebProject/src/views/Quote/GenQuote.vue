@@ -24,7 +24,7 @@
         </el-row>
       </el-header>
         <br><br><br>
-        <el-main style="border-radius: 30px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);background-color: rgba(0, 208, 255, 0.451);">
+        <el-main style="border-radius: 30px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
           <el-form   :model="ruleForm" ref="ruleForm">
             <el-row type="flex" justify="center" >
             <el-col :span="5">

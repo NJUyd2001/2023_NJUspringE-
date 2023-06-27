@@ -70,6 +70,11 @@
 
 <script>
 export default {
+  created(){
+    axios.get("http://localhost:9090/api/user/select").then(res=>{
+      alert(res.data)
+    })
+  },
   methods: {
     handleClick(row) {
       console.log(row);
