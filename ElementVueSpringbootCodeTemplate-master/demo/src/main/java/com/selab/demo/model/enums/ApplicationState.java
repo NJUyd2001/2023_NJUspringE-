@@ -5,7 +5,6 @@ package com.selab.demo.model.enums;
  */
 public enum ApplicationState {
     R,W,P
-    //TODO :R,W,P代表哪些阶段？
 }
 /**
  *

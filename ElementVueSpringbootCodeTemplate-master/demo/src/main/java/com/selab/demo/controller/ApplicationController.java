@@ -23,9 +23,9 @@ public class ApplicationController {
         return applicationService.checkbyuserA(Integer.valueOf(postJson).intValue());
     }
 
-    @GetMapping("/checkbyauditor")
-    public String checkbyuserB(@RequestBody String postJson){
-        return applicationService.checkbyuserB(Integer.valueOf(postJson).intValue());
+    @GetMapping("/checkbyprocess")
+    public String checkbyprocess(@RequestBody String postJson){
+        return applicationService.checkbyprocess(Integer.valueOf(postJson).intValue());
     }
 
     @GetMapping("/checkbyAID")
