@@ -24,7 +24,7 @@
         <span class="logo-title">申请界面-功能列表</span>
         </div></el-col>
         <el-col :span="8">
-        <el-steps :space="200" :active="1" finish-status="success">
+        <el-steps :space="200" :active="StepNumber" finish-status="success">
           <el-step title="申请表填写"></el-step>
           <el-step title="功能列表填写"></el-step>
           <el-step title="完成"></el-step>
@@ -97,6 +97,7 @@ export default {
             },
           ],
             },
+            StepNumber:1,
             rules:{
               SoftwareName:[
                       { required: true, message: "不能为空！", trigger: "blur" },
@@ -142,14 +143,15 @@ export default {
           return false;
         }
       });*/
-      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-        console.log(ret.data)
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });
-      // this.info("提交成功，正在返回用户界面！");
-      // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      // Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
+      //   console.log(ret.data)
+      // })
+      // .catch(function (error) { // 请求失败处理
+      //   console.log(error);
+      // })
+      this.StepNumber+=2;
+      this.info("提交成功，正在返回用户界面！");
+      setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
     }
   },
 
