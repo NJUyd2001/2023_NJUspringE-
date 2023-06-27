@@ -2,26 +2,31 @@
 <template>
     <el-container style="height:100%">
       <el-header style="height: 30px ">
+        <el-row>
+        <el-col :span="22">
         <el-breadcrumb separator="->">
           <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
           <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
         </el-breadcrumb>
-        <br>
+        </el-col>
+        <el-col :span="2">
+          <el-button style="margin-top: 5px; margin-left: 70px;" size="mini" type="primary">登出</el-button>
+        </el-col>
+        </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
             <router-link to="/Test">
-            <el-button  size="middle" type="danger">上一步</el-button>
+            <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="4"><div class="grid-content bg-purple">
-            <span class="logo-title">测试报告</span>
-            </div></el-col>
+          <el-col :span="6" push="1"><div class="grid-content bg-purple">
+          <span class="logo-title">测试报告</span>
+          </div></el-col>
             <el-col :span="6" pull="3">
             <div class="grid-content bg-purple-light text-right">
               <span v-if="user != null">
-                <span class="user">{{user.nick}}</span><el-button  plain size="middle"  type="danger" @click="logout">退出</el-button>
+                <span class="user">{{user.nick}}</span>
               </span>
-              <span v-else><el-button type="success" plain size="middle" style = "margin:10px" @click="loginOut">登出</el-button></span>
               <el-dropdown  @command="switchLang">
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="zh">En</el-dropdown-item>
@@ -29,16 +34,16 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div></el-col>
-          <el-col :span="6" push="4">
+          <el-col :span="6" push="5">
             <router-link to="/admin">
-            <el-button  size="middle" type="success">下一步</el-button>
+            <el-button style="margin-top: 15px;" size="middle" type="success">下一步</el-button>
             </router-link>
           </el-col>
         </el-row>
       </el-header>
         <el-main>
           <br><br>
-          <el-form :label-position="top" label-width="40%">
+          <el-form :label-position="top" label-width="40%" style="margin-top: 10px;">
             <el-form-item label="测试类型:"> 
             <el-select v-model="TypeTest" multiple allow-create filterable>
             <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
@@ -222,19 +227,9 @@
                 RuntimeEnvironment:{
                   Server:{
                     HardWare:{
-                    FrameWork:[],  
-                    Mermory:'',
-                    HardDisk:'',
-                    OtherDisk:''
                   },
                   SoftWare:{
-                    OS:'',
-                    Versions:'',
-                    PL:'',
-                    FrameWork:[],
-                    DataBase:'',
-                    MiddleWare:'',
-                    Other:''
+
                   },
                   },
                   NetWork:'',  
