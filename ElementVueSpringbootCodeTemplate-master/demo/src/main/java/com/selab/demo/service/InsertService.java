@@ -14,6 +14,7 @@ public class InsertService{
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         String dataString = jsonObject.getString("data");
+        System.out.print(postJson);
         insertDao.insertTest(dataString);
         return "success";
     }

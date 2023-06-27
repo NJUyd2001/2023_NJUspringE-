@@ -70,6 +70,60 @@ public class ApplicationModel extends BaseEntity {
     private state m_state;
     private String auditinfor;
 
+    /**
+     * {
+     *     "applicantID":"1",
+     *     "processID":"1",
+     *     "time":"2017-09-02 10:29:14",
+     *     "phone":"1",
+     *     "testTYPE":"C",
+     *     "sNAME":"1",
+     *     "PA":"1",
+     *     "PAE":"1",
+     *     "PB":"1",
+     *     "PB_type":"D",
+     *     "else_type":"1",
+     *     "USS":"1",
+     *     "sDES":"1",
+     *     "stestBASIS":"1",
+     *     "elsestestBASIS":"1",
+     *     "TESTINDEX":"1",
+     *     "elseINDEX":"1",
+     *     "scale_num":"1",
+     *     "scale_score":"1",
+     *     "scale_lines":"1",
+     *     "sTYPE":"1",
+     *     "ENVIRONMENTW":"1",
+     *     "ENVIRONMENTL":"1",
+     *     "ENVIRONMENTN":"1",
+     *     "ENVIRONMENTE":"1",
+     *     "ENVIRONMENT":"1",
+     *     "ARCHITECTURE":"U",
+     *     "hMEMORY":"1",
+     *     "hHARDDISK":"1",
+     *     "hELSEDEMAND":"1",
+     *     "sOS":"1",
+     *     "sVERSION":"1",
+     *     "sLANGUAGE":"1",
+     *     "sARCHITECTURE":"C",
+     *     "sDATABASE":"1",
+     *     "sMIDDLEWARE":"1",
+     *     "sELSEDEMAND":"1",
+     *     "MEDIUM":"E",
+     *     "doc_path1":"E",
+     *     "doc_path2":"E",
+     *     "doc_path3":"E",
+     *     "doc_path4":"E",
+     *     "SAMPLEDELETE":"A",
+     *     "EXDATE":"E",
+     *     "t_state":"A",
+     *     "m_state":"A",
+     *     "auditinfor":"E"
+     *
+     *
+     * }
+     * **/
+
     public ApplicationModel(int AID, int applicantID, int processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, int stestBASIS, String elsestestBASIS,  int TESTINDEX, String elseINDEX, int scale_num, int scale_score, int scale_lines, char sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor) {
         this.AID = AID;
         this.applicantID = applicantID;

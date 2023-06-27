@@ -77,18 +77,24 @@ public class ApplicationService {
         return "application inserted successfully";
     }
 
-   public String checkbyuserA(int username){
+   public String checkbyuserA(String postJson){
+       JSONObject jsonObject = JSONObject.parseObject(postJson);
+       int username = jsonObject.getInteger("applicantID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyuserA(username)));
         return JSON.toJSONString(res);
     }
 
-    public String checkbyprocess(int username){
+    public String checkbyprocess(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        int username = jsonObject.getInteger("processID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyprocess(username)));
         return JSON.toJSONString(res);
     }
-    public String checkbyAID(int AID){
+    public String checkbyAID(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        int AID = jsonObject.getInteger("AID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyAID(AID)));
         return JSON.toJSONString(res);
@@ -149,7 +155,7 @@ public class ApplicationService {
         if (result == null) {
             return "the application does not exist";
         }
-        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, else_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor);
+        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, else_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor);
 
 
         applicationDao.updateapplication(applicationModel);
@@ -158,7 +164,9 @@ public class ApplicationService {
         return "update complete";
     }
 
-    public String deleteapplication(int AID){
+    public String deleteapplication(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        int AID = jsonObject.getInteger("AID");
         String result = applicationDao.findbyAID2(AID);
         if (result == null) {
             return "the application does not exist";
