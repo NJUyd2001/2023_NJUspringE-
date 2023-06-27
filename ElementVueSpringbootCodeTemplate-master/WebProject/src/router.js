@@ -35,7 +35,8 @@ import TestContent from './views/report/TestContent'
 import TestScheme from './views/test/TestScheme'
 import TestDocument1 from './views/report/TestDocument1'
 import TestDocument2 from './views/report/TestDocument2'
-import TestContract from './views/test/Contract'
+import TestReviewDelegation from './views/test/TestReviewDelegation'
+import MarketContract from './views/market/Contract'
 import GenQuote from './views/Quote/GenQuote'
 import AuditQuote from './views/Quote/AuditQuote'
 
@@ -155,7 +156,6 @@ export default new VueRouter({
             path: '/testcontent',   // 路径
             component: TestContent  // 跳转到的组件
         },
-        
         {
             path: '/testscheme',   // 路径
             component: TestScheme  // 跳转到的组件
@@ -169,6 +169,10 @@ export default new VueRouter({
             component: TestDocument2  // 跳转到的组件
         },
         {
+            path: '/testreviewdelegation',  // 路径
+            component: TestReviewDelegation // 跳转到的组件
+        },
+        {
             path: '/client/Personal',     // 路径
             component: Personal    // 跳转到的组件
         },
@@ -177,8 +181,8 @@ export default new VueRouter({
             component: Info    // 跳转到的组件
         },
         {
-            path: '/test/Contract',     // 路径
-            component: TestContract    // 跳转到的组件
+            path: '/MarketContract',     // 路径
+            component: MarketContract    // 跳转到的组件
         },
         {
             path: '/Quote/GenQuote',     // 路径

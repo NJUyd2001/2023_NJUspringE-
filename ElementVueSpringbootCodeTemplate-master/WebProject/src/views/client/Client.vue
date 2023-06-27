@@ -1,10 +1,10 @@
 <template>
 <div class ="Person">
-<el-container style="height: 700px;">
-  <el-header style="height: 50px;">
+<el-container style="height: 800px;">
+  <el-header style="height: 100px;">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
-        <span class="logo-title">{{user.uname}},您好</span>
+        <span class="logo-title" style="font-size:30px">{{user.uname}},您好</span>
         </div></el-col>
         <el-col :span="12">
           <img src="../../assets/l3.png" style="height:80px"/>
@@ -17,7 +17,7 @@
   </el-header>
   <br>
   <el-container >
-    <el-aside width="200px">
+    <el-aside width="300px">
       <el-menu
         default-active="1"
         :collapse="isCollapse"
@@ -25,45 +25,45 @@
         <el-submenu index="1">
           <template slot="title" collapse=false>
             <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
-            <span> 我的委托</span>
+            <span style="font-size:20px"> 我的委托</span>
           </template>
           <el-menu-item-group>
             <template slot="title">委托准备</template>
-            <el-menu-item index="1-11" @click="jump2application()">发起委托</el-menu-item>
+            <el-menu-item index="1-11" @click="jump2application()" style="font-size:18px">发起委托</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="委托处理">
-            <el-menu-item index="1-21" @click="addTab('进度查询', 'ProgressQuery')">进度查询</el-menu-item>
+            <el-menu-item index="1-21" @click="addTab('进度查询', 'ProgressQuery')" style="font-size:18px">进度查询</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
         <el-submenu index="9">
           <template slot="title" collapse=false>
             <i class="el-icon-setting"></i>
-            <span>设置</span>
+            <span style="font-size:20px">设置</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="9-1" @click="addTab('用户信息', 'ConfigTable2')">用户信息</el-menu-item>
+            <el-menu-item index="9-1" @click="addTab('用户信息', 'ConfigTable2')" style="font-size:18px">用户信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
         <el-submenu index="4">
           <template slot="title" collapse=false>
             <i class="el-icon-setting"></i>
-            <span>使用记录</span>
+            <span style="font-size:20px">使用记录</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="4-1" @click="addTab('委托处理记录', 'UploadFile')">委托处理记录</el-menu-item>
-            <el-menu-item index="4-2" @click="addTab('上传记录', 'UploadHistory')">上传记录</el-menu-item>
+            <el-menu-item index="4-1" @click="addTab('委托处理记录', 'UploadFile')" style="font-size:18px">委托处理记录</el-menu-item>
+            <el-menu-item index="4-2" @click="addTab('上传记录', 'UploadHistory')" style="font-size:18px">上传记录</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
         <el-submenu index="0">
           <template slot="title" collapse=false>
             <i class="el-icon-setting"></i>
-            <span>我的</span>
+            <span style="font-size:20px">我的</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="0-1" @click="jump2myinf()">个人信息完善</el-menu-item>
+            <el-menu-item index="0-1" @click="jump2myinf()" style="font-size:18px">个人信息完善</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

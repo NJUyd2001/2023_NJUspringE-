@@ -18,27 +18,27 @@ public class ApplicationController {
         return applicationService.insert(postJson);
     }
 
-    @GetMapping("/checkbyapplicant")
+    @RequestMapping("/checkbyapplicant")
     public String checkbyuserA(@RequestBody String postJson){
         return applicationService.checkbyuserA(postJson);
     }
 
-    @GetMapping("/checkbyauditor")
-    public String checkbyuserB(@RequestBody String postJson){
-        return applicationService.checkbyuserB(postJson);
+    @RequestMapping("/checkbyprocess")
+    public String checkbyprocess(@RequestBody String postJson){
+        return applicationService.checkbyprocess(postJson);
     }
 
-    @GetMapping("/checkbyAID")
+    @RequestMapping("/checkbyAID")
     public String checkbyAID(@RequestBody String postJson){
-        return applicationService.checkbyAID(Integer.valueOf(postJson).intValue());
+        return applicationService.checkbyAID(postJson);
     }
-    @GetMapping("/updateapplication")
+    @RequestMapping("/updateapplication")
     public String updatrapplication(@RequestBody String postJson){
         return applicationService.updateapplication(postJson);
     }
-    @GetMapping("/deleteapplication")
+    @RequestMapping("/deleteapplication")
     public String deleteapplication(@RequestBody String postJson){
-        return applicationService.deleteapplication(Integer.valueOf(postJson).intValue());
+        return applicationService.deleteapplication(postJson);
     }
 
 

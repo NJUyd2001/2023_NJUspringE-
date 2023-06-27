@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
   data() {
     return {
@@ -60,12 +61,38 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$router.push({path: "./market", replace:true});
-        } else {
-          return false;
+      Axios.get("http://localhost:9090/api/user/select/staff",).then(ret=>{
+        var i=0;
+        var flag=false;
+        console.log(ret.data);
+        for(;i<ret.data.length;i++)
+        { 
+          if(ret.data[i].nickname===this.ruleForm.uname)
+          { 
+              if(ret.data[i].password===this.ruleForm.password)
+                  {
+                    flag=true;
+                    this.info("登录成功！");
+                    // console.log(ret.data[i]);
+                    this.$store.state.user.id=ret.data[i].uid;
+                    this.$store.state.user.name=ret.data[i].nickname;
+                    this.$store.state.user.password=ret.data[i].password;
+                    this.$store.state.user.Permissions=ret.data[i].type;
+                    setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+                  }
+              else{
+                this.error("您的用户名或密码错误,请重新输入！");
+              }
+          }
         }
+        if(flag===false)
+        {
+          this.error("您的用户名不存在！")
+        }
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+        alert("error!");
       });
     },
     resetForm(formName) {

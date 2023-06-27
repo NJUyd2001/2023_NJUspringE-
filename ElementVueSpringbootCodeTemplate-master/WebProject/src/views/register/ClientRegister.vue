@@ -108,14 +108,17 @@ export default {
   methods: {
     submitForm(formName) {
       //alert(JSON.stringify(this.ruleForm));
-      // Axios.get("http://localhost:9090/api/user/")
+      // Axios.get("http://localhost:9090/api/user/select/customer").then(ret=>{
+      //   cosole.log(ret.data.uname);
+      // }
+      // )
       Axios.post("http://localhost:9090/api/user/insert",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        this.info("提交成功！");
+        this.info("注册成功！");
         setTimeout(() => {this.$router.push({path: "./clientlogin", replace:true});}, 2000);
-        //this.$router.push({path: "./clientlogin", replace:true});
+
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);

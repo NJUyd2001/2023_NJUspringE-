@@ -1,10 +1,16 @@
 <template>
     <el-form :inline="true" :model="form" class="demo-form-inline">
-        <el-form-item label="名称">
+        <el-form-item label="ID">
+            <el-input v-model="form.id" placeholder="ID在这里"></el-input>
+        </el-form-item>
+        <el-form-item label="用户名在这里">
             <el-input v-model="form.name" placeholder="名称在这里"></el-input>
         </el-form-item>
         <el-form-item label="密码">
             <el-input v-model="form.password" placeholder="密码在这里"></el-input>
+        </el-form-item>
+        <el-form-item label="权限">
+            <el-input v-model="form.Permissions" placeholder="权限"></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit">添加</el-button>
@@ -16,6 +22,7 @@ export default {
     data() {
         return {
             form: {
+                id:this.$store.state.user.id,
                 name: this.$store.state.user.name,
                 password: this.$store.state.user.password,
                 Permissions:this.$store.state.user.Permissions,
