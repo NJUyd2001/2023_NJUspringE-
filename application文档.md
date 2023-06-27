@@ -1,7 +1,11 @@
 # Application接口文档
 author:李晨博
+
 注意！本文档提到的所有接口都应该使用post方法
+
+
 ## /application/insert
+
 增加一个新的application项目
 
 输入示例：
@@ -71,8 +75,10 @@ author:李晨博
 [
     "[]"
 ]
+
 输出示例2：
 ["[{\"aID\":5,\"aRCHITECTURE\":\"U\",\"applicantID\":3,\"auditinfor\":\"E\",\"doc_path1\":\"E\",\"doc_path2\":\"E\",\"doc_path3\":\"E\",\"doc_path4\":\"E\",\"eNVIRONMENT\":\"1\",\"eNVIRONMENTE\":\"1\",\"eNVIRONMENTL\":\"1\",\"eNVIRONMENTN\":\"1\",\"eNVIRONMENTW\":\"1\",\"eXDATE\":\"E\",\"elseINDEX\":\"1\",\"else_type\":\"1\",\"elsestestBASIS\":\"1\",\"hELSEDEMAND\":\"1\",\"hHARDDISK\":\"1\",\"hMEMORY\":\"1\",\"mEDIUM\":\"E\",\"m_state\":\"A\",\"pA\":\"1\",\"pAE\":\"1\",\"pB\":\"1\",\"pB_type\":\"D\",\"phone\":\"1\",\"processID\":23,\"sAMPLEDELETE\":\"A\",\"sARCHITECTURE\":\"C\",\"sDATABASE\":\"1\",\"sDES\":\"1\",\"sELSEDEMAND\":\"1\",\"sLANGUAGE\":\"1\",\"sMIDDLEWARE\":\"1\",\"sNAME\":\"1\",\"sOS\":\"1\",\"sTYPE\":\"1\",\"sVERSION\":\"1\",\"scale_lines\":1,\"scale_num\":1,\"scale_score\":1,\"stestBASIS\":1,\"tESTINDEX\":1,\"t_state\":\"A\",\"testTYPE\":\"C\",\"time\":1504319354000,\"uSS\":\"1\"}]"]
+
 输出示例3：
 ["[{\"aID\":2,\"aRCHITECTURE\":\"U\",\"applicantID\":3,\"auditinfor\":\"E\",\"doc_path1\":\"E\",\"doc_path2\":\"E\",\"doc_path3\":\"E\",\"doc_path4\":\"E\",\"eNVIRONMENT\":\"1\",\"eNVIRONMENTE\":\"1\",\"eNVIRONMENTL\":\"1\",\"eNVIRONMENTN\":\"1\",\"eNVIRONMENTW\":\"1\",\"eXDATE\":\"E\",\"elseINDEX\":\"1\",\"else_type\":\"1\",\"elsestestBASIS\":\"1\",\"hELSEDEMAND\":\"1\",\"hHARDDISK\":\"1\",\"hMEMORY\":\"1\",\"mEDIUM\":\"E\",\"m_state\":\"A\",\"pA\":\"1\",\"pAE\":\"1\",\"pB\":\"1\",\"pB_type\":\"D\",\"phone\":\"1\",\"processID\":222,\"sAMPLEDELETE\":\"A\",\"sARCHITECTURE\":\"C\",\"sDATABASE\":\"1\",\"sDES\":\"1\",\"sELSEDEMAND\":\"1\",\"sLANGUAGE\":\"1\",\"sMIDDLEWARE\":\"1\",\"sNAME\":\"1\",\"sOS\":\"1\",\"sTYPE\":\"1\",\"sVERSION\":\"1\",\"scale_lines\":1,\"scale_num\":1,\"scale_score\":1,\"stestBASIS\":1,\"tESTINDEX\":1,\"t_state\":\"A\",\"testTYPE\":\"C\",\"time\":1504319354000,\"uSS\":\"1\"},{\"aID\":5,\"aRCHITECTURE\":\"U\",\"applicantID\":3,\"auditinfor\":\"E\",\"doc_path1\":\"E\",\"doc_path2\":\"E\",\"doc_path3\":\"E\",\"doc_path4\":\"E\",\"eNVIRONMENT\":\"1\",\"eNVIRONMENTE\":\"1\",\"eNVIRONMENTL\":\"1\",\"eNVIRONMENTN\":\"1\",\"eNVIRONMENTW\":\"1\",\"eXDATE\":\"E\",\"elseINDEX\":\"1\",\"else_type\":\"1\",\"elsestestBASIS\":\"1\",\"hELSEDEMAND\":\"1\",\"hHARDDISK\":\"1\",\"hMEMORY\":\"1\",\"mEDIUM\":\"E\",\"m_state\":\"A\",\"pA\":\"1\",\"pAE\":\"1\",\"pB\":\"1\",\"pB_type\":\"D\",\"phone\":\"1\",\"processID\":23,\"sAMPLEDELETE\":\"A\",\"sARCHITECTURE\":\"C\",\"sDATABASE\":\"1\",\"sDES\":\"1\",\"sELSEDEMAND\":\"1\",\"sLANGUAGE\":\"1\",\"sMIDDLEWARE\":\"1\",\"sNAME\":\"1\",\"sOS\":\"1\",\"sTYPE\":\"1\",\"sVERSION\":\"1\",\"scale_lines\":1,\"scale_num\":1,\"scale_score\":1,\"stestBASIS\":1,\"tESTINDEX\":1,\"t_state\":\"A\",\"testTYPE\":\"C\",\"time\":1504319354000,\"uSS\":\"1\"},{\"aID\":11,\"aRCHITECTURE\":\"U\",\"applicantID\":3,\"auditinfor\":\"E\",\"doc_path1\":\"E\",\"doc_path2\":\"E\",\"doc_path3\":\"E\",\"doc_path4\":\"E\",\"eNVIRONMENT\":\"1\",\"eNVIRONMENTE\":\"1\",\"eNVIRONMENTL\":\"1\",\"eNVIRONMENTN\":\"1\",\"eNVIRONMENTW\":\"1\",\"eXDATE\":\"E\",\"elseINDEX\":\"1\",\"else_type\":\"1\",\"elsestestBASIS\":\"1\",\"hELSEDEMAND\":\"1\",\"hHARDDISK\":\"1\",\"hMEMORY\":\"1\",\"mEDIUM\":\"E\",\"m_state\":\"A\",\"pA\":\"1\",\"pAE\":\"1\",\"pB\":\"1\",\"pB_type\":\"D\",\"phone\":\"1\",\"processID\":223,\"sAMPLEDELETE\":\"A\",\"sARCHITECTURE\":\"C\",\"sDATABASE\":\"1\",\"sDES\":\"1\",\"sELSEDEMAND\":\"1\",\"sLANGUAGE\":\"1\",\"sMIDDLEWARE\":\"1\",\"sNAME\":\"1\",\"sOS\":\"1\",\"sTYPE\":\"1\",\"sVERSION\":\"1\",\"scale_lines\":1,\"scale_num\":1,\"scale_score\":1,\"stestBASIS\":1,\"tESTINDEX\":1,\"t_state\":\"A\",\"testTYPE\":\"C\",\"time\":1504319354000,\"uSS\":\"1\"},{\"aID\":13,\"aRCHITECTURE\":\"U\",\"applicantID\":3,\"auditinfor\":\"E\",\"doc_path1\":\"E\",\"doc_path2\":\"E\",\"doc_path3\":\"E\",\"doc_path4\":\"E\",\"eNVIRONMENT\":\"1\",\"eNVIRONMENTE\":\"1\",\"eNVIRONMENTL\":\"1\",\"eNVIRONMENTN\":\"1\",\"eNVIRONMENTW\":\"1\",\"eXDATE\":\"E\",\"elseINDEX\":\"1\",\"else_type\":\"1\",\"elsestestBASIS\":\"1\",\"hELSEDEMAND\":\"1\",\"hHARDDISK\":\"1\",\"hMEMORY\":\"1\",\"mEDIUM\":\"E\",\"m_state\":\"A\",\"pA\":\"1\",\"pAE\":\"1\",\"pB\":\"1\",\"pB_type\":\"D\",\"phone\":\"1\",\"processID\":223,\"sAMPLEDELETE\":\"A\",\"sARCHITECTURE\":\"C\",\"sDATABASE\":\"1\",\"sDES\":\"1\",\"sELSEDEMAND\":\"1\",\"sLANGUAGE\":\"1\",\"sMIDDLEWARE\":\"1\",\"sNAME\":\"1\",\"sOS\":\"1\",\"sTYPE\":\"1\",\"sVERSION\":\"1\",\"scale_lines\":1,\"scale_num\":1,\"scale_score\":1,\"stestBASIS\":1,\"tESTINDEX\":1,\"t_state\":\"A\",\"testTYPE\":\"C\",\"time\":1504319354000,\"uSS\":\"1\"}]"]
 
@@ -90,7 +96,9 @@ author:李晨博
 [
     "[]"
 ]
+
 输出示例2：
+
 ["[{\"aID\":5,\"aRCHITECTURE\":\"U\",\"applicantID\":3,\"auditinfor\":\"E\",\"doc_path1\":\"E\",\"doc_path2\":\"E\",\"doc_path3\":\"E\",\"doc_path4\":\"E\",\"eNVIRONMENT\":\"1\",\"eNVIRONMENTE\":\"1\",\"eNVIRONMENTL\":\"1\",\"eNVIRONMENTN\":\"1\",\"eNVIRONMENTW\":\"1\",\"eXDATE\":\"E\",\"elseINDEX\":\"1\",\"else_type\":\"1\",\"elsestestBASIS\":\"1\",\"hELSEDEMAND\":\"1\",\"hHARDDISK\":\"1\",\"hMEMORY\":\"1\",\"mEDIUM\":\"E\",\"m_state\":\"A\",\"pA\":\"1\",\"pAE\":\"1\",\"pB\":\"1\",\"pB_type\":\"D\",\"phone\":\"1\",\"processID\":23,\"sAMPLEDELETE\":\"A\",\"sARCHITECTURE\":\"C\",\"sDATABASE\":\"1\",\"sDES\":\"1\",\"sELSEDEMAND\":\"1\",\"sLANGUAGE\":\"1\",\"sMIDDLEWARE\":\"1\",\"sNAME\":\"1\",\"sOS\":\"1\",\"sTYPE\":\"1\",\"sVERSION\":\"1\",\"scale_lines\":1,\"scale_num\":1,\"scale_score\":1,\"stestBASIS\":1,\"tESTINDEX\":1,\"t_state\":\"A\",\"testTYPE\":\"C\",\"time\":1504319354000,\"uSS\":\"1\"}]"]
 
 # #/application/checkbyAID
@@ -107,11 +115,13 @@ author:李晨博
 [
     "[]"
 ]
+
 输出示例2：
 ["[{\"aID\":5,\"aRCHITECTURE\":\"U\",\"applicantID\":3,\"auditinfor\":\"E\",\"doc_path1\":\"E\",\"doc_path2\":\"E\",\"doc_path3\":\"E\",\"doc_path4\":\"E\",\"eNVIRONMENT\":\"1\",\"eNVIRONMENTE\":\"1\",\"eNVIRONMENTL\":\"1\",\"eNVIRONMENTN\":\"1\",\"eNVIRONMENTW\":\"1\",\"eXDATE\":\"E\",\"elseINDEX\":\"1\",\"else_type\":\"1\",\"elsestestBASIS\":\"1\",\"hELSEDEMAND\":\"1\",\"hHARDDISK\":\"1\",\"hMEMORY\":\"1\",\"mEDIUM\":\"E\",\"m_state\":\"A\",\"pA\":\"1\",\"pAE\":\"1\",\"pB\":\"1\",\"pB_type\":\"D\",\"phone\":\"1\",\"processID\":23,\"sAMPLEDELETE\":\"A\",\"sARCHITECTURE\":\"C\",\"sDATABASE\":\"1\",\"sDES\":\"1\",\"sELSEDEMAND\":\"1\",\"sLANGUAGE\":\"1\",\"sMIDDLEWARE\":\"1\",\"sNAME\":\"1\",\"sOS\":\"1\",\"sTYPE\":\"1\",\"sVERSION\":\"1\",\"scale_lines\":1,\"scale_num\":1,\"scale_score\":1,\"stestBASIS\":1,\"tESTINDEX\":1,\"t_state\":\"A\",\"testTYPE\":\"C\",\"time\":1504319354000,\"uSS\":\"1\"}]"]
 
 # #/application/updateapplication
 更新对应AID的application信息
+
 注意！此项更新只看AID，其余所有信息都会被更新覆盖
 
 输入示例：
@@ -174,6 +184,7 @@ update complete
 
 # #/application/deleteapplication
 删除对应AID的application
+
 注意！此处只看AID，所有AID之外的信息都会被无视
 
 输入示例：
