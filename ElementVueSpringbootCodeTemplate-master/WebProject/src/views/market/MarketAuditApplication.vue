@@ -53,10 +53,10 @@
           v-model="ruleForm.VersionNumber"></el-input>
         </el-form-item>
         <el-form-item label="委托单位(中文):" >  
-              <el-input style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.Chinese"></el-input>
+              <el-input style="width:200px;padding:10px" v-model="ruleForm.Chinese"></el-input>
         </el-form-item>
         <el-form-item label="委托单位(英文):" >  
-          <el-input style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.English"></el-input>
+          <el-input style="width:200px;padding:10px" v-model="ruleForm.English"></el-input>
         </el-form-item>
         <el-form-item label="开发单位:" >  
            <el-input style="width:200px;padding:10px" v-model="ruleForm.DevelopmentCompany"></el-input>
@@ -216,11 +216,8 @@
               },
               TypeTest:[],
               SoftWareName:'',
-              VersionNumber:'',
-              EntrustingCompany:{
                 Chinese:'',
                 English:'',
-              },
               DevelopmentCompany:'',
               AttributeOfCompany:[],
               SoftwareUserObjectDescription:'',

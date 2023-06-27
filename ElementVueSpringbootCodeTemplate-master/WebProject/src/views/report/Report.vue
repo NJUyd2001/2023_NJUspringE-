@@ -63,10 +63,10 @@
                 </div>
             </el-form-item>
           <el-form-item label="委托单位(中文):">  
-                <el-input style="width:200px;padding:10px" v-model="EntrustingCompany.Chinese"></el-input>
+                <el-input style="width:200px;padding:10px" v-model="Chinese"></el-input>
           </el-form-item>
           <el-form-item label="委托单位(英文):">  
-            <el-input style="width:200px;padding:10px" v-model="EntrustingCompany.English"></el-input>
+            <el-input style="width:200px;padding:10px" v-model="English"></el-input>
           </el-form-item>
           <el-form-item label="测试单位:">  
              <el-input style="width:200px;padding:10px" v-model="DevelopmentCompany"></el-input>
@@ -203,10 +203,8 @@
                 TypeTest:[],
                 SoftWareName:'',
                 VersionNumber:'',
-                EntrustingCompany:{
                   Chinese:'',
                   English:'',
-                },
                 DevelopmentCompany:'',
                 AttributeOfCompany:[],
                 SoftwareUserObjectDescription:'',
