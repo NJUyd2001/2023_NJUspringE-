@@ -6,4 +6,9 @@
         INSERT INTO selabspringe.test(data)
         VALUE (#{data})
     </insert>
+
+    <insert id="insertID" parameterType="String">
+        INSERT INTO selabspringe.test(id)
+        VALUE (#{data})
+    </insert>
 </mapper>

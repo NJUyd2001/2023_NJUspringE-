@@ -36,7 +36,8 @@
         </el-row>
       </el-header>
         <el-main>
-          <el-form :label-position="top" label-width="500px">
+          <br><br>
+          <el-form :label-position="top" label-width="40%">
             <el-form-item label="测试类型:"> 
             <el-select v-model="TypeTest" multiple allow-create filterable>
             <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>

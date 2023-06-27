@@ -2,18 +2,19 @@
   
   <div id="logo">
   <div class="header">
-  <h1 class="font-face">软件测试中心在线测试系统</h1>
+  
+  <h1 class="font-face"><img src="../../assets/l2.png" style="height:80px"/></h1>
 </div>
     <h2></h2>
     <el-card class="box-card-l">
     <router-link to="/clientlogin">
-      <el-button> 客户 </el-button>
+      <el-button style="background:rgba(0,0,0,0); border-style:none; font-size: 30px"> 客户 </el-button>
     </router-link>
       
     </el-card>
     <el-card class="box-card-r">
     <router-link to="/login">
-      <el-button> 软件测试中心 </el-button>
+      <el-button style="background:rgba(0,0,0,0); border-style:none; font-size: 30px"> 软件测试中心 </el-button>
     </router-link>
       
     </el-card>
@@ -50,7 +51,8 @@ export default {
 
 <style scoped>
   #logo{
-    background: url("../../assets/NJUbg.jpg");
+    background: url("../../assets/b6.jpg");
+    /* background: url("../../assets/img/homeBG.jpeg");   */
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
@@ -82,6 +84,7 @@ export default {
         padding: 120px 120px 120px 120px;
         transform: translate(-50%, -50%);
         border-radius: 5px;
+        border-style:none;
 }
 .box-card-r {
         background: rgba(0,0,0,0);
@@ -91,6 +94,7 @@ export default {
         padding: 120px 120px 120px 120px;
         transform: translate(-50%, -50%);
         border-radius: 5px;
+        border-style:none;
 }
 .login-from {
   margin: auto auto;

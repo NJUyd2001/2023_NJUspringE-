@@ -1,12 +1,9 @@
 package com.selab.demo.model;
 
 
-import com.selab.demo.model.enums.Gender;
-import com.selab.demo.model.enums.UserType;
 
-import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
+
 
 /**
  * @author 刘轩昂
@@ -17,53 +14,74 @@ import java.sql.Date;
 @Table
 public class User extends BaseEntity{
 
+
+    private Integer UID;
     private String nickname;
-    private String njuNumber;
+    private String regTime;
+
 
 
     private String emailAddr;
     private String password;
-    private Gender gender;
-    //private Date regTime;
-    private String phone;
-    private UserType userType;
+   // @Enumerated(EnumType.STRING)
 
+
+    private String phone;
+    // @Enumerated(EnumType.STRING)
+    private String type;
+    private String fax;
     // functions
 
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
 
 
     // getters and setters
 
-
-    public Gender getGender() {
-        return gender;
+    public Integer getUID() {
+        return UID;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setUID(Integer UID) {
+        this.UID = UID;
     }
 
-    public User(String nickname, String njuNumber, String emailAddr, String password, Gender gender, String phone, UserType userType) {
+    public String getRegTime() {
+        return regTime;
+    }
+
+    public void setRegTime(String regTime) {
+        this.regTime = regTime;
+    }
+
+    public User(){}
+    public User(String nickname, String emailAddr, String password, String phone, String userType) {
         this.nickname = nickname;
-        this.njuNumber = njuNumber;
         this.emailAddr = emailAddr;
         this.password = password;
-        this.gender = gender;
+
        // this.regTime = regTime;
         this.phone = phone;
-        this.userType = userType;
+        this.type = userType;
+        this.fax = "";
     }
+
 
     public String getPhone() {
         return phone;
     }
 
-    public UserType getUserType() {
-        return userType;
+    public String getType() {
+        return type;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setType(String type) {
+        this.type = type;
     }
 
 
@@ -78,14 +96,6 @@ public class User extends BaseEntity{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getNjuNumber() {
-        return njuNumber;
-    }
-
-    public void setNjuNumber(String njuNumber) {
-        this.njuNumber = njuNumber;
     }
 
     public String getEmailAddr() {

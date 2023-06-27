@@ -1,13 +1,14 @@
 
 <template>
-<el-container style="height:100%">
+<div id="logo">
+<el-container  style="height: 880px">
   <el-header style="height: 30px">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="12"><div class="grid-content bg-purple">
         <span class="logo-title">市场部</span>
         </div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain size="mini" type="primary" @click="handleStart">Hello World</el-button></div></el-col>
+        <el-button  plain size="mini" type="primary" class="el-icon-user" @click="handleStart">我的</el-button></div></el-col>
       <el-col :span="8">
         <div class="grid-content bg-purple-light text-right">
           <span v-if="user != null">
@@ -47,6 +48,9 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="1-11" @click="addTab('委托状态', 'CTMENT')">委托状态</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+          <el-menu-item index="1-11" @click="jump2application()">审核委托</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -95,8 +99,13 @@
       </el-tabs>
     </el-main>
   </el-container>
+  <el-footer>
+  <p>南京大学 计算机软件新技术国家重点实验室 软件测试中心<br>
+  江苏省 南京市 栖霞区 仙林大道163号南京大学仙林校区计算机科学与技术楼<br>
+  电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
+  </el-footer>
   <LoginDialog :show='showLogin'/>
-</el-container>
+</el-container></div>
 </template>
 <script>
 import Vue from "vue";
@@ -155,7 +164,7 @@ export default {
       this.lang = command;
     },
     handleStart() {
-      this.info("工作正常");
+      this.$router.push('client/Personal');
     },
     loginOut() {
       //this.showLogin = true;
@@ -182,6 +191,9 @@ export default {
           this.error(result.msg);
         }
       });
+    },
+    jump2application() {
+      this.$router.push('/auditapplication');
     },
     addTab(targetName, commentName) {
       // 如果已经存在
@@ -213,6 +225,14 @@ export default {
 </script>
 
 <style>
+#logo{
+    background: url("../../assets/b3.jpg");
+    background-size: 100% 100%;
+    height: 100%;
+    position: fixed;
+    width: 100%
+  }
+
 .text-right {
   padding-right: 0px;
   text-align: right;
@@ -232,7 +252,12 @@ export default {
   margin: 10px 0 10px 0;  
 }
 
-
+.el-footer {
+    color: #333;
+    text-align: center;
+    font-size:3px;
+    line-height: 20px;
+}
 
 .header .nav {
   height: 40px;

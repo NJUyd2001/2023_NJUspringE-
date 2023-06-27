@@ -3,13 +3,14 @@
 <el-container style="height:100%">
   <el-header style="height: 30px " @back="goback">
     <el-breadcrumb separator="->">
-    <el-breadcrumb-item :to="{ path: '/Client' }">市场部主页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/application">申请表及功能列表数据查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/Market' }">市场部主页-审核委托</el-breadcrumb-item>
+    <el-breadcrumb-item><a href="">申请表及功能列表数据查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/auditapplication">申请表查看</a></el-breadcrumb-item>
   </el-breadcrumb>
   <br>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="6">
-        <router-link to="/Client">
+        <router-link to="/Market">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
@@ -30,7 +31,9 @@
           </el-dropdown>
         </div></el-col>
       <el-col :span="6" push="4">
-        <el-button  @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
+        <router-link to="/auditfunctionlist">
+	          <el-button type="success" style="margin: 14px">下一步</el-button>
+        </router-link>
       </el-col>
     </el-row>
   </el-header>

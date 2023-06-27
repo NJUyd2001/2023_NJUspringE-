@@ -1,20 +1,28 @@
-
 <template>
-<el-container style="height:100%">
+<div id="logo">
+<el-container style="height: 880px">
   <el-header style="height: 30px">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="12"><div class="grid-content bg-purple">
         <span class="logo-title">客户界面</span>
         </div></el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain size="mini" type="primary" @click="handleStart">Hello World</el-button></div></el-col>
+        <el-button  plain size="mini" type="primary" class="el-icon-user" @click="handleStart">我的</el-button></div></el-col>
       <el-col :span="8">
-        <div class="grid-content bg-purple-light text-right">
+        <div class="box1">
+        <!--
           <span v-if="user != null">
             <span class="user">{{user.nick}}</span><el-button  plain size="mini"  type="danger" @click="logout">退出</el-button>
           </span>
           <span v-else><el-button type="success" plain size="mini" style = "margin:10px" @click="loginOut">登出</el-button></span>
-          
+        -->
+        <div>
+    <div class="mask" v-if="showModal" @click="showModal=false"></div>
+    <div class="pop" v-if="showModal">
+        <button @click="showModal=false" class="btn" >点击</button>
+    </div>
+    <p style="right: 5px;"><button class="btn el-icon-avatar" @click="showModal=true"><Avatar /></button></p>
+  </div> 
           <el-dropdown  @command="switchLang">
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="zh">En</el-dropdown-item>
@@ -27,8 +35,8 @@
   </el-header>
 
 
-  <el-container>
-    <el-aside style="width:auto;">
+  <el-container >
+    <el-aside>
       <!--
       <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
         <el-radio-button :label="false" v-show="isCollapse">展开</el-radio-button>
@@ -87,7 +95,7 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="0-1" @click="jump2myinf()">个人信息完善</el-menu-item>
-            <el-menu-item index="0-2" @click="addTab('选人组件', 'SelectUser')">选人组件</el-menu-item>
+            <!-- <el-menu-item index="0-2" @click="addTab('选人组件', 'SelectUser')">选人组件</el-menu-item> -->
           </el-menu-item-group>
         </el-submenu>
 
@@ -105,10 +113,17 @@
         </el-tab-pane>
       </el-tabs>
     </el-main>
-  </el-container>
+     
+  </el-container><el-footer>
+  <p>南京大学 计算机软件新技术国家重点实验室 软件测试中心<br>
+  江苏省 南京市 栖霞区 仙林大道163号南京大学仙林校区计算机科学与技术楼<br>
+  电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
+  </el-footer>
   <LoginDialog :show='showLogin'/>
-</el-container>
+</el-container></div>
 </template>
+
+
 <script>
 import Vue from "vue";
 
@@ -126,6 +141,7 @@ export default {
       user: null,
       keyword: "",
       isCollapse: false,
+      showModal: false,
 
       menus: [{}],
 
@@ -166,7 +182,7 @@ export default {
       this.lang = command;
     },
     handleStart() {
-      this.info("工作正常");
+      this.$router.push('client/Personal');
     },
     loginOut() {
       //this.showLogin = true;
@@ -224,15 +240,39 @@ export default {
         this.selectTabName = key;
         break;
       }
-    }
+    },
+     hideInfo(){
+            setTimeout(()=>{
+                this.userInfo=false
+            },3000)
+        },
+//当触发mouseover时调用的方法       
+        showInfo(){
+            this.userInfo=true
+        },
   }
 };
 </script>
 
 <style>
+#logo{
+    background: url("../../assets/b3.jpg");
+    background-size: 100% 100%;
+    height: 100%;
+    position: fixed;
+    width: 100%
+  }
+
 .text-right {
   padding-right: 0px;
   text-align: right;
+}
+
+.hei{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 .user {
@@ -282,8 +322,42 @@ export default {
   height: 100%;
 }
 
+.el-footer {
+    color: #333;
+    text-align: center;
+    font-size:3px;
+    line-height: 20px;
+}
+
 .logo-title{
   font-size: 18px;
   font-weight: bold;
+}
+
+.mask {
+  background-color: #000;
+  opacity: 0.3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1
+}
+.pop {
+  background-color: #fff;
+ 
+  position: fixed;
+  top: 100px;
+  left: 100px;
+  width: calc(10%);
+  height:calc(10%);
+  z-index: 2
+}
+.btn {
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid blue;
+  padding: 4px 12px;
 }
 </style>

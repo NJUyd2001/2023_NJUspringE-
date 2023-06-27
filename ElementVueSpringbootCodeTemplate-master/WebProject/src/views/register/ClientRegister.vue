@@ -35,9 +35,9 @@
           <el-input v-model="ruleForm.phone"></el-input>
         </el-form-item>
         
-        <el-form-item label="邮箱" prop="email">
+        <el-form-item label="邮箱" prop="emailAddr">
           <el-input
-            v-model="ruleForm.email"
+            v-model="ruleForm.emailAddr"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -50,8 +50,8 @@
     </el-card>
   </div>
 </template>
-
 <script>
+import Axios from 'axios';
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -75,10 +75,13 @@ export default {
     };
     return {
       ruleForm: {
+        type:"C",
         uname: "",
         pass: "",
+        gender:"man",
+        njuNumber:205220016,
         password: "",
-        email:"",
+        emailAddr:"",
         phone:"",
       },
       
@@ -91,7 +94,7 @@ export default {
           { required: true, validator: validatePass2, trigger: "blur" },
           {min: 6, max: 10, message: '名称长度在6到10个字符', trigger: 'blur'},
         ],
-        email: [
+        emailAddr: [
           { required: true, message: "邮箱不能为空！", trigger: "blur" },
           {pattern: /(^[a-zA-Z]\w{5,17}@((126|163)\.com|yeah\.net)$)|(^[1-9]\d{4,10}@qq\.com$)/, message:"邮箱格式不符合规则"}
         ],
@@ -104,15 +107,23 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert("submit!");
-          this.$router.push({path: "./login", replace:true});
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
+      //alert(JSON.stringify(this.ruleForm));
+      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
+        console.log(ret.data)
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+        //alert("error!");
       });
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+      //     alert("submit!");
+      //     this.$router.push({path: "./login", replace:true});
+      //   } else {
+      //     console.log("error submit!!");
+      //     return false;
+      //   }
+      // });
       
     },
     resetForm(formName) {

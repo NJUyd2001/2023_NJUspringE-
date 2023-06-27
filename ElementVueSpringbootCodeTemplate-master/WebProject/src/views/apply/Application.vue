@@ -404,28 +404,6 @@ export default {
                                     ]
                                   },
             ],
-            shortcuts:[
-                      {
-                        text: 'Today',
-                        value: new Date(),
-                      },
-                      {
-                        text: 'Yesterday',
-                        value: () => {
-                          const date = new Date()
-                          date.setTime(date.getTime() - 3600 * 1000 * 24)
-                          return date
-                        },
-                      },
-                      {
-                        text: 'A week ago',
-                        value: () => {
-                          const date = new Date()
-                          date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-                          return date
-                        },
-                      },
-                      ],
             TypeTest:[],
             SoftWareName:'',
             VersionNumber:'',
@@ -528,23 +506,17 @@ export default {
     }
 }, 
   methods:{
-    goback(){
-    },
     submitForm(formName) {
-      /*this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           alert("submit!");
-<<<<<<< HEAD
           this.$router.push({path: "./functionlist", replace:true});
-=======
-          this.$router.push({path: "./client", replace:true});
->>>>>>> 38617f0cad5bfd590d62f2772a8ca5a1613e9b78
         } else {
           return false;
         }
-      });*/
-      this.info("提交成功，正在返回用户界面！");
-      setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      });
+      this.info("提交成功！");
+      setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       
     },
     resetForm(formName) {

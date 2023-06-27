@@ -62,7 +62,15 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      alert(JSON.stringify(this.ruleForm));
       this.$router.push({path: "./client", replace:true});
+      //alert(JSON.stringify(this.ruleForm));
+      // Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
+      //   console.log(ret.data)
+      // })
+      // .catch(function (error) { // 请求失败处理
+      //   console.log(error);
+      // });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -76,7 +84,7 @@ export default {
 
 <style scoped>
 #logo{
-    background: url("../../assets/NJUbg.jpg");
+    background: url("../../assets/b6.jpg");
     background-size: 100% 100%;
     height: 100%;
     position: fixed;

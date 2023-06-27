@@ -3,10 +3,59 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.selab.demo.dao.UserDao">
     <insert id="insert" parameterType="com.selab.demo.model.User">
-        INSERT INTO selabspringe.user(nickname, njuNumber, emailAddr, password, gender, phone, type)
-        VALUES (#{nickname}, #{njuNumber}, #{emailAddr} ,#{password}, #{gender}, #{phone}, #{userType})
+        INSERT INTO selabspringe.user(nickname, emailAddr, password, phone, usertype)
+        VALUES (#{nickname}, #{emailAddr}, #{password}, #{phone}, #{type})
     </insert>
-    <select id="login" parameterType="String" resultType="String">
-        SELECT nickname FROM user WHERE nickname=#{arg0} AND password=#{arg1}
+
+    <select id="login" parameterType="String" resultType="com.selab.demo.model.User">
+        SELECT * FROM user WHERE nickname=#{arg0} AND password=#{arg1}
     </select>
+    <resultMap id="userMap" type="com.selab.demo.model.User">
+        <id property="UID" column="UID"/>
+        <result property="type" column="usertype"/>
+        <result property="phone" column="phone"/>
+        <result property="password" column="password"/>
+        <result property="nickname" column="nickname"/>
+        <result property="emailAddr" column="emailAddr"/>
+        <result property="fax" column="USERFAX"/>
+        <result property="regTime" column="regTime"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="userMap">
+        SELECT * FROM selabspringe.user
+    </select>
+    <select id="selectAllCustomer" resultMap="userMap">
+        SELECT * FROM selabspringe.user WHERE usertype='C'
+    </select>
+    <select id="selectAllStaff" resultMap="userMap">
+        SELECT * FROM selabspringe.user WHERE usertype!='C'
+    </select>
+    <update id="update" parameterType="String">
+        UPDATE selabspringe.user
+        <set>
+            set
+            <if test="nickname!=null">
+                nickname = #{nickname},
+            </if>
+            <if test="emailAddr!=null">
+                emailAddr = #{emailAddr},
+            </if>
+            <if test="password!=null">
+                password = #{password},
+            </if>
+            <if test="phone!=null">
+                phone = #{phone}
+            </if>
+        </set>
+        WHERE UID=#{UID}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM user WHERE UID=#{UID}
+    </delete>
+
+    <select id="findByUID" parameterType="Integer" resultType="Integer">
+        SELECT UID FROM selabspringe.user WHERE UID=#{UID}
+    </select>
+
 </mapper>
