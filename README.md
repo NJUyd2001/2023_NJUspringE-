@@ -59,6 +59,7 @@ aabbccdd
 为委托进度条新增了页面
 
 2023.6.27
-application部分端口完成
+增加了合同草稿的修改和application校验字段的添加
+application部分完成
 application端口文档完成
 application数据结构部分的文档还没写完（（

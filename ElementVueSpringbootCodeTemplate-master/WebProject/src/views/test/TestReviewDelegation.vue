@@ -49,11 +49,11 @@
           <el-form-item label="版本号:" prop="VersionNumber"> 
             <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.VersionNumber"></el-input>
           </el-form-item>
-          <el-form-item label="委托单位(中文):" rules="{ required: true, message: '不能为空！', trigger: 'blur' }">  
-                <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.Chinese"></el-input>
+          <el-form-item label="委托单位(中文):" prop="Client">  
+                <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.ClientChinese"></el-input>
           </el-form-item>
-          <el-form-item label="委托单位(英文):" rules="{ required: true, message: '不能为空！', trigger: 'blur' }">  
-            <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.English"></el-input>
+          <el-form-item label="委托单位(英文):" prop="ClientEnglish">  
+            <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.ClientEnglish"></el-input>
           </el-form-item>
           <el-form-item label="开发单位:" prop="DevelopmentCompany">  
              <el-input readonly style="width:200px;padding:10px" v-model="ruleForm.DevelopmentCompany"></el-input>
@@ -460,10 +460,8 @@
                 TypeTest:[],
                 SoftWareName:'',
                 VersionNumber:'',
-                EntrustingCompany:{
-                  Chinese:'',
-                  English:'',
-                },
+                ClientChinese:'',
+                ClientEnglish:'',
                 DevelopmentCompany:'',
                 AttributeOfCompany:[],
                 SoftwareUserObjectDescription:'',
@@ -534,10 +532,10 @@
             VersionNumber:[
               { required: true, message: "不能为空！", trigger: "blur" },
             ],
-            Chinese:[
+            ClientChinese:[
               { required: true, message: "不能为空！", trigger: "blur" },
             ],
-            English:[
+            ClientEnglish:[
               { required: true, message: "不能为空！", trigger: "blur" },
             ],
             DevelopmentCompany:[
