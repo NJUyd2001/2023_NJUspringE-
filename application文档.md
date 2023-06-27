@@ -54,6 +54,7 @@ author:李晨博
     "m_state":"A",
     "auditinfor":"E"
 }
+为空的部分可以直接不加入，或者写为""
 
 输出：application inserted successfully
 

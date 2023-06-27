@@ -26,17 +26,17 @@ public class ApplicationModel extends BaseEntity {
     private int processID;
     private Date time;//时间
     private String phone;//手机号
-    private testTYPE testTYPE;
-    private String sNAME;
-    private String PA;
-    private String PAE;
-    private String PB;
-    private PB_type PB_type;
-    private String else_type;
-    private String USS;
-    private String sDES;
-    private int stestBASIS;
-    private String elsestestBASIS;
+    private testTYPE testTYPE;//测试类型，C：软件确认测试，I：成果/技术鉴定测试，A：转向资金验收测试
+    private String sNAME;//软件名称
+    private String PA;//委托方
+    private String PAE;//委托方（英文）
+    private String PB;//受委托方（开发单位）
+    private PB_type PB_type;//单位性质D：内资企业F：外（合）资企业G：港澳台企业S：科研院校O：政府事业团队E：其他
+    private String else_type;//单位性质为其他
+    private String USS;//用户对象描述
+    private String sDES;//软件描述（功能、简介）
+    private int stestBASIS;//测试依据1:GB/T 25000.51-2016;2:GB/T 25000.10-2016;3:GB/T 28452-2012;4:GB/T 30961-2014;5:NST-03-Wl12-2011;6:NST-03-Wl13-2011;7:NST-03-Wl22-2014
+    private String elsestestBASIS;//测试依据其他
     private String elseINDEX;
     private int TESTINDEX;
     private int scale_num;
