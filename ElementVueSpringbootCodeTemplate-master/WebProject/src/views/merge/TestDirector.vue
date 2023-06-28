@@ -1,76 +1,22 @@
-<!-- 文炫添加 -->
 <template>
-<el-container style="height:700px;">
-  <el-header style="height: 30px">
+<div class ="Person">
+<el-container style="height: 90%;">
+  <el-header style="height: 10%;">
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="20"><div class="grid-content bg-purple">
-        <span class="logo-title">测试部</span>
+      <el-col :span="8"><div class="grid-content bg-purple">
+        <span class="logo-title">{{user.uname}},您好(测试部主管)</span>
         </div></el-col>
+        <el-col :span="12">
+          <img src="../../assets/l3.png" style="height:80px"/>
+        </el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
         <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
-        <el-button type="primary"  @click="loginOut">登出</el-button></div></el-col>
+        <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
+      </el-col>
     </el-row>
   </el-header>
-
-
+  <br>
   <el-container>
-    <el-aside style="width:auto;">
-      <!--
-      <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-        <el-radio-button :label="false" v-show="isCollapse">展开</el-radio-button>
-        <el-radio-button :label="true"v-show="!isCollapse">收起</el-radio-button>
-      </el-radio-group>
-      -->
-      <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
-        :collapse="isCollapse"
-        >
-        <el-submenu index="1">
-          <template slot="title" collapse=false>
-            <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
-            <span> 审核/提交</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="1-11" @click="addTab('样品验收', 'TestResultTable')">样品验收</el-menu-item>
-            <el-menu-item index="1-11" @click="jump2report()">发送测试报告</el-menu-item>
-            <!--<el-menu-item index="1-12" @click="addTab('发送测试报告','TestReportTable')">发送测试报告</el-menu-item>-->
-          </el-menu-item-group>
-        </el-submenu>
-
-        <el-submenu index="0">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span> 审核测试</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="0-2" @click="addTab('提交测试方案', 'UploadFile')">提交测试方案</el-menu-item>
-            <el-menu-item index="0-3" @click="addTab('审核发起的委托','UploadFile')">审核发起的委托</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-
-        <el-submenu index="9">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span>设置</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="9-1" @click="addTab('用户信息', 'ConfigTable2')">用户信息</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="4">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span>使用记录</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="4-1" @click="addTab('填写测试文档', 'UploadFile')">填写测试文档</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-
-      </el-menu>
-    </el-aside>
-    <el-container>
     <el-main>      
       <el-tabs v-model="selectTabName" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
@@ -89,10 +35,12 @@
   电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
   </el-footer>
 </el-container>
-</el-container>
   <LoginDialog :show='showLogin'/>
 </el-container>
+</div>
 </template>
+
+
 <script>
 import Vue from "vue";
 
@@ -106,28 +54,42 @@ export default {
   },
   data() {
     return {
+      // 步骤
+      active: 0,
+      // 已选步骤
+      stepSuc: [0],
+      // 步骤标题
+      stepTitle: ['发起委托', '报价处理', '合同处理', '样品发送', '确认接收', '测试报告'],
       showLogin: false,
-      user: {
+      user:{
         uname:this.$store.state.user.name,
-        password:""
       },
       keyword: "",
       isCollapse: false,
-
+      showModal: false,
       menus: [{}],
 
       //Tabs
-      selectTabName: "ConfigAdd",
+      selectTabName: "ConfigTableQ",
       tabs: {
         ConfigAdd: {
-          title: "新建页面",
-          name: "ConfigAdd",
-          currentView: "ConfigAdd"
+        title: "测试方案审核",
+        name: "ConfigTableQ",
+        currentView: "ConfigTableQ"
         }
       }
     };
   },
   computed: {
+    // 动态给步骤加样式
+    stepClassObj(val) {
+      return (val) => {
+        return {
+          stepSuc: this.stepSuc.includes(val),
+          stepErr: !this.stepSuc.includes(val)
+        }
+      }
+    },
     lang: {
       get: function() {
         console.log("config", Vue.config);
@@ -140,20 +102,34 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(function() {
-      this.ajax.post("/app/user").then(result => {
-        if (result.code == 0) {
-          this.user = result.data;
-        }
-      });
-    });
+    // this.$nextTick(function() {
+    //   this.ajax.post("/app/user").then(result => {
+    //     if (result.code == 0) {
+    //       this.user = result.data;
+    //     }
+    //   });
+    // });
   },
   methods: {
+    // 点击步骤条
+    handleStep(val) {
+      if (this.stepSuc.includes(val) === true) {
+        this.active = val
+      }
+    },
+    // 组件点击上一步
+    handleLastStep() {
+      if (--this.active === 0) { this.active = 0 }
+    },
+    // 组件点击下一步
+    handleNextStep() {
+      this.stepSuc.push(++this.active)
+    },
     switchLang(command) {
       this.lang = command;
     },
     handleStart() {
-      this.info("工作正常");
+      this.$router.push('client/Personal');
     },
     loginOut() {
       //this.showLogin = true;
@@ -168,13 +144,10 @@ export default {
       this.showLogin = false;
       this.user = user;
     },
-    jump2report() {
-      this.$router.push('/report');
+    loginCancel() {
+      console.log("loginCancel");
+      this.showLogin = false;
     },
-    // loginCancel() {
-    //   console.log("loginCancel");
-    //   this.showLogin = false;
-    // },
     logout() {
       this.ajax.post("/app/logout").then(result => {
         if (result.code == 0) {
@@ -184,12 +157,18 @@ export default {
         }
       });
     },
+    jump2application() {
+      this.$router.push('/application');
+    },
+    jump2myinf(){
+      this.$router.push('/myinf');
+    },
     addTab(targetName, commentName) {
       // 如果已经存在
-      /*if (this.tabs[commentName]) {
+      if (this.tabs[commentName]) {
         this.selectTabName = commentName;
         return;
-      }*/
+      }
 
       // add table
       this.$set(this.tabs, commentName, {
@@ -208,14 +187,30 @@ export default {
         this.selectTabName = key;
         break;
       }
-    }
+    },
+     hideInfo(){
+            setTimeout(()=>{
+                this.userInfo=false
+            },3000)
+        },
+//当触发mouseover时调用的方法       
+        showInfo(){
+            this.userInfo=true
+        },
   }
 };
 </script>
 
 <style>
+.stepSuc :hover{
+  cursor: pointer;
+}
+.stepErr :hover{
+  cursor: not-allowed;
+}
+
 #logo{
-    background: url("../../assets/b3.jpg");
+  background: url("../../assets/b3.jpg");
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
@@ -225,6 +220,13 @@ export default {
 .text-right {
   padding-right: 0px;
   text-align: right;
+}
+
+.hei{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 .user {
@@ -241,12 +243,7 @@ export default {
   margin: 10px 0 10px 0;  
 }
 
-.el-footer {
-    color: #333;
-    text-align: center;
-    font-size:3px;
-    line-height: 20px;
-}
+
 
 .header .nav {
   height: 40px;
@@ -261,6 +258,7 @@ export default {
 }
 
 .el-container .el-main{
+  
   padding: 0px 5px 5px 5px;
 }
 
@@ -273,14 +271,54 @@ export default {
   outline: 1px solid;
 }
 */
+.el-aside::-webkit-scrollbar{
+  display:none;
+}
 
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  height: 100%;
+
+.el-footer {
+    color: #333;
+    text-align: center;
+    font-size:3px;
+    line-height: 20px;
 }
 
 span.logo-title{
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 30px;
+  font-weight: 1000;
+}
+
+.mask {
+  background-color: #000;
+  opacity: 0.3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1
+}
+.pop {
+  background-color: #fff;
+  position: fixed;
+  top: 100px;
+  left: 100px;
+  width: calc(70%);
+  height:calc(70%);
+  z-index: 2
+}
+.btn {
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid blue;
+  padding: 4px 12px;
+}
+
+.Person{
+  background: url("../../assets/b3.jpg");
+  background-size: 100% 100%;
+  height: 100%;
+  position: fixed;
+  width: 100%
 }
 </style>

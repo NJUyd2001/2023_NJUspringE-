@@ -10,6 +10,9 @@ import Register from './views/register/Register'
 import ClientRegister from './views/register/ClientRegister'
 import Client from './views/client/Client'
 import Market from './views/market/Market'
+import Quality from './views/merge/Quality'
+import Signatory from './views/merge/Signatory'
+import TestDirector from './views/merge/TestDirector'
 import Admin  from './views/admin/Admin'
 import Test from './views/test/Test'
 import Application from './views/apply/Application'
@@ -75,6 +78,18 @@ export default new VueRouter({
         {
             path: '/market',     // 路径
             component: Market    // 跳转到的组件
+        },
+        {
+            path: '/quality',     // 路径
+            component: Quality    // 跳转到的组件
+        },
+        {
+            path: '/TestDirector',     // 路径
+            component: TestDirector    // 跳转到的组件
+        },
+        {
+            path: '/signatory',     // 路径
+            component: Signatory    // 跳转到的组件
         },
         {
             path:'/admin',   // 路径 黄大伟添加
