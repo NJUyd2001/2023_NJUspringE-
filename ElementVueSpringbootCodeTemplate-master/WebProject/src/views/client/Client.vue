@@ -1,10 +1,10 @@
 <template>
 <div class ="Person">
-<el-container style="height: 800px;">
-  <el-header style="height: 100px;">
+<el-container style="height: 90%;">
+  <el-header style="height: 10%;">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
-        <span class="logo-title" style="font-size:30px">{{user.uname}},您好</span>
+        <span class="logo-title">{{user.uname}},您好</span>
         </div></el-col>
         <el-col :span="12">
           <img src="../../assets/l3.png" style="height:80px"/>
@@ -124,12 +124,12 @@ export default {
       menus: [{}],
 
       //Tabs
-      selectTabName: "ConfigAdd",
+      selectTabName: "ProgressQuery",
       tabs: {
         ConfigAdd: {
-          title: "新建页面",
-          name: "ConfigAdd",
-          currentView: "ConfigAdd"
+        title: "委托进度",
+        name: "ProgressQuery",
+        currentView: "ProgressQuery"
         }
       }
     };
@@ -219,10 +219,10 @@ export default {
     },
     addTab(targetName, commentName) {
       // 如果已经存在
-      /*if (this.tabs[commentName]) {
+      if (this.tabs[commentName]) {
         this.selectTabName = commentName;
         return;
-      }*/
+      }
 
       // add table
       this.$set(this.tabs, commentName, {
@@ -337,9 +337,9 @@ export default {
     line-height: 20px;
 }
 
-.logo-title{
-  font-size: 18px;
-  font-weight: bold;
+span.logo-title{
+  font-size: 30px;
+  font-weight: 1000;
 }
 
 .mask {

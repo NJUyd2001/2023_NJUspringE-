@@ -598,7 +598,7 @@
     height: 100%;
   }
   
-  .logo-title{
+  span.logo-title{
     font-size: 20px;
     font-weight: bold;
   }

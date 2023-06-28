@@ -152,8 +152,6 @@ export default {
       //   console.log(error);
       // })
       
-<<<<<<< HEAD
-=======
       this.$confirm("是否确认该操作","提示",{
         iconClass: "el-icon-question",//自定义图标样式
           confirmButtonText: "确认",//确认按钮文字更换
@@ -169,7 +167,6 @@ export default {
       .catch(function (err) {
         //捕获异常
       });
->>>>>>> 2292c03d3f98fe4155a65295a2d18bf60be4e7eb
     }
   },
 
@@ -224,7 +221,7 @@ export default {
   height: 100%;
 }
 
-.logo-title{
+span.logo-title{
   font-size: 20px;
   font-weight: bold;
 }

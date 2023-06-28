@@ -773,8 +773,8 @@ export default {
   height: 100%;
 }
 
-.logo-title{
-  font-size: 20px;
+spanspan.logo-title{
+  font-size: 40px;
   font-weight: bold;
 }
 .demo-date-picker {

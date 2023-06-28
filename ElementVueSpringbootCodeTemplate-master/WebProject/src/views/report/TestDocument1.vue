@@ -200,7 +200,7 @@
       height: 100%;
     }
     
-    .logo-title{
+    span.logo-title{
       font-size: 20px;
       font-weight: bold;
       margin-left: 50px;
