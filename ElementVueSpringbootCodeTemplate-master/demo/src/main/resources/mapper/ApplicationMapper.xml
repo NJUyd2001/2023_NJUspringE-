@@ -62,10 +62,10 @@
         <result property="sOPERATINGENVIRONMENT" column="sOPERATINGENVIRONMENT"/>
     </resultMap>
 
-    <select id="checkbyuserA" parameterType="String" resultMap="applicationMap">
+    <select id="checkbyuser" parameterType="String" resultMap="applicationMap">
         SELECT * FROM application WHERE applicantID=#{arg0}
     </select>
-    <select id="checkbyuserB" parameterType="String" resultMap="applicationMap">
+    <select id="checkbyprocess" parameterType="String" resultMap="applicationMap">
         SELECT * FROM application WHERE processID=#{arg0}
     </select>
     <select id="checkbyAID" parameterType="int" resultMap="applicationMap">
