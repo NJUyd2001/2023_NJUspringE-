@@ -19,9 +19,9 @@
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="4" ><div class="grid-content bg-purple">
+      <el-col :span="4" >
         <span class="logo-title">申请界面-申请表</span>
-      </div></el-col>
+      </el-col>
       <el-col :span="8">
         <el-steps :space="200" :active="0" finish-status="success">
           <el-step title="申请表填写"></el-step>
@@ -773,7 +773,7 @@ export default {
   height: 100%;
 }
 
-.logo-title{
+span.logo-title{
   font-size: 20px;
   font-weight: bold;
 }

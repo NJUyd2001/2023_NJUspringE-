@@ -1,10 +1,10 @@
 <template>
 <div class ="Person">
-<el-container style="height: 800px;">
-  <el-header style="height: 100px;">
+<el-container style="height: 90%;">
+  <el-header style="height: 10%;">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
-        <span class="logo-title" style="font-size:30px">{{user.uname}},您好</span>
+        <span style="font-size: 30px; font-weight: 1000;">{{user.uname}},您好</span>
         </div></el-col>
         <el-col :span="12">
           <img src="../../assets/l3.png" style="height:80px"/>
@@ -15,7 +15,7 @@
       </el-col>
     </el-row>
   </el-header>
-  <br>
+  
   <el-container >
     <el-aside width="300px">
       <el-menu
@@ -35,28 +35,6 @@
             <el-menu-item index="1-21" @click="addTab('进度查询', 'ProgressQuery')" style="font-size:18px">进度查询</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-
-        <el-submenu index="9">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span style="font-size:20px">设置</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="9-1" @click="addTab('用户信息', 'ConfigTable2')" style="font-size:18px">用户信息</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-
-        <el-submenu index="4">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span style="font-size:20px">使用记录</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="4-1" @click="addTab('委托处理记录', 'UploadFile')" style="font-size:18px">委托处理记录</el-menu-item>
-            <el-menu-item index="4-2" @click="addTab('上传记录', 'UploadHistory')" style="font-size:18px">上传记录</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-
         <el-submenu index="0">
           <template slot="title" collapse=false>
             <i class="el-icon-setting"></i>
@@ -338,7 +316,7 @@ export default {
 }
 
 .logo-title{
-  font-size: 18px;
+  font-size: 30px;
   font-weight: bold;
 }
 

@@ -13,9 +13,9 @@
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="12" ><div class="grid-content bg-purple">
-        <span class="logo-title">软件委托测试合同</span>
-        </div></el-col>
+      <el-col :span="12">
+        <span>软件委托测试合同</span>
+        </el-col>
       <el-col :span="2">
         <el-button  size="middle" @click="submitForm('ruleForm')" type="success">提交</el-button>
       </el-col>
@@ -23,7 +23,6 @@
   </el-header>
     <br><br>
     <el-main>
-            <br><br><br>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
         <el-form-item  label="项目名称:" label-width="550px">
           <el-input v-model="ruleForm.ItemName" style="width: 200px;"></el-input>

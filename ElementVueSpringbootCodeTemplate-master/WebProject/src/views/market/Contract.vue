@@ -4,7 +4,7 @@
   <el-header style="height: 30px " @back="goback">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/test' }">市场部主页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="">合同草稿填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="">合同草稿修改</a></el-breadcrumb-item>
   </el-breadcrumb>
   <br>
     <el-row  type="flex" justify="center" align="middle">
@@ -14,7 +14,7 @@
         </router-link>
       </el-col>
       <el-col :span="12" ><div class="grid-content bg-purple">
-        <span class="logo-title">软件委托测试合同</span>
+        <span>软件委托测试合同</span>
         </div></el-col>
       <el-col :span="2">
         <el-button  size="middle" @click="submitForm('ruleForm')" type="success">提交</el-button>
@@ -23,22 +23,22 @@
   </el-header>
     <br><br>
     <el-main>
-            <br><br><br>
+      <br>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item  label="项目名称:" label-width="550px">
+        <el-form-item  label="项目名称:" label-width="650px">
           <el-input v-model="ruleForm.ItemName" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="委托方（甲方）:" label-width="550px">
+        <el-form-item label="委托方（甲方）:" label-width="650px">
           <el-input v-model="ruleForm.Client" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item  label="受托方（乙方）:" label-width="550px">
+        <el-form-item  label="受托方（乙方）:" label-width="650px">
           <el-input v-model="ruleForm.Trustee" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item  label="质量特性:" label-width="550px">
+        <el-form-item  label="质量特性:" label-width="650px">
           <el-input v-model="ruleForm.QC" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item  label='签订日期:' label-width="550px">
-          <div class="demo-date-picker">
+        <el-form-item  label='签订日期:' label-width="650px">
+          
           <div class="block">
             <el-date-picker
             v-model="ruleForm.date"
@@ -47,10 +47,9 @@
             :size=large
               />
             </div>
-            </div>
+            
         </el-form-item>
-        <el-form-item  label='有效期至:' label-width="550px">
-          <div class="demo-date-picker">
+        <el-form-item  label='有效期至:' label-width="650px"> 
           <div class="block">
             <el-date-picker
             v-model="ruleForm.PeriodOfValidity"
@@ -58,7 +57,6 @@
             placeholder="完成时间选择"
             :size=large
               />
-            </div>
             </div>
         </el-form-item>
       </el-form>
