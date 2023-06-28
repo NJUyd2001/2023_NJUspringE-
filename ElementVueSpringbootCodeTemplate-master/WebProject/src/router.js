@@ -156,7 +156,6 @@ export default new VueRouter({
             path: '/testcontent',   // 路径
             component: TestContent  // 跳转到的组件
         },
-        
         {
             path: '/testscheme',   // 路径
             component: TestScheme  // 跳转到的组件
@@ -170,8 +169,8 @@ export default new VueRouter({
             component: TestDocument2  // 跳转到的组件
         },
         {
-            path: '/testreviewdelegation',   // 路径
-            component: TestReviewDelegation  // 跳转到的组件
+            path: '/testreviewdelegation',  // 路径
+            component: TestReviewDelegation // 跳转到的组件
         },
         {
             path: '/client/Personal',     // 路径

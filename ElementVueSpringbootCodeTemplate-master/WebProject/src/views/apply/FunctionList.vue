@@ -152,6 +152,24 @@ export default {
       //   console.log(error);
       // })
       
+<<<<<<< HEAD
+=======
+      this.$confirm("是否确认该操作","提示",{
+        iconClass: "el-icon-question",//自定义图标样式
+          confirmButtonText: "确认",//确认按钮文字更换
+          cancelButtonText: "取消",//取消按钮文字更换
+          showClose: true,//是否显示右上角关闭按钮
+          type: "warning",//提示类型  success/info/warning/error
+      }).then(() => {
+          //确认操作
+          this.StepNumber+=2;
+          this.info("提交成功，正在返回用户界面！");
+          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      })
+      .catch(function (err) {
+        //捕获异常
+      });
+>>>>>>> 2292c03d3f98fe4155a65295a2d18bf60be4e7eb
     }
   },
 

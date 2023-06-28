@@ -1,51 +1,77 @@
 <template>
-  <div>
-    <div class="main">
-    <el-steps direction="vertical" :space="110" :active="active" finish-status="success">
-      <el-step
-        v-for="(item,index) of stepTitle"
-        :key="index"
-        :title="item"
-        :class="stepClassObj(index)"
-        @click.native="handleStep(index)"
-      />
-    </el-steps>
-    <!-- 内容展示区 -->
-    <step-content1
-      v-show="active === 0 "
-      @handleNextStep="handleNextStep()"
-    />
-    <step-content2
-      v-show="active === 1 "
-      @handleLastStep="handleLastStep()"
-      @handleNextStep="handleNextStep()"
-    />
-    <step-content3
-      v-show="active === 2 "
-      @handleLastStep="handleLastStep()"
-      @handleNextStep="handleNextStep()"
-    />
-    <step-content4
-      v-show="active === 3 "
-      @handleLastStep="handleNextStep()"
-    />
-    <step-content4
-      v-show="active === 4 "
-      @handleLastStep="handleNextStep()"
-    />
-    <step-content5
-      v-show="active === 5 "
-      @handleLastStep="handleLastStep()"
-    />
+  
+<div class="stepComponent" >
+    <div class="stepsTitle">
+      <div style="float:left;width:2px;height:20px;"></div> 
+        委托流程及意见
+    </div>
+    <div class="approvalProcess" >
+        <el-steps :active="active" finish-status="success" direction="vertical" >
+           <el-step :title="item.label"  v-for="item in approvalProcessProject" :id="item.id">
+            <template slot="description" >
+            
 
+             <div class="step-row">
+               <table width="90%" border="0" cellspacing="0" cellpadding="0" class="processing_content" >
+                         <tr v-if="item.id=='1'">
+                            <td style="color:#98A6BE" >
+                            	<div class="processing_content_detail" style="float:left;width:70%"><span >人员分配中...</span></div> 
+                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
+                            </td>
+                            <td style="color:#98A6BE" >
+                            	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部审核中...</span></div> 
+                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
+                            </td>
+                            <td style="color:#98A6BE" >
+                            	<div class="processing_content_detail" style="float:left;width:70%"><span >测试部审核中...</span></div> 
+                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
+                            </td>
+                          </tr>
+                          <tr v-if="item.id=='2'">
+                            <td style="color:#98A6BE" >
+                            	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部生成合同中...</span></div> 
+                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
+                            </td>
+                          </tr>
+                          <tr v-if="item.id=='3'">
+                            <td style="color:#98A6BE" >
+                            	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部审核合同中...</span></div> 
+                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
+                            </td>
+                            <td style="color:#98A6BE" >
+                            	<div class="processing_content_detail" style="float:left;width:70%"><span >样品审核中...</span></div> 
+                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
+                            </td>
+                            <td style="color:#98A6BE" >
+                            	<div class="processing_content_detail" style="float:left;width:70%"><span >测试报告制作中...</span></div> 
+                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
+                            </td>
+                          </tr>
+                          <tr v-if="item.id=='4'">
+                            <td style="color:#98A6BE" >
+                            	<div class="processing_content_detail" style="float:left;width:70%"><span >授权签字人审核中...</span></div> 
+                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
+                            </td>
+                          </tr>
+                </table>
+           </div>
+         </template>
+ 
+           </el-step>
+        </el-steps>
+         <el-button style="margin-top: 12px;" @click="next">查看保密协议</el-button>
+ 
   </div>
-  </div>
+ 
+</div>
 </template>
 
 <script>
 import Vue from "vue";
 
 export default {
+   components: {
+  },
   created() {
     // 载入config数据
     //this.$store.dispatch("config/reload");
@@ -53,23 +79,21 @@ export default {
     this.$bus.on("login-success", this.loginSuccess);
     this.$bus.on("login-cancel", this.loginCancel);
   },
+  props: ['data', 'defaultActive'],
   data() {
     return {
-      // 步骤
-      active: 0,
-      // 已选步骤
-      stepSuc: [0],
-      // 步骤标题
-      stepTitle: ['发起委托', '报价处理', '合同处理', '样品发送', '确认接收', '测试报告'],
-      showLogin: false,
-      user: null,
-      keyword: "",
-      isCollapse: false,
-      showModal: false,
-
-      menus: [{}],
-
-      //Tabs
+       active: 2,
+       approvalProcessProject:[
+          {id:'0',label: "您尚未发起委托"},
+          {id:'1',label: "委托已发起，等待审核"},
+          { id:'2',label: "委托已通过，请查看报价"},
+          { id:'3',label: "请填写合同，并上传样品"},
+          { id:'4',label: "请审核测试报告"},
+          {id:'5',label: "委托已完成，感谢您的选择"},
+       ],
+    };
+  },
+  //Tabs
       selectTabName: "ConfigAdd",
       tabs: {
         ConfigAdd: {
@@ -77,10 +101,8 @@ export default {
           name: "ConfigAdd",
           currentView: "ConfigAdd"
         }
-      }
-    };
-  },
-  computed: {
+      },
+    computed: {
     // 动态给步骤加样式
     stepClassObj(val) {
       return (val) => {
@@ -197,93 +219,44 @@ export default {
         showInfo(){
             this.userInfo=true
         },
+    next() {
+        if (this.active++ > 2) this.active = 0;
+      },
   }
 };
 </script>
-
-<style>
-.stepSuc :hover{
-  cursor: pointer;
-}
-.stepErr :hover{
-  cursor: not-allowed;
-}
-
-#logo{
-  background: url("../../assets/b3.jpg");
-    background-size: 100% 100%;
-    height: 100%;
-    position: fixed;
-    width: 100%
+<style scoped>
+  .stepComponent{
+      background-color:#DFEBFF;
+      width: 100%-20px;
+      padding: 10px 10px 10px 10px;
+      margin: 10px 10px 10px 10px;
   }
-
-.text-right {
-  padding-right: 0px;
-  text-align: right;
-}
-
-.hei{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-    height: 100%;
-}
-
-.user {
-  margin: 10px;
-  font-size: 12px;
-}
-
-.header {
-  position: relative;
-  z-index: 1;
-}
-
-.el-header{
-  margin: 10px 0 10px 0;  
-}
-
-
-
-.header .nav {
-  height: 40px;
-  color: #fff;
-  text-align: center;
-}
-.banner {
-  position: relative;
-  z-index: 0;
-  margin: 3px auto;
-  height: 200px;
-}
-
-.el-container .el-main{
-  
-  padding: 0px 5px 5px 5px;
-}
-
-.index {
-  padding-left: 10px;
-}
-
-/*
-* {
-  outline: 1px solid;
-}
-*/
-.el-aside::-webkit-scrollbar{
-  display:none;
-}
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  height: 100%;
-}
-
-.el-footer {
-    color: #333;
-    text-align: center;
-    font-size:3px;
-    line-height: 20px;
-}
-
+  .stepsTitle{
+      margin: 10px 0px  10px  10px ;
+  }
+  .approvalProcess{
+      color: #9EADC4;
+      font-size: 14px;
+      /* width: 100%; */
+      background:#DFEBFF;
+      margin-left:20px;
+      margin-right:0px;
+      margin-top:10px;
+  }
+  .processing_content{
+    background-color: #D9E5F9;
+  }
+  .processing_content_detail{
+     margin-left: 10px;
+     margin-top: 3.5px;
+     margin-bottom: 3.5px;
+	   width:150px;
+     display:inline-block;
+  }
+  .step-row{
+     min-width:500px;
+     margin-bottom:12px;
+     margin-top:12px;
+  }
 </style>

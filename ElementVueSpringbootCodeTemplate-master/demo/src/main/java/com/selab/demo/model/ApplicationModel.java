@@ -26,17 +26,17 @@ public class ApplicationModel extends BaseEntity {
     private int processID;
     private Date time;//时间
     private String phone;//手机号
-    private testTYPE testTYPE;
-    private String sNAME;
-    private String PA;
-    private String PAE;
-    private String PB;
-    private PB_type PB_type;
-    private String else_type;
-    private String USS;
-    private String sDES;
-    private int stestBASIS;
-    private String elsestestBASIS;
+    private testTYPE testTYPE;//测试类型，C：软件确认测试，I：成果/技术鉴定测试，A：转向资金验收测试
+    private String sNAME;//软件名称
+    private String PA;//委托方
+    private String PAE;//委托方（英文）
+    private String PB;//受委托方（开发单位）
+    private PB_type PB_type;//单位性质D：内资企业F：外（合）资企业G：港澳台企业S：科研院校O：政府事业团队E：其他
+    private String else_type;//单位性质为其他
+    private String USS;//用户对象描述
+    private String sDES;//软件描述（功能、简介）
+    private int stestBASIS;//测试依据1:GB/T 25000.51-2016;2:GB/T 25000.10-2016;3:GB/T 28452-2012;4:GB/T 30961-2014;5:NST-03-Wl12-2011;6:NST-03-Wl13-2011;7:NST-03-Wl22-2014
+    private String elsestestBASIS;//测试依据其他
     private String elseINDEX;
     private int TESTINDEX;
     private int scale_num;
@@ -69,6 +69,60 @@ public class ApplicationModel extends BaseEntity {
     private state t_state;
     private state m_state;
     private String auditinfor;
+
+    /**
+     * {
+     *     "applicantID":"1",
+     *     "processID":"1",
+     *     "time":"2017-09-02 10:29:14",
+     *     "phone":"1",
+     *     "testTYPE":"C",
+     *     "sNAME":"1",
+     *     "PA":"1",
+     *     "PAE":"1",
+     *     "PB":"1",
+     *     "PB_type":"D",
+     *     "else_type":"1",
+     *     "USS":"1",
+     *     "sDES":"1",
+     *     "stestBASIS":"1",
+     *     "elsestestBASIS":"1",
+     *     "TESTINDEX":"1",
+     *     "elseINDEX":"1",
+     *     "scale_num":"1",
+     *     "scale_score":"1",
+     *     "scale_lines":"1",
+     *     "sTYPE":"1",
+     *     "ENVIRONMENTW":"1",
+     *     "ENVIRONMENTL":"1",
+     *     "ENVIRONMENTN":"1",
+     *     "ENVIRONMENTE":"1",
+     *     "ENVIRONMENT":"1",
+     *     "ARCHITECTURE":"U",
+     *     "hMEMORY":"1",
+     *     "hHARDDISK":"1",
+     *     "hELSEDEMAND":"1",
+     *     "sOS":"1",
+     *     "sVERSION":"1",
+     *     "sLANGUAGE":"1",
+     *     "sARCHITECTURE":"C",
+     *     "sDATABASE":"1",
+     *     "sMIDDLEWARE":"1",
+     *     "sELSEDEMAND":"1",
+     *     "MEDIUM":"E",
+     *     "doc_path1":"E",
+     *     "doc_path2":"E",
+     *     "doc_path3":"E",
+     *     "doc_path4":"E",
+     *     "SAMPLEDELETE":"A",
+     *     "EXDATE":"E",
+     *     "t_state":"A",
+     *     "m_state":"A",
+     *     "auditinfor":"E"
+     *
+     *
+     * }
+     * **/
 
     public ApplicationModel(int AID, int applicantID, int processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, int stestBASIS, String elsestestBASIS,  int TESTINDEX, String elseINDEX, int scale_num, int scale_score, int scale_lines, char sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor) {
         this.AID = AID;
