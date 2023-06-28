@@ -190,7 +190,7 @@ export default {
       // 移除本地用户登录信息
       sessionStorage.removeItem('userInfo');
       // 跳转页面到登录页
-      this.$router.push('/login');
+      this.$router.push('/clientlogin');
     },
     loginSuccess(user) {
       console.log("success", user);

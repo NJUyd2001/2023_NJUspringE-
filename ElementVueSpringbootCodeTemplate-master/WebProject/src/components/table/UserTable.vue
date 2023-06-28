@@ -60,54 +60,35 @@
       </el-table-column>
       <el-table-column
         sortable
-        prop="job"
-        label="工作单位"
-        width="200">
-      </el-table-column>
-      <el-table-column
-        sortable
         prop="createTime"
         label="创建时间"
         :formatter="dateFormat"
         width="200">
       </el-table-column>
-      <!-- <el-table-column
-        sortable
-        prop="updateTime"
-        label="最后修改时间"
-        :formatter="dateFormat"
-        width="150">
-      </el-table-column>        
-      <el-table-column
-        fixed="right"
-        label="操作"
-        width="100">
-        <template slot-scope="scope">
-          <el-button @click="showPasswordDlg(scope.row)" type="text" size="small"  icon="el-icon-edit"></el-button>
-          <el-button @click="deleteConfig(scope.row)" type="text" size="small"  icon="el-icon-delete"></el-button>
-        </template>
-      </el-table-column> -->
     </el-table>
-
-    <Pagination ref="page1" url="/user/list" :keyword="keyword" :sort="sort" v-model="datas"/>
-
-    <!--修改密码对话框-->
-    <el-dialog title="修改密码" :visible.sync="passwordDlg.show" @close="hidePasswordDlg">
-      <el-form :model="passwordDlg.form">
-        <el-form-item label="密码" label-width="100px">
-          <el-input v-model="passwordDlg.form.password" type="password" auto-complete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="hidePasswordDlg">取 消</el-button>
-        <el-button type="primary" @click="doModifyPwd">确 定</el-button>
-      </div>
-    </el-dialog>
+    <!-- <Pagination ref="page1" url="http://localhost:9090/api/user/selectAll" :keyword="keyword" :sort="sort" v-model="datas"/> -->
   </div>
 </template>
 
 <script>
+import Axios from "axios"
 export default {
+  created(){
+    Axios.get("http://localhost:9090/api/user/selectAll/customer",).then(ret=>{
+        //console.log(ret.data);
+        //console.log(this.datas);
+      var i=0;
+      for(;i<ret.data.length;i++)
+         {
+          this.datas[i]=ret.data[i];
+          console.log(this.datas[i]);
+         }  
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+        alert("error!");
+      });
+  },
   methods: {
     handleClick(row) {
       console.log(row);
@@ -122,47 +103,6 @@ export default {
       }
       return new Date(date).format("yyyy/MM/dd hh:mm");
     },
-    deleteConfig(row) {
-      // this.ajax.post("/config/delete?id=" + row.id).then(result => {
-      //   if (result.code == 0) {
-      //     this.info("delete success");
-      //     this.refreshConfig();
-      //   } else {
-      //     this.error(result.msg);
-      //   }
-      // });
-    },
-    // 显示修改密码 
-    showPasswordDlg(row){
-      this.passwordDlg.row = row;
-      this.passwordDlg.show = true;
-    },
-    // 隐藏
-    hidePasswordDlg(){
-      this.passwordDlg.row = null;
-      this.passwordDlg.show = false;
-      this.passwordDlg.form.password = "";
-    },
-    // 修改密码
-    doModifyPwd(){
-      if(this.passwordDlg.form.password == ""){
-        this.error("密码不能为空");
-        return;
-      }
-
-      this.ajax.postForm("/user/updatepwd" ,{
-        id: this.passwordDlg.row.id,
-        password: this.passwordDlg.form.password
-      }).then(result => {
-        if (result.code == 0) {
-          this.info("Password Update Success.");
-          this.hidePasswordDlg();
-        } else {
-          this.error(result.msg);
-        }
-      });
-    },
-    // 刷新表格数据
     refreshConfig(){
       this.$refs.page1.reload();
     }
@@ -170,26 +110,7 @@ export default {
   data() {
     return {
       keyword:"",
-      datas: [{
-        uid:'2005220016',
-        name:'H958902573',
-        nickname:'风车村吹风车',
-        email:"958902573@qq.com",
-        phone:'15968774896',
-        job:'测试人员',
-        createTime:'2023-04-29:16:20',
-        active:true,
-      },
-      {
-        uid:'2005220016',
-        name:'H958902573',
-        nickname:'风车村吹风车',
-        email:"958902573@qq.com",
-        phone:'15968774896',
-        job:'质量部人员',
-        createTime:'2023-04-29:16:20',
-        active:true,
-      }
+      datas: [
       ],
       sort: {},
       passwordDlg:{

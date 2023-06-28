@@ -1,14 +1,25 @@
 <!-- 文炫添加 -->
 <template>
+<div id="logo">
 <el-container style="height:700px;">
   <el-header style="height: 30px">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="20"><div class="grid-content bg-purple">
         <span class="logo-title">测试部</span>
         </div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
-        <el-button type="primary"  @click="loginOut">登出</el-button></div></el-col>
+        <el-col :span="4"><div class="grid-content bg-purple-light">
+        <el-button  plain size="mini" type="primary" class="el-icon-user" @click="handleStart">我的</el-button></div></el-col>
+        <el-col :span="8"><div class="grid-content bg-purple-light text-right">
+          <span><el-button type="success" plain size="mini" style = "margin:10px" @click="loginOut">登出</el-button></span>
+
+        <el-dropdown  @command="switchLang">
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="zh">En</el-dropdown-item>
+            <el-dropdown-item command="en">中</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
+        </div></el-col>
     </el-row>
   </el-header>
 
@@ -45,10 +56,11 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="0-2" @click="addTab('提交测试方案', 'UploadFile')">提交测试方案</el-menu-item>
-            <el-menu-item index="0-3" @click="addTab('审核发起的委托','UploadFile')">审核发起的委托</el-menu-item>
+          <el-menu-item-group title="审核发起的委托">
+            <el-menu-item index="0-3" @click="addTab('进度查询', 'ImmediateProcessing')">进度查询</el-menu-item>
+          </el-menu-item-group>
           </el-menu-item-group>
         </el-submenu>
-
         <el-submenu index="9">
           <template slot="title" collapse=false>
             <i class="el-icon-setting"></i>
@@ -91,7 +103,7 @@
 </el-container>
 </el-container>
   <LoginDialog :show='showLogin'/>
-</el-container>
+</el-container></div>
 </template>
 <script>
 import Vue from "vue";
@@ -115,7 +127,8 @@ export default {
       isCollapse: false,
 
       menus: [{}],
-
+      
+      data: [{}],
       //Tabs
       selectTabName: "ConfigAdd",
       tabs: {
@@ -149,6 +162,9 @@ export default {
     });
   },
   methods: {
+    handleNodeClick(data) {
+        console.log(data);
+      },
     switchLang(command) {
       this.lang = command;
     },

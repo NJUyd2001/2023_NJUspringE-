@@ -60,6 +60,12 @@ aabbccdd
 
 2023.6.27
 增加了合同草稿的修改和application校验字段的添加
+
 application部分完成
+
 application端口文档完成
+
 application数据结构部分的文档还没写完（（
+
+2023.6.27
+测试文档和测试报告完善、测试部主页添加委托进度和需要立即处理list（还没完成）、测试方案完成

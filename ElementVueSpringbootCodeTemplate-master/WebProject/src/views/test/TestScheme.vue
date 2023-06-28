@@ -2,26 +2,28 @@
 <template>
     <el-container style="height:100%">
       <el-header style="height: 30px " @back="goback">
+        <el-row>
+        <el-col :span="22">
         <el-breadcrumb separator="->">
             <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
             <el-breadcrumb-item><a href="/testscheme">测试方案</a></el-breadcrumb-item>
         </el-breadcrumb>
-      <br>
+        </el-col>
+        <el-col :span="2">
+          <el-button style="margin-bottom: 5px; margin-left: 70px;" size="mini" type="primary">登出</el-button>
+        </el-col>
+        </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
             <router-link to="/Test">
-            <el-button  size="middle" type="danger">上一步</el-button>
+            <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="3"><div class="grid-content bg-purple">
+          <el-col :span="8" push="1"><div class="grid-content bg-purple">
             <span class="logo-title">测试部-测试方案</span>
             </div></el-col>
             <el-col :span="6" pull="3">
             <div class="grid-content bg-purple-light text-right">
-              <span v-if="user != null">
-                <span class="user">{{user.nick}}</span><el-button  plain size="middle"  type="danger" @click="logout">退出</el-button>
-              </span>
-              <span v-else><el-button type="success" plain size="middle" style = "margin:10px" @click="loginOut">登出</el-button></span>
               <el-dropdown  @command="switchLang">
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="zh">En</el-dropdown-item>
@@ -30,14 +32,14 @@
               </el-dropdown>
             </div></el-col>
           <el-col :span="6" push="4">
-            <el-button  size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
+            <el-button style="margin-top: 10px; margin-left: 30px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
         <br><br>
         <el-main>
-          <el-form label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item label="1.	引言" prop="Introduction" style="font-weight: bold; font-size: 15px; ">
+          <el-form style="margin-left: 200px; margin-top: 30px;" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item label="1 引言" prop="Introduction" style="font-weight: bold; font-size: 15px; ">
             </el-form-item>
             <el-form-item label="1.1标识:" prop="Mark">
               <el-input v-model="ruleForm.Mark" style="width: 200px;"></el-input>
@@ -51,10 +53,10 @@
             <el-form-item label="1.4基线:" prop="BaseLine">
               <el-input v-model="ruleForm.BaseLine" style="width: 200px;"></el-input>
             </el-form-item>
-            <el-form-item label="2引用文件:" prop="ApplicationFile" style="font-weight: bold; font-size: 15px; ">
+            <el-form-item label="2 引用文件:" prop="ApplicationFile" style="font-weight: bold; font-size: 15px; ">
               <el-input placeholder="《计算机软件文档编制规范》GB/T 8567－2006" v-model="ruleForm.ApplicationFile" style="width: 350px; "></el-input>
             </el-form-item>
-            <el-form-item label="3 软件测试环境" prop="Introduction" style="font-weight: bold; font-size: 15px; ">
+            <el-form-item label="3 软件测试环境" prop="Introduction" style="font-weight: bold; font-size: 15px; margin-left: 20px;">
             </el-form-item>
             <el-form-item label="3.1硬件:" prop="Hardware">
               <el-input v-model="ruleForm.Hardware" style="width: 200px;"></el-input>

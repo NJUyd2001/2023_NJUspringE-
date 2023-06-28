@@ -122,7 +122,8 @@ export default {
     },
     removefatherItem(Table){
       const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1) {
+      if (index !== -1&&index!=0) {
+        //alert(index)
       this.ruleForm.TableData.splice(index, 1);
   }
     },
@@ -135,14 +136,15 @@ export default {
         )
     },
     submitForm(formName) {
-      /*this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
-          this.$router.push({path: "./client", replace:true});
+          this.StepNumber+=2;
+        this.info("提交成功，正在返回用户界面！");
+        setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
         } else {
           return false;
         }
-      });*/
+      });
       // Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
       //   console.log(ret.data)
       // })

@@ -52,11 +52,11 @@
         <el-input style="width:200px;padding:10px" @change="" 
         v-model="ruleForm.VersionNumber"></el-input>
       </el-form-item>
-      <el-form-item label="委托单位(中文):" prop="Chinese">  
-            <el-input style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.Chinese"></el-input>
+      <el-form-item label="委托单位(中文):" prop="ClientChinese">  
+            <el-input style="width:200px;padding:10px" v-model="ruleForm.ClientChinese"></el-input>
       </el-form-item>
-      <el-form-item label="委托单位(英文):" prop="English">  
-        <el-input style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.English"></el-input>
+      <el-form-item label="委托单位(英文):" prop="ClientEnglish">  
+        <el-input style="width:200px;padding:10px" v-model="ruleForm.ClientEnglish"></el-input>
       </el-form-item>
       <el-form-item label="开发单位:" prop="DevelopmentCompany">  
          <el-input style="width:200px;padding:10px" v-model="ruleForm.DevelopmentCompany"></el-input>
@@ -217,10 +217,8 @@ export default {
             TypeTest:[],
             SoftWareName:'',
             VersionNumber:'',
-            EntrustingCompany:{
-              Chinese:'',
-              English:'',
-            },
+            ClientChinese:'',
+            ClientEnglish:'',
             DevelopmentCompany:'',
             AttributeOfCompany:[],
             SoftwareUserObjectDescription:'',
@@ -516,10 +514,10 @@ export default {
         VersionNumber:[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
-        Chinese:[
+        ClientChinese:[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
-        English:[
+        ClientEnglish:[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
         DevelopmentCompany:[
