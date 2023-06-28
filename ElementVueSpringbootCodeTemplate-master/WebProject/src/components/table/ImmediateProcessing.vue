@@ -48,19 +48,21 @@
     <div slot="header" class="clearfix">
     <span style="font-weight: bold;">立即处理</span>
     </div>
-    <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
-    <el-form-item style="width: 300px;" label="客户名">
-    <el-input v-model="formLabelAlign.name"></el-input>
-    </el-form-item></el-form>
-    <div class="demo-progress">
-    <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-    <el-progress style="" type="dashboard" :percentage="80">
+    <el-form :label-position="labelPosition" label-width="80px" style="width: 600px;" :model="formLabelAlign">
+      <el-form-item style="width: 600px; height: 100px;" label="客户名">
+        <el-input v-model="formLabelAlign.name" style="width: 150px; position: fixed;"></el-input>
+        <el-label style="margin-left: 300px;">当前进度</el-label>
+        <el-progress style="margin-top: 10px; position: fixed;" type="dashboard" :percentage="80">
       <template #default="{ percentage }">
         <span class="percentage-value">{{ percentage }}%</span>
-        <span class="percentage-label">当前进度</span>
       </template>
     </el-progress>
-  </div>
+
+    </el-form-item>
+    </el-form>
+    <div class="demo-progress" style="margin-top: -50px; width: 200px;">
+    <el-tree :data="data" :props="defaultProps" default-expand-all  @node-click="handleNodeClick"></el-tree>
+    </div>
   </el-card>
   </el-row>
   </div>
@@ -306,7 +308,7 @@
 .box-card {
     width: 700px;
     margin-top: 20px;
-    height: 500px;
+    height: 400px;
 }
 
 .percentage-value {
