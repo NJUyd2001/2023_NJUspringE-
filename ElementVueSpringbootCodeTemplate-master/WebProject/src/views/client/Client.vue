@@ -2,8 +2,6 @@
 <div class ="Person">
 <el-container style="height: 90%;">
   <el-header style="height: 10%;">
-<el-container style="height: 90%;">
-  <el-header style="height: 10%;">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
         <span style="font-size: 30px; font-weight: 1000;">{{user.uname}},您好</span>

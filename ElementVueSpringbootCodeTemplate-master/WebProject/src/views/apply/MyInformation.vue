@@ -63,6 +63,9 @@
 </template>
 <script>
 export default {
+  mounted(){
+    
+  },
     data(){
        return{
             user:{
@@ -176,7 +179,7 @@ export default {
   height: 100%;
 }
 
-span.logo-title{
+.logo-title{
   font-size: 20px;
   font-weight: bold;
 }
