@@ -34,7 +34,6 @@
             <span class="addr">{{ props.item.nick }}</span>
         </template>
     </el-autocomplete>
-    </el-input>
     <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
   </div>
 </template>

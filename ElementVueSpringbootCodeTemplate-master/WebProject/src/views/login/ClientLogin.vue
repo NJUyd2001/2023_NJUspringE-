@@ -63,21 +63,18 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      Axios.get("http://localhost:9090/api/user/selectAll",).then(ret=>{
-        console.log(ret.data)  
-      })
-      Axios.post("http://localhost:9090/api/user/login",JSON.stringify(this.ruleForm),{
+      Axios.post("http://localhost:9090/api/user/login/customer",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
         if(ret.data==="")
-        this.error("您的用户名或密码错误,请重新输入！");
+          this.error("您的用户名或密码错误,请重新输入！");
         else
         {
         this.$store.state.user.id=ret.data.uid;
         this.$store.state.user.name=ret.data.nickname;
         this.$store.state.user.password=ret.data.password;
-        this.$store.state.user.Permissions=ret.data.type;
+        this.$store.state.user.Permissions=ret.data.usertype;
         this.info("登录成功");
         setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
         }

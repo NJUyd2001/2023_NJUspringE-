@@ -8,12 +8,12 @@ let util = {
 };
 
 util.title = function (title) {
-    title = title ? title + ' - Home' : '晓风轻 Element Vue Springboot 代码模板';
+    title = title ? title + ' - Home' : '';
     window.document.title = title;
 };
 
 const ajaxUrl = env === 'development' ?
-    'http://localhost:8080' :
+    'http://localhost:9090' :
     env === 'production' ?
         'springboot' :
         'springboot';
@@ -34,7 +34,7 @@ function handlerData(response) {
     // 还没有找到中断promise好的办法
     //}
 
-    console.log(response.data);
+    //console.log(response.data);
 
     return response.data;
 }
@@ -43,20 +43,20 @@ function handlerData(response) {
 axiosInstance.interceptors.response.use(function (response) {
     let data = response.data
 
-    console.log('axiosInstance.interceptors', data);
-    console.log('axiosInstance.interceptors', data.code);
+    // console.log('axiosInstance.interceptors', data);
+    // console.log('axiosInstance.interceptors', data.code);
 
     //对返回的数据进行一些处理
     // 全局的没有登录异常单独处理
-    if (response.status == 401 || data.code === -1) {
-        console.log('no login');
+    // if (response.status == 401 || data.code === -1) {
+    //     console.log('no login');
 
-        // 通知打开登录窗口
-        Vue.bus.emit('login-open');
+    //     // 通知打开登录窗口
+    //     //Vue.bus.emit('login-open');
 
-        // 还没有找到中断promise好的办法
-        return Promise.reject('ERROR_NOLOGIN');
-    }
+    //     // 还没有找到中断promise好的办法
+    //     return Promise.reject('ERROR_NOLOGIN');
+    // }
 
     return response;
 }, function (error) {

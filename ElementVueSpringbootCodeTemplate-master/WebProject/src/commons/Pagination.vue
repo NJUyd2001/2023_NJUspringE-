@@ -80,18 +80,6 @@ export default {
           }
         })
         .then(result => {
-          if (result.code == 0) {
-            this.page = result.data.page;
-            this.pagesize = result.data.pagesize;
-            this.total = result.data.total;
-
-            this.$emit("input", result.data.rows);
-
-            // 回调
-            this.refreshDone && this.refreshDone(result.data.rows);
-          } else {
-            this.error(result.msg);
-          }
         });
     }
   },
