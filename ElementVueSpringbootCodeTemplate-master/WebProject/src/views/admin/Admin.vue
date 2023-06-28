@@ -208,7 +208,7 @@
     }
     
     span.logo-title{
-      font-size: 18px;
+      font-size: 30px;
       font-weight: bold;
     }
     </style>

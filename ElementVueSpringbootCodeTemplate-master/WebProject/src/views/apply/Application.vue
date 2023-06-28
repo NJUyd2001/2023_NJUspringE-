@@ -695,7 +695,7 @@ export default {
           this.$store.state.user.id=-1;
           this.$store.state.user.name="null";
           this.$store.state.user.password=-1;
-          this.$store.state.user.Permissions="null";//移除用户信息
+          this.$store.state.user.Permissions="null";
       this.$router.push({path: "./home", replace:true});
     },
     increasePer(format){
@@ -773,7 +773,7 @@ export default {
   height: 100%;
 }
 
-spanspan.logo-title{
+span.logo-title{
   font-size: 40px;
   font-weight: bold;
 }

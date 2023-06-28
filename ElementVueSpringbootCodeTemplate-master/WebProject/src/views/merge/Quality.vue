@@ -18,7 +18,7 @@
   <br>
   <el-container>
     <el-main>      
-      <el-tabs v-model="selectTabName" type="card" closable @tab-remove="removeTab">
+      <el-tabs v-model="selectTabName" type="card">
         <el-tab-pane
           v-for="item in tabs"
           :key="item.name"

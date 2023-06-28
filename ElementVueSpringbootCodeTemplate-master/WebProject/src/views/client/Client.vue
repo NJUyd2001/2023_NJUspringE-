@@ -256,6 +256,12 @@ export default {
 </script>
 
 <style>
+
+span.logo-title{
+  font-size: 30px;
+  font-weight: 1000;
+}
+
 .stepSuc :hover{
   cursor: pointer;
 }
@@ -335,11 +341,6 @@ export default {
     text-align: center;
     font-size:3px;
     line-height: 20px;
-}
-
-span.logo-title{
-  font-size: 30px;
-  font-weight: 1000;
 }
 
 .mask {

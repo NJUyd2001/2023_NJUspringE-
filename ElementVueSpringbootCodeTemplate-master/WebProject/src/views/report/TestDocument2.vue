@@ -21,7 +21,7 @@
             </router-link>
           </el-col>
           <el-col :span="6" push="1"><div class="grid-content bg-purple">
-            <span class="logo-title">测试记录</span>
+            <span class="logo-title3">测试记录</span>
             </div></el-col>
             <el-col :span="6" pull="3">
             <div class="grid-content bg-purple-light text-right">
@@ -231,7 +231,7 @@
       height: 100%;
     }
     
-    span.logo-title{
+    span.logo-title3{
       font-size: 20px;
       font-weight: bold;
       margin-left: 70%;
