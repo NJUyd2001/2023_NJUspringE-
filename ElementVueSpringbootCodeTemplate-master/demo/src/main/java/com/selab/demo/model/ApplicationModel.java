@@ -69,6 +69,16 @@ public class ApplicationModel extends BaseEntity {
     private state t_state;
     private state m_state;
     private String auditinfor;
+    private String version_num;
+    public String getVersion_num() {
+        return version_num;
+    }
+
+    public void setVersion_num(String version_num) {
+        this.version_num = version_num;
+    }
+
+
 
     /**
      * {
@@ -124,7 +134,7 @@ public class ApplicationModel extends BaseEntity {
      * }
      * **/
 
-    public ApplicationModel(int AID, int applicantID, int processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, int scale_num, int scale_score, int scale_lines, char sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor) {
+    public ApplicationModel(int AID, int applicantID, int processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, int scale_num, int scale_score, int scale_lines, char sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor,String version_num) {
         this.AID = AID;
         this.applicantID = applicantID;
         this.processID = processID;
@@ -173,7 +183,7 @@ public class ApplicationModel extends BaseEntity {
         this.t_state = t_state;
         this.m_state = m_state;
         this.auditinfor = auditinfor;
-
+        this.version_num = version_num;
     }
 
 

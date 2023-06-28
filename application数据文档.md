@@ -54,3 +54,4 @@ author：李晨博
 |t_state|enum|测试部审核结果，<br />A：委托被拒绝，<br />B：待审核，<br />C：正在审核中（已经有人再审了），<br />D：审核通过|NOT NULL|
 |m_state|enum|市场部审核结果,<br />A：委托被拒绝,<br />B：待审核,<br />C：正在审核中（已经有人再审了）,<br />D：审核通过|NOT NULL|
 |auditinfor|string|state==A时有意义：委托修改意见|-|
+|version_num|string|版本号|NOT NULL|
