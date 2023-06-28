@@ -290,7 +290,7 @@ export default {
   height: 100%;
 }
 
-.logo-title{
+span.logo-title{
   font-size: 18px;
   font-weight: bold;
 }

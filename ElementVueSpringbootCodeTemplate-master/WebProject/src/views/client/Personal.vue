@@ -87,13 +87,6 @@
         </template>
         <el-descriptions-item>
           <template slot="label">
-            <i class="el-icon-picture-outline"></i>
-            头像
-          </template>
-          <img class="img" :src="avatar" alt="" />
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
             <i class="el-icon-user"></i>
             账户名
           </template>
@@ -147,14 +140,6 @@
             邮编
           </template>
           {{ work }}
-        </el-descriptions-item>
-
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-chormefilled"></i>
-            网址
-          </template>
-          {{ web }}
         </el-descriptions-item>
     </el-descriptions>
     </el-card>

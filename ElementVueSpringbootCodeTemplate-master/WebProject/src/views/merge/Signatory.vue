@@ -2,11 +2,9 @@
 <div class ="Person">
 <el-container style="height: 90%;">
   <el-header style="height: 10%;">
-<el-container style="height: 90%;">
-  <el-header style="height: 10%;">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
-        <span style="font-size: 30px; font-weight: 1000;">{{user.uname}},您好</span>
+        <span class="logo-title">{{user.uname}},您好(授权签字人)</span>
         </div></el-col>
         <el-col :span="12">
           <img src="../../assets/l3.png" style="height:80px"/>
@@ -17,38 +15,7 @@
       </el-col>
     </el-row>
   </el-header>
-  
-  <el-container >
-    <el-aside width="300px">
-      <el-menu
-        default-active="1"
-        :collapse="isCollapse"
-        >
-        <el-submenu index="1">
-          <template slot="title" collapse=false>
-            <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
-            <span style="font-size:20px"> 我的委托</span>
-          </template>
-          <el-menu-item-group>
-            <template slot="title">委托准备</template>
-            <el-menu-item index="1-11" @click="jump2application()" style="font-size:18px">发起委托</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="委托处理">
-            <el-menu-item index="1-21" @click="addTab('进度查询', 'ProgressQuery')" style="font-size:18px">进度查询</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="0">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span style="font-size:20px">我的</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="0-1" @click="jump2myinf()" style="font-size:18px">个人信息完善</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-
-      </el-menu>
-    </el-aside>
+  <br>
   <el-container>
     <el-main>      
       <el-tabs v-model="selectTabName" type="card" closable @tab-remove="removeTab">
@@ -67,7 +34,6 @@
   江苏省 南京市 栖霞区 仙林大道163号南京大学仙林校区计算机科学与技术楼<br>
   电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
   </el-footer>
-</el-container>
 </el-container>
   <LoginDialog :show='showLogin'/>
 </el-container>
@@ -104,12 +70,12 @@ export default {
       menus: [{}],
 
       //Tabs
-      selectTabName: "ProgressQuery",
+      selectTabName: "ConfigTableQ",
       tabs: {
         ConfigAdd: {
-        title: "委托进度",
-        name: "ProgressQuery",
-        currentView: "ProgressQuery"
+        title: "测试方案审核",
+        name: "ConfigTableQ",
+        currentView: "ConfigTableQ"
         }
       }
     };
@@ -170,7 +136,7 @@ export default {
       // 移除本地用户登录信息
       sessionStorage.removeItem('userInfo');
       // 跳转页面到登录页
-      this.$router.push('/clientlogin');
+      this.$router.push('/login');
     },
     loginSuccess(user) {
       console.log("success", user);

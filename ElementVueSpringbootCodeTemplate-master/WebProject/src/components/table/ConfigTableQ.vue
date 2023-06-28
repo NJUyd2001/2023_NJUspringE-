@@ -36,7 +36,7 @@
       <el-table-column
         sortable
         prop="value"
-        label="取值"
+        label="发起时间"
         width="300">
       </el-table-column>
       <el-table-column
@@ -48,7 +48,7 @@
       <el-table-column
         fixed="right"
         label="操作"
-        width="100">
+        width="150">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="deleteConfig(scope.row)" type="text" size="small"><i class="el-icon-delete"></i></el-button>
@@ -64,7 +64,7 @@
 export default {
   methods: {
     handleClick() {
-      this.$router.push({path: "./login", replace:true});
+      this.$router.push({path: "./clientlogin", replace:true});
     },
     sortChange({column, prop, order}){
       this.sort = {prop, order};
