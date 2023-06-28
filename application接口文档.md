@@ -8,7 +8,7 @@ author:李晨博
 
 增加一个新的application项目
 
-注意！此处不需要也不能写AID，AID会自动生成，就算你写了AID最后insert的AID也是自动生成的，你写的AID不会具有任何意义！
+注意！所有数据文档中除去AID以外的NOT NULL的key必须都有定义，否则会报错！在此处定义AID没有任何意义，AID会变为sql设定的自增变量！
 
 输入示例：
 
@@ -30,7 +30,7 @@ author:李晨博
     "elsestestBASIS":"1",
     "TESTINDEX":"1",
     "elseINDEX":"1",
-    "scale_num":"1",    
+    "scale_num":"1",
     "scale_score":"1",
     "scale_lines":"1",
     "sTYPE":"1",

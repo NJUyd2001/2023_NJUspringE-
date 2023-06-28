@@ -38,9 +38,9 @@ public class ApplicationService {
         String else_type = jsonObject.getString("else_type");
         String USS = jsonObject.getString("USS");
         String sDES = jsonObject.getString("sDES");
-        int stestBASIS = jsonObject.getInteger("stestBASIS");
+        String stestBASIS = jsonObject.getString("stestBASIS");
         String elsestestBASIS = jsonObject.getString("elsestestBASIS");
-        int TESTINDEX = jsonObject.getInteger("TESTINDEX");
+        String TESTINDEX = jsonObject.getString("TESTINDEX");
         String elseINDEX = jsonObject.getString("elseINDEX");
         int scale_num = jsonObject.getInteger("scale_num");
         int scale_score = jsonObject.getInteger("scale_score");
@@ -115,9 +115,9 @@ public class ApplicationService {
         String else_type = jsonObject.getString("else_type");
         String USS = jsonObject.getString("USS");
         String sDES = jsonObject.getString("sDES");
-        int stestBASIS = jsonObject.getInteger("stestBASIS");
+        String stestBASIS = jsonObject.getString("stestBASIS");
         String elsestestBASIS = jsonObject.getString("elsestestBASIS");
-        int TESTINDEX = jsonObject.getInteger("TESTINDEX");
+        String TESTINDEX = jsonObject.getString("TESTINDEX");
         String elseINDEX = jsonObject.getString("elseINDEX");
         int scale_num = jsonObject.getInteger("scale_num");
         int scale_score = jsonObject.getInteger("scale_score");

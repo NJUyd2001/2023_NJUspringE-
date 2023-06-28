@@ -35,10 +35,10 @@ public class ApplicationModel extends BaseEntity {
     private String else_type;//单位性质为其他
     private String USS;//用户对象描述
     private String sDES;//软件描述（功能、简介）
-    private int stestBASIS;//测试依据1:GB/T 25000.51-2016;2:GB/T 25000.10-2016;3:GB/T 28452-2012;4:GB/T 30961-2014;5:NST-03-Wl12-2011;6:NST-03-Wl13-2011;7:NST-03-Wl22-2014
+    private String stestBASIS;//测试依据1:GB/T 25000.51-2016;2:GB/T 25000.10-2016;3:GB/T 28452-2012;4:GB/T 30961-2014;5:NST-03-Wl12-2011;6:NST-03-Wl13-2011;7:NST-03-Wl22-2014
     private String elsestestBASIS;//测试依据其他
     private String elseINDEX;
-    private int TESTINDEX;
+    private String TESTINDEX;
     private int scale_num;
     private int scale_score;
     private int scale_lines;
@@ -124,7 +124,7 @@ public class ApplicationModel extends BaseEntity {
      * }
      * **/
 
-    public ApplicationModel(int AID, int applicantID, int processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, int stestBASIS, String elsestestBASIS,  int TESTINDEX, String elseINDEX, int scale_num, int scale_score, int scale_lines, char sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor) {
+    public ApplicationModel(int AID, int applicantID, int processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, int scale_num, int scale_score, int scale_lines, char sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor) {
         this.AID = AID;
         this.applicantID = applicantID;
         this.processID = processID;
@@ -283,11 +283,11 @@ public class ApplicationModel extends BaseEntity {
         this.sDES = sDES;
     }
 
-    public int getStestBASIS() {
+    public String getStestBASIS() {
         return stestBASIS;
     }
 
-    public void setStestBASIS(int stestBASIS) {
+    public void setStestBASIS(String stestBASIS) {
         this.stestBASIS = stestBASIS;
     }
 
@@ -307,11 +307,11 @@ public class ApplicationModel extends BaseEntity {
         this.elseINDEX = elseINDEX;
     }
 
-    public int getTESTINDEX() {
+    public String getTESTINDEX() {
         return TESTINDEX;
     }
 
-    public void setTESTINDEX(int TESTINDEX) {
+    public void setTESTINDEX(String TESTINDEX) {
         this.TESTINDEX = TESTINDEX;
     }
 
