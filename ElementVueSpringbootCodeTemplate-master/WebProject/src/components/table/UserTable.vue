@@ -23,50 +23,35 @@
         sortable
         prop="uid"
         label="UID"        
-        width="150">
+        width="200">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="regTime"
         sortable
-        label="用户名"
-        width="200">
+        label="注册时间"
+        width="300">
       </el-table-column>
       <el-table-column
         sortable
         prop="nickname"
-        label="昵称"
-        width="200">
+        label="用户名"
+        width="310">
       </el-table-column>
-      <!-- <el-table-column
-        prop="roles"
-        label="角色">
-        <template scope="scope">
-          <el-tag  v-for="(item,index) in scope.row.roles"
-          :type="item.name === 'admin' ? 'primary' : 'success'"
-          disable-transitions>{{item.name}}</el-tag>
-        </template>
-      </el-table-column> -->
       <el-table-column
         sortable
-        prop="email"
+        prop="emailAddr"
         label="邮箱"
-        width="200">
+        width="250">
       </el-table-column>
       <el-table-column
         sortable
         prop="phone"
         label="电话"
-        width="200">
-      </el-table-column>
-      <el-table-column
-        sortable
-        prop="createTime"
-        label="创建时间"
-        :formatter="dateFormat"
-        width="200">
+        width="250">
       </el-table-column>
     </el-table>
-    <!-- <Pagination ref="page1" url="http://localhost:9090/api/user/selectAll" :keyword="keyword" :sort="sort" v-model="datas"/> -->
+
+    <Pagination ref="page1" url="http://localhost:9090/api/user/selectAll" :keyword="keyword" :sort="sort" v-model="datas"/>
   </div>
 </template>
 
@@ -74,24 +59,22 @@
 import Axios from "axios"
 export default {
   created(){
-    Axios.get("http://localhost:9090/api/user/selectAll/customer",).then(ret=>{
+    Axios.get("http://localhost:9090/api/user/selectAll/customer").then(ret=>{
         //console.log(ret.data);
         //console.log(this.datas);
       var i=0;
       for(;i<ret.data.length;i++)
          {
-          this.datas[i]=ret.data[i];
-          console.log(this.datas[i]);
+          this.datas.push(ret.data[i]);
          }  
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);
-        alert("error!");
       });
   },
   methods: {
     handleClick(row) {
-      console.log(row);
+     
     },
     sortChange({column, prop, order}){
       this.sort = {prop, order};
@@ -125,9 +108,9 @@ export default {
   computed:{
   filterdatas(){
       return this.datas.filter((i)=>{
-        return i.uid.indexOf(this.keyword)!==-1||i.name.indexOf(this.keyword)!==-1||i.nickname.indexOf(this.keyword)!==-1
-                ||i.email.indexOf(this.keyword)!==-1||i.phone.indexOf(this.keyword)!==-1||i.job.indexOf(this.keyword)!==-1
-                ||i.createTime.indexOf(this.keyword)!==-1
+        var uid=i.uid+"";
+        return uid.indexOf(this.keyword)!==-1||i.regTime.indexOf(this.keyword)!==-1||i.nickname.indexOf(this.keyword)!==-1
+                ||i.emailAddr.indexOf(this.keyword)!==-1||i.phone.indexOf(this.keyword)!==-1
       })
     }
   }

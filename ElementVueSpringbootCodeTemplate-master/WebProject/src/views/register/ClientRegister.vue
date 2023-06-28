@@ -75,7 +75,7 @@ export default {
     };
     return {
       ruleForm: {
-        type:"C",
+        type:"c",
         uname: "",
         pass: "",
         password: "",
@@ -114,9 +114,18 @@ export default {
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
+        console.log(ret)
+        if(ret.data==="user.nickname")
+          this.error("用户名已存在！")
+        else if(ret.data==="user.emailAddr")
+        this.error("邮箱已被注册！")
+        else if(ret.data==="user.phone")
+        this.error("电话已被注册")
+        else
+        {
         this.info("注册成功！");
         setTimeout(() => {this.$router.push({path: "./clientlogin", replace:true});}, 2000);
-
+      }
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);

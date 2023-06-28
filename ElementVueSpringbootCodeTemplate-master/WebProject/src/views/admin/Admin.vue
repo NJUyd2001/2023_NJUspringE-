@@ -114,16 +114,6 @@
         };
       },
       computed: {
-        lang: {
-          get: function() {
-            console.log("config", Vue.config);
-            return Vue.config.lang;
-          },
-          set: function(v) {
-            //do nothing
-            this.$bus.emit("lang-change", v);
-          }
-        }
       },
       methods: {
         addTab(targetName, commentName) {
@@ -208,7 +198,7 @@
     }
     
     span.logo-title{
-      font-size: 18px;
+      font-size: 30px;
       font-weight: bold;
     }
     </style>

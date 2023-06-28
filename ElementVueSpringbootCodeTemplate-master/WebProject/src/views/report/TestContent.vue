@@ -5,8 +5,8 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-        <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '../#/Test' }">测试主页</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/#/report">测试报告</a></el-breadcrumb-item>
         <el-breadcrumb-item><a href="/testcontent">测试内容</a></el-breadcrumb-item>
        </el-breadcrumb>
        </el-col>
@@ -384,7 +384,7 @@
     }
     
     span.logo-title{
-      font-size: 20px;
+      font-size: 30px;
       font-weight: bold;
     }
     .demo-date-picker {

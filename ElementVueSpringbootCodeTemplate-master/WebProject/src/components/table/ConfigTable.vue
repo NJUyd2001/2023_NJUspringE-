@@ -14,7 +14,7 @@
     <el-button @click="Reg" size="small">工作人员账号注册</el-button>
     <p/>
     <el-table
-      :data="configs"
+      :data="filterdatas"
       size = "mini"
       border
       stripe
@@ -24,43 +24,32 @@
         fixed
         sortable
         prop="uid"
-        label="UID"
-        
-        width="150">
+        label="UID"        
+        width="200">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="regTime"
         sortable
-        label="名称"
+        label="注册时间"
         width="300">
       </el-table-column>
       <el-table-column
         sortable
-        prop="password"
-        label="密码"
-        width="300">
+        prop="nickname"
+        label="用户名"
+        width="310">
       </el-table-column>
       <el-table-column
         sortable
-        prop="jobtype"
-        label="岗位类型"
-        width="300">
+        prop="emailAddr"
+        label="邮箱"
+        width="250">
       </el-table-column>
       <el-table-column
         sortable
-        prop="username"
-        label="使用者姓名"
-        width="300">
-      </el-table-column>
-      
-      <el-table-column
-        fixed="right"
-        label="操作"
-        width="100">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button @click="deleteConfig(scope.row)" type="text" size="small"><i class="el-icon-delete"></i></el-button>
-        </template>
+        prop="phone"
+        label="电话"
+        width="250">
       </el-table-column>
     </el-table>
 
@@ -69,11 +58,31 @@
 </template>
 
 <script>
+import Axios from "axios"
 export default {
   created(){
-    axios.get("http://localhost:9090/api/user/select").then(res=>{
-      alert(res.data)
-    })
+    Axios.get("http://localhost:9090/api/user/selectAll/staff",).then(ret=>{
+        console.log(ret.data);
+        //console.log(this.datas);
+      var i=0;
+      for(;i<ret.data.length;i++)
+         {
+          this.datas.push(ret.data[i]);
+         }  
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+        alert("error!");
+      });
+  },
+  computed:{
+  filterdatas(){
+      return this.datas.filter((i)=>{
+        var uid=i.uid+"";
+        return uid.indexOf(this.keyword)!==-1||i.regTime.indexOf(this.keyword)!==-1||i.nickname.indexOf(this.keyword)!==-1
+                ||i.emailAddr.indexOf(this.keyword)!==-1||i.phone.indexOf(this.keyword)!==-1
+      })
+    }
   },
   methods: {
     handleClick(row) {
@@ -103,7 +112,7 @@ export default {
   data() {
     return {
       keyword:"",
-      configs: [],
+      datas: [],
       sort: {}
     };
   }
