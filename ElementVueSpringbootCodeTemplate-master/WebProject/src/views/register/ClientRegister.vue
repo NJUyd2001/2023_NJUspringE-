@@ -78,8 +78,6 @@ export default {
         type:"C",
         uname: "",
         pass: "",
-        gender:"man",
-        njuNumber:205220016,
         password: "",
         emailAddr:"",
         phone:"",
