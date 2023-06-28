@@ -136,7 +136,7 @@
       </el-form-item>
         <el-form-item label="服务器端硬件(运行环境):" required>
         <el-form-item prop="RuntimeEnvironment.Server.HardWare.FrameWork" style="margin-bottom: 20px;">
-            <el-select v-model="ruleForm.RuntimeEnvironment.Server.HardWare.FrameWork" multiple  allow-create filterable>
+            <el-select placeholder="硬件架构" v-model="ruleForm.RuntimeEnvironment.Server.HardWare.FrameWork" multiple  allow-create filterable>
         <el-option   v-for='item in HardWareFrameWork' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
         </el-form-item>
@@ -695,7 +695,7 @@ export default {
           this.$store.state.user.id=-1;
           this.$store.state.user.name="null";
           this.$store.state.user.password=-1;
-          this.$store.state.user.Permissions="null";
+          this.$store.state.user.Permissions="null";//移除用户信息
       this.$router.push({path: "./home", replace:true});
     },
     increasePer(format){
@@ -773,8 +773,8 @@ export default {
   height: 100%;
 }
 
-.logo-title{
-  font-size: 20px;
+spanspan.logo-title{
+  font-size: 40px;
   font-weight: bold;
 }
 .demo-date-picker {

@@ -38,9 +38,9 @@ public class ApplicationService {
         String else_type = jsonObject.getString("else_type");
         String USS = jsonObject.getString("USS");
         String sDES = jsonObject.getString("sDES");
-        int stestBASIS = jsonObject.getInteger("stestBASIS");
+        String stestBASIS = jsonObject.getString("stestBASIS");
         String elsestestBASIS = jsonObject.getString("elsestestBASIS");
-        int TESTINDEX = jsonObject.getInteger("TESTINDEX");
+        String TESTINDEX = jsonObject.getString("TESTINDEX");
         String elseINDEX = jsonObject.getString("elseINDEX");
         int scale_num = jsonObject.getInteger("scale_num");
         int scale_score = jsonObject.getInteger("scale_score");
@@ -72,7 +72,10 @@ public class ApplicationService {
         state t_state  = jsonObject.getObject("t_state",state.class);
         state m_state  = jsonObject.getObject("m_state",state.class);
         String auditinfor = jsonObject.getString("auditinfor");
-        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, else_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor);
+        String version_num = jsonObject.getString("version_num");
+        String hOPERATINGENVIRONMENT = jsonObject.getString("hOPERATINGENVIRONMENT");
+        String sOPERATINGENVIRONMENT = jsonObject.getString("sOPERATINGENVIRONMENT");
+        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, else_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT);
         applicationDao.insertApp(applicationModel);
         return "application inserted successfully";
     }
@@ -115,9 +118,9 @@ public class ApplicationService {
         String else_type = jsonObject.getString("else_type");
         String USS = jsonObject.getString("USS");
         String sDES = jsonObject.getString("sDES");
-        int stestBASIS = jsonObject.getInteger("stestBASIS");
+        String stestBASIS = jsonObject.getString("stestBASIS");
         String elsestestBASIS = jsonObject.getString("elsestestBASIS");
-        int TESTINDEX = jsonObject.getInteger("TESTINDEX");
+        String TESTINDEX = jsonObject.getString("TESTINDEX");
         String elseINDEX = jsonObject.getString("elseINDEX");
         int scale_num = jsonObject.getInteger("scale_num");
         int scale_score = jsonObject.getInteger("scale_score");
@@ -149,13 +152,16 @@ public class ApplicationService {
         state t_state  = jsonObject.getObject("t_state",state.class);
         state m_state  = jsonObject.getObject("m_state",state.class);
         String auditinfor = jsonObject.getString("auditinfor");
+        String version_num = jsonObject.getString("version_num");
+        String hOPERATINGENVIRONMENT = jsonObject.getString("hOPERATINGENVIRONMENT");
+        String sOPERATINGENVIRONMENT = jsonObject.getString("sOPERATINGENVIRONMENT");
 
 
         String result = applicationDao.findbyAID2(AID);
         if (result == null) {
             return "the application does not exist";
         }
-        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, else_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor);
+        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, else_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT);
 
 
         applicationDao.updateapplication(applicationModel);

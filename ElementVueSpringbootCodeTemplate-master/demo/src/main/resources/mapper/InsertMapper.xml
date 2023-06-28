@@ -6,4 +6,5 @@
         INSERT INTO selabspringe.test(data)
         VALUE (#{data})
     </insert>
+
 </mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.selab.demo.dao.ProcessDao">
+    <insert id="insert" parameterType="com.selab.demo.model.ProcessModel">
+        INSERT INTO selabspringe.process (client_id, curr_state, notes, price, open_to_curr, file_path1, file_path2, file_path3, record_path)
+        VALUES (#{client_id}, #{curr_state}, #{notes}, #{price}, #{open_to_curr}, #{file_path1}, #{file_path2}, #{file_path3}, #{record_path})
+
+    </insert>
+    <resultMap id="appilicationMap" type="com.selab.demo.model.ApplicationModel">
+        <id property="AID" column="AID"/>
+        <result property="PID" column="PID"/>
+        <result property="client_id" column="client_id"/>
+        <result property="curr_state" column="curr_state"/>
+        <result property="notes" column="notes"/>
+        <result property="price" column="price"/>
+        <result property="open_to_curr" column="open_to_curr"/>
+        <result property="file_path1" column="file_path1"/>
+        <result property="file_path2" column="file_path2"/>
+        <result property="file_path3" column="file_path3"/>
+        <result property="record_path" column="record_path"/>
+    </resultMap>
+    <select id="findbyclient_id" parameterType="int" resultMap="processMap">
+    SELECT * FROM process WHERE client_id=#{arg0}
+    </select>
+    <select id="findbyPID" parameterType="int" resultMap="processMap">
+        SELECT * FROM process WHERE PID=#{arg0}
+    </select>
+    <select id="findbyPID2" parameterType="int" resultType="String">
+        SELECT record_path FROM process WHERE PID=#{arg0}
+    </select>
+    <update id="update" parameterType="int" >
+        UPDATE selabspringe.process
+        SET client_id=#{client_id}, curr_state=#{curr_state}, notes=#{notes}, price=#{price}, open_to_curr=#{open_to_curr},file_path1=#{file_path1},file_path2=#{file_path2},file_path3=#{file_path3},record_path=#{record_path}
+        WHERE PID=#{PID}
+    </update>
+    <delete id="delete" parameterType="int" >
+        DELETE FROM process WHERE PID = #{arg0}
+    </delete>
+
+</mapper>

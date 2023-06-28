@@ -68,10 +68,10 @@
                 </div>
             </el-form-item>
           <el-form-item label="委托单位(中文):">  
-                <el-input style="width:200px;padding:10px" v-model="Chinese"></el-input>
+                <el-input style="width:200px;padding:10px" v-model="ClientChinese"></el-input>
           </el-form-item>
           <el-form-item label="委托单位(英文):">  
-            <el-input style="width:200px;padding:10px" v-model="English"></el-input>
+            <el-input style="width:200px;padding:10px" v-model="ClientEnglish"></el-input>
           </el-form-item>
           <el-form-item label="测试单位:">  
              <el-input style="width:200px;padding:10px" v-model="DevelopmentCompany"></el-input>
@@ -208,8 +208,8 @@
                 TypeTest:[],
                 SoftWareName:'',
                 VersionNumber:'',
-                  Chinese:'',
-                  English:'',
+                ClientChinese:'',
+                ClientEnglish:'',
                 DevelopmentCompany:'',
                 AttributeOfCompany:[],
                 SoftwareUserObjectDescription:'',
@@ -315,7 +315,7 @@
       height: 100%;
     }
     
-    .logo-title{
+    span.logo-title{
       font-size: 20px;
       font-weight: bold;
     }
