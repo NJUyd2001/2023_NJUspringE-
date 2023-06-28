@@ -49,6 +49,7 @@ public class ApplicationModel extends BaseEntity {
     private String ENVIRONMENTE;
     private String ENVIRONMENT;
     private ARCHITECTURE ARCHITECTURE;
+    private String hOPERATINGENVIRONMENT;
     private String hMEMORY;
     private String hHARDDISK;
     private String hELSEDEMAND;
@@ -59,6 +60,7 @@ public class ApplicationModel extends BaseEntity {
     private String sDATABASE;
     private String sMIDDLEWARE;
     private String sELSEDEMAND;
+    private String sOPERATINGENVIRONMENT;
     private MEDIUM MEDIUM;
     private String doc_path1;
     private String doc_path2;
@@ -70,6 +72,26 @@ public class ApplicationModel extends BaseEntity {
     private state m_state;
     private String auditinfor;
     private String version_num;
+
+
+
+    public String gethOPERATINGENVIRONMENT() {
+        return hOPERATINGENVIRONMENT;
+    }
+
+    public void sethOPERATINGENVIRONMENT(String hOPERATINGENVIRONMENT) {
+        this.hOPERATINGENVIRONMENT = hOPERATINGENVIRONMENT;
+    }
+
+    public String getsOPERATINGENVIRONMENT() {
+        return sOPERATINGENVIRONMENT;
+    }
+
+    public void setsOPERATINGENVIRONMENT(String sOPERATINGENVIRONMENT) {
+        this.sOPERATINGENVIRONMENT = sOPERATINGENVIRONMENT;
+    }
+
+
     public String getVersion_num() {
         return version_num;
     }
@@ -134,7 +156,7 @@ public class ApplicationModel extends BaseEntity {
      * }
      * **/
 
-    public ApplicationModel(int AID, int applicantID, int processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, int scale_num, int scale_score, int scale_lines, char sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor,String version_num) {
+    public ApplicationModel(int AID, int applicantID, int processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, int scale_num, int scale_score, int scale_lines, char sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor,String version_num,String hOPERATINGENVIRONMENT,String sOPERATINGENVIRONMENT) {
         this.AID = AID;
         this.applicantID = applicantID;
         this.processID = processID;
@@ -184,6 +206,8 @@ public class ApplicationModel extends BaseEntity {
         this.m_state = m_state;
         this.auditinfor = auditinfor;
         this.version_num = version_num;
+        this.hOPERATINGENVIRONMENT = hOPERATINGENVIRONMENT;
+        this.sOPERATINGENVIRONMENT = sOPERATINGENVIRONMENT;
     }
 
 

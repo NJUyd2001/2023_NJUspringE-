@@ -55,3 +55,5 @@ author：李晨博
 |m_state|enum|市场部审核结果,<br />A：委托被拒绝,<br />B：待审核,<br />C：正在审核中（已经有人再审了）,<br />D：审核通过|NOT NULL|
 |auditinfor|string|state==A时有意义：委托修改意见|-|
 |version_num|string|版本号|NOT NULL|
+|hOPERATINGENVIRONMENT|string|服务器端硬件：运行环境,<br />0:PC服务器;<br />1:Linux/Unix服务器|NOT NULL|
+|sOPERATINGENVIRONMENT|string|服务器端软件：运行环境|NOTNULL|
