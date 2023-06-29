@@ -28,16 +28,16 @@ public class User extends BaseEntity{
 
     private String phone;
     // @Enumerated(EnumType.STRING)
-    private String type;
-    private String fax;
+    private String usertype;
+    private String USERFAX;
     // functions
 
-    public String getFax() {
-        return fax;
+    public String getUSERFAX() {
+        return USERFAX;
     }
 
-    public void setFax(String fax) {
-        this.fax = fax;
+    public void setUSERFAX(String USERFAX) {
+        this.USERFAX = USERFAX;
     }
 
 
@@ -67,8 +67,8 @@ public class User extends BaseEntity{
 
        // this.regTime = regTime;
         this.phone = phone;
-        this.type = userType;
-        this.fax = "";
+        this.usertype = userType;
+        this.USERFAX = "";
     }
 
 
@@ -76,12 +76,12 @@ public class User extends BaseEntity{
         return phone;
     }
 
-    public String getType() {
-        return type;
+    public String getUsertype() {
+        return usertype;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
     }
 
 

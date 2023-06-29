@@ -13,8 +13,15 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+/**
+ * @author 刘轩昂
+ * @time 2023/5/28
+ * */
 @Service
 public class UserService {
     @Autowired
@@ -33,23 +40,31 @@ public class UserService {
         String password = jsonObject.getString("password");
         String phone = jsonObject.getString("phone");
         User user = new User(nickname, emailAddr, password, phone, userType);
+
         try {
             userDao.insert(user);
         }catch (DataAccessException e){
-            return e.getMessage();
+            return simplifyErrMsg(e.getCause().getMessage());
         }
         return "注册成功";
     }
     // 用户登录
-    public User login(String postJson) {
+    public User customerLogin(String postJson) {
         //System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         String nickname = jsonObject.getString("uname");
         String password = jsonObject.getString("password");
 
-        return userDao.login(nickname, password);
+        return userDao.customerLogin(nickname, password);
     }
+    public User staffLogin(String postJson) {
+        //System.out.println("内容：" + postJson);
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        String nickname = jsonObject.getString("uname");
+        String password = jsonObject.getString("password");
 
+        return userDao.staffLogin(nickname, password);
+    }
     public List<User> selectAll(){
         return userDao.selectAll();
     }
@@ -59,7 +74,16 @@ public class UserService {
     public List<User> selectAllStaff(){
         return userDao.selectAllStaff();
     }
-
+    public String simplifyErrMsg(String err){
+        Pattern pattern= Pattern.compile("\'(.*?)\'");
+        Matcher matcher=pattern.matcher(err);
+        List<String> errList = new ArrayList<String> ();
+        while (matcher.find()){
+            errList.add(matcher.group());
+        }
+        if (errList.isEmpty()) return err;
+        return errList.get(errList.size()-1).replace("'", "");
+    }
     public String update(String postJson){
 
         JSONObject jsonObject = JSONObject.parseObject(postJson);
@@ -69,11 +93,13 @@ public class UserService {
         String new_nickname = jsonObject.getString("new_uname");
         String new_password = jsonObject.getString("new_password");
         String new_phone = jsonObject.getString("new_phone");
+        if(userDao.findByUID(UID) == null) return "不存在 UID = "+ UID + " 的用户";
         try{
             userDao.update(UID, new_nickname, new_password, new_emailAddr
                     , new_phone, new_fax);
         }catch (DataAccessException e){
-            return e.getMessage();
+            //return e.getMessage();
+            return simplifyErrMsg(e.getCause().getMessage());
         }
         return "信息已更新";
     }
@@ -88,8 +114,7 @@ public class UserService {
         }catch (DataAccessException e){
             return e.getMessage();
         }
-
-
         return "删除成功";
     }
+
 }

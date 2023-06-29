@@ -23,9 +23,14 @@ public class UserController {
         return userService.insert(postJson);
     }
     @CrossOrigin
-    @RequestMapping("/login")
-    public User login(@RequestBody String postJson){
-        return userService.login(postJson);
+    @RequestMapping("/login/staff")
+    public User staffLogin(@RequestBody String postJson){
+        return userService.staffLogin(postJson);
+    }
+    @CrossOrigin
+    @RequestMapping("/login/customer")
+    public User customerLogin(@RequestBody String postJson){
+        return userService.customerLogin(postJson);
     }
     @CrossOrigin
     @RequestMapping("/selectAll")

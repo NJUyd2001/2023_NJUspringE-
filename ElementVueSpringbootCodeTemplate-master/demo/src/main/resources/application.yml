@@ -12,7 +12,10 @@ server:
 
 
 spring:
-
+  servlet:
+    multipart:
+      max-file-size: 31457280          # 30MB
+      max-request-size: 31457280
   application:
     name: demo
   datasource:

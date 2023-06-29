@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Mapper
 public interface UserDao {
     /*@TODO insert into username, phone and emailAddr tables*/
-    @Insert("INSERT INTO selabspringe.user(nickname, emailAddr, password, phone, usertype) VALUES (#{nickname}, #{emailAddr}, #{password}, #{phone}, #{type})")
+    @Insert("INSERT INTO selabspringe.user(nickname, emailAddr, password, phone, usertype) VALUES (#{nickname}, #{emailAddr}, #{password}, #{phone}, #{usertype})")
     void insert(User user) throws DataAccessException;
-    @Select("SELECT * FROM selabspringe.user WHERE nickname=#{nickname} AND password=#{password}")
-    public User login(String nickname, String password);
+    @Select("SELECT * FROM selabspringe.user WHERE nickname=#{nickname} AND password=#{password} AND usertype='C'")
+    public User customerLogin(String nickname, String password);
+    @Select("SELECT * FROM selabspringe.user WHERE nickname=#{nickname} AND password=#{password} AND usertype!='C'")
+    public User staffLogin(String nickname, String password);
     @Select("SELECT * FROM selabspringe.user WHERE usertype='C'")
     public List<User> selectAllCustomer();
     @Select("SELECT * FROM selabspringe.user WHERE usertype!='C'")
@@ -33,7 +35,7 @@ public interface UserDao {
             + "  <if test='new_password  != null'> password =#{new_password},   </if> "
             + "  <if test='new_emailAddr != null'> emailAddr=#{new_emailAddr},  </if> "
             + "  <if test='new_phone     != null'> phone    =#{new_phone},      </if> "
-            + "  <if test='new_fax       != null'> fax      =#{new_fax}         </if> "
+            + "  <if test='new_fax       != null'> USERFAX  =#{new_fax}         </if> "
             + "</set>                                           "
             + "where UID = #{UID}                               "
             + "</script>                                        ")

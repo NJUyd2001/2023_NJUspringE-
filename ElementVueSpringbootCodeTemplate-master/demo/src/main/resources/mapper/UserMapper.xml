@@ -7,17 +7,20 @@
         VALUES (#{nickname}, #{emailAddr}, #{password}, #{phone}, #{type})
     </insert>
 
-    <select id="login" parameterType="String" resultType="com.selab.demo.model.User">
-        SELECT * FROM user WHERE nickname=#{arg0} AND password=#{arg1}
+    <select id="customerLogin" parameterType="String" resultType="com.selab.demo.model.User">
+        SELECT * FROM user WHERE nickname=#{arg0} AND password=#{arg1} AND usertype='C'
+    </select>
+    <select id="staffLogin" parameterType="String" resultType="com.selab.demo.model.User">
+        SELECT * FROM user WHERE nickname=#{arg0} AND password=#{arg1} AND usertype!='C'
     </select>
     <resultMap id="userMap" type="com.selab.demo.model.User">
         <id property="UID" column="UID"/>
-        <result property="type" column="usertype"/>
+        <result property="usertype" column="usertype"/>
         <result property="phone" column="phone"/>
         <result property="password" column="password"/>
         <result property="nickname" column="nickname"/>
         <result property="emailAddr" column="emailAddr"/>
-        <result property="fax" column="USERFAX"/>
+        <result property="USERFAX" column="USERFAX"/>
         <result property="regTime" column="regTime"/>
     </resultMap>
 
@@ -34,18 +37,21 @@
         UPDATE selabspringe.user
         <set>
             set
-            <if test="nickname!=null">
-                nickname = #{nickname},
+            <if test="new_nickname!=null">
+                nickname = #{new_nickname},
             </if>
-            <if test="emailAddr!=null">
-                emailAddr = #{emailAddr},
+            <if test="new_emailAddr!=null">
+                emailAddr = #{new_emailAddr},
             </if>
-            <if test="password!=null">
-                password = #{password},
+            <if test="new_password!=null">
+                password = #{new_password},
             </if>
-            <if test="phone!=null">
-                phone = #{phone}
+            <if test="new_phone!=null">
+                phone = #{new_phone},
             </if>
+            <if test="new_fax!=null">
+                USERFAX = #{new_fax}
+        </if>
         </set>
         WHERE UID=#{UID}
     </update>
