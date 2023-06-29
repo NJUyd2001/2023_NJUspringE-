@@ -57,7 +57,7 @@
           <el-menu-item-group>
             <el-menu-item index="0-2" @click="addTab('提交测试方案', 'UploadFile')">提交测试方案</el-menu-item>
           <el-menu-item-group title="审核发起的委托">
-            <el-menu-item index="0-3" @click="addTab('进度查询', 'ImmediateProcessing')">进度查询</el-menu-item>
+            <el-menu-item index="0-3" @click="addTab('委托进度及处理', 'ImmediateProcessing')">委托进度及处理</el-menu-item>
           </el-menu-item-group>
           </el-menu-item-group>
         </el-submenu>
@@ -296,7 +296,7 @@ export default {
 }
 
 span.logo-title{
-  font-size: 18px;
+  font-size: 30px;
   font-weight: bold;
 }
 </style>

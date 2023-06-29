@@ -9,4 +9,6 @@ import org.springframework.context.annotation.Bean;
 public interface InsertDao {
     @Insert("INSERT INTO selabspringe.test(data) VALUE (#{data})")
     void insertTest(String data); // insert a sqlLine
+    @Insert("INSERT INTO selabspringe.test(id) VALUES (#{data})")
+    void insertID(Integer id);
 }

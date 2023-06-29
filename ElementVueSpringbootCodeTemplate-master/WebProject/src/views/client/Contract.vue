@@ -239,7 +239,7 @@ export default {
 }
 
 span.logo-title{
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
 }
 .demo-date-picker {

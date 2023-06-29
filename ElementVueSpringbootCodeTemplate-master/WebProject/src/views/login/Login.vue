@@ -77,9 +77,9 @@ export default {
         this.$store.state.user.Permissions=ret.data.usertype;
         this.info("登录成功!");
         console.log(ret.data)
-        if(ret.data.usertype==="c")
+        if(ret.data.usertype=='T')
         {
-
+          setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 1000);
         }
         //setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
         }

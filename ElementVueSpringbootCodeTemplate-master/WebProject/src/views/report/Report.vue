@@ -19,7 +19,7 @@
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="1"><div class="grid-content bg-purple">
+          <el-col :span="6" push="4"><div class="grid-content bg-purple">
           <span class="logo-title">测试报告</span>
           </div></el-col>
             <el-col :span="6" pull="3">
@@ -105,7 +105,7 @@
           <el-form-item label="测试环境" prop="Introduction" style="font-weight: bold; font-size: 15px;">
             </el-form-item>  
           </el-form>
-          <el-form label-width="750px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
+          <el-form label-width="680px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
             <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -117,7 +117,7 @@
               <el-input placeholder="数量" style="width: 100px;padding-right:20px;" v-model="Table.quantity"></el-input>
           </el-form-item> 
           </el-form>
-          <el-form label-width="750px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
+          <el-form label-width="680px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
             <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -316,7 +316,7 @@
     }
     
     span.logo-title{
-      font-size: 20px;
+      font-size: 30px;
       font-weight: bold;
     }
     .demo-date-picker {

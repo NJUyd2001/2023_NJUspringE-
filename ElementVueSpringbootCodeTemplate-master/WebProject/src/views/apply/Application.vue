@@ -695,7 +695,7 @@ export default {
           this.$store.state.user.id=-1;
           this.$store.state.user.name="null";
           this.$store.state.user.password=-1;
-          this.$store.state.user.Permissions="null";//移除用户信息
+          this.$store.state.user.Permissions="null";
       this.$router.push({path: "./home", replace:true});
     },
     increasePer(format){
@@ -774,7 +774,7 @@ export default {
 }
 
 span.logo-title{
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
 }
 .demo-date-picker {
