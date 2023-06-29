@@ -1,9 +1,10 @@
 import ConfigAdd from './ConfigAdd.vue';
 import ConfigTable from './table/ConfigTable';
 import ConfigTable2 from './table/ConfigTable2';
-import ConfigTable3 from './table/ConfigTable3';
+import ConfigTableQ from './table/ConfigTableQ';
 
 import CTMENT from './table/CTM-ENT';
+import ProgressQuery from './table/ProgressQuery';
 
 
 import LoginDialog from './LoginDialog';
@@ -14,7 +15,7 @@ import TestDocAuditTable from './table/TestDocAuditTable';//黄大伟添加
 import TestCenterAccount  from './table/TestCenterAccount';//黄大伟添加
 import TestResultTable from './table/TestResultTable';//文炫添加
 import TestReportTable from './table/TestReportTable';//文炫添加
-
+import ImmediateProcessing from './table/ImmediateProcessing'
 //tree
 import SimpleTree from './tree/SimpleTree';
 import SimpleTreeWithIcon from './tree/SimpleTreeWithIcon';
@@ -34,8 +35,9 @@ function registerComponents(){
     
     Vue.component('ConfigTable', ConfigTable);
     Vue.component('ConfigTable2', ConfigTable2);
-    Vue.component('ConfigTable3', ConfigTable3);
+    Vue.component('ConfigTableQ', ConfigTableQ);
     Vue.component('CTMENT', CTMENT);
+    Vue.component('ProgressQuery', ProgressQuery); 
 
     Vue.component('LoginDialog', LoginDialog);
     Vue.component('ConfigTableSimple', ConfigTableSimple);
@@ -45,6 +47,7 @@ function registerComponents(){
     Vue.component('TestCenterAccount', TestCenterAccount);//黄大伟添加
     Vue.component('TestResultTable', TestResultTable); //文炫添加
     Vue.component('TestReportTable', TestReportTable); //文炫添加
+    Vue.component('ImmediateProcessing', ImmediateProcessing); //文炫添加
     //tree
     Vue.component('SimpleTree', SimpleTree);
     Vue.component('SimpleTreeWithIcon', SimpleTreeWithIcon);

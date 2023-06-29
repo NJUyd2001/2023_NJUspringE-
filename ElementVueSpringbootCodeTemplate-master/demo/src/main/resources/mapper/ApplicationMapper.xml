@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.selab.demo.dao.ApplicationDao">
+    <insert id="insertApp" parameterType="com.selab.demo.model.ApplicationModel">
+        INSERT INTO selabspringe.application (applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, else_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor, version_num, hOPERATINGENVIRONMENT, sOPERATINGENVIRONMENT)
+        VALUES (#{applicantID}, #{processID}, #{time}, #{phone}, #{testTYPE}, #{sNAME}, #{PA}, #{PAE}, #{PB}, #{PB_type}, #{else_type}, #{USS}, #{sDES}, #{stestBASIS}, #{elsestestBASIS}, #{TESTINDEX}, #{elseINDEX}, #{scale_num}, #{scale_score}, #{scale_lines}, #{sTYPE}, #{ENVIRONMENTW}, #{ENVIRONMENTL}, #{ENVIRONMENTN}, #{ENVIRONMENTE}, #{ENVIRONMENT}, #{ARCHITECTURE}, #{hMEMORY}, #{hHARDDISK}, #{hELSEDEMAND}, #{sOS}, #{sVERSION}, #{sLANGUAGE}, #{sARCHITECTURE}, #{sDATABASE}, #{sMIDDLEWARE}, #{sELSEDEMAND}, #{MEDIUM}, #{doc_path1}, #{doc_path2}, #{doc_path3}, #{doc_path4}, #{SAMPLEDELETE}, #{EXDATE}, #{t_state}, #{m_state}, #{auditinfor}, #{version_num}, #{hOPERATINGENVIRONMENT}, #{sOPERATINGENVIRONMENT})
+
+    </insert>
+
+    <resultMap id="appilicationMap" type="com.selab.demo.model.ApplicationModel">
+        <id property="AID" column="AID"/>
+        <result property="applicayionID" column="applicayionID"/>
+        <result property="processID" column="processID"/>
+        <result property="time" column="time"/>
+        <result property="phone" column="phone" />
+        <result property="testTYPE" column="testTYPE"/>
+        <result property="sNAME" column="sNAME"/>
+        <result property="PA" column="PA"/>
+        <result property="PAE" column="PAE"/>
+        <result property="PB" column="PB"/>
+        <result property="PB_type" column="PB_type"/>
+        <result property="else_type" column="else_type"/>
+        <result property="USS" column="USS"/>
+        <result property="sDES" column="sDES"/>
+        <result property="stestBASIS" column="stestBASIS"/>
+        <result property="elsestestBASIS" column="elsestestBASIS"/>
+        <result property="TESTINDEX" column="TESTINDEX"/>
+        <result property="elseINDEX" column="elseINDEX"/>
+        <result property="scale_num" column="scale_num"/>
+        <result property="scale_score" column="scale_score"/>
+        <result property="scale_lines" column="scale_lines"/>
+        <result property="sTYPE" column="sTYPE"/>
+        <result property="ENVIRONMENTW" column="ENVIRONMENTW"/>
+        <result property="ENVIRONMENTL" column="ENVIRONMENTL"/>
+        <result property="ENVIRONMENTN" column="ENVIRONMENTN"/>
+        <result property="ENVIRONMENTE" column="ENVIRONMENTE"/>
+        <result property="ENVIRONMENT" column="ENVIRONMENT"/>
+        <result property="ARCHITECTURE" column="ARCHITECTURE"/>
+        <result property="hMEMORY" column="hMEMORY"/>
+        <result property="hHARDDISK" column="hHARDDISK"/>
+        <result property="hELSEDEMAND" column="hELSEDEMAND"/>
+        <result property="hOPERATINGENVIRONMENT" column="hOPERATINGENVIRONMENT"/>
+        <result property="sOS" column="sOS"/>
+        <result property="sVERSION" column="sVERSION"/>
+        <result property="sLANGUAGE" column="sLANGUAGE"/>
+        <result property="sARCHITECTURE" column="sARCHITECTURE"/>
+        <result property="sDATABASE" column="sDATABASE"/>
+        <result property="sMIDDLEWARE" column="sMIDDLEWARE"/>
+        <result property="sELSEDEMAND" column="sELSEDEMAND"/>
+        <result property="MEDIUM" column="MEDIUM"/>
+        <result property="doc_path1" column="doc_path1"/>
+        <result property="doc_path2" column="doc_path2"/>
+        <result property="doc_path3" column="doc_path3"/>
+        <result property="doc_path4" column="doc_path4"/>
+        <result property="SAMPLEDELETE" column="SAMPLEDELETE"/>
+        <result property="EXDATE" column="EXDATE"/>
+        <result property="t_state" column="t_state"/>
+        <result property="m_state" column="m_state"/>
+        <result property="auditinfor" column="auditinfor"/>
+        <result property="version_num" column="version_num"/>
+        <result property="sOPERATINGENVIRONMENT" column="sOPERATINGENVIRONMENT"/>
+    </resultMap>
+
+    <select id="checkbyuser" parameterType="String" resultMap="applicationMap">
+        SELECT * FROM application WHERE applicantID=#{arg0}
+    </select>
+    <select id="checkbyprocess" parameterType="String" resultMap="applicationMap">
+        SELECT * FROM application WHERE processID=#{arg0}
+    </select>
+    <select id="checkbyAID" parameterType="int" resultMap="applicationMap">
+        SELECT * FROM application WHERE AID=#{arg0}
+    </select>
+    <update id="updateapplicant" parameterType="com.selab.demo.model.ApplicationModel" >
+        UPDATE application
+        SET applicantID = #{applicantID}, processID = #{processID}, time = #{time}, phone = #{phone}, testTYPE = #{testTYPE}, sNAME = #{sNAME}, PA = #{PA}, PAE = #{PAE}, PB = #{PB}, PB_type = #{PB_type}, else_type = #{else_type}, USS = #{USS}, sDES = #{sDES}, stestBASIS = #{stestBASIS}, elsestestBASIS = #{elsestestBASIS}, TESTINDEX = #{TESTINDEX}, elseINDEX = #{elseINDEX}, scale_num = #{scale_num}, scale_score = #{scale_score}, scale_lines = #{scale_lines}, sTYPE = #{sTYPE}, ENVIRONMENTW = #{ENVIRONMENTW}, ENVIRONMENTL = #{ENVIRONMENTL}, ENVIRONMENTN = #{ENVIRONMENTN}, ENVIRONMENTE = #{ENVIRONMENTE}, ENVIRONMENT = #{ENVIRONMENT}, ARCHITECTURE = #{ARCHITECTURE}, hMEMORY = #{hMEMORY}, hHARDDISK = #{hHARDDISK}, hELSEDEMAND = #{hELSEDEMAND}, sOS = #{sOS}, sVERSION = #{sVERSION}, sLANGUAGE = #{sLANGUAGE}, sARCHITECTURE = #{sARCHITECTURE}, sDATABASE = #{sDATABASE}, sMIDDLEWARE = #{sMIDDLEWARE}, sELSEDEMAND = #{sELSEDEMAND}, MEDIUM = #{MEDIUM}, doc_path1 = #{doc_path1}, doc_path2 = #{doc_path2}, doc_path3 = #{doc_path3}, doc_path4 = #{doc_path4}, SAMPLEDELETE = #{SAMPLEDELETE}, EXDATE = #{EXDATE}, t_state = #{t_state}, m_state = #{m_state}, auditinfor = #{auditinfor}, version_num = #{version_num}, hOPERATINGENVIRONMENT = #{hOPERATINGENVIRONMENT}, sOPERATINGENVIRONMENT = #{sOPERATINGENVIRONMENT}
+        WHERE AID=#{AID}
+    </update>
+    <delete id="deleteapplicant" parameterType="int" >
+        DELETE FROM application WHERE AID = #{arg0}
+    </delete>
+</mapper>

@@ -28,7 +28,7 @@ axios.defaults.baseURL = '/api'
 Vue.prototype.$axios = axios
 // ---------------------------------------- 提示信息工具类
 Vue.prototype.info = function (msg) {
-    //this.$message(msg);
+    this.$message(msg);
     this.$message({
         type: "success",
         message: msg
@@ -36,7 +36,7 @@ Vue.prototype.info = function (msg) {
 }
 
 Vue.prototype.error = function (msg) {
-    this.$message({ type: 'error', message: msg });
+    this.error("你在狗叫什么")
 }
 
 Vue.prototype.confirm = function () {
@@ -45,7 +45,6 @@ Vue.prototype.confirm = function () {
 
 // ---------------------------------------- 请求
 Vue.prototype.ajax = Util.ajax;
-
 // ----------------------------------------  组件
 import { registerCommonComponents } from './commons';
 registerCommonComponents();
@@ -54,10 +53,7 @@ import { registerComponents } from './components';
 registerComponents();
 
 // 定义全局filter
-Vue.filter('filterKeyword', function (value, key) {
-    if (!key) return value;
-    return value.filter(e => Util.isMatch(e, key));
-});
+
 
 // ---------------------------------------- event bus
 import VueBus from 'vue-bus';

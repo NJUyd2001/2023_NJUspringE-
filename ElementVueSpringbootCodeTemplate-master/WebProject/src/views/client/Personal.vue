@@ -7,7 +7,7 @@
       <div class="PersonTop_text">
         <div class="user_text">
           <div class="user_name">
-            <span> {{ nickname }} </span>
+            <span> {{ user.uname }} </span>
           </div>
           <div class="user-v" v-if="v === 3">
             <img src="../../assets/nju.png" class="user-v-img" />
@@ -87,31 +87,24 @@
         </template>
         <el-descriptions-item>
           <template slot="label">
-            <i class="el-icon-picture-outline"></i>
-            头像
-          </template>
-          <img class="img" :src="avatar" alt="" />
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
             <i class="el-icon-user"></i>
             账户名
           </template>
-          {{ account }}
+          {{ user.uname }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-s-custom"></i>
             联系方式
           </template>
-          {{ telephone }}
+          {{ user.phone }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-printer"></i>
             传真
           </template>
-          {{ tax }}
+          {{ user.fax }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -125,7 +118,7 @@
             <i class="el-icon-message"></i>
             邮箱Email
           </template>
-          {{ Email }}
+          {{ user.email }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -146,15 +139,7 @@
             <i class="el-icon-office-building"></i>
             邮编
           </template>
-          {{ work }}
-        </el-descriptions-item>
-
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-chormefilled"></i>
-            网址
-          </template>
-          {{ web }}
+          {{ user.zipcode }}
         </el-descriptions-item>
     </el-descriptions>
     </el-card>
@@ -190,6 +175,12 @@ export default {
         followId: "",
       },
       isfollowid: [],
+      user:{
+        uname:this.$store.state.user.name,
+        phone:this.$store.state.user.phone,
+        fax:this.$store.state.user.fax,
+        email:this.$store.state.user.email,
+      },
     };
   },
   mounted() {

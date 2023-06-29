@@ -1,7 +1,7 @@
 <template>
     <div id="logo">
     <div class="header">
-  <h1 :class="font-face">软件测试中心在线测试系统</h1>
+      <img src="../../assets/l3.png" style="height:80px"/>
 </div>
     <el-card class="box-card">
       <h2 style="text-align: center">登录</h2>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
   data() {
     return {
@@ -60,13 +61,33 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$router.push({path: "./market", replace:true});
-        } else {
-          return false;
+      Axios.post("http://localhost:9090/api/user/login/staff",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        if(ret.data==="")
+        {
+          this.error("您的用户名或密码错误,请重新输入！");
         }
-      });
+        else
+        {
+        this.$store.state.user.id=ret.data.uid;
+        this.$store.state.user.name=ret.data.nickname;
+        this.$store.state.user.password=ret.data.password;
+        this.$store.state.user.Permissions=ret.data.usertype;
+        this.info("登录成功!");
+        console.log(ret.data)
+        if(ret.data.usertype=='T')
+        {
+          setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 1000);
+        }
+        //setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
+        }
+  })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+        // alert("error!");
+      });   
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

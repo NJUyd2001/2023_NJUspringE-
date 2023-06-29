@@ -91,15 +91,8 @@
     </template>
     <script>
     import Vue from "vue";
-    
+    import Axios from "axios"
     export default {
-      created() {
-        // 载入config数据
-        //this.$store.dispatch("config/reload");
-        this.$bus.on("login-open", this.loginOpen);
-        this.$bus.on("login-success", this.loginSuccess);
-        this.$bus.on("login-cancel", this.loginCancel);
-      },
       data() {
         return {
           showLogin: false,
@@ -121,62 +114,14 @@
         };
       },
       computed: {
-        lang: {
-          get: function() {
-            console.log("config", Vue.config);
-            return Vue.config.lang;
-          },
-          set: function(v) {
-            //do nothing
-            this.$bus.emit("lang-change", v);
-          }
-        }
-      },
-      mounted() {
-        this.$nextTick(function() {
-          this.ajax.post("/app/user").then(result => {
-            if (result.code == 0) {
-              this.user = result.data;
-            }
-          });
-        });
       },
       methods: {
-        switchLang(command) {
-          this.lang = command;
-        },
-        handleStart() {
-          this.info("工作正常");
-        },
-        loginOpen() {
-          this.showLogin = true;
-        },
-        loginSuccess(user) {
-          console.log("success", user);
-    
-          this.showLogin = false;
-          this.user = user;
-        },
-        loginCancel() {
-          console.log("loginCancel");
-          this.showLogin = false;
-        },
-        logout() {
-          this.ajax.post("/app/logout").then(result => {
-            if (result.code == 0) {
-              this.user = null;
-            } else {
-              this.error(result.msg);
-            }
-          });
-        },
         addTab(targetName, commentName) {
           // 如果已经存在
           if (this.tabs[commentName]) {
             this.selectTabName = commentName;
             return;
           }
-    
           // add table
           this.$set(this.tabs, commentName, {
             title: targetName,
@@ -252,8 +197,8 @@
       height: 100%;
     }
     
-    .logo-title{
-      font-size: 18px;
+    span.logo-title{
+      font-size: 30px;
       font-weight: bold;
     }
     </style>

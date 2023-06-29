@@ -3,7 +3,7 @@
   <div id="logo">
   <div class="header">
   
-  <h1 class="font-face"><img src="../../assets/l2.png" style="height:80px"/></h1>
+  <img src="../../assets/l3.png" style="height:80px"/>
 </div>
     <h2></h2>
     <el-card class="box-card-l">

@@ -1,7 +1,7 @@
 <template>
   <div id="logo">
   <div class="header">
-  <h1 class="font-face">软件测试中心在线测试系统</h1>
+  <img src="../../assets/l3.png" style="height:80px"/>
 </div>
     <el-card class="box-card">
       <h2 style="text-align: center">注册</h2>
@@ -81,6 +81,7 @@ export default {
         uname: "",
         pass: "",
         password: "",
+        type:"",
       },
       rules: {
         uname: [
@@ -107,22 +108,18 @@ export default {
   },
   methods: {
     submitForm(formName) {
-       alert(JSON.stringify(this.ruleForm));
-      // Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-      //   console.log(ret.data)
-      // })
-      // .catch(function (error) { // 请求失败处理
-      //   console.log(error);
-      // });
-      /*this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });*/
-      this.$router.go(-1);
+      Axios.post("http://localhost:9090/api/user/insert",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        this.info("注册成功！");
+        setTimeout(() => {this.$router.push({path: "./admin", replace:true});}, 2000);
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+        // alert("error!");
+      });    
+      
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

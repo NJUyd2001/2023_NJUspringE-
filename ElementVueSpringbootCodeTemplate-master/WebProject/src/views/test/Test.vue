@@ -1,26 +1,23 @@
 <!-- 文炫添加 -->
 <template>
-<el-container style="height:100%">
+<div id="logo">
+<el-container style="height:700px;">
   <el-header style="height: 30px">
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="12"><div class="grid-content bg-purple">
+      <el-col :span="20"><div class="grid-content bg-purple">
         <span class="logo-title">测试部</span>
         </div></el-col>
-      <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain size="mini" type="primary" @click="handleStart">Hello World</el-button></div></el-col>
-      <el-col :span="8">
-        <div class="grid-content bg-purple-light text-right">
-          <span v-if="user != null">
-            <span class="user">{{user.nick}}</span><el-button  plain size="mini"  type="danger" @click="logout">退出</el-button>
-          </span>
-          <span v-else><el-button type="success" plain size="mini" style = "margin:10px" @click="loginOut">登出</el-button></span>
-          
-          <el-dropdown  @command="switchLang">
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="zh">En</el-dropdown-item>
-              <el-dropdown-item command="en">中</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+        <el-col :span="4"><div class="grid-content bg-purple-light">
+        <el-button  plain size="mini" type="primary" class="el-icon-user" @click="handleStart">我的</el-button></div></el-col>
+        <el-col :span="8"><div class="grid-content bg-purple-light text-right">
+          <span><el-button type="success" plain size="mini" style = "margin:10px" @click="loginOut">登出</el-button></span>
+
+        <el-dropdown  @command="switchLang">
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="zh">En</el-dropdown-item>
+            <el-dropdown-item command="en">中</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
 
         </div></el-col>
     </el-row>
@@ -59,10 +56,11 @@
           </template>
           <el-menu-item-group>
             <el-menu-item index="0-2" @click="addTab('提交测试方案', 'UploadFile')">提交测试方案</el-menu-item>
-            <el-menu-item index="0-3" @click="addTab('审核发起的委托','UploadFile')">审核发起的委托</el-menu-item>
+          <el-menu-item-group title="审核发起的委托">
+            <el-menu-item index="0-3" @click="addTab('委托进度及处理', 'ImmediateProcessing')">委托进度及处理</el-menu-item>
+          </el-menu-item-group>
           </el-menu-item-group>
         </el-submenu>
-
         <el-submenu index="9">
           <template slot="title" collapse=false>
             <i class="el-icon-setting"></i>
@@ -84,6 +82,7 @@
 
       </el-menu>
     </el-aside>
+    <el-container>
     <el-main>      
       <el-tabs v-model="selectTabName" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
@@ -96,9 +95,15 @@
         </el-tab-pane>
       </el-tabs>
     </el-main>
-  </el-container>
-  <LoginDialog :show='showLogin'/>
+  <el-footer>
+  <p>南京大学 计算机软件新技术国家重点实验室 软件测试中心<br>
+  江苏省 南京市 栖霞区 仙林大道163号南京大学仙林校区计算机科学与技术楼<br>
+  电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
+  </el-footer>
 </el-container>
+</el-container>
+  <LoginDialog :show='showLogin'/>
+</el-container></div>
 </template>
 <script>
 import Vue from "vue";
@@ -114,12 +119,16 @@ export default {
   data() {
     return {
       showLogin: false,
-      user: null,
+      user: {
+        uname:this.$store.state.user.name,
+        password:""
+      },
       keyword: "",
       isCollapse: false,
 
       menus: [{}],
-
+      
+      data: [{}],
       //Tabs
       selectTabName: "ConfigAdd",
       tabs: {
@@ -153,6 +162,9 @@ export default {
     });
   },
   methods: {
+    handleNodeClick(data) {
+        console.log(data);
+      },
     switchLang(command) {
       this.lang = command;
     },
@@ -218,6 +230,14 @@ export default {
 </script>
 
 <style>
+#logo{
+    background: url("../../assets/b3.jpg");
+    background-size: 100% 100%;
+    height: 100%;
+    position: fixed;
+    width: 100%
+  }
+
 .text-right {
   padding-right: 0px;
   text-align: right;
@@ -237,7 +257,12 @@ export default {
   margin: 10px 0 10px 0;  
 }
 
-
+.el-footer {
+    color: #333;
+    text-align: center;
+    font-size:3px;
+    line-height: 20px;
+}
 
 .header .nav {
   height: 40px;
@@ -270,8 +295,8 @@ export default {
   height: 100%;
 }
 
-.logo-title{
-  font-size: 18px;
+span.logo-title{
+  font-size: 30px;
   font-weight: bold;
 }
 </style>

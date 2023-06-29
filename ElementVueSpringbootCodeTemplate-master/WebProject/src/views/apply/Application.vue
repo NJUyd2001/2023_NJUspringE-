@@ -2,57 +2,59 @@
 <template>
 <el-container style="height:100%">
   <el-header style="height: 30px " @back="goback">
+    <el-row>
+    <el-col :span="22">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/application">申请表填写</a></el-breadcrumb-item>
-  </el-breadcrumb>
-  <br>
+    <el-breadcrumb-item><a href="/#/application">申请表填写</a></el-breadcrumb-item>
+    </el-breadcrumb>
+  </el-col>
+  <el-col :span="2">
+    <el-button @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+  </el-col>
+  </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="6">
+      <el-col :span="10">
         <router-link to="/Client">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="6" push="4"><div class="grid-content bg-purple">
+      <el-col :span="4" >
         <span class="logo-title">申请界面-申请表</span>
-        </div></el-col>
-        <el-col :span="6" pull="3">
-        <div class="grid-content bg-purple-light text-right">
-          <span v-if="user != null">
-            <span class="user">{{user.nick}}</span><el-button  plain size="middle"  type="danger" @click="logout">退出</el-button>
-          </span>
-          <span v-else><el-button type="success" plain size="middle" style = "margin:10px" @click="loginOut">登出</el-button></span>
-          <el-dropdown  @command="switchLang">
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="zh">En</el-dropdown-item>
-              <el-dropdown-item command="en">中</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div></el-col>
-      <el-col :span="6" push="4">
+      </el-col>
+      <el-col :span="8">
+        <el-steps :space="200" :active="0" finish-status="success">
+          <el-step title="申请表填写"></el-step>
+          <el-step title="功能列表填写"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+      </el-col>
+      <el-col :span="2">
         <el-button  @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
       </el-col>
     </el-row>
   </el-header>
     <br><br><br>
-    <el-main>
-      <el-form :label-position="top" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+    <el-main style="border-radius: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
+      <br>
+      <el-form :label-position="top" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
         <el-form-item label="测试类型:" prop="TypeTest"> 
         <el-select v-model="ruleForm.TypeTest" multiple allow-create filterable>
-        <el-option   v-for='item in ruleForm.TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
+        <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
        </el-form-item>
-      <el-form-item label="软件名称:" prop="SoftWareName"> 
+      <el-form-item label="软件名称:" prop="SoftWareName" > 
         <el-input style="width:200px;padding:10px" v-model="ruleForm.SoftWareName"></el-input>
       </el-form-item> 
       <el-form-item label="版本号:" prop="VersionNumber"> 
-        <el-input style="width:200px;padding:10px" v-model="ruleForm.VersionNumber"></el-input>
+        <el-input style="width:200px;padding:10px" 
+        v-model="ruleForm.VersionNumber"></el-input>
       </el-form-item>
-      <el-form-item label="委托单位(中文):" rules="{ required: true, message: '不能为空！', trigger: 'blur' }">  
-            <el-input style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.Chinese"></el-input>
+      <el-form-item label="委托单位(中文):" prop="ClientChinese">  
+            <el-input style="width:200px;padding:10px" v-model="ruleForm.ClientChinese"></el-input>
       </el-form-item>
-      <el-form-item label="委托单位(英文):" rules="{ required: true, message: '不能为空！', trigger: 'blur' }">  
-        <el-input style="width:200px;padding:10px" v-model="ruleForm.EntrustingCompany.English"></el-input>
+      <el-form-item label="委托单位(英文):" prop="ClientEnglish">  
+        <el-input style="width:200px;padding:10px" v-model="ruleForm.ClientEnglish"></el-input>
       </el-form-item>
       <el-form-item label="开发单位:" prop="DevelopmentCompany">  
          <el-input style="width:200px;padding:10px" v-model="ruleForm.DevelopmentCompany"></el-input>
@@ -77,21 +79,21 @@
         </el-form-item>
         <el-form-item label="测试依据:" prop="NeededStandard">
           <el-select v-model="ruleForm.NeededStandard" multiple allow-create filterable>
-        <el-option   v-for='item in ruleForm.Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
+        <el-option   v-for='item in Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
         </el-form-item> 
         <el-form-item label="需要测试的技术指标:" prop="NeededTechnicalIndex">
           <el-select v-model="ruleForm.NeededTechnicalIndex" multiple  allow-create filterable>
-        <el-option   v-for='item in ruleForm.TechnicalIndex' :key='item.id' :label="item.value" :value="item.value"></el-option>
+        <el-option   v-for='item in TechnicalIndex' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
         </el-form-item >
-          <el-form-item rules="{ required: true, message: '不能为空！', trigger: 'blur' }" label="软件规模:功能数"><el-input-number  v-model="ruleForm.SoftWareSize.Number"></el-input-number></el-form-item>
-          <el-form-item rules="{ required: true, message: '不能为空！', trigger: 'blur' }" label="软件规模:功能点数"><el-input-number  v-model="ruleForm.SoftWareSize.Point"></el-input-number></el-form-item>
-          <el-form-item rules="{ required: true, message: '不能为空！', trigger: 'blur' }" label="软件规模:代码行数"><el-input-number  v-model="ruleForm.SoftWareSize.RowNumber"></el-input-number></el-form-item>
-        <el-form-item label='软件类型:' prop="choose">
+          <el-form-item  label="软件规模:功能数"><el-input-number  v-model="ruleForm.SoftWareSize.Number"></el-input-number></el-form-item>
+          <el-form-item  label="软件规模:功能点数"><el-input-number  v-model="ruleForm.SoftWareSize.Point"></el-input-number></el-form-item>
+          <el-form-item  label="软件规模:代码行数"><el-input-number  v-model="ruleForm.SoftWareSize.RowNumber"></el-input-number></el-form-item>
+        <el-form-item label='软件类型:' prop="SoftWareType">
           <el-select v-model="ruleForm.SoftWareType">
             <el-option-group 
-            v-for='group in ruleForm.TypeOfSoftWare'
+            v-for='group in TypeOfSoftWare'
             :key="group.label"
             :label="group.label">
             <el-option v-for="item in group.options"
@@ -101,54 +103,137 @@
           </el-option-group>
           </el-select>
         </el-form-item>
-        <el-form-item label="运行环境:" prop="common">
-          <el-input placeholder="客户端:Windows(版本)" style="width: 200px;padding:10px;"  v-model="ruleForm.RuntimeEnvironment.Client.OS.Windows"></el-input>
-          <el-input placeholder="客户端:Linux(版本)" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.OS.Linux"></el-input>
-         <el-input placeholder=" 客户端:其他" style="width: 200px;padding:10px;"  v-model="ruleForm.RuntimeEnvironment.Client.OS.Other"></el-input>
-          <el-input placeholder=" 客户端:内存要求" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.Mermory"></el-input>
-          <el-input placeholder=" 客户端:其他要求" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.Other"></el-input>
-          <el-checkbox-group  v-model="ruleForm.RuntimeEnvironment.Server.HardWare.FrameWork">
-            <el-checkbox label="服务器端架构:PC服务器"></el-checkbox>
-            <el-checkbox label="服务器端架构:UNIX/Linux服务器"></el-checkbox>
-            <el-checkbox label="服务器端架构:其他"></el-checkbox>
-          </el-checkbox-group>
+        <el-form-item label="客户端(运行环境):" required>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item  prop="RuntimeEnvironment.Client.OS.Windows" style="margin-bottom: 10px;">
+          <el-input  placeholder="操作系统:Windows(版本)" style="width: 200px;padding:10px;"  v-model="ruleForm.RuntimeEnvironment.Client.OS.Windows"></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="6">
+        <el-form-item prop="RuntimeEnvironment.Client.OS.Linux">
+          <el-input placeholder="操作系统:Linux(版本)" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.OS.Linux"></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="8">
+        <el-form-item prop="RuntimeEnvironment.Client.OS.Other">
+          <el-input placeholder=" 操作系统:其他" style="width: 200px;padding:10px;"  v-model="ruleForm.RuntimeEnvironment.Client.OS.Other"></el-input>
+        </el-form-item>
+      </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="6">
+        <el-form-item prop="RuntimeEnvironment.Client.Mermory">
+          <el-input placeholder="内存要求" style="width: 200px;padding:10px; " v-model="ruleForm.RuntimeEnvironment.Client.Mermory"></el-input>
+        </el-form-item>
+      </el-col>
+      <el-col :span="6">
+        <el-form-item prop="RuntimeEnvironment.Client.Other">
+          <el-input placeholder=" 其他要求" style="width: 200px;padding:10px;" v-model="ruleForm.RuntimeEnvironment.Client.Other"></el-input>
+        </el-form-item>
+      </el-col>
+      </el-row>
+      </el-form-item>
+        <el-form-item label="服务器端硬件(运行环境):" required>
+        <el-form-item prop="RuntimeEnvironment.Server.HardWare.FrameWork" style="margin-bottom: 20px;">
+            <el-select placeholder="硬件架构" v-model="ruleForm.RuntimeEnvironment.Server.HardWare.FrameWork" multiple  allow-create filterable>
+        <el-option   v-for='item in HardWareFrameWork' :key='item.id' :label="item.value" :value="item.value"></el-option>
+        </el-select>
+        </el-form-item>
+        <el-row>
+        <el-col :span="6">
+          <el-form-item prop="RuntimeEnvironment.Server.HardWare.Mermory">
           <el-input style="width: 200px;padding:10px;" placeholder='服务器端硬件:内存要求' v-model="ruleForm.RuntimeEnvironment.Server.HardWare.Mermory" ></el-input>
+        </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item prop="RuntimeEnvironment.Server.HardWare.HardDisk">
           <el-input style="width: 200px;padding:10px;" placeholder='服务器端硬件:硬盘要求' v-model="ruleForm.RuntimeEnvironment.Server.HardWare.HardDisk" ></el-input>
+        </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item prop="RuntimeEnvironment.Server.HardWare.Other">
           <el-input style="width: 300px;padding:10px;" placeholder='服务器端硬件:其他要求' v-model="ruleForm.RuntimeEnvironment.Server.HardWare.Other" ></el-input>
-            <br>
+        </el-form-item>
+        </el-col>
+        </el-row>
+        </el-form-item>
+        <el-form-item label="服务器端软件(运行环境):" required>
+          <el-row>
+        <el-col :span="6">  
+          <el-form-item prop="RuntimeEnvironment.Server.SoftWare.OS" style="margin-bottom: 10px;">
           <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:操作系统' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.OS" ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item prop="RuntimeEnvironment.Server.SoftWare.Versions">
           <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:版本' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.Versions" ></el-input>
+        </el-form-item>
+        </el-col> 
+        <el-col :span="6">
+          <el-form-item prop="RuntimeEnvironment.Server.SoftWare.PL">
           <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:编程语言' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.PL" ></el-input>
+        </el-form-item> 
+        </el-col> 
+        </el-row>
+        <el-form-item prop="RuntimeEnvironment.Server.SoftWare.FrameWork" style="margin-bottom: 10px;">
           <el-checkbox-group placeholder='软件架构' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.FrameWork">
             <el-checkbox label="服务器端软件架构:C/S"></el-checkbox>
             <el-checkbox label="服务器端软件架构:B/S"></el-checkbox>
             <el-checkbox label="服务器端软件架构:其它"></el-checkbox>
           </el-checkbox-group>
-          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:数据库' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.database" ></el-input>
+        </el-form-item>
+        <el-row>
+          <el-col :span="6">
+            <el-form-item prop="RuntimeEnvironment.Server.SoftWare.DataBase">
+          <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:数据库' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.DataBase" ></el-input>
+        </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item prop="RuntimeEnvironment.Server.SoftWare.MiddleWare">
           <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:中间件' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.MiddleWare" ></el-input>
+        </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item prop="RuntimeEnvironment.Server.SoftWare.Other">
           <el-input style="width: 200px;padding:10px;" placeholder='服务器端软件:其他要求' v-model="ruleForm.RuntimeEnvironment.Server.SoftWare.Other" ></el-input>
-          <el-input style="width: 100px;padding:10px;" placeholder='服务器端:网络环境' v-model="ruleForm.RuntimeEnvironment.NetWork"></el-input>
+        </el-form-item>
+        </el-col>
+        </el-row>
+        </el-form-item>
+        <el-form-item label="服务器端网络环境(运行环境)" prop="RuntimeEnvironment.NetWork">
+          <el-input style="width: 200px;padding:10px;" placeholder='服务器端:网络环境' v-model="ruleForm.RuntimeEnvironment.NetWork"></el-input>
       </el-form-item>
-        <el-form-item label="样品软件介质:" prop="choose">
-        <el-checkbox-group v-model="ruleForm.SampleAndQuantity.SoftwareMedium">
-            <el-checkbox label="光盘"></el-checkbox>
-            <el-checkbox label="U盘"></el-checkbox>
-            <el-checkbox label="其他"></el-checkbox>
-          </el-checkbox-group>
+        <el-form-item label="样品软件介质:" prop="SoftwareMedium">
+          <el-select v-model="ruleForm.SoftwareMedium" multiple allow-create filterable>
+        <el-option   v-for='item in SoftwareMedium' :key='item.id' :label="item.value" :value="item.value"></el-option>
+        </el-select>
         </el-form-item>
-        <el-form-item label="样品文档" prop="common">
-          <el-input placeholder='文档资料((1、需求文档:（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）
-          2、用户文档（例如：用户手册、用户指南等）（必须）
-          3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）))' 
-          style="width:700px;" :rows="5" v-model="ruleForm.SampleAndQuantity.Document" type="textarea" ></el-input>
+        <el-form-item label="样品文档:">
+          <el-upload
+              class="upload-demo"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-remove="beforeRemove"
+              multiple
+              :limit="3"
+              :on-exceed="handleExceed"
+              :file-list="ruleForm.SamplesSubmitted">
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
+                                              2、用户文档（例如：用户手册、用户指南等）(必须)<br>
+                                              3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）
+                                            </strong></div>
+            </el-upload>
         </el-form-item>
-        <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="common">
-          <el-radio-group v-model="ruleForm.SampleAndQuantity.SamplesSubmitted">
+        <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="SamplesSubmitted">
+          <el-radio-group v-model="ruleForm.SamplesSubmitted">
             <el-radio label="中心直接销毁"></el-radio>
             <el-radio label="样品退还"></el-radio>>
           </el-radio-group>
       </el-form-item>
-      <el-form-item label='希望测试完成时间:' prop="common">
+      <el-form-item label='希望测试完成时间:' prop="WantedFinishTime">
           <div class="demo-date-picker">
           <div class="block">
             <el-date-picker
@@ -160,6 +245,17 @@
             </div>
             </div>
         </el-form-item>
+        <el-form-item  label="申请人签字上传：">
+                      <el-upload
+                          class="upload-demo"
+                          drag
+                          action="https://jsonplaceholder.typicode.com/posts/"
+                          multiple>
+                          <i class="el-icon-upload"></i>
+                          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                      </el-upload>
+                </el-form-item>
     </el-form>
     </el-main>
   <LoginDialog :show='showLogin'/>
@@ -172,6 +268,7 @@
 export default {
     data(){
        return{
+        percentage:0,
         ruleForm:{
           user:{
                 name:'风车村',
@@ -185,7 +282,58 @@ export default {
                 email:'',
                 URL:'',
             },
-            TypeOfTest:[
+            TypeTest:[],
+            SoftWareName:'',
+            VersionNumber:'',
+            ClientChinese:'',
+            ClientEnglish:'',
+            DevelopmentCompany:'',
+            AttributeOfCompany:[],
+            SoftwareUserObjectDescription:'',
+            MainFunction:'',
+            NeededStandard:[],
+            NeededTechnicalIndex:[],
+            SoftWareSize:{
+              Number:0,
+              Point:0,
+              RowNumber:0,
+            },
+            SoftWareType:'',
+            RuntimeEnvironment:{
+                Client:{
+                OS:{
+                  Windows:'',
+                  Linux:'',
+                  other:''
+              },
+              Mermory:'',
+              Other:''
+              },
+              Server:{
+                HardWare:{
+                FrameWork:[],  
+                Mermory:'',
+                HardDisk:'',
+                OtherDisk:''
+              },
+              SoftWare:{
+                OS:'',
+                Versions:'',
+                PL:'',
+                FrameWork:[],
+                DataBase:'',
+                MiddleWare:'',
+                Other:''
+              },
+              },
+              NetWork:'',  
+               },
+            SoftwareMedium:[],
+            Document:'',
+            SamplesSubmitted:[],
+            WantedFinishTime:'',
+        },
+        TypeOfTest:[
               {
                 id:1,
                 value:'软件确认测试',
@@ -199,7 +347,7 @@ export default {
                 value:'专项资金验收测试',
               },
             ],
-            Standard:[
+        Standard:[
                 {
                   id:1,
                   value:'GB/T 25000.51-2016',
@@ -229,7 +377,7 @@ export default {
                   value:'NST-03-WI22-2014',
                 }
             ],
-            TechnicalIndex:[{
+        TechnicalIndex:[{
                   id:1,
                   value:'功能性',
                 },
@@ -285,7 +433,7 @@ export default {
                   id:14,
                   value:'代码覆盖度',
                 }],
-            TypeOfSoftWare:[
+        TypeOfSoftWare:[
     {
       label:'系统软件',
       options:[{
@@ -403,65 +551,30 @@ export default {
                                     }
                                     ]
                                   },
-            ],
-            TypeTest:[],
-            SoftWareName:'',
-            VersionNumber:'',
-            EntrustingCompany:{
-              Chinese:'',
-              English:'',
-            },
-            DevelopmentCompany:'',
-            AttributeOfCompany:[],
-            SoftwareUserObjectDescription:'',
-            MainFunction:'',
-            NeededStandard:[],
-            NeededTechnicalIndex:[],
-            SoftWareSize:{
-              Number:0,
-              Point:0,
-              RowNumber:0,
-            },
-            SoftWareType:'',
-            RuntimeEnvironment:{
-                Client:{
-                OS:{
-                  Windows:'',
-                  Linux:'',
-                  other:''
-              },
-              Mermory:'',
-              Other:''
-              },
-              Server:{
-                HardWare:{
-                FrameWork:[],  
-                Mermory:'',
-                HardDisk:'',
-                OtherDisk:''
-              },
-              SoftWare:{
-                OS:'',
-                Versions:'',
-                PL:'',
-                FrameWork:[],
-                DataBase:'',
-                MiddleWare:'',
-                Other:''
-              },
-              },
-              NetWork:'',  
-               },
-            SampleAndQuantity:{
-            SoftwareMedium:[],
-            Document:'',
-            SamplesSubmitted:'',
-            },
-            WantedFinishTime:'',
-        },
+                  ],
+        HardWareFrameWork:[
+                {
+                  id:1,
+                  value:'PC服务器',
+                },
+                {
+                  id:2,
+                  value:'UNIX/Linux服务器',
+                }
+        ],
+        SoftwareMedium:[
+                {
+                  id:1,
+                  value:'光盘',
+                },
+                {
+                  id:2,
+                  value:'U盘',
+                }
+        ],
         rules:{
           TypeTest:[
-          { required: true, message: "不能为空！", trigger: "change" },
+          { required: true, message: "请至少选择一个测试类型", trigger: "change" },
         ],
         SoftWareName:[
           { required: true, message: "不能为空！", trigger: "blur" },
@@ -469,17 +582,17 @@ export default {
         VersionNumber:[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
-        Chinese:[
+        ClientChinese:[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
-        English:[
+        ClientEnglish:[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
         DevelopmentCompany:[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
         AttributeOfCompany:[
-          { required: true, message: "不能为空！", trigger: "change" },
+          { required: true, message: "请至少选择一种性质！", trigger: "change" },
         ],
         SoftwareUserObjectDescription:[
           { required: true, message: "不能为空！", trigger: "blur" },
@@ -493,14 +606,71 @@ export default {
         NeededTechnicalIndex:[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
-        Number:[
+        'RuntimeEnvironment.Client.OS.Windows':[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
-        Point:[
+        'RuntimeEnvironment.Client.OS.Linux':[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
-        RowNumber:[
+        'RuntimeEnvironment.Client.OS.Other':[
           { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Client.Mermory':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Client.Other':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.HardWare.FrameWork':[
+          { required: true, message: "请至少选择或给出一种架构！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.HardWare.Mermory':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.HardWare.HardDisk':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.HardWare.Other':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.SoftWare.OS':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.SoftWare.Versions':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.SoftWare.PL':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.SoftWare.FrameWork':[
+          { required: true, message: "请至少选择一个软件架构！", trigger: "change" },
+        ],
+        'RuntimeEnvironment.Server.SoftWare.DataBase':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.SoftWare.MiddleWare':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.SoftWare.Other':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.Server.SoftWare.Other':[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        'RuntimeEnvironment.NetWork':[
+        { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        SoftWareType:[
+          { required: true, message: "不能为空！", trigger: "blur" },
+        ],
+        SoftwareMedium:[
+          { required: true, message: "请至少选择一个软件介质！", trigger: "change" },
+        ],
+        SamplesSubmitted:[
+          { required: true, message: "请选择一个方案！", trigger: "change" },
+        ],
+        WantedFinishTime:[
+          { required: true, message: "请选择日期！", trigger: "change" },
         ],
         }
     }
@@ -509,18 +679,47 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          this.info("提交成功！");
           this.$router.push({path: "./functionlist", replace:true});
         } else {
           return false;
         }
       });
-      this.info("提交成功！");
-      setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       
+      // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    Logout(){
+          this.$store.state.user.id=-1;
+          this.$store.state.user.name="null";
+          this.$store.state.user.password=-1;
+          this.$store.state.user.Permissions="null";
+      this.$router.push({path: "./home", replace:true});
+    },
+    increasePer(format){
+      if(format!==""&&format!==[])
+        { 
+          this.percentage=50;
+        }
+      else  {
+        this.percentage-=2.8;
+          if(this.percentage<=0)
+          this.percentage=0;
+      }
+    },
+    handleRemove(file, fileList) {
+        console.log(file, fileList);
+    },
+    handlePreview(file) {
+        console.log(file);
+      },
+    handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+    beforeRemove(file, fileList) {
+        return this.$confirm(`确定移除 ${ file.name }？`);
     }
   },
 }
@@ -574,8 +773,8 @@ export default {
   height: 100%;
 }
 
-.logo-title{
-  font-size: 20px;
+span.logo-title{
+  font-size: 30px;
   font-weight: bold;
 }
 .demo-date-picker {

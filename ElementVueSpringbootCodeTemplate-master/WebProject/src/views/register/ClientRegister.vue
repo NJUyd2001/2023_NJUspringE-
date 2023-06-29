@@ -1,7 +1,7 @@
 <template>
   <div id="logo">
   <div class="header">
-  <h1 class="font-face">软件测试中心在线测试系统</h1>
+    <img src="../../assets/l3.png" style="height:80px"/>
 </div>
     <el-card class="box-card">
       <h2 style="text-align: center">注册</h2>
@@ -75,11 +75,9 @@ export default {
     };
     return {
       ruleForm: {
-        type:"C",
+        type:"c",
         uname: "",
         pass: "",
-        gender:"man",
-        njuNumber:205220016,
         password: "",
         emailAddr:"",
         phone:"",
@@ -108,23 +106,31 @@ export default {
   methods: {
     submitForm(formName) {
       //alert(JSON.stringify(this.ruleForm));
-      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-        console.log(ret.data)
+      // Axios.get("http://localhost:9090/api/user/select/customer").then(ret=>{
+      //   cosole.log(ret.data.uname);
+      // }
+      // )
+      Axios.post("http://localhost:9090/api/user/insert",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret)
+        if(ret.data==="user.nickname")
+          this.error("用户名已存在！")
+        else if(ret.data==="user.emailAddr")
+        this.error("邮箱已被注册！")
+        else if(ret.data==="user.phone")
+        this.error("电话已被注册")
+        else
+        {
+        this.info("注册成功！");
+        setTimeout(() => {this.$router.push({path: "./clientlogin", replace:true});}, 2000);
+      }
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);
-        //alert("error!");
-      });
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //     alert("submit!");
-      //     this.$router.push({path: "./login", replace:true});
-      //   } else {
-      //     console.log("error submit!!");
-      //     return false;
-      //   }
-      // });
-      
+        // alert("error!");
+      });    
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

@@ -2,41 +2,41 @@
 <template>
 <el-container style="height:100%">
   <el-header style="height: 30px " @back="goback">
+    <el-row>
+    <el-col :span="22">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/application">申请表填写</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/functionlist">委托功能列表填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/application">申请表填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/functionlist">委托功能列表填写</a></el-breadcrumb-item>
   </el-breadcrumb>
-  <br>
+</el-col>
+  <el-col :span="2">
+    <el-button style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+  </el-col>
+    </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="6">
+      <el-col :span="10">
         <router-link to="/application">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="6" push="3"><div class="grid-content bg-purple">
+      <el-col :span="4" ><div class="grid-content bg-purple">
         <span class="logo-title">申请界面-功能列表</span>
         </div></el-col>
-        <el-col :span="6" pull="3">
-        <div class="grid-content bg-purple-light text-right">
-          <span v-if="user != null">
-            <span class="user">{{user.nick}}</span><el-button  plain size="middle"  type="danger" @click="logout">退出</el-button>
-          </span>
-          <span v-else><el-button type="success" plain size="middle" style = "margin:10px" @click="loginOut">登出</el-button></span>
-          <el-dropdown  @command="switchLang">
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="zh">En</el-dropdown-item>
-              <el-dropdown-item command="en">中</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div></el-col>
-      <el-col :span="6" push="4">
+        <el-col :span="8">
+        <el-steps :space="200" :active="StepNumber" finish-status="success">
+          <el-step title="申请表填写"></el-step>
+          <el-step title="功能列表填写"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+      </el-col>
+      <el-col :span="2">
         <el-button  size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
       </el-col>
     </el-row>
   </el-header>
-    <br><br>
-    <el-main>
+    <br><br><br>
+    <el-main style="border-radius: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
       <el-form label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
         <el-form-item label="软件名称:" prop="SoftwareName">
           <el-input v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
@@ -97,6 +97,7 @@ export default {
             },
           ],
             },
+            StepNumber:1,
             rules:{
               SoftwareName:[
                       { required: true, message: "不能为空！", trigger: "blur" },
@@ -121,7 +122,8 @@ export default {
     },
     removefatherItem(Table){
       const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1) {
+      if (index !== -1&&index!=0) {
+        //alert(index)
       this.ruleForm.TableData.splice(index, 1);
   }
     },
@@ -134,22 +136,34 @@ export default {
         )
     },
     submitForm(formName) {
-      /*this.$refs[formName].validate((valid) => {
+      
+      // Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
+      //   console.log(ret.data)
+      // })
+      // .catch(function (error) { // 请求失败处理
+      //   console.log(error);
+      // })
+      
+      this.$confirm("是否确认该操作","提示",{
+        iconClass: "el-icon-question",//自定义图标样式
+          confirmButtonText: "确认",//确认按钮文字更换
+          cancelButtonText: "取消",//取消按钮文字更换
+          showClose: true,//是否显示右上角关闭按钮
+          type: "warning",//提示类型  success/info/warning/error
+      }).then(() => {
+        this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
-          this.$router.push({path: "./client", replace:true});
+          this.StepNumber+=2;
+        this.info("提交成功，正在返回用户界面！");
+        setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
         } else {
           return false;
         }
-      });*/
-      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-        console.log(ret.data)
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
       });
-      // this.info("提交成功，正在返回用户界面！");
-      // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      })
+      .catch(function (err) {
+        //捕获异常
+      });
     }
   },
 
@@ -204,8 +218,8 @@ export default {
   height: 100%;
 }
 
-.logo-title{
-  font-size: 20px;
+span.logo-title{
+  font-size: 30px;
   font-weight: bold;
 }
 .demo-date-picker {

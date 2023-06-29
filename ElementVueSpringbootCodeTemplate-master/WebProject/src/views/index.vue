@@ -275,8 +275,8 @@ export default {
   height: 100%;
 }
 
-.logo-title{
-  font-size: 18px;
+span.logo-title{
+  font-size: 30px;
   font-weight: bold;
 }
 </style>

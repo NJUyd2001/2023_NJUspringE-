@@ -4,9 +4,6 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="bbb20273-986a-48ca-a724-e0efd05d7360" name="Default Changelist" comment="" />
-=======
     <list default="true" id="bbb20273-986a-48ca-a724-e0efd05d7360" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
@@ -20,7 +17,6 @@
       <change beforePath="$PROJECT_DIR$/main/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/main/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
->>>>>>> 0cc9380301895e71ebc7386eb6bf796142265b36
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -245,11 +241,7 @@
     <option name="width" value="1346" />
     <option name="height" value="689" />
   </component>
-<<<<<<< HEAD
-  <component name="ProjectId" id="2PuXjZdRfRcSqDmfQcnWXj9gi3b" />
-=======
   <component name="ProjectId" id="2PzfFnhKiKVwDcxiwzp9UFtAaNq" />
->>>>>>> 0cc9380301895e71ebc7386eb6bf796142265b36
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -496,12 +488,6 @@
       </pane>
     </panes>
   </component>
-<<<<<<< HEAD
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/13480/Desktop/seproject/2023_NJUspringE-/ElementVueSpringbootCodeTemplate-master/JavaSource"
-=======
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -513,7 +499,6 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors"
->>>>>>> 0cc9380301895e71ebc7386eb6bf796142265b36
   }
 }]]></component>
   <component name="RecentsManager">
@@ -535,9 +520,6 @@
       <recent name="D:\Github\xwjie\ElementVueSpringbootCodeTemplate\JavaSource\core\src\main\java\cn\xiaowenjie\common\utils" />
     </key>
   </component>
-<<<<<<< HEAD
-  <component name="RunManager">
-=======
   <component name="RunManager" selected="Application.SpringbootCodeTemplateApplication">
     <configuration name="SpringbootCodeTemplateApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cn.xiaowenjie.SpringbootCodeTemplateApplication" />
@@ -577,7 +559,6 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
->>>>>>> 0cc9380301895e71ebc7386eb6bf796142265b36
     <configuration name="SpringbootCodeTemplateApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="cn.xiaowenjie.SpringbootCodeTemplateApplication" />
