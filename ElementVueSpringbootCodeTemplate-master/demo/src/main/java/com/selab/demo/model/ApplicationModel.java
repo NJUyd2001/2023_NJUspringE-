@@ -1,6 +1,6 @@
 package com.selab.demo.model;
 import java.util.Date;
-import com.selab.demo.model.enums.ApplicationState;
+
 import com.selab.demo.model.enums.testTYPE;
 import com.selab.demo.model.enums.PB_type;
 import com.selab.demo.model.enums.ARCHITECTURE;
@@ -8,8 +8,6 @@ import com.selab.demo.model.enums.sARCHITECTURE;
 import com.selab.demo.model.enums.MEDIUM;
 import com.selab.demo.model.enums.SAMPLEDELETE;
 import com.selab.demo.model.enums.state;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.core.codec.StringDecoder;
 
 
 import javax.persistence.Table;
@@ -21,9 +19,9 @@ import javax.persistence.Table;
  * */
 @Table
 public class ApplicationModel extends BaseEntity {
-    private int AID;
-    private int applicantID;//申请单ID
-    private int processID;
+    private Integer AID;
+    private Integer applicantID;//申请单ID
+    private Integer processID;
     private Date time;//时间
     private String phone;//手机号
     private testTYPE testTYPE;//测试类型，C：软件确认测试，I：成果/技术鉴定测试，A：转向资金验收测试
@@ -39,10 +37,10 @@ public class ApplicationModel extends BaseEntity {
     private String elsestestBASIS;//测试依据其他
     private String elseINDEX;
     private String TESTINDEX;
-    private int scale_num;
-    private int scale_score;
-    private int scale_lines;
-    private char sTYPE;
+    private Integer scale_num;
+    private Integer scale_score;
+    private Integer scale_lines;
+    private Character sTYPE;
     private String ENVIRONMENTW;
     private String ENVIRONMENTL;
     private String ENVIRONMENTN;
@@ -156,7 +154,7 @@ public class ApplicationModel extends BaseEntity {
      * }
      * **/
 
-    public ApplicationModel(int AID, int applicantID, int processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, int scale_num, int scale_score, int scale_lines, char sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor,String version_num,String hOPERATINGENVIRONMENT,String sOPERATINGENVIRONMENT) {
+    public ApplicationModel(Integer AID, Integer applicantID, Integer processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, Integer scale_num, Integer scale_score, Integer scale_lines, Character sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor,String version_num,String hOPERATINGENVIRONMENT,String sOPERATINGENVIRONMENT) {
         this.AID = AID;
         this.applicantID = applicantID;
         this.processID = processID;
@@ -211,27 +209,27 @@ public class ApplicationModel extends BaseEntity {
     }
 
 
-    public int getAID() {
+    public Integer getAID() {
         return AID;
     }
 
-    public void setAID(int AID) {
+    public void setAID(Integer AID) {
         this.AID = AID;
     }
 
-    public int getApplicantID() {
+    public Integer getApplicantID() {
         return applicantID;
     }
 
-    public void setApplicantID(int applicantID) {
+    public void setApplicantID(Integer applicantID) {
         this.applicantID = applicantID;
     }
 
-    public int getProcessID() {
+    public Integer getProcessID() {
         return processID;
     }
 
-    public void setProcessID(int processID) {
+    public void setProcessID(Integer processID) {
         this.processID = processID;
     }
 
@@ -349,35 +347,35 @@ public class ApplicationModel extends BaseEntity {
         this.TESTINDEX = TESTINDEX;
     }
 
-    public int getScale_num() {
+    public Integer getScale_num() {
         return scale_num;
     }
 
-    public void setScale_num(int scale_num) {
+    public void setScale_num(Integer scale_num) {
         this.scale_num = scale_num;
     }
 
-    public int getScale_score() {
+    public Integer getScale_score() {
         return scale_score;
     }
 
-    public void setScale_score(int scale_score) {
+    public void setScale_score(Integer scale_score) {
         this.scale_score = scale_score;
     }
 
-    public int getScale_lines() {
+    public Integer getScale_lines() {
         return scale_lines;
     }
 
-    public void setScale_lines(int scale_lines) {
+    public void setScale_lines(Integer scale_lines) {
         this.scale_lines = scale_lines;
     }
 
-    public char getsTYPE() {
+    public Character getsTYPE() {
         return sTYPE;
     }
 
-    public void setsTYPE(char sTYPE) {
+    public void setsTYPE(Character sTYPE) {
         this.sTYPE = sTYPE;
     }
 

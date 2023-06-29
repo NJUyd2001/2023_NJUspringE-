@@ -7,11 +7,10 @@
         VALUE (#{data})
     </insert>
 
-<<<<<<< HEAD
+
     <insert id="insertID" parameterType="String">
         INSERT INTO selabspringe.test(id)
         VALUE (#{data})
     </insert>
-=======
->>>>>>> 082aec3ea332202577495a1b9b0aea84f9758678
+
 </mapper>

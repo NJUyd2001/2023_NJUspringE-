@@ -12,11 +12,11 @@ import javax.persistence.Table;
  * */
 @Table
 public class ProcessModel extends BaseEntity {
-    private int PID;
-    private int client_id;
+    private Integer PID;
+    private Integer client_id;
     private curr_state curr_state;
     private String notes;
-    private double price;
+    private Double price;
     private open_to_curr open_to_curr;
     private String file_path1;
     private String file_path2;
@@ -36,7 +36,7 @@ public class ProcessModel extends BaseEntity {
      * }
      **/
 
-    public ProcessModel(int PID, int client_id,curr_state curr_state,String notes,double price,open_to_curr open_to_curr,String file_path1,String file_path2,String file_path3,String record_path) {
+    public ProcessModel(Integer PID, Integer client_id,curr_state curr_state,String notes,Double price,open_to_curr open_to_curr,String file_path1,String file_path2,String file_path3,String record_path) {
         this.PID =PID;
         this.client_id =client_id;
         this.curr_state = curr_state;
@@ -49,19 +49,19 @@ public class ProcessModel extends BaseEntity {
         this.record_path = record_path;
     }
 
-    public int getPID() {
+    public Integer getPID() {
         return PID;
     }
 
-    public void setPID(int PID) {
+    public void setPID(Integer PID) {
         this.PID = PID;
     }
 
-    public int getClient_id() {
+    public Integer getClient_id() {
         return client_id;
     }
 
-    public void setClient_id(int client_id) {
+    public void setClient_id(Integer client_id) {
         this.client_id = client_id;
     }
 
@@ -81,11 +81,11 @@ public class ProcessModel extends BaseEntity {
         this.notes = notes;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
