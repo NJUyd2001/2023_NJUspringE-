@@ -10,7 +10,7 @@
           <img src="../../assets/l3.png" style="height:80px"/>
         </el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
+        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.utype}}</el-button>
         <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
       </el-col>
     </el-row>
@@ -95,6 +95,7 @@ export default {
       showLogin: false,
       user:{
         uname:this.$store.state.user.name,
+        utype:this.$store.state.user.Permissions,
       },
       keyword: "",
       isCollapse: false,
@@ -162,6 +163,7 @@ export default {
     },
     handleStart() {
       this.$router.push('client/Personal');
+      //console.log(Object.prototype.toString.call(user.utype));
     },
     loginOut() {
       //this.showLogin = true;
@@ -172,6 +174,8 @@ export default {
     },
     loginSuccess(user) {
       console.log("success", user);
+
+      console.log(Object.prototype.toString.call(user.utype));
 
       this.showLogin = false;
       this.user = user;

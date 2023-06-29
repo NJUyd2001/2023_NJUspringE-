@@ -68,15 +68,25 @@ export default {
           'content-type': 'text/plain'}
       }).then(ret=>{
         if(ret.data==="")
-          this.error("您的用户名或密码错误,请重新输入！");
+          this.info('您的账号不是客户类型，请在测试中心出登录或联系管理员！');
         else
         {
         this.$store.state.user.id=ret.data.uid;
         this.$store.state.user.name=ret.data.nickname;
         this.$store.state.user.password=ret.data.password;
+        this.$store.state.user.email=ret.data.emailAddr;
+        this.$store.state.user.phone=ret.data.phone;
+        this.$store.state.user.fax=ret.data.userfax;
         this.$store.state.user.Permissions=ret.data.usertype;
-        this.info("登录成功");
-        setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
+        
+        
+        if(ret.data.usertype == "C"){
+          this.info("登录成功");
+          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
+        }
+        else
+          this.info("错了笨蛋");
+          //this.error("您的账号不是客户类型，请在测试中心出登录或联系管理员！");
         }
   })
       .catch(function (error) { // 请求失败处理
