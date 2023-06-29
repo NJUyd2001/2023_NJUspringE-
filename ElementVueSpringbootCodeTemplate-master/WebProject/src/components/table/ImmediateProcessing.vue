@@ -2,51 +2,68 @@
   <div>
   <el-row :gutter="20">
     <el-col :span="12">
-      <div class="main">
-    <el-steps direction="vertical" :space="110" :active="active" finish-status="success">
-      <el-step
-        v-for="(item,index) of stepTitle"
-        :key="index"
-        :title="item"
-        :class="stepClassObj(index)"
-        @click.native="handleStep(index)"
-      />
-    </el-steps>
-    <!-- 内容展示区 -->
-    <step-content1
-      v-show="active === 0 "
-      @handleNextStep="handleNextStep()"
-    />
-    <step-content2
-      v-show="active === 1 "
-      @handleLastStep="handleLastStep()"
-      @handleNextStep="handleNextStep()"
-    />
-    <step-content3
-      v-show="active === 2 "
-      @handleLastStep="handleLastStep()"
-      @handleNextStep="handleNextStep()"
-    />
-    <step-content4
-      v-show="active === 3 "
-      @handleLastStep="handleNextStep()"
-    />
-    <step-content4
-      v-show="active === 4 "
-      @handleLastStep="handleNextStep()"
-    />
-    <step-content5
-      v-show="active === 5 "
-      @handleLastStep="handleLastStep()"
-    />
+    <div class="block">
+  <el-timeline>
+    <el-timeline-item timestamp="2018/4/12" color="#0bbd87" placement="top">
+      <el-card>
+        <h4 style="margin-top: -10px;">报价处理</h4>
+        <p> 处理时间 2023/4/12 20:46</p>
+      </el-card>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2018/4/3" placement="top">
+      <el-card>
+        <h4 style="margin-top: -10px;">报价接受</h4>
+        <p> 处理时间 2023/4/3 20:46</p>
+      </el-card>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2018/4/2" placement="top">
+      <el-card>
+        <h4 style="margin-top: -10px;">检查合同草稿中</h4>
+        <p> 处理时间 2023/4/4 20:46</p>
+      </el-card>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2018/4/2" placement="top">
+      <el-card>
+        <h4 style="margin-top: -10px;">样品发送</h4>
+        <p> 处理时间 2023/4/5 20:46</p>
+      </el-card>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2018/4/2" placement="top">
+      <el-card>
+        <h4 style="margin-top: -10px;">审核测试报告</h4>
+        <p> 处理时间 2023/4/6 20:46</p>
+      </el-card>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2018/4/2" placement="top">
+      <el-card>
+        <h4 style="margin-top: -10px;">确认接受测试报告</h4>
+        <p> 处理时间 2023/4/7 20:46</p>
+      </el-card>
+    </el-timeline-item>
+    </el-timeline>
+    </div>
+    </el-col>
 
-  </div>
-    </el-col>
-    <el-col :span="12">
-        <div class="immediate list" style="width: 700px;">
-          <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
-        </div>
-    </el-col>
+    <el-card class="box-card">
+    <div slot="header" class="clearfix">
+    <span style="font-weight: bold;">立即处理</span>
+    </div>
+    <el-form :label-position="labelPosition" label-width="80px" style="width: 600px;" :model="formLabelAlign">
+      <el-form-item style="width: 600px; height: 100px;" label="客户名">
+        <el-input v-model="formLabelAlign.name" style="width: 150px; position: fixed;"></el-input>
+        <el-label style="margin-left: 300px;">当前进度</el-label>
+        <el-progress style="margin-top: 10px; position: fixed;" type="dashboard" :percentage="80">
+      <template #default="{ percentage }">
+        <span class="percentage-value">{{ percentage }}%</span>
+      </template>
+    </el-progress>
+
+    </el-form-item>
+    </el-form>
+    <div class="demo-progress" style="margin-top: -50px; width: 200px;">
+    <el-tree :data="data" :props="defaultProps" default-expand-all  @node-click="handleNodeClick"></el-tree>
+    </div>
+  </el-card>
   </el-row>
   </div>
   
@@ -55,7 +72,7 @@
   <script>
   import Vue from "vue";
 
-export default {
+  export default {
   created() {
     // 载入config数据
     //this.$store.dispatch("config/reload");
@@ -64,60 +81,38 @@ export default {
     this.$bus.on("login-cancel", this.loginCancel);
   },
   data() {
-    return {
-      // 步骤
-      active: 0,
-      // 已选步骤
-      stepSuc: [0],
-      // 步骤标题
-      stepTitle: ['发起委托', '报价处理', '合同处理', '样品发送', '确认接收', '测试报告'],
-      showLogin: false,
-      user: null,
-      keyword: "",
-      isCollapse: false,
-      showModal: false,
+    return {  
+      formLabelAlign: {
+          name: '',
+          region: '',
+          type: ''
+        },
+
       data: [{
-          label: 'Level one 1',
+          label: '报价处理',
           children: [{
-            label: 'Level two 1-1',
-            children: [{
-              label: 'Level three 1-1-1'
-            }]
+            label: '客户处理的报价',
           }]
         }, {
-          label: 'Level one 2',
+          label: '合同处理',
           children: [{
-            label: 'Level two 2-1',
-            children: [{
-              label: 'Level three 2-1-1'
-            }]
-          }, {
-            label: 'Level two 2-2',
-            children: [{
-              label: 'Level three 2-2-1'
-            }]
-          }]
+            label: '合同签署',
+          }, ]
         }, {
-          label: 'Level one 3',
+          label: '测试报告',
           children: [{
-            label: 'Level two 3-1',
-            children: [{
-              label: 'Level three 3-1-1'
-            }]
+            label: '测试方案',
           }, {
-            label: 'Level two 3-2',
-            children: [{
-              label: 'Level three 3-2-1'
-            }]
+            label: '测试文档',
           }]
         }],
         defaultProps: {
           children: 'children',
           label: 'label'
-        },
-      
+        }
+    ,
       menus: [{}],
-
+      
       //Tabs
       selectTabName: "ConfigAdd",
       tabs: {
@@ -163,20 +158,6 @@ export default {
     handleNodeClick(data) {
         console.log(data);
       },
-    // 点击步骤条
-    handleStep(val) {
-      if (this.stepSuc.includes(val) === true) {
-        this.active = val
-      }
-    },
-    // 组件点击上一步
-    handleLastStep() {
-      if (--this.active === 0) { this.active = 0 }
-    },
-    // 组件点击下一步
-    handleNextStep() {
-      this.stepSuc.push(++this.active)
-    },
     switchLang(command) {
       this.lang = command;
     },
@@ -262,7 +243,7 @@ export default {
 }
 
 #logo{
-  background: url("../../assets/b3.jpg");
+    background: url("../../assets/b3.jpg");
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
@@ -272,13 +253,6 @@ export default {
 .text-right {
   padding-right: 0px;
   text-align: right;
-}
-
-.hei{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-    height: 100%;
 }
 
 .user {
@@ -307,34 +281,46 @@ export default {
   height: 200px;
 }
 
-.el-container .el-main{
-  
-  padding: 0px 5px 5px 5px;
-}
-
 .index {
   padding-left: 10px;
 }
 
-.el-aside::-webkit-scrollbar{
-  display:none;
+.el-card {
+  height: 80px;
 }
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  height: 100%;
-}
-
-.el-footer {
-    color: #333;
-    text-align: center;
-    font-size:3px;
-    line-height: 20px;
+.text {
+    font-size: 14px;
 }
 
-.el-tree {
-  background-color: whitesmoke;
-  border-radius: 10px;
-  border-width: 2px;
+.item {
+    margin-bottom: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+.clearfix:after {
+    clear: both
+}
+
+.box-card {
+    width: 700px;
+    margin-top: 20px;
+    height: 400px;
+}
+
+.percentage-value {
+  display: block;
+  margin-top: 10px;
+  font-size: 38px;
+}
+
+.percentage-label {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
 }
 
 </style>
