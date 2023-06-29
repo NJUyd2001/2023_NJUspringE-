@@ -48,7 +48,7 @@
             <el-select v-model="TypeTest" multiple allow-create filterable>
             <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
             </el-select>
-           </el-form-item>
+           </el-form-item>o
           <el-form-item label="样品名称:"> 
             <el-input style="width:200px;padding:10px" v-model="SoftWareName"></el-input>
           </el-form-item> 
