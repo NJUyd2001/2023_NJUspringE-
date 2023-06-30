@@ -14,7 +14,7 @@
             </router-link>
           </el-col>
           <el-col :span="12" ><div class="grid-content bg-purple">
-            <h1>测试报告</h1>
+            <h1 style="margin-left: 70px;">测试报告</h1>
             </div></el-col>
           <el-col :span="6" push="5">
             <router-link to="/report">
@@ -79,7 +79,7 @@
                 ruleForm:{
                   SoftwareName:'',
                   VersionNumber:'',
-                  Client:'豪大大鸡排',
+                  Client:'',
                   TypeTest:'',
                   date:'',
                 },
