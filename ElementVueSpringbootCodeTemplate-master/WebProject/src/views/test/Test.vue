@@ -1,5 +1,6 @@
 <!-- 文炫添加 -->
 <template>
+<div class="Person">
 <el-container style="height:700px;">
   <el-header style="height: 30px">
     <el-row  type="flex" justify="center" align="middle">
@@ -102,7 +103,7 @@
 </el-container>
 </el-container>
   <LoginDialog :show='showLogin'/>
-</el-container>
+</el-container></div>
 </template>
 <script>
 import Vue from "vue";

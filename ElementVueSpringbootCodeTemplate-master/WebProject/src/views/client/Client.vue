@@ -74,6 +74,9 @@
 import Vue from "vue";
 
 export default {
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'margin:0;')
+  },
   created() {
     // 载入config数据
     //this.$store.dispatch("config/reload");
@@ -234,7 +237,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 span.logo-title{
   font-size: 30px;
   font-weight: 1000;
@@ -299,7 +302,12 @@ span.logo-title{
   
   padding: 0px 5px 5px 5px;
 }
-
+.el-container .el-container .el-aside .el-menu{
+  background-color:#F0F3F4
+}
+.el-container .el-container .el-aside .el-menu .el-submenu{
+  background-color:#F0F3F4
+}
 .index {
   padding-left: 10px;
 }
