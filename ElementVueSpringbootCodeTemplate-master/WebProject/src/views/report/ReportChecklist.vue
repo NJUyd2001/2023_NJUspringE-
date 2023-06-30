@@ -20,13 +20,13 @@
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="2"><div class="grid-content bg-purple">
+          <el-col :span="12" push="3"><div class="grid-content bg-purple">
             <span class="logo-title">测试报告检查表</span>
             </div></el-col>
-            <el-col :span="8" style="margin-left: 200px;">
+            <el-col :span="10" style="margin-left: 10%">
               <el-steps :space="200" :active="0" finish-status="success">
                 <el-step title="测试报告填写"></el-step>
-                <el-step title="测试报告检查表填写"></el-step>
+                <el-step title="检查表填写"></el-step>
                 <el-step title="完成"></el-step>
               </el-steps>
             </el-col>
@@ -42,7 +42,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div></el-col>
-          <el-col :span="6" push="3">
+          <el-col :span="6" push="2">
             <el-button style="margin-top: 15px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
@@ -56,14 +56,14 @@
             <el-input style="width:200px; padding:10px;" v-model="Client"></el-input>
           </el-form-item>
           </el-form-item> 
-          <el-table :data="tableData" style="width: 60%; margin-left: 25%;">
+          <el-table :data="tableData"  style="width: 60%; margin-left: 25%;">
             <el-table-column fixed prop="num" label="序号" width="80"></el-table-column>
             <el-table-column prop="checkcontent" label="检查内容" width="140"></el-table-column>
             <el-table-column prop="description" label="内容描述" width="450"></el-table-column>
             <el-table-column prop="checkresult" label="检查结果" width="120">
               <template slot-scope="scope">
-                <el-radio v-model="radio" label="1">通过</el-radio>
-                <el-radio v-model="radio" label="2">不通过</el-radio>
+                <el-radio  v-model="radio" label="1">通过</el-radio>
+                <el-radio  v-model="radio" label="2">不通过</el-radio>
               </template>
             </el-table-column>
           </el-table>
@@ -203,6 +203,10 @@
    .block {
      margin-left: 55%;
      margin-top: -75px;
+   }
+
+   .span .logo-title {
+     width: 200px;
    }
 
    </style>

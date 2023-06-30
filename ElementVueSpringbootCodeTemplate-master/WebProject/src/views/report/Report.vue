@@ -50,10 +50,10 @@
             </el-select>
            </el-form-item>o
           <el-form-item label="样品名称:"> 
-            <el-input style="width:200px;padding:10px" v-model="SoftWareName"></el-input>
+            <el-input style="width:200px;padding:10px" v-model="SampleName"></el-input>
           </el-form-item> 
           <el-form-item label="项目编号:"> 
-            <el-input style="width:200px;padding:10px" v-model="VersionNumber"></el-input>
+            <el-input style="width:200px;padding:10px" v-model="ProjectNum"></el-input>
           </el-form-item>
           <el-form-item label='来样日期:'>
               <div class="demo-date-picker">
@@ -63,7 +63,7 @@
                 type="date"
                 placeholder="完成时间选择"
                 :size=large
-                  />
+                />
                 </div>
                 </div>
             </el-form-item>

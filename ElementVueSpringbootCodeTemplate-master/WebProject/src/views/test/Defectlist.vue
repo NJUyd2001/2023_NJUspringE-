@@ -32,7 +32,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div></el-col>
-          <el-col :span="6" push="5">
+          <el-col :span="6" push="4">
             <el-button  size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
