@@ -148,16 +148,18 @@ export default {
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
-    width: 100%
+    width: 100%;
+    margin: 0 auto;
   }
 .box-card {
-  width: 340px;
-        background: rgba(255, 255, 255, 0.8);
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 5px;
+  width: 360px;
+  height:60%;
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
 }
 /* 设置登录面板中的表单居中 */
 .login-from {

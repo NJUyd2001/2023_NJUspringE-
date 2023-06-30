@@ -235,7 +235,8 @@ export default {
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
-    width: 100%
+    width: 100%;
+    margin: 0 auto;
   }
 
 .text-right {

@@ -25,36 +25,30 @@
           </el-dropdown>
         </div></el-col>
       <el-col :span="6" push="4">
-        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
+        <el-button  size="middle" @click="submitForm('ruleForm')" >完成</el-button>
       </el-col>
     </el-row>
   </el-header>
     <br><br><br><br>
     <el-main>
       <el-form label-width=40% :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item label="电话号码:" prop="common">
-          <el-input v-model="ruleForm.Telephone" style="width: 200px;"></el-input>
+        <el-form-item label="传真:" prop="new_fax">
+          <el-input v-model="ruleForm.new_fax" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="传真:" prop="common">
-          <el-input v-model="ruleForm.Fax" style="width: 200px;"></el-input>
+        <el-form-item label="地址:" prop="new_address">
+          <el-input v-model="ruleForm.new_address" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="地址:" prop="common">
-          <el-input v-model="ruleForm.Address" style="width: 200px;"></el-input>
+        <el-form-item label="邮编:" prop="new_zipcode">
+          <el-input v-model="ruleForm.new_zipcode" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="邮编:" prop="common">
-          <el-input v-model="ruleForm.Postcode" style="width: 200px;"></el-input>
+        <el-form-item label="联系人:" prop="new_contact">
+          <el-input v-model="ruleForm.new_contact" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="联系人:" prop="common">
-          <el-input v-model="ruleForm.Contacts" style="width: 200px;"></el-input>
+        <el-form-item label="联系人电话:" prop="new_contactTel">
+          <el-input v-model="ruleForm.new_contactTel" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="联系人电话:" prop="common">
-          <el-input v-model="ruleForm.ContactPhone" style="width: 200px;"></el-input>
-        </el-form-item>
-        <el-form-item label="E-mail:" prop="common">
-          <el-input v-model="ruleForm.Email" style="width: 200px;"></el-input>
-        </el-form-item>
-        <el-form-item label="网址:" prop="common">
-          <el-input v-model="ruleForm.URL" style="width: 200px;"></el-input>
+        <el-form-item label="网址:" prop="new_ip">
+          <el-input v-model="ruleForm.new_ip" style="width: 200px;"></el-input>
         </el-form-item>
       </el-form>
     </el-main>
@@ -62,70 +56,60 @@
 </el-container>
 </template>
 <script>
+import Axios from 'axios'
 export default {
   mounted(){
     
   },
     data(){
        return{
-            user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
-            },
             ruleForm:{
-              SoftwareName:'',
-              Versions:'',
-              Telephone:'',
-              Fax:'',
-              Address:'',
-              Postcode:'',
-              Contacts:'',
-              ContactPhone:'',
-              Email:'',
-              URL:'',
-
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-                children:[],
-            },
-          ],
+              new_fax:this.$store.state.user.fax,
+              new_address:this.$store.state.user.address,
+              new_zipcode:this.$store.state.user.zipcode,
+              new_contact:this.$store.state.user.contact,
+              new_contactTel:this.$store.state.user.contactTel,
+              new_ip:this.$store.state.user.ip,
+              UID:this.$store.state.user.id,
             },
             rules:{
-                common:[
-                      { required: true, message: "不能为空！", trigger: "blur" },
-                    ],
-                    choose:[
-                      { required: true, message: "不能为空！", trigger: "change" },
-                    ],
-                    }
+              new_fax:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_address:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_zipcode:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_contact:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_contactTel:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_ip:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_choose:[
+              { required: true, message: "不能为空！", trigger: "change" },
+              ],
+              }
     }
 }, 
   methods:{
     goback(){
     },
     submitForm(formName) {
-      /*this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert("submit!");
-          this.$router.push({path: "./client", replace:true});
-        } else {
-          return false;
-        }
-      });*/
-      this.info("提交成功，正在返回用户界面！");
-      setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
-    }
+      Axios.post("http://localhost:9090/api/user/update",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret)
+        this.info("提交成功，正在返回用户界面！");
+        setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      })
+    },
   },
 
 }

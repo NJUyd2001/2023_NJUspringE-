@@ -78,7 +78,11 @@ export default {
         this.$store.state.user.phone=ret.data.phone;
         this.$store.state.user.fax=ret.data.userfax;
         this.$store.state.user.Permissions=ret.data.usertype;
-        
+        this.$store.state.user.address=ret.data.address;
+        this.$store.state.user.zipcode=ret.data.zipcode;
+        this.$store.state.user.ip=ret.data.ip;
+        this.$store.state.user.contact=ret.data.contact;
+        this.$store.state.user.contactTel=ret.data.contactTel;
         
         if(ret.data.usertype == "C"){
           this.info("登录成功");
@@ -145,7 +149,8 @@ export default {
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
-    width: 100%
+    width: 100%;
+    margin: 0 auto;
   }
 /* 设置登录面板居中，宽度为400px */
 .box-card {

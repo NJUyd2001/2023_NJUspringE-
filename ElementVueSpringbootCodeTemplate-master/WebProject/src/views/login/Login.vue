@@ -77,11 +77,12 @@ export default {
         this.$store.state.user.Permissions=ret.data.usertype;
         this.info("登录成功!");
         console.log(ret.data)
-        if(ret.data.usertype=='T')
+        if(ret.data.usertype=="T")
         {
           setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 1000);
         }
-        //setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
+        else if(ret.data.usertype=="M")
+          setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 1000);
         }
   })
       .catch(function (error) { // 请求失败处理
@@ -105,7 +106,8 @@ export default {
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
-    width: 100%
+    width: 100%;
+    margin: 0 auto;
   }
 /* 设置登录面板居中，宽度为400px */
 .box-card {
