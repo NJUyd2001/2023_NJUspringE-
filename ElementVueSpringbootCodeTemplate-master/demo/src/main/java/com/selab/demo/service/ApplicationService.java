@@ -21,61 +21,277 @@ public class ApplicationService {
 
     @Autowired
     ApplicationDao applicationDao;
+    private JSONArray stringcrack(String words, JSONArray array){
+        if(words == null) return array;
+        Integer i = words.length();
+        Integer j = 0;
+        while (i>j){
+            String unit = new String();
+            while(i>j&&words.charAt(j)!=','){
+                unit += words.charAt(j);
+                j++;
+            }
+            unit += '\0';
+            array.add(unit);
+            j++;
+        }
+        return array;
+    }
+
+    private String JSONrepack(String postJson){
+        JSONArray jsonArray = JSONArray.parseArray(postJson);
+        Integer r = jsonArray.size();
+        JSONArray res = new JSONArray();
+        if(r==null)
+            return postJson;
+        Integer i=0;
+        while(i<r){
+            JSONObject newjsonObject = new JSONObject();
+            JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
+            newjsonObject.put("AID",jsonObject.getString("aID"));
+            newjsonObject.put("applicantID",jsonObject.getString("applicantID"));
+            newjsonObject.put("processID",jsonObject.getString("processID"));
+            newjsonObject.put("time",jsonObject.getDate("time"));
+            newjsonObject.put("phone",jsonObject.getString("phone"));
+            JSONArray typetest = new JSONArray();
+            String testTYPE = jsonObject.getString("testTYPE");
+            typetest = stringcrack(testTYPE, typetest) ;
+            newjsonObject.put("TypeTest",typetest);
+            newjsonObject.put("SoftWareName",jsonObject.getString("sNAME"));
+            newjsonObject.put("VersionNumber",jsonObject.getString("version_num"));
+            newjsonObject.put("ClientChinese",jsonObject.getString("pA"));
+            newjsonObject.put("ClientEnglish",jsonObject.getString("pAE"));
+            newjsonObject.put("DevelopmentCompany",jsonObject.getString("pB"));
+            newjsonObject.put("AttributeOfCompany",jsonObject.getString("pB_type"));
+            newjsonObject.put("SoftwareUserObjectDescription",jsonObject.getString("sDES"));
+            newjsonObject.put("MainFunction",jsonObject.getString("mainfunction"));
+            JSONArray neededstandard = new JSONArray();
+            String stestBASIS = jsonObject.getString("stestBASIS");
+            neededstandard = stringcrack(stestBASIS,neededstandard);
+            newjsonObject.put("NeededStandard",neededstandard);
+            JSONArray neededTechnicalIndex = new JSONArray();
+            String TESTINDEX = jsonObject.getString("tESTINDEX");
+            neededTechnicalIndex = stringcrack(TESTINDEX,neededTechnicalIndex);
+            newjsonObject.put("NeededTechnicalIndex",neededTechnicalIndex);
+            JSONObject softwaresize = new JSONObject();
+            softwaresize.put("Number",jsonObject.getString("scale_num"));
+            softwaresize.put("Point",jsonObject.getString("scale_score"));
+            softwaresize.put("RowNumber",jsonObject.getString("scale_lines"));
+            newjsonObject.put("SoftWareSize",softwaresize);
+            JSONArray softwaretype = new JSONArray();
+            String sTYPE = jsonObject.getString("sTYPE");
+            neededstandard = stringcrack(stestBASIS,softwaretype);
+            newjsonObject.put("SoftWareType",softwaretype);
+            JSONObject runtimeenvironment = new JSONObject();
+            JSONObject client = new JSONObject();
+            JSONObject os = new JSONObject();
+            os.put("windows",jsonObject.getString("eNVIRONMENTW"));
+            os.put("Linux",jsonObject.getString("eNVIRONMENTL"));
+            os.put("other",jsonObject.getString("eNVIRONMENTE"));
+            client.put("OS",os);
+            client.put("Mermory",jsonObject.getString("eNVIRONMENTN"));
+            client.put("Other",jsonObject.getString("eNVIRONMENT"));
+            runtimeenvironment.put("Client",client);
+            JSONObject server = new JSONObject();
+            JSONObject hardware = new JSONObject();
+            JSONArray hardFramework = new JSONArray();
+            String hOPERATINGENVIRONMENT = jsonObject.getString("hOPERATINGENVIRONMENT");
+            hardFramework = stringcrack(hOPERATINGENVIRONMENT,hardFramework);
+            hardware.put("Mermory",jsonObject.getString("hMEMORY"));
+            hardware.put("HardDisk",jsonObject.getString("hHARDDISK"));
+            hardware.put("OtherDisk",jsonObject.getString("hELSEDEMAND"));
+            server.put("HardWare",hardware);
+            JSONObject software = new JSONObject();
+            software.put("OS",jsonObject.getString("sOS"));
+            software.put("Versions",jsonObject.getString("sVERSION"));
+            software.put("PL",jsonObject.getString("sLANGUAGE"));
+            JSONArray softFramework = new JSONArray();
+            String sOPERATINGENVIRONMENT = jsonObject.getString("sOPERATINGENVIRONMENT");
+            softFramework = stringcrack(sOPERATINGENVIRONMENT,softFramework);
+            software.put("FrameWork",softFramework);
+            software.put("DataBase",jsonObject.getString("sDATABASE"));
+            software.put("MiddleWare",jsonObject.getString("sMIDDLEWARE"));
+            software.put("Other",jsonObject.getString("sELSEDEMAND"));
+            runtimeenvironment.put("SoftWare",software);
+            runtimeenvironment.put("NetWork",jsonObject.getString("sARCHITECTURE"));
+            newjsonObject.put("RuntimeEnvironment",runtimeenvironment);
+            JSONArray medium = new JSONArray();
+            String MEDIUM = jsonObject.getString("mEDIUM");
+            medium = stringcrack(MEDIUM,medium);
+            newjsonObject.put("SoftwareMedium",medium);
+            newjsonObject.put("Document",jsonObject.getString("doc_path1"));
+            JSONArray samplessubmitted = new JSONArray();
+            String SAMPLEDELETE = jsonObject.getString("sAMPLEDELETE");
+            samplessubmitted = stringcrack(SAMPLEDELETE,samplessubmitted);
+            newjsonObject.put("SamplesSubmitted",samplessubmitted);
+            newjsonObject.put("WantedFinishTime",jsonObject.getString("eXDATE"));
+
+            res.add(newjsonObject);
+            ++i;
+        }
+        return JSON.toJSONString(res);
+    }
 
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-
         Integer applicantID = jsonObject.getInteger("applicantID");
         Integer processID = jsonObject.getInteger("processID");
         Date time = jsonObject.getDate("time");
         String phone = jsonObject.getString("phone");
-        testTYPE testTYPE  = jsonObject.getObject("testTYPE",testTYPE.class);
-        String sNAME = jsonObject.getString("sNAME");
-        String PA = jsonObject.getString("PA");
-        String PAE = jsonObject.getString("PAE");
-        String PB = jsonObject.getString("PB");
-        PB_type PB_type  = jsonObject.getObject("PB_type",PB_type.class);
-        String else_type = jsonObject.getString("else_type");
+        String testTYPE  = new String();
+        JSONArray typetest = jsonObject.getJSONArray("TypeTest");
+        Integer r = typetest.size();
+        if(r!=null){
+            Integer i =0;
+            while(i<r){
+                testTYPE += typetest.get(i);
+                if(i<r-1){
+                    testTYPE += ',';
+                }
+                i++;
+            }
+        }
+        String sNAME = jsonObject.getString("SoftWareName");
+        String version_num = jsonObject.getString("VersionNumber");
+        String PA = jsonObject.getString("ClientChinese");
+        String PAE = jsonObject.getString("ClientEnglish");
+        String PB = jsonObject.getString("DevelopmentCompany");
+        String PB_type  = jsonObject.getString("AttributeOfCompany");
+        String sDES = jsonObject.getString("SoftwareUserObjectDescription");
+        String mainfunction = jsonObject.getString("MainFunction");
+        JSONArray neededstandard = jsonObject.getJSONArray("NeededStandard");
+        r = neededstandard.size();
+        String stestBASIS = new String();
+        if(r!=null){
+            Integer i =0;
+            while(i<r){
+                stestBASIS += neededstandard.get(i);
+                if(i<r-1){
+                    stestBASIS += ',';
+                }
+                i++;
+            }
+        }
+        JSONArray neededTechnicalIndex = jsonObject.getJSONArray("NeededTechnicalIndex");
+        r = neededTechnicalIndex.size();
+        String TESTINDEX = new String();
+        if(r!=null){
+            Integer i =0;
+            while(i<r){
+                TESTINDEX += neededTechnicalIndex.get(i);
+                if(i<r-1){
+                    TESTINDEX += ',';
+                }
+                i++;
+            }
+        }
+        JSONObject softwaresize = jsonObject.getJSONObject("SoftWareSize");
+        Integer scale_num = softwaresize.getInteger("Number");
+        Integer scale_score = softwaresize.getInteger("Point");
+        Integer scale_lines = softwaresize.getInteger("RowNumber");
+        JSONArray softwaretype = jsonObject.getJSONArray("SoftWareType");
+        String sTYPE = new String();
+        r = softwaretype.size();
+        if(r!=null){
+            Integer i =0;
+            while(i<r){
+                sTYPE += softwaretype.get(i);
+                if(i<r-1){
+                    sTYPE += ',';
+                }
+                i++;
+            }
+        }
+        JSONObject runtimeenvironment = jsonObject.getJSONObject("RuntimeEnvironment");
+        JSONObject client = runtimeenvironment.getJSONObject("Client");
+        JSONObject os = client.getJSONObject("OS");
+        String ENVIRONMENTW = os.getString("Windows");
+        String ENVIRONMENTL = os.getString("Linux");
+        String ENVIRONMENTE = os.getString("other");
+        String ENVIRONMENTN = client.getString("Mermory");
+        String ENVIRONMENT = client.getString("Other");
+        JSONObject server = runtimeenvironment.getJSONObject("Server");
+        JSONObject hardware = server.getJSONObject("HardWare");
+        JSONArray hardFramework = hardware.getJSONArray("FrameWork");
+        String hOPERATINGENVIRONMENT = new String();
+        r = hardFramework.size();
+        if(r!=null){
+            Integer i =0;
+            while(i<r){
+                hOPERATINGENVIRONMENT += hardFramework.get(i);
+                if(i<r-1){
+                    hOPERATINGENVIRONMENT += ',';
+                }
+                i++;
+            }
+        }
+        String hMEMORY = hardware.getString("Mermory");
+        String hHARDDISK = hardware.getString("HardDisk");
+        String hELSEDEMAND = hardware.getString("OtherDisk");
+        JSONObject software = server.getJSONObject("SoftWare");
+        String sOS = software.getString("OS");
+        String sVERSION = software.getString("Versions");
+        String sLANGUAGE = software.getString("PL");
+        JSONArray softFramework = software.getJSONArray("FrameWork");
+        String sOPERATINGENVIRONMENT = new String();
+        r = softFramework.size();
+        if(r!=null){
+            Integer i =0;
+            while(i<r){
+                sOPERATINGENVIRONMENT += softFramework.get(i);
+                if(i<r-1){
+                    sOPERATINGENVIRONMENT += ',';
+                }
+                i++;
+            }
+        }
+        String sDATABASE = software.getString("DataBase");
+        String sMIDDLEWARE = software.getString("MiddleWare");
+        String sELSEDEMAND = software.getString("Other");
+        String sARCHITECTURE  = runtimeenvironment.getString("NetWork");
+        JSONArray medium = jsonObject.getJSONArray("SoftwareMedium");
+        r = medium.size();
+        String MEDIUM  = new String();
+        if(r!=null){
+            Integer i =0;
+            while(i<r){
+                MEDIUM += medium.get(i);
+                if(i<r-1){
+                    MEDIUM += ',';
+                }
+                i++;
+            }
+        }
+        String doc_path1 = jsonObject.getString("Document");
+        JSONArray samplessubmitted = jsonObject.getJSONArray("SamplesSubmitted");
+        String SAMPLEDELETE  = new String();
+        r = samplessubmitted.size();
+        if(r!=null){
+            Integer i =0;
+            while(i<r){
+                SAMPLEDELETE += samplessubmitted.get(i);
+                if(i<r-1){
+                    SAMPLEDELETE += ',';
+                }
+                i++;
+            }
+        }
+        String EXDATE = jsonObject.getString("WantedFinishTime");
+
+
         String USS = jsonObject.getString("USS");
-        String sDES = jsonObject.getString("sDES");
-        String stestBASIS = jsonObject.getString("stestBASIS");
         String elsestestBASIS = jsonObject.getString("elsestestBASIS");
-        String TESTINDEX = jsonObject.getString("TESTINDEX");
         String elseINDEX = jsonObject.getString("elseINDEX");
-        Integer scale_num = jsonObject.getInteger("scale_num");
-        Integer scale_score = jsonObject.getInteger("scale_score");
-        Integer scale_lines = jsonObject.getInteger("scale_lines");
-        Character sTYPE = jsonObject.getObject("sTYPE",char.class);
-        String ENVIRONMENTW = jsonObject.getString("ENVIRONMENTW");
-        String ENVIRONMENTL = jsonObject.getString("ENVIRONMENTL");
-        String ENVIRONMENTN = jsonObject.getString("ENVIRONMENTN");
-        String ENVIRONMENTE = jsonObject.getString("ENVIRONMENTE");
-        String ENVIRONMENT = jsonObject.getString("ENVIRONMENT");
         ARCHITECTURE ARCHITECTURE  = jsonObject.getObject("ARCHITECTURE",ARCHITECTURE.class);
-        String hMEMORY = jsonObject.getString("hMEMORY");
-        String hHARDDISK = jsonObject.getString("hHARDDISK");
-        String hELSEDEMAND = jsonObject.getString("hELSEDEMAND");
-        String sOS = jsonObject.getString("sOS");
-        String sVERSION = jsonObject.getString("sVERSION");
-        String sLANGUAGE = jsonObject.getString("sLANGUAGE");
-        sARCHITECTURE sARCHITECTURE  = jsonObject.getObject("sARCHITECTURE",sARCHITECTURE.class);
-        String sDATABASE = jsonObject.getString("sDATABASE");
-        String sMIDDLEWARE = jsonObject.getString("sMIDDLEWARE");
-        String sELSEDEMAND = jsonObject.getString("sELSEDEMAND");
-        MEDIUM MEDIUM  = jsonObject.getObject("MEDIUM",MEDIUM.class);
-        String doc_path1 = jsonObject.getString("doc_path1");
+
         String doc_path2 = jsonObject.getString("doc_path2");
         String doc_path3 = jsonObject.getString("doc_path3");
         String doc_path4 = jsonObject.getString("doc_path4");
-        SAMPLEDELETE SAMPLEDELETE  = jsonObject.getObject("SAMPLEDELETE",SAMPLEDELETE.class);
-        String EXDATE = jsonObject.getString("EXDATE");
         state t_state  = jsonObject.getObject("t_state",state.class);
         state m_state  = jsonObject.getObject("m_state",state.class);
         String auditinfor = jsonObject.getString("auditinfor");
-        String version_num = jsonObject.getString("version_num");
-        String hOPERATINGENVIRONMENT = jsonObject.getString("hOPERATINGENVIRONMENT");
-        String sOPERATINGENVIRONMENT = jsonObject.getString("sOPERATINGENVIRONMENT");
-        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, else_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT);
+
+        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction);
         applicationDao.insertApp(applicationModel);
         return "application inserted successfully";
     }
@@ -85,7 +301,7 @@ public class ApplicationService {
        int username = jsonObject.getInteger("applicantID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyuserA(username)));
-        return JSON.toJSONString(applicationDao.findbyuserA(username));
+        return JSONrepack(JSON.toJSONString(applicationDao.findbyuserA(username)));
     }
 
     public String checkbyprocess(String postJson){
@@ -93,14 +309,14 @@ public class ApplicationService {
         int username = jsonObject.getInteger("processID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyprocess(username)));
-        return JSON.toJSONString(applicationDao.findbyprocess(username));
+        return JSONrepack(JSON.toJSONString(applicationDao.findbyprocess(username)));
     }
     public String checkbyAID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         int AID = jsonObject.getInteger("AID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyAID(AID)));
-        return JSON.toJSONString(applicationDao.findbyAID(AID));
+        return JSONrepack(JSON.toJSONString(applicationDao.findbyAID(AID)));
     }
     public String updateapplication(String postJson) {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
@@ -109,52 +325,157 @@ public class ApplicationService {
         Integer processID = jsonObject.getInteger("processID");
         Date time = jsonObject.getDate("time");
         String phone = jsonObject.getString("phone");
-        testTYPE testTYPE  = jsonObject.getObject("testTYPE",testTYPE.class);
-        String sNAME = jsonObject.getString("sNAME");
-        String PA = jsonObject.getString("PA");
-        String PAE = jsonObject.getString("PAE");
-        String PB = jsonObject.getString("PB");
-        PB_type PB_type  = jsonObject.getObject("PB_type",PB_type.class);
-        String else_type = jsonObject.getString("else_type");
+        String testTYPE  = new String();
+        JSONArray typetest = jsonObject.getJSONArray("TypeTest");
+        Integer r = typetest.size();
+        if(r!=null){
+            Integer i =0;
+            while(i<=r){
+                testTYPE += typetest.get(i);
+                if(i<r){
+                    testTYPE += ',';
+                }
+                i++;
+            }
+        }
+        String sNAME = jsonObject.getString("SoftWareName");
+        String version_num = jsonObject.getString("VersionNumber");
+        String PA = jsonObject.getString("ClientChinese");
+        String PAE = jsonObject.getString("ClientEnglish");
+        String PB = jsonObject.getString("DevelopmentCompany");
+        String PB_type  = jsonObject.getString("AttributeOfCompany");
+        String sDES = jsonObject.getString("SoftwareUserObjectDescription");
+        String mainfunction = jsonObject.getString("MainFunction");
+        JSONArray neededstandard = jsonObject.getJSONArray("NeededStandard");
+        r = neededstandard.size();
+        String stestBASIS = new String();
+        if(r!=null){
+            Integer i =0;
+            while(i<=r){
+                stestBASIS += neededstandard.get(i);
+                if(i<r){
+                    stestBASIS += ',';
+                }
+                i++;
+            }
+        }
+        JSONArray neededTechnicalIndex = jsonObject.getJSONArray("NeededTechnicalIndex");
+        r = neededTechnicalIndex.size();
+        String TESTINDEX = new String();
+        if(r!=null){
+            Integer i =0;
+            while(i<=r){
+                TESTINDEX += neededTechnicalIndex.get(i);
+                if(i<r){
+                    TESTINDEX += ',';
+                }
+            }
+        }
+        JSONObject softwaresize = jsonObject.getJSONObject("SoftWareSize");
+        Integer scale_num = softwaresize.getInteger("Number");
+        Integer scale_score = softwaresize.getInteger("Point");
+        Integer scale_lines = softwaresize.getInteger("RowNumber");
+        JSONArray softwaretype = jsonObject.getJSONArray("SoftWareType");
+        String sTYPE = new String();
+        r = softwaretype.size();
+        if(r!=null){
+            Integer i =0;
+            while(i<=r){
+                sTYPE += softwaretype.get(i);
+                if(i<r){
+                    sTYPE += ',';
+                }
+                i++;
+            }
+        }
+        JSONObject runtimeenvironment = jsonObject.getJSONObject("RuntimeEnvironment");
+        JSONObject client = runtimeenvironment.getJSONObject("Client");
+        JSONObject os = client.getJSONObject("OS");
+        String ENVIRONMENTW = os.getString("Windows");
+        String ENVIRONMENTL = os.getString("Linux");
+        String ENVIRONMENTE = os.getString("other");
+        String ENVIRONMENTN = client.getString("Mermory");
+        String ENVIRONMENT = client.getString("Other");
+        JSONObject server = runtimeenvironment.getJSONObject("Server");
+        JSONObject hardware = server.getJSONObject("HardWare");
+        JSONArray hardFramework = hardware.getJSONArray("FrameWork");
+        String hOPERATINGENVIRONMENT = new String();
+        r = hardFramework.size();
+        if(r!=null){
+            Integer i =0;
+            while(i<=r){
+                hOPERATINGENVIRONMENT += hardFramework.get(i);
+                if(i<r){
+                    hOPERATINGENVIRONMENT += ',';
+                }
+                i++;
+            }
+        }
+        String hMEMORY = hardware.getString("Mermory");
+        String hHARDDISK = hardware.getString("HardDisk");
+        String hELSEDEMAND = hardware.getString("OtherDisk");
+        JSONObject software = server.getJSONObject("SoftWare");
+        String sOS = software.getString("OS");
+        String sVERSION = software.getString("Versions");
+        String sLANGUAGE = software.getString("PL");
+        JSONArray softFramework = software.getJSONArray("FrameWork");
+        String sOPERATINGENVIRONMENT = new String();
+        r = softFramework.size();
+        if(r!=null){
+            Integer i =0;
+            while(i<=r){
+                sOPERATINGENVIRONMENT += softFramework.get(i);
+                if(i<r){
+                    sOPERATINGENVIRONMENT += ',';
+                }
+                i++;
+            }
+        }
+        String sDATABASE = software.getString("DataBase");
+        String sMIDDLEWARE = software.getString("MiddleWare");
+        String sELSEDEMAND = software.getString("Other");
+        String sARCHITECTURE  = runtimeenvironment.getString("NetWork");
+        JSONArray medium = jsonObject.getJSONArray("SoftwareMedium");
+        r = medium.size();
+        String MEDIUM  = new String();
+        if(r!=null){
+            Integer i =0;
+            while(i<=r){
+                MEDIUM += medium.get(i);
+                if(i<r){
+                    MEDIUM += ',';
+                }
+                i++;
+            }
+        }
+        String doc_path1 = jsonObject.getString("Document");
+        JSONArray samplessubmitted = jsonObject.getJSONArray("SamplesSubmitted");
+        String SAMPLEDELETE  = new String();
+        r = samplessubmitted.size();
+        if(r!=null){
+            Integer i =0;
+            while(i<=r){
+                SAMPLEDELETE += samplessubmitted.get(i);
+                if(i<r){
+                    SAMPLEDELETE += ',';
+                }
+                i++;
+            }
+        }
+        String EXDATE = jsonObject.getString("WantedFinishTime");
+
+
         String USS = jsonObject.getString("USS");
-        String sDES = jsonObject.getString("sDES");
-        String stestBASIS = jsonObject.getString("stestBASIS");
         String elsestestBASIS = jsonObject.getString("elsestestBASIS");
-        String TESTINDEX = jsonObject.getString("TESTINDEX");
         String elseINDEX = jsonObject.getString("elseINDEX");
-        Integer scale_num = jsonObject.getInteger("scale_num");
-        Integer scale_score = jsonObject.getInteger("scale_score");
-        Integer scale_lines = jsonObject.getInteger("scale_lines");
-        Character sTYPE = jsonObject.getObject("sTYPE",char.class);
-        String ENVIRONMENTW = jsonObject.getString("ENVIRONMENTW");
-        String ENVIRONMENTL = jsonObject.getString("ENVIRONMENTL");
-        String ENVIRONMENTN = jsonObject.getString("ENVIRONMENTN");
-        String ENVIRONMENTE = jsonObject.getString("ENVIRONMENTE");
-        String ENVIRONMENT = jsonObject.getString("ENVIRONMENT");
         ARCHITECTURE ARCHITECTURE  = jsonObject.getObject("ARCHITECTURE",ARCHITECTURE.class);
-        String hMEMORY = jsonObject.getString("hMEMORY");
-        String hHARDDISK = jsonObject.getString("hHARDDISK");
-        String hELSEDEMAND = jsonObject.getString("hELSEDEMAND");
-        String sOS = jsonObject.getString("sOS");
-        String sVERSION = jsonObject.getString("sVERSION");
-        String sLANGUAGE = jsonObject.getString("sLANGUAGE");
-        sARCHITECTURE sARCHITECTURE  = jsonObject.getObject("sARCHITECTURE",sARCHITECTURE.class);
-        String sDATABASE = jsonObject.getString("sDATABASE");
-        String sMIDDLEWARE = jsonObject.getString("sMIDDLEWARE");
-        String sELSEDEMAND = jsonObject.getString("sELSEDEMAND");
-        MEDIUM MEDIUM  = jsonObject.getObject("MEDIUM",MEDIUM.class);
-        String doc_path1 = jsonObject.getString("doc_path1");
+
         String doc_path2 = jsonObject.getString("doc_path2");
         String doc_path3 = jsonObject.getString("doc_path3");
         String doc_path4 = jsonObject.getString("doc_path4");
-        SAMPLEDELETE SAMPLEDELETE  = jsonObject.getObject("SAMPLEDELETE",SAMPLEDELETE.class);
-        String EXDATE = jsonObject.getString("EXDATE");
         state t_state  = jsonObject.getObject("t_state",state.class);
         state m_state  = jsonObject.getObject("m_state",state.class);
         String auditinfor = jsonObject.getString("auditinfor");
-        String version_num = jsonObject.getString("version_num");
-        String hOPERATINGENVIRONMENT = jsonObject.getString("hOPERATINGENVIRONMENT");
-        String sOPERATINGENVIRONMENT = jsonObject.getString("sOPERATINGENVIRONMENT");
 
 
         String result = applicationDao.findbyAID2(AID);
@@ -173,7 +494,7 @@ public class ApplicationService {
         if(phone == null)
             phone = oldjsonObject.getString("phone");
         if(testTYPE == null)
-            testTYPE  = oldjsonObject.getObject("testTYPE",testTYPE.class);
+            testTYPE  = oldjsonObject.getString("testTYPE");
         if(sNAME == null)
             sNAME = oldjsonObject.getString("sNAME");
         if(PA == null)
@@ -183,9 +504,9 @@ public class ApplicationService {
         if(PB == null)
             PB = oldjsonObject.getString("pB");
         if(PB_type == null)
-            PB_type  = oldjsonObject.getObject("pB_type",PB_type.class);
-        if(else_type == null)
-            else_type = oldjsonObject.getString("else_type");
+            PB_type  = oldjsonObject.getString("pB_type");
+        if(mainfunction == null)
+            mainfunction = oldjsonObject.getString("mainfunction");
         if(USS == null)
             USS = oldjsonObject.getString("uSS");
         if(sDES==null)
@@ -205,7 +526,7 @@ public class ApplicationService {
         if(scale_lines == null)
             scale_lines = oldjsonObject.getInteger("scale_lines");
         if(sTYPE == null)
-            sTYPE = oldjsonObject.getObject("sTYPE",char.class);
+            sTYPE = oldjsonObject.getString("sTYPE");
         if(ENVIRONMENTW == null)
             ENVIRONMENTW = oldjsonObject.getString("eNVIRONMENTW");
         if(ENVIRONMENTL == null)
@@ -231,7 +552,7 @@ public class ApplicationService {
         if(sLANGUAGE == null)
             sLANGUAGE = oldjsonObject.getString("sLANGUAGE");
         if(sARCHITECTURE == null)
-            sARCHITECTURE  = oldjsonObject.getObject("sARCHITECTURE",sARCHITECTURE.class);
+            sARCHITECTURE  = oldjsonObject.getString("sARCHITECTURE");
         if(sDATABASE == null)
             sDATABASE = oldjsonObject.getString("sDATABASE");
         if(sMIDDLEWARE == null)
@@ -239,7 +560,7 @@ public class ApplicationService {
         if(sELSEDEMAND == null)
             sELSEDEMAND = oldjsonObject.getString("sELSEDEMAND");
         if(MEDIUM == null)
-            MEDIUM  = oldjsonObject.getObject("mEDIUM",MEDIUM.class);
+            MEDIUM  = oldjsonObject.getString("mEDIUM");
         if(doc_path1 == null)
             doc_path1 = oldjsonObject.getString("doc_path1");
         if(doc_path2 == null)
@@ -249,7 +570,7 @@ public class ApplicationService {
         if(doc_path4 == null)
             doc_path4 = oldjsonObject.getString("doc_path4");
         if(SAMPLEDELETE == null)
-            SAMPLEDELETE  = oldjsonObject.getObject("sAMPLEDELETE",SAMPLEDELETE.class);
+            SAMPLEDELETE  = oldjsonObject.getString("sAMPLEDELETE");
         if(EXDATE == null)
             EXDATE = oldjsonObject.getString("eXDATE");
         if(t_state == null)
@@ -265,7 +586,7 @@ public class ApplicationService {
         if(sOPERATINGENVIRONMENT == null)   sOPERATINGENVIRONMENT = oldjsonObject.getString("sOPERATINGENVIRONMENT");
 
 
-        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, else_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT);
+        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction);
 
 
         applicationDao.updateapplication(applicationModel);
