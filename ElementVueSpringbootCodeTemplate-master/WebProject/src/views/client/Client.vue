@@ -1,6 +1,5 @@
 <template>
-<div class ="Person">
-<el-container style="height: 90%;">
+<el-container class="Person">
   <el-header style="height: 10%;">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
@@ -15,8 +14,7 @@
       </el-col>
     </el-row>
   </el-header>
-  
-  <el-container >
+  <el-container  style="height: 90%;">
     <el-aside width="300px">
       <el-menu
         default-active="1"
@@ -47,8 +45,8 @@
 
       </el-menu>
     </el-aside>
-  <el-container>
-    <el-main>      
+  <el-container style="height:95%;">
+    <el-main style="height: 90%;">      
       <el-tabs v-model="selectTabName" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
           v-for="item in tabs"
@@ -60,7 +58,7 @@
         </el-tab-pane>
       </el-tabs>
     </el-main>
-  <el-footer>
+  <el-footer style="height: 10%;">
   <p>南京大学 计算机软件新技术国家重点实验室 软件测试中心<br>
   江苏省 南京市 栖霞区 仙林大道163号南京大学仙林校区计算机科学与技术楼<br>
   电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
@@ -69,7 +67,6 @@
 </el-container>
   <LoginDialog :show='showLogin'/>
 </el-container>
-</div>
 </template>
 
 
@@ -105,8 +102,8 @@ export default {
       //Tabs
       selectTabName: "ProgressQuery",
       tabs: {
-        ConfigAdd: {
-        title: "委托进度",
+        ProgressQuery: {
+        title: "进度查询",
         name: "ProgressQuery",
         currentView: "ProgressQuery"
         }
@@ -170,7 +167,7 @@ export default {
       // 移除本地用户登录信息
       sessionStorage.removeItem('userInfo');
       // 跳转页面到登录页
-      this.$router.push('/clientlogin');
+      this.$router.push('/home');
     },
     loginSuccess(user) {
       console.log("success", user);
@@ -237,8 +234,7 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
 span.logo-title{
   font-size: 30px;
   font-weight: 1000;
@@ -356,6 +352,7 @@ span.logo-title{
   background-size: 100% 100%;
   height: 100%;
   position: fixed;
-  width: 100%
+  width: 100%;
+  
 }
 </style>

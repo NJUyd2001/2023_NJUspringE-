@@ -10,7 +10,7 @@
   </el-breadcrumb>
 </el-col>
 <el-col :span="2">
-  <el-button style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+  <el-button @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
   </el-col> 
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
@@ -149,6 +149,13 @@ export default {
       // });
       // this.info("提交成功，正在返回测试部界面！");
       // setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+    },
+    Logout(){
+          this.$store.state.user.id=-1;
+          this.$store.state.user.name="null";
+          this.$store.state.user.password=-1;
+          this.$store.state.user.Permissions="null";
+      this.$router.push({path: "./home", replace:true});
     },
 }
 }

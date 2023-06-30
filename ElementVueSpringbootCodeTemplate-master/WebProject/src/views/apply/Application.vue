@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px" >
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
@@ -37,7 +37,7 @@
     <br><br><br>
     <el-main style="border-radius: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
       <br>
-      <el-form :label-position="top" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
+      <el-form label-position="middle" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
         <el-form-item label="测试类型:" prop="TypeTest"> 
         <el-select v-model="ruleForm.TypeTest" multiple allow-create filterable>
         <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
@@ -234,15 +234,13 @@
           </el-radio-group>
       </el-form-item>
       <el-form-item label='希望测试完成时间:' prop="WantedFinishTime">
-          <div class="demo-date-picker">
-          <div class="block">
+        <div class="demo-date-picker">
             <el-date-picker
             v-model="ruleForm.WantedFinishTime"
             type="date"
             placeholder="完成时间选择"
-            :size=large
+            size=large
               />
-            </div>
             </div>
         </el-form-item>
         <el-form-item  label="申请人签字上传：">
@@ -258,19 +256,18 @@
                 </el-form-item>
     </el-form>
     </el-main>
-  <LoginDialog :show='showLogin'/>
   <template>
   <el-backtop :right="50" :bottom="50" />
 </template>
 </el-container>
 </template>
 <script>
+import Axios from 'axios'
 export default {
     data(){
        return{
         percentage:0,
-        ruleForm:{
-          user:{
+        user:{
                 name:'风车村',
                 password:'shazihuang',
                 telephone:'',
@@ -282,13 +279,79 @@ export default {
                 email:'',
                 URL:'',
             },
+        ruleForm1:{
+          applicantID:'1',
+          processID:'1',
+          time:"2017-09-02 10:29:14",
+          phone:"15968774896",
+          testTYPE:"C",
+            TypeTest:[{
+                id:1,
+                value:'软件确认测试',
+              }],
+            SoftWareName:'蔡徐坤炒粉事件',
+            VersionNumber:'2.5',
+            ClientChinese:'小黑子',
+            ClientEnglish:'ikun',
+            DevelopmentCompany:'C先生',
+            AttributeOfCompany:"内资企业",
+            SoftwareUserObjectDescription:'练习时长两年半',
+            MainFunction:'炒粉不放鸡精',
+            NeededStandard:[
+                  "GB/T 25000.51-2016",
+                ],
+            NeededTechnicalIndex:[
+                  "功能性",
+                ],
+            SoftWareSize:{
+              Number:1,
+              Point:2,
+              RowNumber:3,
+            },
+            SoftWareType:["操纵系统",
+                        ],
+            RuntimeEnvironment:{
+                Client:{
+                OS:{
+                  Windows:'xp',
+                  Linux:'12108',
+                  other:''
+              },
+              Mermory:'2048MB',
+              Other:''
+              },
+              Server:{
+                HardWare:{
+                FrameWork:["PC服务器",],  
+                Mermory:'1024',
+                HardDisk:'why',
+                OtherDisk:'to'
+              },
+              SoftWare:{
+                OS:'ji',
+                Versions:'ni',
+                PL:'tai',
+                FrameWork:["服务器端软件架构:C/S",],
+                DataBase:'mei',
+                MiddleWare:'oh',
+                Other:'baby'
+              },
+              },
+              NetWork:'zhi',  
+               },
+            SoftwareMedium:["U盘"],
+            Document:'yin',
+            SamplesSubmitted:["中心直接销毁"],
+            WantedFinishTime:'',
+        },
+        ruleForm:{
             TypeTest:[],
             SoftWareName:'',
             VersionNumber:'',
             ClientChinese:'',
             ClientEnglish:'',
             DevelopmentCompany:'',
-            AttributeOfCompany:[],
+            AttributeOfCompany:"",
             SoftwareUserObjectDescription:'',
             MainFunction:'',
             NeededStandard:[],
@@ -298,7 +361,7 @@ export default {
               Point:0,
               RowNumber:0,
             },
-            SoftWareType:'',
+            SoftWareType:[],
             RuntimeEnvironment:{
                 Client:{
                 OS:{
@@ -677,14 +740,31 @@ export default {
 }, 
   methods:{
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.info("提交成功！");
-          this.$router.push({path: "./functionlist", replace:true});
-        } else {
-          return false;
-        }
-      });
+      console.log(this.ruleForm1)
+      Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm1),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data);
+      }).catch(function (error) { // 请求失败处理
+        console.log(error);
+        // alert("error!");
+      });   
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+      //   Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
+      //   headers:{
+      //     'content-type': 'text/plain'}
+      // }).then(ret=>{
+      //     console.log(ret.data);
+
+      // })
+      //     this.info("提交成功！");
+      //     this.$router.push({path: "./functionlist", replace:true});
+      //   } else {
+      //     return false;
+      //   }
+      // });
       
       // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
     },
@@ -776,29 +856,13 @@ export default {
 span.logo-title{
   font-size: 30px;
   font-weight: bold;
+  margin: auto;
+  
 }
 .demo-date-picker {
   display: flex;
   width: 100%;
   padding: 0;
   flex-wrap: wrap;
-}
-
-.demo-date-picker .block {
-  padding: 30px 0;
-  text-align: left;
-  border-right: solid 1px var(--el-border-color);
-  flex: 1;
-}
-
-.demo-date-picker .block:last-child {
-  border-right: none;
-}
-
-.demo-date-picker .demonstration {
-  display: block;
-  color: var(--el-text-color-secondary);
-  font-size: 14px;
-  margin-bottom: 20px;
 }
 </style>

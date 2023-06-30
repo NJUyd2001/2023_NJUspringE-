@@ -34,27 +34,28 @@
         <el-form-item label="电话" prop="phone">
           <el-input v-model="ruleForm.phone"></el-input>
         </el-form-item>
-        <el-form-item label="所属部门" rule: required = true>
-          <td class="td_right"><input type="radio" name="gender" value="market" checked> 市场部
-          <input type="radio" name="gender" value="testing"> 测试部</td>
+        <el-form-item label="所属部门">
+          <el-radio-group v-model="ruleForm.type">
+          <el-radio  label="M">市场部</el-radio>
+          <el-radio  label="T">测试部</el-radio>
+        </el-radio-group>
         </el-form-item>
-        
-        <el-form-item label="邮箱" prop="email">
+        <el-form-item label="邮箱" prop="emailAddr">
           <el-input
-            v-model="ruleForm.email"
+            v-model="ruleForm.emailAddr"
           ></el-input>
         </el-form-item>
       </el-form>
-      <div class="btnGroup">
-        <el-button type="primary" @click="submitForm('ruleForm')" style = "margin: 40px"
+      <el-button type="primary" @click="submitForm('ruleForm')" style = "margin: 18px"
           >提交</el-button>
-        <el-button @click="resetForm('ruleForm')" style = "margin: 40px">重置</el-button>
-      </div>
+        <el-button @click="resetForm('ruleForm')" style = "margin: 18px">重置</el-button>
+        <el-button @click="goBack">登录</el-button>
     </el-card>
   </div>
 </template>
 
 <script>
+import Axios from 'axios';
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -78,10 +79,12 @@ export default {
     };
     return {
       ruleForm: {
+        type:"",
         uname: "",
         pass: "",
         password: "",
-        type:"",
+        emailAddr:"",
+        phone:"",
       },
       rules: {
         uname: [
@@ -140,13 +143,14 @@ export default {
     width: 100%
   }
 .box-card {
-  width: 340px;
+  width: 360px;
         background: rgba(255, 255, 255, 0.8);
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 5px;
+    height: 550px;
 }
 /* 设置登录面板中的表单居中 */
 .login-from {
