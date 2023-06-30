@@ -7,7 +7,7 @@
         VALUES (#{client_id}, #{curr_state}, #{notes}, #{price}, #{open_to_curr}, #{file_path1}, #{file_path2}, #{file_path3}, #{record_path})
 
     </insert>
-    <resultMap id="appilicationMap" type="com.selab.demo.model.ApplicationModel">
+    <resultMap id="processMap" type="com.selab.demo.model.ProcessModel">
         <id property="AID" column="AID"/>
         <result property="PID" column="PID"/>
         <result property="client_id" column="client_id"/>

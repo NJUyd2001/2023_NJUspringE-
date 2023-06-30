@@ -1,9 +1,4 @@
 package com.selab.demo.model;
-import java.util.Date;
-import com.selab.demo.model.enums.ProcessNext;
-import com.selab.demo.model.enums.ProcessPrev;
-import com.selab.demo.model.enums.ProcessCurr;
-import com.selab.demo.model.enums.ProcessCurr_state;
 import com.selab.demo.model.enums.curr_state;
 import com.selab.demo.model.enums.open_to_curr;
 
@@ -132,5 +127,8 @@ public class ProcessModel extends BaseEntity {
 
     public void setRecord_path(String record_path) {
         this.record_path = record_path;
+    }
+
+    public static class MessagesModel {
     }
 }

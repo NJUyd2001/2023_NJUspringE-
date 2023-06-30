@@ -10,12 +10,14 @@ server:
   tomcat:
     uri-encoding: utf-8
 
+
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-  profiles:
-    active: dev
+  servlet:
+    multipart:
+      max-file-size: 31457280          # 30MB
+      max-request-size: 31457280
+  application:
+    name: demo
   datasource:
     hikari:
       max-lifetime: 60000
@@ -23,8 +25,8 @@ spring:
     url: jdbc:mysql://mysql.sqlpub.com:3306/selabspringe
     username: neoabridges
     password: 86bc514d3780ac7e
-#mybatis:
-#  mapper-locations: classpath:mapper/*.xml
-
+mybatis:
+  configuration:
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
 
 

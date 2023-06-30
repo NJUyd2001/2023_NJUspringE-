@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px" >
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
@@ -14,12 +14,12 @@
   </el-col>
   </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="10">
+      <el-col :span="9">
         <router-link to="/Client">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="4" >
+      <el-col :span="5" >
         <span class="logo-title">申请界面-申请表</span>
       </el-col>
       <el-col :span="8">
@@ -37,7 +37,7 @@
     <br><br><br>
     <el-main style="border-radius: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
       <br>
-      <el-form :label-position="top" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
+      <el-form label-position="middle" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
         <el-form-item label="测试类型:" prop="TypeTest"> 
         <el-select v-model="ruleForm.TypeTest" multiple allow-create filterable>
         <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
@@ -234,15 +234,13 @@
           </el-radio-group>
       </el-form-item>
       <el-form-item label='希望测试完成时间:' prop="WantedFinishTime">
-          <div class="demo-date-picker">
-          <div class="block">
+        <div class="demo-date-picker">
             <el-date-picker
             v-model="ruleForm.WantedFinishTime"
             type="date"
             placeholder="完成时间选择"
-            :size=large
+            size=large
               />
-            </div>
             </div>
         </el-form-item>
         <el-form-item  label="申请人签字上传：">
@@ -258,37 +256,30 @@
                 </el-form-item>
     </el-form>
     </el-main>
-  <LoginDialog :show='showLogin'/>
   <template>
   <el-backtop :right="50" :bottom="50" />
 </template>
 </el-container>
 </template>
 <script>
+import Axios from 'axios'
 export default {
     data(){
        return{
         percentage:0,
-        ruleForm:{
-          user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
+        user:{
+                name:this.$store.state.user.name,
             },
+        ruleForm:{
+          applicantID:this.$store.state.user.id,
+          processID:'4',
             TypeTest:[],
             SoftWareName:'',
             VersionNumber:'',
             ClientChinese:'',
             ClientEnglish:'',
             DevelopmentCompany:'',
-            AttributeOfCompany:[],
+            AttributeOfCompany:"",
             SoftwareUserObjectDescription:'',
             MainFunction:'',
             NeededStandard:[],
@@ -298,7 +289,7 @@ export default {
               Point:0,
               RowNumber:0,
             },
-            SoftWareType:'',
+            SoftWareType:"",
             RuntimeEnvironment:{
                 Client:{
                 OS:{
@@ -677,16 +668,40 @@ export default {
 }, 
   methods:{
     submitForm(formName) {
+      // Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm1),{
+      //   headers:{
+      //     'content-type': 'text/plain'}
+      // }).then(ret=>{
+      //     console.log(ret.data);
+      // }).catch(function (error) { // 请求失败处理
+      //   console.log(error);
+      //   // alert("error!");
+      // });
+      // Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
+      //   headers:{
+      //     'content-type': 'text/plain'}
+      // }).then(ret=>{
+      //     console.log(ret.data);
+      //     this.$message.success("提交成功！");
+      //     //setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+      // }).catch(function (error) { // 请求失败处理
+      //   console.log(error);
+      //   alert(error);
+      // });   
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.info("提交成功！");
-          this.$router.push({path: "./functionlist", replace:true});
+        Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data);
+          this.$message.info("提交成功！");
+          setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+      }) 
         } else {
           return false;
         }
       });
-      
-      // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -776,29 +791,13 @@ export default {
 span.logo-title{
   font-size: 30px;
   font-weight: bold;
+  margin: auto;
+  
 }
 .demo-date-picker {
   display: flex;
   width: 100%;
   padding: 0;
   flex-wrap: wrap;
-}
-
-.demo-date-picker .block {
-  padding: 30px 0;
-  text-align: left;
-  border-right: solid 1px var(--el-border-color);
-  flex: 1;
-}
-
-.demo-date-picker .block:last-child {
-  border-right: none;
-}
-
-.demo-date-picker .demonstration {
-  display: block;
-  color: var(--el-text-color-secondary);
-  font-size: 14px;
-  margin-bottom: 20px;
 }
 </style>

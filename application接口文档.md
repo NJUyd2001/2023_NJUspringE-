@@ -70,7 +70,7 @@ author:李晨博
 输出：application inserted successfully
 
 ## /application/checkbyapplicant
-根据applicant项查找所有符合的aplication
+根据applicantID项查找所有符合的aplication
 
 输入示例：
 
@@ -139,7 +139,8 @@ author:李晨博
 ## /application/updateapplication
 更新对应AID的application信息
 
-注意！此项更新只看AID，其余所有信息都会被更新覆盖；所有NOT NULL的项目都必须提到（如果不想改就维持原样），其余部分随意
+注意！此项更新只看AID，其余所有信息都会被更新覆盖；所有项目都必须提到（如果不想改就维持原样），<font color=red>包括不为NOT NULL的部分！</font>
+
 
 输入示例：
 

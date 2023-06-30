@@ -314,11 +314,4 @@ span.logo-title{
   padding: 4px 12px;
 }
 
-.Person{
-  background: url("../../assets/b3.jpg");
-  background-size: 100% 100%;
-  height: 100%;
-  position: fixed;
-  width: 100%
-}
 </style>

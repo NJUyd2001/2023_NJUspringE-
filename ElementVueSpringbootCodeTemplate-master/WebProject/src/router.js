@@ -42,6 +42,8 @@ import TestReviewDelegation from './views/test/TestReviewDelegation'
 import MarketContract from './views/market/Contract'
 import GenQuote from './views/Quote/GenQuote'
 import AuditQuote from './views/Quote/AuditQuote'
+import ReportChecklist from './views/report/ReportChecklist'
+import Defectlist from './views/test/Defectlist'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -206,6 +208,14 @@ export default new VueRouter({
         {
             path: '/Quote/AuditQuote',     // 路径
             component: AuditQuote    // 跳转到的组件
+        },
+        {
+            path: '/ReportChecklist',    // 路径
+            component: ReportChecklist  // 跳转到的组件
+        },
+        {
+            path: '/test/Defectlist',  // 路径
+            component: Defectlist      // 跳转到的组件
         },
     ]
 })

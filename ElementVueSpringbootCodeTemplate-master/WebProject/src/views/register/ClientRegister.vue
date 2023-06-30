@@ -153,13 +153,13 @@ export default {
   }
 .box-card {
   width: 360px;
-  height:60%;
-  background: rgba(255, 255, 255, 0.8);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 5px;
+        background: rgba(255, 255, 255, 0.8);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 5px;
+  height:500px;
 }
 /* 设置登录面板中的表单居中 */
 .login-from {
