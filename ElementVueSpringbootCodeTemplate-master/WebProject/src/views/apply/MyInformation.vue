@@ -91,7 +91,7 @@ export default {
               new_ip:[
               {  required: true, message: "不能为空！", trigger: "blur" },
               ],
-              new_choose:[
+              choose:[
               { required: true, message: "不能为空！", trigger: "change" },
               ],
               }
@@ -107,7 +107,7 @@ export default {
       }).then(ret=>{
         console.log(ret)
         this.info("提交成功，正在返回用户界面！");
-        setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+        setTimeout(() => {this.$router.go(-1);}, 2000);
       })
     },
   },

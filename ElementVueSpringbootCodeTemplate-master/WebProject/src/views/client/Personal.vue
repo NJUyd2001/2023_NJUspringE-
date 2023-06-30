@@ -19,7 +19,6 @@
           <div class="user_anniu">
             <el-button
               class="el-icon-edit"
-              v-if="this.$route.params.id === this.$store.state.id"
               type="primary"
               size="medium"
               plain
@@ -185,7 +184,6 @@ export default {
     };
   },
   mounted() {
-    this.load();
   },
   watch: {
     $route(to, from) {
@@ -197,46 +195,6 @@ export default {
     },
   },
   methods: {
-    load() {
-      userInfo(this.$route.params.id)
-        .then((res) => {
-          console.log(res);
-          this.avatar = res.data.avatar;
-          this.nickname = res.data.nickname;
-          this.v = res.data.v;
-          this.design = res.data.design;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      myFollow(this.$store.state.id)
-        .then((res) => {
-          res.data.forEach((res) => {
-            this.isfollowid.push(res.id);
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      followAndFanCount(this.$route.params.id)
-        .then((res) => {
-          this.followCounts = res.data.followCounts;
-          this.fanCounts = res.data.fanCounts;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      mygoodCount(this.$route.params.id)
-        .then((res) => {
-          this.goodCounts = res.data.goodCounts;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
 
     addTab(targetName, commentName) {
       // 如果已经存在
