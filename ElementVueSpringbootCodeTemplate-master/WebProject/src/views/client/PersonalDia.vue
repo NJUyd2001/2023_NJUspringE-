@@ -9,19 +9,19 @@
       <div class="updateinfo">
   <div class="left">
           <el-form-item label="用户名" prop="nickname">
-            <el-input v-model="form.nickname"></el-input>
+            <el-input v-model="ruleForm.nickname"></el-input>
           </el-form-item>
           <el-form-item label="账号密码" prop="password">
-            <el-input v-model="form.password"></el-input>
+            <el-input v-model="ruleForm.password"></el-input>
           </el-form-item>
           <el-form-item label="邮箱" prop="email">
-            <el-input v-model="form.email"></el-input>
+            <el-input v-model="ruleForm.email"></el-input>
           </el-form-item>
           <el-form-item label="传真" prop="fax">
-            <el-input v-model="form.fax"></el-input>
+            <el-input v-model="ruleForm.fax"></el-input>
           </el-form-item>
           <el-form-item label="电话号" prop="telephone">
-            <el-input v-model="form.telephone"></el-input>
+            <el-input v-model="ruleForm.telephone"></el-input>
           </el-form-item>
           
   </div>
@@ -43,7 +43,7 @@
   </el-form>
   <span slot="footer" class="dialog-footer">
     <el-button @click="handleClose">取 消</el-button>
-    <el-button type="primary" @click="submit">提 交</el-button>
+    <el-button type="primary" @click="submitForm('ruleForm')">提 交</el-button>
   </span>
 </el-dialog>
   </div>
@@ -53,38 +53,58 @@
 
 export default {
   name: "PersonalDia",
-  data() {
-    return {
-      dialogVisible: false,
-      form: {
-        avatar: "",
-        password: "",
-        nickname: "",
-        age: Number,
-        email: "",
-        mobilePhoneNumber: "",
-        sex: Number,
-        id: Number,
-        account: "",
-        area: "",
-        hobby: "",
-        work: "",
-        design: "",
-      },
-      rules: {
-        nickname: [
-          { required: true, message: "昵称不能为空", trigger: "blur" },
-        ],
-        password: [
-          { required: true, message: "账号密码不能为空", trigger: "blur" },
-        ],
-      },
-    };
-  },
+  data(){
+       return{
+            ruleForm:{
+              new_fax:"",
+              new_address:"",
+              new_zipcode:"",
+              new_contact:"",
+              new_contactTel:"",
+              new_ip:"",
+              UID:this.$store.state.user.id,
+            },
+            rules:{
+              new_fax:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_address:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_zipcode:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_contact:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_contactTel:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_ip:[
+              {  required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              new_choose:[
+              { required: true, message: "不能为空！", trigger: "change" },
+              ],
+              }
+    }
+}, 
   mounted() {
     this.load();
   },
   methods: {
+    goback(){
+    },
+    submitForm(formName) {
+      Axios.post("http://localhost:9090/api/user/update",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret)
+        this.info("提交成功，正在返回用户界面！");
+        setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      })
+    },
     open() {
       this.dialogVisible = true;
     },
