@@ -28,10 +28,11 @@ public class ApplicationService {
         while (i>j){
             String unit = new String();
             while(i>j&&words.charAt(j)!=','){
-                unit += words.charAt(j);
+                if(words.charAt(j)!='\0')
+                    unit += words.charAt(j);
                 j++;
             }
-            unit += '\0';
+            //unit += '\0';
             array.add(unit);
             j++;
         }
@@ -78,9 +79,7 @@ public class ApplicationService {
             softwaresize.put("Point",jsonObject.getString("scale_score"));
             softwaresize.put("RowNumber",jsonObject.getString("scale_lines"));
             newjsonObject.put("SoftWareSize",softwaresize);
-            JSONArray softwaretype = new JSONArray();
-            String sTYPE = jsonObject.getString("sTYPE");
-            neededstandard = stringcrack(stestBASIS,softwaretype);
+            String softwaretype = jsonObject.getString("sTYPE");
             newjsonObject.put("SoftWareType",softwaretype);
             JSONObject runtimeenvironment = new JSONObject();
             JSONObject client = new JSONObject();
@@ -120,9 +119,7 @@ public class ApplicationService {
             medium = stringcrack(MEDIUM,medium);
             newjsonObject.put("SoftwareMedium",medium);
             newjsonObject.put("Document",jsonObject.getString("doc_path1"));
-            JSONArray samplessubmitted = new JSONArray();
-            String SAMPLEDELETE = jsonObject.getString("sAMPLEDELETE");
-            samplessubmitted = stringcrack(SAMPLEDELETE,samplessubmitted);
+            String samplessubmitted = jsonObject.getString("sAMPLEDELETE");
             newjsonObject.put("SamplesSubmitted",samplessubmitted);
             newjsonObject.put("WantedFinishTime",jsonObject.getString("eXDATE"));
 
@@ -140,15 +137,18 @@ public class ApplicationService {
         String phone = jsonObject.getString("phone");
         String testTYPE  = new String();
         JSONArray typetest = jsonObject.getJSONArray("TypeTest");
-        Integer r = typetest.size();
-        if(r!=null){
-            Integer i =0;
-            while(i<r){
-                testTYPE += typetest.get(i);
-                if(i<r-1){
-                    testTYPE += ',';
+        Integer r = 0;
+        if(typetest!=null) {
+            r = typetest.size();
+            if (r != null) {
+                Integer i = 0;
+                while (i < r) {
+                    testTYPE += typetest.get(i);
+                    if (i < r - 1) {
+                        testTYPE += ',';
+                    }
+                    i++;
                 }
-                i++;
             }
         }
         String sNAME = jsonObject.getString("SoftWareName");
@@ -160,122 +160,208 @@ public class ApplicationService {
         String sDES = jsonObject.getString("SoftwareUserObjectDescription");
         String mainfunction = jsonObject.getString("MainFunction");
         JSONArray neededstandard = jsonObject.getJSONArray("NeededStandard");
-        r = neededstandard.size();
         String stestBASIS = new String();
-        if(r!=null){
-            Integer i =0;
-            while(i<r){
-                stestBASIS += neededstandard.get(i);
-                if(i<r-1){
-                    stestBASIS += ',';
+        if(neededstandard!=null) {
+            r = neededstandard.size();
+
+
+            if (r != null) {
+                Integer i = 0;
+                while (i < r) {
+                    stestBASIS += neededstandard.get(i);
+                    if (i < r - 1) {
+                        stestBASIS += ',';
+                    }
+                    i++;
                 }
-                i++;
             }
         }
         JSONArray neededTechnicalIndex = jsonObject.getJSONArray("NeededTechnicalIndex");
-        r = neededTechnicalIndex.size();
         String TESTINDEX = new String();
-        if(r!=null){
-            Integer i =0;
-            while(i<r){
-                TESTINDEX += neededTechnicalIndex.get(i);
-                if(i<r-1){
-                    TESTINDEX += ',';
+        if(neededTechnicalIndex!=null) {
+            r = neededTechnicalIndex.size();
+
+
+            if (r != null) {
+                Integer i = 0;
+                while (i < r) {
+                    TESTINDEX += neededTechnicalIndex.get(i);
+                    if (i < r - 1) {
+                        TESTINDEX += ',';
+                    }
+                    i++;
+
                 }
-                i++;
             }
         }
         JSONObject softwaresize = jsonObject.getJSONObject("SoftWareSize");
-        Integer scale_num = softwaresize.getInteger("Number");
-        Integer scale_score = softwaresize.getInteger("Point");
-        Integer scale_lines = softwaresize.getInteger("RowNumber");
-        JSONArray softwaretype = jsonObject.getJSONArray("SoftWareType");
-        String sTYPE = new String();
-        r = softwaretype.size();
-        if(r!=null){
-            Integer i =0;
-            while(i<r){
-                sTYPE += softwaretype.get(i);
-                if(i<r-1){
-                    sTYPE += ',';
-                }
-                i++;
-            }
+        Integer scale_num = null;
+        Integer scale_score = null;
+        Integer scale_lines = null;
+        if(softwaresize==null) {
+            scale_num = null;
+            scale_score = null;
+            scale_lines = null;
+        }else {
+            scale_num = softwaresize.getInteger("Number");
+            scale_score = softwaresize.getInteger("Point");
+            scale_lines = softwaresize.getInteger("RowNumber");
         }
+        String sTYPE = jsonObject.getString("SoftWareType");
         JSONObject runtimeenvironment = jsonObject.getJSONObject("RuntimeEnvironment");
-        JSONObject client = runtimeenvironment.getJSONObject("Client");
-        JSONObject os = client.getJSONObject("OS");
-        String ENVIRONMENTW = os.getString("Windows");
-        String ENVIRONMENTL = os.getString("Linux");
-        String ENVIRONMENTE = os.getString("other");
-        String ENVIRONMENTN = client.getString("Mermory");
-        String ENVIRONMENT = client.getString("Other");
-        JSONObject server = runtimeenvironment.getJSONObject("Server");
-        JSONObject hardware = server.getJSONObject("HardWare");
-        JSONArray hardFramework = hardware.getJSONArray("FrameWork");
-        String hOPERATINGENVIRONMENT = new String();
-        r = hardFramework.size();
-        if(r!=null){
-            Integer i =0;
-            while(i<r){
-                hOPERATINGENVIRONMENT += hardFramework.get(i);
-                if(i<r-1){
-                    hOPERATINGENVIRONMENT += ',';
-                }
-                i++;
-            }
+        String ENVIRONMENTW = null;
+        String ENVIRONMENTL = null;
+        String ENVIRONMENTE = null;
+        String ENVIRONMENTN = null;
+        String ENVIRONMENT = null;
+        String hOPERATINGENVIRONMENT = null;
+        String hMEMORY = null;
+        String hHARDDISK = null;
+        String hELSEDEMAND = null;
+        String sOS = null;
+        String sVERSION = null;
+        String sLANGUAGE = null;
+        String sOPERATINGENVIRONMENT = null;
+        String sDATABASE = null;
+        String sMIDDLEWARE = null;
+        String sELSEDEMAND = null;
+        String sARCHITECTURE = null;
+        if(runtimeenvironment==null){
+            ENVIRONMENTW = null;
+            ENVIRONMENTL = null;
+            ENVIRONMENTE = null;
+            ENVIRONMENTN = null;
+            ENVIRONMENT = null;
+            hOPERATINGENVIRONMENT = null;
+            hMEMORY = null;
+            hHARDDISK = null;
+            hELSEDEMAND = null;
+            sOS = null;
+            sVERSION = null;
+            sLANGUAGE = null;
+            sOPERATINGENVIRONMENT = null;
+            sDATABASE = null;
+            sMIDDLEWARE = null;
+            sELSEDEMAND = null;
+            sARCHITECTURE = null;
         }
-        String hMEMORY = hardware.getString("Mermory");
-        String hHARDDISK = hardware.getString("HardDisk");
-        String hELSEDEMAND = hardware.getString("OtherDisk");
-        JSONObject software = server.getJSONObject("SoftWare");
-        String sOS = software.getString("OS");
-        String sVERSION = software.getString("Versions");
-        String sLANGUAGE = software.getString("PL");
-        JSONArray softFramework = software.getJSONArray("FrameWork");
-        String sOPERATINGENVIRONMENT = new String();
-        r = softFramework.size();
-        if(r!=null){
-            Integer i =0;
-            while(i<r){
-                sOPERATINGENVIRONMENT += softFramework.get(i);
-                if(i<r-1){
-                    sOPERATINGENVIRONMENT += ',';
+        else {
+            JSONObject client = runtimeenvironment.getJSONObject("Client");
+            if (client == null) {
+                ENVIRONMENTW = null;
+                ENVIRONMENTL = null;
+                ENVIRONMENTE = null;
+                ENVIRONMENTN = null;
+                ENVIRONMENT = null;
+            } else {
+                JSONObject os = client.getJSONObject("OS");
+                if(os == null){
+                    ENVIRONMENTW = null;
+                    ENVIRONMENTL = null;
+                    ENVIRONMENTE = null;
+                }else {
+                    ENVIRONMENTW = os.getString("Windows");
+                    ENVIRONMENTL = os.getString("Linux");
+                    ENVIRONMENTE = os.getString("other");
                 }
-                i++;
+                ENVIRONMENTN = client.getString("Mermory");
+                ENVIRONMENT = client.getString("Other");
             }
+
+            JSONObject server = runtimeenvironment.getJSONObject("Server");
+            if(server == null){
+                hOPERATINGENVIRONMENT = null;
+                hMEMORY = null;
+                hHARDDISK = null;
+                hELSEDEMAND = null;
+                sOS = null;
+                sVERSION = null;
+                sLANGUAGE = null;
+                sOPERATINGENVIRONMENT = null;
+                sDATABASE = null;
+                sMIDDLEWARE = null;
+                sELSEDEMAND = null;
+            }else {
+                JSONObject hardware = server.getJSONObject("HardWare");
+                if(hardware == null){
+                    hOPERATINGENVIRONMENT = null;
+                    hMEMORY = null;
+                    hHARDDISK = null;
+                    hELSEDEMAND = null;
+                }else {
+                    JSONArray hardFramework = hardware.getJSONArray("FrameWork");
+                    hOPERATINGENVIRONMENT = new String();
+                    if (hardFramework != null) {
+                        r = hardFramework.size();
+                        if (r != null) {
+                            Integer i = 0;
+                            while (i < r) {
+                                hOPERATINGENVIRONMENT += hardFramework.get(i);
+                                if (i < r - 1) {
+                                    hOPERATINGENVIRONMENT += ',';
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                    hMEMORY = hardware.getString("Mermory");
+                    hHARDDISK = hardware.getString("HardDisk");
+                    hELSEDEMAND = hardware.getString("OtherDisk");
+                }
+                JSONObject software = server.getJSONObject("SoftWare");
+                if(software == null){
+                    hELSEDEMAND = null;
+                    sOS = null;
+                    sVERSION = null;
+                    sLANGUAGE = null;
+                    sOPERATINGENVIRONMENT = null;
+                    sDATABASE = null;
+                    sMIDDLEWARE = null;
+                    sELSEDEMAND = null;
+                }else {
+                    sOS = software.getString("OS");
+                    sVERSION = software.getString("Versions");
+                    sLANGUAGE = software.getString("PL");
+                    JSONArray softFramework = software.getJSONArray("FrameWork");
+                    sOPERATINGENVIRONMENT = new String();
+                    if (softFramework != null) {
+                        r = softFramework.size();
+                        if (r != null) {
+                            Integer i = 0;
+                            while (i < r) {
+                                sOPERATINGENVIRONMENT += softFramework.get(i);
+                                if (i < r - 1) {
+                                    sOPERATINGENVIRONMENT += ',';
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                    sDATABASE = software.getString("DataBase");
+                    sMIDDLEWARE = software.getString("MiddleWare");
+                    sELSEDEMAND = software.getString("Other");
+                }
+            }
+            sARCHITECTURE = runtimeenvironment.getString("NetWork");
         }
-        String sDATABASE = software.getString("DataBase");
-        String sMIDDLEWARE = software.getString("MiddleWare");
-        String sELSEDEMAND = software.getString("Other");
-        String sARCHITECTURE  = runtimeenvironment.getString("NetWork");
-        JSONArray medium = jsonObject.getJSONArray("SoftwareMedium");
-        r = medium.size();
         String MEDIUM  = new String();
-        if(r!=null){
-            Integer i =0;
-            while(i<r){
-                MEDIUM += medium.get(i);
-                if(i<r-1){
-                    MEDIUM += ',';
+        JSONArray medium = jsonObject.getJSONArray("SoftwareMedium");
+        if(medium!=null) {
+            r = medium.size();
+
+            if (r != null) {
+                Integer i = 0;
+                while (i < r) {
+                    MEDIUM += medium.get(i);
+                    if (i < r - 1) {
+                        MEDIUM += ',';
+                    }
+                    i++;
                 }
-                i++;
             }
         }
         String doc_path1 = jsonObject.getString("Document");
-        JSONArray samplessubmitted = jsonObject.getJSONArray("SamplesSubmitted");
-        String SAMPLEDELETE  = new String();
-        r = samplessubmitted.size();
-        if(r!=null){
-            Integer i =0;
-            while(i<r){
-                SAMPLEDELETE += samplessubmitted.get(i);
-                if(i<r-1){
-                    SAMPLEDELETE += ',';
-                }
-                i++;
-            }
-        }
+        String SAMPLEDELETE  = jsonObject.getString("SamplesSubmitted");
         String EXDATE = jsonObject.getString("WantedFinishTime");
 
 
@@ -318,6 +404,9 @@ public class ApplicationService {
         res.add(JSON.toJSONString(applicationDao.findbyAID(AID)));
         return JSONrepack(JSON.toJSONString(applicationDao.findbyAID(AID)));
     }
+    public String findAID(String postJson){
+        return JSON.toJSONString(applicationDao.findAID());
+    }
     public String updateapplication(String postJson) {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer AID = jsonObject.getInteger("AID");
@@ -325,17 +414,21 @@ public class ApplicationService {
         Integer processID = jsonObject.getInteger("processID");
         Date time = jsonObject.getDate("time");
         String phone = jsonObject.getString("phone");
-        String testTYPE  = new String();
+        String testTYPE  = null;
         JSONArray typetest = jsonObject.getJSONArray("TypeTest");
-        Integer r = typetest.size();
-        if(r!=null){
-            Integer i =0;
-            while(i<=r){
-                testTYPE += typetest.get(i);
-                if(i<r){
-                    testTYPE += ',';
+        Integer r = 0;
+        if(typetest!=null) {
+            testTYPE  = new String();
+            r = typetest.size();
+            if (r != null) {
+                Integer i = 0;
+                while (i < r) {
+                    testTYPE += typetest.get(i);
+                    if (i < r - 1) {
+                        testTYPE += ',';
+                    }
+                    i++;
                 }
-                i++;
             }
         }
         String sNAME = jsonObject.getString("SoftWareName");
@@ -347,121 +440,211 @@ public class ApplicationService {
         String sDES = jsonObject.getString("SoftwareUserObjectDescription");
         String mainfunction = jsonObject.getString("MainFunction");
         JSONArray neededstandard = jsonObject.getJSONArray("NeededStandard");
-        r = neededstandard.size();
-        String stestBASIS = new String();
-        if(r!=null){
-            Integer i =0;
-            while(i<=r){
-                stestBASIS += neededstandard.get(i);
-                if(i<r){
-                    stestBASIS += ',';
+        String stestBASIS = null;
+        if(neededstandard!=null) {
+            r = neededstandard.size();
+            stestBASIS = new String();
+
+            if (r != null) {
+                Integer i = 0;
+                while (i < r) {
+                    stestBASIS += neededstandard.get(i);
+                    if (i < r - 1) {
+                        stestBASIS += ',';
+                    }
+                    i++;
                 }
-                i++;
             }
         }
         JSONArray neededTechnicalIndex = jsonObject.getJSONArray("NeededTechnicalIndex");
-        r = neededTechnicalIndex.size();
-        String TESTINDEX = new String();
-        if(r!=null){
-            Integer i =0;
-            while(i<=r){
-                TESTINDEX += neededTechnicalIndex.get(i);
-                if(i<r){
-                    TESTINDEX += ',';
+        String TESTINDEX = null;
+        if(neededTechnicalIndex!=null) {
+            r = neededTechnicalIndex.size();
+            TESTINDEX = null;
+
+            if (r != null) {
+                TESTINDEX = new String();
+                Integer i = 0;
+                while (i < r) {
+                    TESTINDEX += neededTechnicalIndex.get(i);
+                    if (i < r - 1) {
+                        TESTINDEX += ',';
+                    }i++;
                 }
+
             }
         }
         JSONObject softwaresize = jsonObject.getJSONObject("SoftWareSize");
-        Integer scale_num = softwaresize.getInteger("Number");
-        Integer scale_score = softwaresize.getInteger("Point");
-        Integer scale_lines = softwaresize.getInteger("RowNumber");
-        JSONArray softwaretype = jsonObject.getJSONArray("SoftWareType");
-        String sTYPE = new String();
-        r = softwaretype.size();
-        if(r!=null){
-            Integer i =0;
-            while(i<=r){
-                sTYPE += softwaretype.get(i);
-                if(i<r){
-                    sTYPE += ',';
-                }
-                i++;
-            }
+        Integer scale_num = null;
+        Integer scale_score = null;
+        Integer scale_lines = null;
+        if(softwaresize==null) {
+            scale_num = null;
+            scale_score = null;
+            scale_lines = null;
+        }else {
+            scale_num = softwaresize.getInteger("Number");
+            scale_score = softwaresize.getInteger("Point");
+            scale_lines = softwaresize.getInteger("RowNumber");
         }
+        String sTYPE =jsonObject.getString("SoftWareType");
         JSONObject runtimeenvironment = jsonObject.getJSONObject("RuntimeEnvironment");
-        JSONObject client = runtimeenvironment.getJSONObject("Client");
-        JSONObject os = client.getJSONObject("OS");
-        String ENVIRONMENTW = os.getString("Windows");
-        String ENVIRONMENTL = os.getString("Linux");
-        String ENVIRONMENTE = os.getString("other");
-        String ENVIRONMENTN = client.getString("Mermory");
-        String ENVIRONMENT = client.getString("Other");
-        JSONObject server = runtimeenvironment.getJSONObject("Server");
-        JSONObject hardware = server.getJSONObject("HardWare");
-        JSONArray hardFramework = hardware.getJSONArray("FrameWork");
-        String hOPERATINGENVIRONMENT = new String();
-        r = hardFramework.size();
-        if(r!=null){
-            Integer i =0;
-            while(i<=r){
-                hOPERATINGENVIRONMENT += hardFramework.get(i);
-                if(i<r){
-                    hOPERATINGENVIRONMENT += ',';
-                }
-                i++;
-            }
+        String ENVIRONMENTW = null;
+        String ENVIRONMENTL = null;
+        String ENVIRONMENTE = null;
+        String ENVIRONMENTN = null;
+        String ENVIRONMENT = null;
+        String hOPERATINGENVIRONMENT = null;
+        String hMEMORY = null;
+        String hHARDDISK = null;
+        String hELSEDEMAND = null;
+        String sOS = null;
+        String sVERSION = null;
+        String sLANGUAGE = null;
+        String sOPERATINGENVIRONMENT = null;
+        String sDATABASE = null;
+        String sMIDDLEWARE = null;
+        String sELSEDEMAND = null;
+        String sARCHITECTURE = null;
+        if(runtimeenvironment==null){
+            ENVIRONMENTW = null;
+            ENVIRONMENTL = null;
+            ENVIRONMENTE = null;
+            ENVIRONMENTN = null;
+            ENVIRONMENT = null;
+            hOPERATINGENVIRONMENT = null;
+            hMEMORY = null;
+            hHARDDISK = null;
+            hELSEDEMAND = null;
+            sOS = null;
+            sVERSION = null;
+            sLANGUAGE = null;
+            sOPERATINGENVIRONMENT = null;
+            sDATABASE = null;
+            sMIDDLEWARE = null;
+            sELSEDEMAND = null;
+            sARCHITECTURE = null;
         }
-        String hMEMORY = hardware.getString("Mermory");
-        String hHARDDISK = hardware.getString("HardDisk");
-        String hELSEDEMAND = hardware.getString("OtherDisk");
-        JSONObject software = server.getJSONObject("SoftWare");
-        String sOS = software.getString("OS");
-        String sVERSION = software.getString("Versions");
-        String sLANGUAGE = software.getString("PL");
-        JSONArray softFramework = software.getJSONArray("FrameWork");
-        String sOPERATINGENVIRONMENT = new String();
-        r = softFramework.size();
-        if(r!=null){
-            Integer i =0;
-            while(i<=r){
-                sOPERATINGENVIRONMENT += softFramework.get(i);
-                if(i<r){
-                    sOPERATINGENVIRONMENT += ',';
+        else {
+            JSONObject client = runtimeenvironment.getJSONObject("Client");
+            if (client == null) {
+                ENVIRONMENTW = null;
+                ENVIRONMENTL = null;
+                ENVIRONMENTE = null;
+                ENVIRONMENTN = null;
+                ENVIRONMENT = null;
+            } else {
+                JSONObject os = client.getJSONObject("OS");
+                if(os == null){
+                    ENVIRONMENTW = null;
+                    ENVIRONMENTL = null;
+                    ENVIRONMENTE = null;
+                }else {
+                    ENVIRONMENTW = os.getString("Windows");
+                    ENVIRONMENTL = os.getString("Linux");
+                    ENVIRONMENTE = os.getString("other");
                 }
-                i++;
+                ENVIRONMENTN = client.getString("Mermory");
+                ENVIRONMENT = client.getString("Other");
             }
+
+            JSONObject server = runtimeenvironment.getJSONObject("Server");
+            if(server == null){
+                hOPERATINGENVIRONMENT = null;
+                hMEMORY = null;
+                hHARDDISK = null;
+                hELSEDEMAND = null;
+                sOS = null;
+                sVERSION = null;
+                sLANGUAGE = null;
+                sOPERATINGENVIRONMENT = null;
+                sDATABASE = null;
+                sMIDDLEWARE = null;
+                sELSEDEMAND = null;
+            }else {
+                JSONObject hardware = server.getJSONObject("HardWare");
+                if(hardware == null){
+                    hOPERATINGENVIRONMENT = null;
+                    hMEMORY = null;
+                    hHARDDISK = null;
+                    hELSEDEMAND = null;
+                }else {
+                    JSONArray hardFramework = hardware.getJSONArray("FrameWork");
+                    hOPERATINGENVIRONMENT = null;
+                    if (hardFramework != null) {
+                        hOPERATINGENVIRONMENT = new String();
+                        r = hardFramework.size();
+                        if (r != null) {
+                            Integer i = 0;
+                            while (i < r) {
+                                hOPERATINGENVIRONMENT += hardFramework.get(i);
+                                if (i < r - 1) {
+                                    hOPERATINGENVIRONMENT += ',';
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                    hMEMORY = hardware.getString("Mermory");
+                    hHARDDISK = hardware.getString("HardDisk");
+                    hELSEDEMAND = hardware.getString("OtherDisk");
+                }
+                JSONObject software = server.getJSONObject("SoftWare");
+                if(software == null){
+                    hELSEDEMAND = null;
+                    sOS = null;
+                    sVERSION = null;
+                    sLANGUAGE = null;
+                    sOPERATINGENVIRONMENT = null;
+                    sDATABASE = null;
+                    sMIDDLEWARE = null;
+                    sELSEDEMAND = null;
+                }else {
+                    sOS = software.getString("OS");
+                    sVERSION = software.getString("Versions");
+                    sLANGUAGE = software.getString("PL");
+                    JSONArray softFramework = software.getJSONArray("FrameWork");
+                    sOPERATINGENVIRONMENT = null;
+                    if (softFramework != null) {
+                        r = softFramework.size();
+                        if (r != null) {
+                            sOPERATINGENVIRONMENT = new String();
+                            Integer i = 0;
+                            while (i < r) {
+                                sOPERATINGENVIRONMENT += softFramework.get(i);
+                                if (i < r - 1) {
+                                    sOPERATINGENVIRONMENT += ',';
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                    sDATABASE = software.getString("DataBase");
+                    sMIDDLEWARE = software.getString("MiddleWare");
+                    sELSEDEMAND = software.getString("Other");
+                }
+            }
+            sARCHITECTURE = runtimeenvironment.getString("NetWork");
         }
-        String sDATABASE = software.getString("DataBase");
-        String sMIDDLEWARE = software.getString("MiddleWare");
-        String sELSEDEMAND = software.getString("Other");
-        String sARCHITECTURE  = runtimeenvironment.getString("NetWork");
+        String MEDIUM  = null;
         JSONArray medium = jsonObject.getJSONArray("SoftwareMedium");
-        r = medium.size();
-        String MEDIUM  = new String();
-        if(r!=null){
-            Integer i =0;
-            while(i<=r){
-                MEDIUM += medium.get(i);
-                if(i<r){
-                    MEDIUM += ',';
+        if(medium!=null) {
+            r = medium.size();
+            MEDIUM  = new String();
+            if (r != null) {
+                Integer i = 0;
+                while (i < r) {
+                    MEDIUM += medium.get(i);
+                    if (i < r - 1) {
+                        MEDIUM += ',';
+                    }
+                    i++;
                 }
-                i++;
             }
         }
         String doc_path1 = jsonObject.getString("Document");
-        JSONArray samplessubmitted = jsonObject.getJSONArray("SamplesSubmitted");
-        String SAMPLEDELETE  = new String();
-        r = samplessubmitted.size();
-        if(r!=null){
-            Integer i =0;
-            while(i<=r){
-                SAMPLEDELETE += samplessubmitted.get(i);
-                if(i<r){
-                    SAMPLEDELETE += ',';
-                }
-                i++;
-            }
-        }
+
+        String SAMPLEDELETE  = jsonObject.getString("SamplesSubmitted");
         String EXDATE = jsonObject.getString("WantedFinishTime");
 
 

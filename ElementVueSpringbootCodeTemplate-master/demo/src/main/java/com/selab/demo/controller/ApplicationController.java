@@ -31,6 +31,8 @@ public class ApplicationController {
     public String checkbyAID(@RequestBody String postJson){
         return applicationService.checkbyAID(postJson);
     }
+    @RequestMapping("/getallAID")
+    public  String findAID(@RequestBody String postJson){return applicationService.findAID(postJson);}
     @RequestMapping("/updateapplication")
     public String updatrapplication(@RequestBody String postJson){
         return applicationService.updateapplication(postJson);

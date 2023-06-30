@@ -329,13 +329,13 @@ export default {
   z-index: 0;
   top: 0;
 }
-.Person{
+/* .Person{
   background: url("../../assets/b3.jpg");
   background-size: 100% 100%;
   height: 100%;
   position: fixed;
   width: 100%
-}
+} */
 .PersonTop {
   width: 1000px;
   height: 140px;
