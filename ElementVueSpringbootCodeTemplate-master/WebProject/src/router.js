@@ -44,6 +44,9 @@ import GenQuote from './views/Quote/GenQuote'
 import AuditQuote from './views/Quote/AuditQuote'
 import ReportChecklist from './views/report/ReportChecklist'
 import Defectlist from './views/test/Defectlist'
+import SoftwareDocumentReviewForm1 from './views/report/SoftwareDocumentReviewForm1'
+import SoftwareDocumentReviewForm2 from './views/report/SoftwareDocumentReviewForm2'
+import TestReportCover from './views/report/TestReportCover'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -217,5 +220,18 @@ export default new VueRouter({
             path: '/test/Defectlist',  // 路径
             component: Defectlist      // 跳转到的组件
         },
+        {
+            path: '/report/SoftwareDocumentReviewForm1',  // 路径
+            component: SoftwareDocumentReviewForm1       // 跳转到的组件
+        },
+        {
+            path: '/report/SoftwareDocumentReviewForm2',  // 路径
+            component: SoftwareDocumentReviewForm2       // 跳转到的组件
+        },
+        {
+            path: '/TestReportCover',      // 路径
+            component: TestReportCover     // 跳转到的组件
+        },
+
     ]
 })
