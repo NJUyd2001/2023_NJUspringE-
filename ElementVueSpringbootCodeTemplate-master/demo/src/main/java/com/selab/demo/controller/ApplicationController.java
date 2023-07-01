@@ -41,7 +41,25 @@ public class ApplicationController {
     public String deleteapplication(@RequestBody String postJson){
         return applicationService.deleteapplication(postJson);
     }
+    @RequestMapping("/insertruleform")
+    public String insertruleform(@RequestBody String postJson){
+        return  applicationService.insertruleform(postJson);
+    }
 
+    @RequestMapping("/updateruleform")
+    public String updateruleform(@RequestBody String postJson){
+        return  applicationService.updateruleform(postJson);
+    }
+
+    @RequestMapping("/getruleform")
+    public String getruleform(@RequestBody String postJson){
+        return  applicationService.getruleform(postJson);
+    }
+
+    @RequestMapping("/deleteruleform")
+    public String deleteruleform(@RequestBody String postJson){
+        return  applicationService.deleteruleform(postJson);
+    }
 
 
 

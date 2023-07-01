@@ -1,19 +1,17 @@
         ruleForm1:{
-            applicantID:'1',
-            processID:'1',
+            applicantID:"1",
+            processID:"1",
             time:"2017-09-02 10:29:14",
             phone:"15968774896",
-            TypeTest:[
-                '软件确认测试',
-              ],
-            SoftWareName:'蔡徐坤炒粉事件',
-            VersionNumber:'2.5',
-            ClientChinese:'小黑子',
-            ClientEnglish:'ikun',
-            DevelopmentCompany:'C先生',
+            TypeTest:"软件确认测试",
+            SoftWareName:"蔡徐坤炒粉事件",
+            VersionNumber:"2.5",
+            ClientChinese:"小黑子",
+            ClientEnglish:"ikun",
+            DevelopmentCompany:"C先生",
             AttributeOfCompany:"内资企业",
-            SoftwareUserObjectDescription:'练习时长两年半',
-            MainFunction:'炒粉不放鸡精',
+            SoftwareUserObjectDescription:"练习时长两年半",
+            MainFunction:"炒粉不放鸡精",
             NeededStandard:[
                   "GB/T 25000.51-2016",
                 ],
@@ -30,36 +28,36 @@
             RuntimeEnvironment:{
                 Client:{
                 OS:{
-                  Windows:'xp',
-                  Linux:'12108',
-                  other:''
+                  Windows:"xp",
+                  Linux:"12108",
+                  other:""
               },
-              Mermory:'2048MB',
-              Other:''
+              Mermory:"2048MB",
+              Other:""
               },
               Server:{
-                HardWare:{
-                FrameWork:["PC服务器",],  
-                Mermory:'1024',
-                HardDisk:'why',
-                OtherDisk:'to'
+                    HardWare:{
+                    FrameWork:["PC服务器",],  
+                    Mermory:"1024",
+                    HardDisk:"why",
+                    OtherDisk:"to"
+                    },
+                    SoftWare:{
+                        OS:"ji",
+                        Versions:"ni",
+                        PL:"tai",
+                        FrameWork:["服务器端软件架构:C/S",],
+                        DataBase:"mei",
+                        MiddleWare:"oh",
+                        Other:"baby"
+                    },
               },
-              SoftWare:{
-                OS:'ji',
-                Versions:'ni',
-                PL:'tai',
-                FrameWork:["服务器端软件架构:C/S",],
-                DataBase:'mei',
-                MiddleWare:'oh',
-                Other:'baby'
-              },
-              },
-              NetWork:'zhi',  
+              NetWork:"zhi",  
                },
             SoftwareMedium:["U盘"],
-            Document:'yin',
+            Document:"yin",
             SamplesSubmitted:["中心直接销毁"],
-            WantedFinishTime:'',
+            WantedFinishTime:"",
         },
 
 
@@ -82,7 +80,7 @@
             while(i<=r){
                 testTYPE += typetest.get(i);
                 if(i<r){
-                    testTYPE += ',';
+                    testTYPE += ",";
                 }
                 i++;
             }
@@ -103,7 +101,7 @@
             while(i<=r){
                 stestBASIS += neededstandard.get(i);
                 if(i<r){
-                    stestBASIS += ',';
+                    stestBASIS += ",";
                 }
                 i++;
             }
@@ -116,7 +114,7 @@
             while(i<=r){
                 TESTINDEX += neededTechnicalIndex.get(i);
                 if(i<r){
-                    TESTINDEX += ',';
+                    TESTINDEX += ",";
                 }
             }
         }
@@ -132,7 +130,7 @@
             while(i<=r){
                 sTYPE += softwaretype.get(i);
                 if(i<r){
-                    sTYPE += ',';
+                    sTYPE += ",";
                 }
                 i++;
             }
@@ -155,7 +153,7 @@
             while(i<=r){
                 hOPERATINGENVIRONMENT += hardFramework.get(i);
                 if(i<r){
-                    hOPERATINGENVIRONMENT += ',';
+                    hOPERATINGENVIRONMENT += ",";
                 }
                 i++;
             }
@@ -175,7 +173,7 @@
             while(i<=r){
                 sOPERATINGENVIRONMENT += softFramework.get(i);
                 if(i<r){
-                    sOPERATINGENVIRONMENT += ',';
+                    sOPERATINGENVIRONMENT += ",";
                 }
                 i++;
             }
@@ -192,7 +190,7 @@
             while(i<=r){
                 MEDIUM += medium.get(i);
                 if(i<r){
-                    MEDIUM += ',';
+                    MEDIUM += ",";
                 }
                 i++;
             }
@@ -206,7 +204,7 @@
             while(i<=r){
                 SAMPLEDELETE += samplessubmitted.get(i);
                 if(i<r){
-                    SAMPLEDELETE += ',';
+                    SAMPLEDELETE += ",";
                 }
                 i++;
             }

@@ -5,12 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
 import com.selab.demo.dao.ApplicationDao;
 import com.selab.demo.model.ApplicationModel;
-import com.selab.demo.model.enums.testTYPE;
-import com.selab.demo.model.enums.PB_type;
+import com.selab.demo.dao.TabledataDao;
+import com.selab.demo.model.TabledataModel;
 import com.selab.demo.model.enums.ARCHITECTURE;
-import com.selab.demo.model.enums.sARCHITECTURE;
-import com.selab.demo.model.enums.MEDIUM;
-import com.selab.demo.model.enums.SAMPLEDELETE;
 import com.selab.demo.model.enums.state;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +18,8 @@ public class ApplicationService {
 
     @Autowired
     ApplicationDao applicationDao;
+    @Autowired
+    TabledataDao tabledataDao;
     private JSONArray stringcrack(String words, JSONArray array){
         if(words == null) return array;
         Integer i = words.length();
@@ -33,6 +32,7 @@ public class ApplicationService {
                 j++;
             }
             //unit += '\0';
+            //System.out.print(unit+'\n');
             array.add(unit);
             j++;
         }
@@ -111,7 +111,8 @@ public class ApplicationService {
             software.put("DataBase",jsonObject.getString("sDATABASE"));
             software.put("MiddleWare",jsonObject.getString("sMIDDLEWARE"));
             software.put("Other",jsonObject.getString("sELSEDEMAND"));
-            runtimeenvironment.put("SoftWare",software);
+            server.put("SoftWare",software);
+            runtimeenvironment.put("Server",server);
             runtimeenvironment.put("NetWork",jsonObject.getString("sARCHITECTURE"));
             newjsonObject.put("RuntimeEnvironment",runtimeenvironment);
             JSONArray medium = new JSONArray();
@@ -377,9 +378,12 @@ public class ApplicationService {
         state m_state  = jsonObject.getObject("m_state",state.class);
         String auditinfor = jsonObject.getString("auditinfor");
 
-        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction);
+        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null);
         applicationDao.insertApp(applicationModel);
-        return "application inserted successfully";
+        Integer AID = applicationModel.getAID();
+        JSONObject jsonObjectAID = new JSONObject();
+        jsonObjectAID.put("AID",AID);
+        return JSON.toJSONString(jsonObjectAID);
     }
 
    public String checkbyuserA(String postJson){
@@ -661,7 +665,7 @@ public class ApplicationService {
         String auditinfor = jsonObject.getString("auditinfor");
 
 
-        String result = applicationDao.findbyAID2(AID);
+        Integer result = applicationDao.findbyAID2(AID);
         if (result == null) {
             return "the application does not exist";
         }
@@ -769,7 +773,7 @@ public class ApplicationService {
         if(sOPERATINGENVIRONMENT == null)   sOPERATINGENVIRONMENT = oldjsonObject.getString("sOPERATINGENVIRONMENT");
 
 
-        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction);
+        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null);
 
 
         applicationDao.updateapplication(applicationModel);
@@ -781,14 +785,247 @@ public class ApplicationService {
     public String deleteapplication(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         int AID = jsonObject.getInteger("AID");
-        String result = applicationDao.findbyAID2(AID);
+        Integer result = applicationDao.findbyAID2(AID);
         if (result == null) {
             return "the application does not exist";
         }
         applicationDao.deleteapplication(AID);
         return "delete complete";
     }
+
+    public String insertruleform(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer AID = jsonObject.getInteger("AID");
+        Integer result = applicationDao.findbyAID2(AID);
+        if (result == null) {
+            return "the application does not exist";
+        }
+        JSONObject oldjsonObject =  JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)) );
+        JSONArray tabledata = jsonObject.getJSONArray("TableData");
+        String tableid = oldjsonObject.getString("tableid");
+        if(tableid!=null&&tableid!=new String()){
+            tableid+=',';
+        }
+        else{
+            tableid = new String();
+        }
+        if(tabledata != null){
+            Integer z = tabledata.size();
+            Integer i=0;
+            while(i<z){
+                JSONObject table = tabledata.getJSONObject(i);
+                ++i;
+                Integer id = table.getInteger("id");
+                String name = table.getString("name");
+                String functions =table.getString("function");
+                TabledataModel tabledataModel = new TabledataModel(0,id,name,functions);
+                tabledataDao.insert(tabledataModel);
+                String TID = tabledataModel.getTID().toString();
+                tableid  += TID;
+                if(i<z){
+                    tableid+=',';
+                }
+            }
+        }
+        String USS = jsonObject.getString("SoftwareName");
+        String versions = jsonObject.getString("Versions");
+        if(USS == null){
+            USS = oldjsonObject.getString("SoftwareName");
+        }
+        if(versions == null){
+            versions = oldjsonObject.getString("Versions");
+        }
+        applicationDao.insertruleform(USS,versions,tableid,AID);
+        return("ruleForm insert complete");
+    }
+
+    public String updateruleform(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer AID = jsonObject.getInteger("AID");
+        Integer result = applicationDao.findbyAID2(AID);
+        String failedTID = new String();
+        if (result == null) {
+            return "the application does not exist";
+        }
+        JSONArray res = new JSONArray();
+        res.add(JSON.toJSONString(applicationDao.findbyAID(AID)));
+        JSONObject oldjsonObject =  JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)) );
+        JSONArray tabledata = jsonObject.getJSONArray("TableData");
+        String tableid = tableid = oldjsonObject.getString("tableid");
+        if(tabledata != null){
+            Integer z = tabledata.size();
+            Integer i=0;
+            while(i<z){
+                JSONObject table = tabledata.getJSONObject(i);
+                ++i;
+                Integer TID = table.getInteger("TID");
+                Integer id = table.getInteger("id");
+                String name = table.getString("name");
+                String functions =table.getString("function");
+                Integer r = tabledataDao.findbyTID2(TID);
+
+                if(r==null){
+                    failedTID += TID.toString();
+                    failedTID += ',';
+                }
+                else {
+                    JSONObject oldtable =  JSONObject.parseObject(JSON.toJSONString(tabledataDao.findbyTID(TID).get(0)) );
+                    if(id == null)
+                    {
+                        id = oldtable.getInteger("id");
+                    }
+                    if(name == null){
+                        name = oldtable.getString("name");
+                    }
+                    if(functions == null){
+                        functions = oldtable.getString("functions");
+                    }
+                    TabledataModel tabledataModel = new TabledataModel(TID, id, name, functions);
+                    tabledataDao.update(tabledataModel);
+                }
+            }
+        }
+
+        String USS = jsonObject.getString("SoftwareName");
+        String versions = jsonObject.getString("Versions");
+        if(USS == null){
+            USS = oldjsonObject.getString("SoftwareName");
+        }
+        if(versions == null){
+            versions = oldjsonObject.getString("Versions");
+        }
+        applicationDao.updateruleform(USS,versions,tableid,AID);
+        if(failedTID == new String())
+        {
+            return("ruleForm update complete");
+        }
+        else {
+            failedTID = failedTID.substring(0,failedTID.length()-1);
+            return ("TID:"+failedTID+ " failed, but other ruleForm update complete");
+        }
+    }
+    public String getruleform(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer AID = jsonObject.getInteger("AID");
+        Integer result = applicationDao.findbyAID2(AID);
+        if (result == null) {
+            return ("the application does not exist");
+        }
+        JSONArray res = new JSONArray();
+        JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)) );
+        String tableid = oldjsonObject.getString("tableid");
+        if(tableid!=null && tableid!=new String()){
+
+            JSONArray realtableid = new JSONArray();
+            realtableid = stringcrack(tableid,realtableid);
+
+            Integer r = realtableid.size();
+            Integer i =0;
+            while(i<r){
+                Integer TID = realtableid.getInteger(i);
+                Integer rs = tabledataDao.findbyTID2(TID);
+                if(rs!=null){
+                    JSONObject table = JSONObject.parseObject(JSON.toJSONString(tabledataDao.findbyTID(TID).get(0)));
+                    res.add(table);
+                }
+                ++i;
+            }
+        }
+        return JSON.toJSONString(res);
+    }
+    public String deleteruleform(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer AID = jsonObject.getInteger("AID");
+        JSONArray deleteTID = jsonObject.getJSONArray("TID");
+        Integer result = applicationDao.findbyAID2(AID);
+        String failedTID = new String();
+        if (result == null) {
+            return ("the application does not exist");
+        }
+        JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)) );
+        String tableid = oldjsonObject.getString("tableid");
+        if(tableid==null && tableid==new String()){
+            Integer r = deleteTID.size();
+            Integer i =0;
+            while(i<r){
+                failedTID += deleteTID.get(i);
+                failedTID += ',';
+                ++i;
+            }
+            failedTID = failedTID.substring(0,failedTID.length()-1);
+            return ("TID:" + failedTID + " failed, no delete complete");
+        }
+        JSONArray realtableid = new JSONArray();
+        realtableid = stringcrack(tableid,realtableid);
+        Integer r1 = deleteTID.size();
+        Integer r2 = realtableid.size();
+        Integer i = 0;
+        while(i<r1){
+            Integer ok = 0;
+            Integer j =0;
+            Integer TID = deleteTID.getInteger(i);
+            while(j<r2){
+                if(TID==realtableid.getInteger(j)){
+                    ok = 1;
+                    break;
+                }
+                j++;
+            }
+            if(ok == 0){
+                failedTID += TID.toString();
+                failedTID += ',';
+            }
+            else{
+                Integer result2 = tabledataDao.findbyTID2(TID);
+                if(result2 == null){
+                    failedTID += TID.toString();
+                    failedTID += ',';
+                }
+                else {
+                    tabledataDao.delete(TID);
+                }
+            }
+
+
+            i++;
+        }
+        String USS = oldjsonObject.getString("SoftwareName");
+        String versions = oldjsonObject.getString("Versions");
+        String newtableid = new String();
+        Integer i2 = 0;
+        while(i2<r2){
+            Integer ok = 0;
+            Integer j =0;
+            Integer TID = realtableid.getInteger(i2);
+            while(j<r1){
+                if(TID==deleteTID.getInteger(j)){
+                    ok = 1;
+                    break;
+                }
+                j++;
+            }
+            if(ok == 0){
+                newtableid += TID.toString();
+                newtableid += ',';
+            }
+            i2++;
+        }
+        newtableid = newtableid.substring(0,newtableid.length()-1);
+        applicationDao.updateruleform(USS,versions,newtableid,AID);
+        if(failedTID == new String()){
+            return("ruleForm delete complete");
+        }
+        else{
+            failedTID = failedTID.substring(0,newtableid.length()-1);
+            return ("TID:" + failedTID +" failed, but other ruleForm delete complete");
+        }
+
+
+
+    }
+
 }
+
 
 
 
