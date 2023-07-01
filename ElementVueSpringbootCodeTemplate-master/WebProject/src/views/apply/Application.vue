@@ -272,7 +272,7 @@ export default {
             },
         ruleForm:{
           applicantID:this.$store.state.user.id,
-          processID:'4',
+          processID:'1',
             TypeTest:[],
             SoftWareName:'',
             VersionNumber:'',
@@ -645,9 +645,6 @@ export default {
         'RuntimeEnvironment.Server.SoftWare.Other':[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
-        'RuntimeEnvironment.Server.SoftWare.Other':[
-          { required: true, message: "不能为空！", trigger: "blur" },
-        ],
         'RuntimeEnvironment.NetWork':[
         { required: true, message: "不能为空！", trigger: "blur" },
         ],
@@ -668,36 +665,21 @@ export default {
 }, 
   methods:{
     submitForm(formName) {
-      // Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm1),{
-      //   headers:{
-      //     'content-type': 'text/plain'}
-      // }).then(ret=>{
-      //     console.log(ret.data);
-      // }).catch(function (error) { // 请求失败处理
-      //   console.log(error);
-      //   // alert("error!");
-      // });
-      // Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
-      //   headers:{
-      //     'content-type': 'text/plain'}
-      // }).then(ret=>{
-      //     console.log(ret.data);
-      //     this.$message.success("提交成功！");
-      //     //setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
-      // }).catch(function (error) { // 请求失败处理
-      //   console.log(error);
-      //   alert(error);
-      // });   
       this.$refs[formName].validate((valid) => {
         if (valid) {
-        Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
+        Axios.post("http://localhost:9090/api/application/insert",{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
           console.log(ret.data);
+          this.$store.state.user.application.AID=ret.data
           this.$message.info("提交成功！");
           setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
-      }) 
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
         } else {
           return false;
         }

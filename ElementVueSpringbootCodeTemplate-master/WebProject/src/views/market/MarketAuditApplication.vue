@@ -197,12 +197,31 @@
   </el-container>
   </template>
   <script>
+  import Axios from 'axios'
   export default {
+    created(){
+      // console.log(this.$store.state.user.id)
+      Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.userid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          // this.tempForm=ret.data[0];
+          this.ruleForm=ret.data[0];
+          // this.$message.info("提交成功！");
+          // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
+    },
       data(){
          return{
           percentage:0,
-          ruleForm:{
-            user:{
+          userid:{
+            applicantID:this.$store.state.user.id+1
+          },
+          user:{
                   name:'风车村',
                   password:'shazihuang',
                   telephone:'',
@@ -214,12 +233,14 @@
                   email:'',
                   URL:'',
               },
-              TypeTest:[],
+          tempForm:{},
+          ruleForm:{
+              TypeTest:{},
               SoftWareName:'',
               ClientChinese:'',
               ClientEnglish:'',
               DevelopmentCompany:'',
-              AttributeOfCompany:[],
+              AttributeOfCompany:{},
               SoftwareUserObjectDescription:'',
               MainFunction:'',
               NeededStandard:[],
@@ -505,16 +526,18 @@
           ],
 
       }
-  }, 
+  },
     methods:{
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$router.push({path: "./marketauditfunctionlist", replace:true});
-          } else {
-            return false;
-          }
-        });
+        // console.log(this.tempForm);
+        console.log(this.ruleForm);
+        // this.$refs[formName].validate((valid) => {
+        //   if (valid) {
+        //     this.$router.push({path: "./marketauditfunctionlist", replace:true});
+        //   } else {
+        //     return false;
+        //   }
+        // });
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
