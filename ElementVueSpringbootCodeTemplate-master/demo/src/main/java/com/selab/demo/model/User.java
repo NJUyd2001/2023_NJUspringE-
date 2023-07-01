@@ -19,8 +19,52 @@ public class User extends BaseEntity{
     private String nickname;
     private String regTime;
 
+    private String zipcode; // zip code 邮编
+    private String address; // 地址
+    private String ip;
 
+    public String getZipcode() {
+        return zipcode;
+    }
 
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getContactTel() {
+        return contactTel;
+    }
+
+    public void setContactTel(String contactTel) {
+        this.contactTel = contactTel;
+    }
+
+    private String contact; //联系人
+    private String contactTel; //联系人电话
     private String emailAddr;
     private String password;
    // @Enumerated(EnumType.STRING)

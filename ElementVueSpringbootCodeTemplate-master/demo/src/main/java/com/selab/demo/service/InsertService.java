@@ -28,7 +28,7 @@ public class InsertService{
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         String dataString = jsonObject.getString("data");
-<<<<<<< HEAD
+
         try {
             insertDao.insertTest(dataString);
         } catch (Exception e){
@@ -36,10 +36,10 @@ public class InsertService{
                 return e.getMessage();
             }
         }
-=======
+
         System.out.print(postJson);
         insertDao.insertTest(dataString);
->>>>>>> 082aec3ea332202577495a1b9b0aea84f9758678
+
         return "success";
     }
 }
