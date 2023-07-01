@@ -2,23 +2,39 @@
 <template>
     <el-container style="height:100%">
       <el-header style="height: 30px " @back="goback">
+        <el-row>
+        <el-col :span="22">
         <el-breadcrumb separator="->">
         <el-breadcrumb-item :to="{ path: '/test' }">测试部主页</el-breadcrumb-item>
         <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/Report">测试报告</a></el-breadcrumb-item>
-      </el-breadcrumb>
-      <br>
+        <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/TestEnvironment">测试环境</a></el-breadcrumb-item>
+        </el-breadcrumb>
+        </el-col>
+        <el-col :span="2">
+          <el-button style="margin-top: 5px; margin-left: 70px;" size="mini" type="primary">登出</el-button>
+        </el-col>
+        </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="10">
-            <router-link to="/test">
+            <router-link to="/report">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="12" ><div class="grid-content bg-purple">
-            <h1 style="margin-left: 70px;">测试环境</h1>
+          <el-col :span="13" ><div class="grid-content bg-purple">
+            <h1 style="margin-left: 55%;">测试环境</h1>
             </div></el-col>
-          <el-col :span="6" push="5">
-            <router-link to="/report">
+            <el-col :span="20">
+          <el-steps :space="200" :active="2" finish-status="success">
+          <el-step title="测试报告信息查看"></el-step>
+          <el-step title="测试报告查看"></el-step>
+          <el-step title="测试环境查看"></el-step>
+          <el-step title="测试内容查看"></el-step>
+          <el-step title="完成"></el-step>
+          </el-steps>
+          </el-col>
+          <el-col :span="6" push="3">
+            <router-link to="/TestContent">
             <el-button style="margin-top: 5px; margin-left: -60px;" size="middle" type="success">下一步</el-button>
             </router-link>
           </el-col>
@@ -27,7 +43,7 @@
         <br><br>
         <el-main>
             <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
-            <el-label>硬件环境</el-label>
+            <el-label style="margin-left: 320px; margin-top: 20px;">硬件环境</el-label>
             <el-table :data="tableData1" :span-method="objectSpanMethod" style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="HardwareCategory" label="硬件类别" width="90">
                 <template slot-scope="scope">
@@ -51,7 +67,7 @@
             </el-table-column>
           </el-table>
 
-            <el-label>软件环境</el-label>
+            <el-label style="margin-left: 320px; margin-top: 20px;">软件环境</el-label>
                 <el-table :data="tableData2" :span-method="objectSpanMethod" style="width: 50%; margin-left: 25%;">
                 <el-table-column fixed prop="SoftwareCategory" label="软件类别" width="90">
                 </el-table-column>
@@ -66,25 +82,25 @@
                 </template>
                 </el-table-column>
             </el-table>
-            <el-label>网络环境</el-label>
+            <el-label style="margin-left: 320px; margin-top: 20px;">网络环境</el-label>
             <el-form-item>
               <el-label>二、测试依据和参考资料</el-label>
             </el-form-item>
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"测试依据"+index+":"' :key="index" >
-              <el-input placeholder="测试依据" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.NeededStandard"></el-input>
+              <el-input placeholder="测试依据" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.NeededStandard"></el-input>
               <el-button @click="removefatherItem1(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
-            <el-form-item v-for="(Table,index) in ruleForm2.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+            <el-form-item v-for="(Table,index) in ruleForm2.TableData" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"参考资料"+index+":"' :key="index" >
-              <el-input placeholder="参考资料" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.ReferenceMaterial"></el-input>
+              <el-input placeholder="参考资料" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.ReferenceMaterial"></el-input>
               <el-button @click="removefatherItem2(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem2()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>

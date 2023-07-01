@@ -6,7 +6,9 @@
         <el-col :span="22">
         <el-breadcrumb separator="->">
         <el-breadcrumb-item :to="{ path: '../#/Test' }">测试主页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/#/report">测试报告</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/TestEnvironment">测试环境</a></el-breadcrumb-item>
         <el-breadcrumb-item><a href="/testcontent">测试内容</a></el-breadcrumb-item>
        </el-breadcrumb>
        </el-col>
@@ -16,13 +18,22 @@
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/report">
-            <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
+            <router-link to="/TestEnvironment">
+            <el-button style="margin-top: -25px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="2"><div class="grid-content bg-purple">
+          <el-col :span="6" push="4"><div class="grid-content bg-purple">
             <span class="logo-title">测试内容</span>
             </div></el-col>
+            <el-col :span="20">
+          <el-steps :space="200" :active="3" finish-status="success">
+          <el-step title="测试报告信息查看"></el-step>
+          <el-step title="测试报告查看"></el-step>
+          <el-step title="测试环境查看"></el-step>
+          <el-step title="测试内容查看"></el-step>
+          <el-step title="完成"></el-step>
+          </el-steps>
+          </el-col>
             <el-col :span="6" pull="3">
             <div class="grid-content bg-purple-light text-right">
               <span v-if="user != null">
@@ -35,8 +46,8 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div></el-col>
-          <el-col :span="6" push="5">
-            <el-button style="margin-top: 15px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
+          <el-col :span="6" push="2">
+            <el-button style="margin-top: -25px; margin-left: 20px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
@@ -386,6 +397,7 @@
     span.logo-title{
       font-size: 30px;
       font-weight: bold;
+      margin-left: 45%;
     }
     .demo-date-picker {
       display: flex;
@@ -410,5 +422,9 @@
       color: var(--el-text-color-secondary);
       font-size: 14px;
       margin-bottom: 20px;
+    }
+
+    .el-steps {
+      margin-left: 150px;
     }
     </style>
