@@ -81,9 +81,10 @@ author:李晨博
 ```
 {"AID"："1"}
 
+
+```
 ## /application/checkbyapplicant
 根据applicantID项查找所有符合的aplication
-```
 输入示例：
 ```
 {
