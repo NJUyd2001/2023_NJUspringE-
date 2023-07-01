@@ -68,7 +68,7 @@ export default {
           'content-type': 'text/plain'}
       }).then(ret=>{
         if(ret.data==="")
-          this.info('您的账号不是客户类型，请在测试中心出登录或联系管理员！');
+          this.$message.error('您的用户名或密码错误，请更改后重试');
         else
         {
         this.$store.state.user.id=ret.data.uid;
@@ -78,56 +78,23 @@ export default {
         this.$store.state.user.phone=ret.data.phone;
         this.$store.state.user.fax=ret.data.userfax;
         this.$store.state.user.Permissions=ret.data.usertype;
-        
+        this.$store.state.user.address=ret.data.address;
+        this.$store.state.user.zipcode=ret.data.zipcode;
+        this.$store.state.user.ip=ret.data.ip;
+        this.$store.state.user.contact=ret.data.contact;
+        this.$store.state.user.contactTel=ret.data.contactTel;
         
         if(ret.data.usertype == "C"){
           this.info("登录成功");
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
-        }
-        else
-          this.info("错了笨蛋");
-          //this.error("您的账号不是客户类型，请在测试中心出登录或联系管理员！");
+          }
         }
   })
       .catch(function (error) { // 请求失败处理
         console.log(error);
-        // alert("error!");
+        alert("服务器无响应，请稍候");
       });   
-      // Axios.get("http://localhost:9090/api/user/login",).then(ret=>{
-      //   var i=0;
-      //   var flag=false;
-      //   console.log(ret.data);
-      //   for(;i<ret.data.length;i++)
-      //   { 
-      //     if(ret.data[i].nickname===this.ruleForm.uname)
-      //     { 
-      //         if(ret.data[i].password===this.ruleForm.password)
-      //             {
-      //               flag=true;
-      //               this.info("登录成功！");
-      //               // console.log(ret.data[i]);
-      //               this.$store.state.user.id=ret.data[i].uid;
-      //               this.$store.state.user.name=ret.data[i].nickname;
-      //               this.$store.state.user.password=ret.data[i].password;
-      //               this.$store.state.user.Permissions=ret.data[i].type;
-      //               setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
-      //             }
-      //         else{
-      //           this.error("您的用户名或密码错误,请重新输入！");
-      //         }
-      //     }
-      //   }
-      //   if(flag===false)
-      //   {
-      //     this.error("您的用户名不存在！")
-      //   }
-      // })
-      // .catch(function (error) { // 请求失败处理
-      //   console.log(error);
-      //   alert("error!");
-      // });
-      //this.$router.push({path: "./client", replace:true});
-      // alert(JSON.stringify(this.ruleForm));
+      
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -145,7 +112,8 @@ export default {
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
-    width: 100%
+    width: 100%;
+    margin: 0 auto;
   }
 /* 设置登录面板居中，宽度为400px */
 .box-card {

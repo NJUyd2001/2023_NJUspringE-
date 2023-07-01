@@ -1,5 +1,4 @@
 package com.selab.demo.controller;
-import com.selab.demo.service.ApplicationService;
 import com.selab.demo.service.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

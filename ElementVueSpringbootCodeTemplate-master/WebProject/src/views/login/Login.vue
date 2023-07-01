@@ -65,9 +65,10 @@ export default {
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
+        //console.log(ret.data)
         if(ret.data==="")
         {
-          this.error("您的用户名或密码错误,请重新输入！");
+          this.$message.error("您的用户名或密码错误,请重新输入！");
         }
         else
         {
@@ -77,9 +78,25 @@ export default {
         this.$store.state.user.Permissions=ret.data.usertype;
         this.info("登录成功!");
         console.log(ret.data)
-        if(ret.data.usertype=='T')
+        if(ret.data.usertype=="T")
         {
           setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 1000);
+        }
+        else if(ret.data.usertype=='M')
+        {
+          setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 1000);
+        }
+        else if(ret.data.usertype=='Q')
+        {
+          setTimeout(() => {this.$router.push({path: "./quality", replace:true});}, 1000);
+        }
+        else if(ret.data.usertype=='TL')
+        {
+          setTimeout(() => {this.$router.push({path: "./TestDirector", replace:true});}, 1000);
+        }
+        else if(ret.data.usertype=='A')
+        {
+          setTimeout(() => {this.$router.push({path: "./signatory", replace:true});}, 1000);
         }
         //setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
         }
@@ -105,7 +122,8 @@ export default {
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
-    width: 100%
+    width: 100%;
+    margin: 0 auto;
   }
 /* 设置登录面板居中，宽度为400px */
 .box-card {

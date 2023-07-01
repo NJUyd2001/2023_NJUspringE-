@@ -19,7 +19,6 @@
           <div class="user_anniu">
             <el-button
               class="el-icon-edit"
-              v-if="this.$route.params.id === this.$store.state.id"
               type="primary"
               size="medium"
               plain
@@ -33,7 +32,7 @@
     </div>
     <div class="person_body">
       <div class="person_body_left">
-        <el-card class="box-card" :body-style="{ padding: '0px' }">
+        <el-card class="bd" :body-style="{ padding: '0px' }">
           <div slot="header" class="clearfix">
             <span class="person_body_list" style="border-bottom: none"
               >个人中心</span
@@ -63,7 +62,6 @@
 
             <el-menu-item
               index="myarticle"
-              v-if="this.$route.params.id === this.$store.state.id"            
             >
               <i class="el-icon-edit"></i>
               <span slot="title" @click="edit">编辑</span>
@@ -78,9 +76,8 @@
           </el-menu>
         </el-card>
       </div>
-      <div class="person_body_right">
-        <div>
-    <el-card>
+      <div >
+    <el-card class="person_body_right">
       <el-descriptions class="margin-top" title="简介" :column="2" border>
         <template slot="extra">
           <el-button type="primary" v-if="$route.params.id==$store.state.id" size="small">操作</el-button>
@@ -111,7 +108,7 @@
             <i class="el-icon-location-outline"></i>
             地址
           </template>
-          <el-tag size="small">{{ address }}</el-tag>
+          {{ user.address }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -125,14 +122,14 @@
             <i class="el-icon-user"></i>
             联系人
           </template>
-          {{ mobilePhoneNumber }}
+          {{ user.contact }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-mobile-phone"></i>
             联系人电话
           </template>
-          {{ area }}
+          {{ user.contactTel }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -143,7 +140,6 @@
         </el-descriptions-item>
     </el-descriptions>
     </el-card>
-  </div>
       </div>
     </div>
     <personal-dia ref="dia" @flesh="reload" />
@@ -180,11 +176,14 @@ export default {
         phone:this.$store.state.user.phone,
         fax:this.$store.state.user.fax,
         email:this.$store.state.user.email,
+        address:this.$store.state.user.address,
+        zipcode:this.$store.state.user.zipcode,
+        contact:this.$store.state.user.contact,
+        contactTel:this.$store.state.user.contactTel,
       },
     };
   },
   mounted() {
-    this.load();
   },
   watch: {
     $route(to, from) {
@@ -196,46 +195,6 @@ export default {
     },
   },
   methods: {
-    load() {
-      userInfo(this.$route.params.id)
-        .then((res) => {
-          console.log(res);
-          this.avatar = res.data.avatar;
-          this.nickname = res.data.nickname;
-          this.v = res.data.v;
-          this.design = res.data.design;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      myFollow(this.$store.state.id)
-        .then((res) => {
-          res.data.forEach((res) => {
-            this.isfollowid.push(res.id);
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      followAndFanCount(this.$route.params.id)
-        .then((res) => {
-          this.followCounts = res.data.followCounts;
-          this.fanCounts = res.data.fanCounts;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      mygoodCount(this.$route.params.id)
-        .then((res) => {
-          this.goodCounts = res.data.goodCounts;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
 
     addTab(targetName, commentName) {
       // 如果已经存在
@@ -329,15 +288,15 @@ export default {
   z-index: 0;
   top: 0;
 }
-.Person{
+/* .Person{
   background: url("../../assets/b3.jpg");
   background-size: 100% 100%;
   height: 100%;
   position: fixed;
   width: 100%
-}
+} */
 .PersonTop {
-  width: 1000px;
+  width: 75%;
   height: 140px;
   padding-top: 20px;
   background: url("../../assets/b3.jpg");
@@ -395,30 +354,6 @@ export default {
   color: #999;
 }
 
-.user_num {
-  width: 40%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.user_num > div {
-  text-align: center;
-  border-right: 1px dotted #999;
-  box-sizing: border-box;
-  width: 80px;
-  height: 40px;
-  line-height: 20px;
-}
-
-.num_text {
-  color: #999;
-}
-
-.num_number {
-  font-size: 20px;
-  color: #333;
-}
 .el-menu-item>span {
   font-size: 16px;
   color: #999;
@@ -426,7 +361,7 @@ export default {
 
 /*下面部分样式*/
 .person_body {
-  width: 1000px;
+  width: 75%;
   margin-top: 210px;
   display: flex;
   position: absolute;
@@ -465,17 +400,17 @@ export default {
 }
 
 .el-menu-item {
-  margin-top: 22px;
+  margin-top: 2px;
 }
 
 .person_body_right {
-  width: 70%;
-  /* height: 500px; */
+  width: 800px;
+  height: 600px; 
   border-radius: 5px;
   background-color: white;
 }
 
-.box-card {
+.bd {
   height: 500px;
 }
 

@@ -42,6 +42,12 @@ import TestReviewDelegation from './views/test/TestReviewDelegation'
 import MarketContract from './views/market/Contract'
 import GenQuote from './views/Quote/GenQuote'
 import AuditQuote from './views/Quote/AuditQuote'
+import ReportChecklist from './views/report/ReportChecklist'
+import Defectlist from './views/test/Defectlist'
+import SoftwareDocumentReviewForm1 from './views/report/SoftwareDocumentReviewForm1'
+import SoftwareDocumentReviewForm2 from './views/report/SoftwareDocumentReviewForm2'
+import TestReportCover from './views/report/TestReportCover'
+import TestEnvironment from './views/report/TestEnvironment'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -207,5 +213,30 @@ export default new VueRouter({
             path: '/Quote/AuditQuote',     // 路径
             component: AuditQuote    // 跳转到的组件
         },
+        {
+            path: '/ReportChecklist',    // 路径
+            component: ReportChecklist  // 跳转到的组件
+        },
+        {
+            path: '/test/Defectlist',  // 路径
+            component: Defectlist      // 跳转到的组件
+        },
+        {
+            path: '/report/SoftwareDocumentReviewForm1',  // 路径
+            component: SoftwareDocumentReviewForm1       // 跳转到的组件
+        },
+        {
+            path: '/report/SoftwareDocumentReviewForm2',  // 路径
+            component: SoftwareDocumentReviewForm2       // 跳转到的组件
+        },
+        {
+            path: '/TestReportCover',      // 路径
+            component: TestReportCover     // 跳转到的组件
+        },
+        {
+            path: '/TestEnvironment',      // 路径
+            component: TestEnvironment    // 跳转到的组件
+        },
+
     ]
 })
