@@ -78,7 +78,9 @@
             <el-table-column prop="Reviewitem" label="评审项" width="100"></el-table-column>
             <el-table-column prop="ReviewContent" label="评审内容" width="140"></el-table-column>
             <el-table-column prop="ReviewResultExplanation" label="评审结果说明" width="350">
-              <el-input v-model="textarea" :rows="2" type="textarea" placeholder="Please input"/>
+              <template slot-scope="scope">
+                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.ReviewResultExplanation" :rows="2"  placeholder="Please input"/>
+              </template>
             </el-table-column>
             <el-table-column prop="ReviewResult" label="评审结果" width="120">
               <template slot-scope="scope">
@@ -91,19 +93,16 @@
             <el-input style="width:200px; padding:10px;" v-model="Examiner"></el-input>
           </el-form-item>
           </el-form>
-        
         </el-main>
       <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
 
     <script>
-    import { ref } from 'vue'
-    const textarea = ref('')
-
     export default {
         data(){
            return{
+            input_type:'text',
             SoftWareName:'',
             VersionNumber:'',
             Client:'',
@@ -220,6 +219,14 @@
         handleClick() {
         console.log('click');
       },
+      list(){
+          this.input_type = 'textarea'
+           this.$nextTick(function () { 
+               if (this.$refs.enterInput) {
+               this.$refs.enterInput.resizeTextarea();
+               } 
+           });
+        },
         objectSpanMethod({ row, column, rowIndex, columnIndex }) {
         if (columnIndex === 0) {
           if(rowIndex === 0)

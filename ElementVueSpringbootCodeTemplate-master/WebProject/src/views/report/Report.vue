@@ -92,40 +92,53 @@
               <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
               v-model="TestConclusion" type="textarea" />
             </el-form-item>
-          <el-form-item label="编制人:"> 
+            <el-form-item label="编制人:"> 
             <el-input style="width:200px;padding:10px" v-model="Organizer"></el-input>
-          </el-form-item> 
-          <el-form-item label="审核人:"> 
+            <el-form-item style="margin-left: -150px;" label='日期:'>
+              <div class="demo-date-picker">
+              <div class="block">
+                <el-date-picker
+                style="margin-left: -350px;"
+                v-model="SampleDate"
+                type="date"
+                placeholder="时间选择"
+                :size=large
+                />
+                </div>
+                </div>
+            </el-form-item>
+            </el-form-item> 
+            <el-form-item label="审核人:"> 
             <el-input style="width:200px;padding:10px" v-model="Auditor"></el-input>
-          </el-form-item> 
-          <el-form-item label="批准人:"> 
+            <el-form-item style="margin-left: -150px;" label='日期:'>
+              <div class="demo-date-picker">
+              <div class="block">
+                <el-date-picker
+                v-model="SampleDate"
+                type="date"
+                placeholder="时间选择"
+                :size=large
+                />
+                </div>
+                </div>
+            </el-form-item>
+            </el-form-item> 
+            <el-form-item label="批准人:"> 
             <el-input style="width:200px;padding:10px" v-model="Approver"></el-input>
-          </el-form-item>  
-          <el-form-item label="测试环境" prop="Introduction" style="font-weight: bold; font-size: 15px;">
+            <el-form-item style="margin-left: -150px;" label='日期:'>
+              <div class="demo-date-picker">
+              <div class="block">
+                <el-date-picker
+                style="margin-left: -350px;"
+                v-model="SampleDate"
+                type="date"
+                placeholder="时间选择"
+                :size=large
+                />
+                </div>
+                </div>
+            </el-form-item>
             </el-form-item>  
-          </el-form>
-          <el-form label-width="680px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"硬件环境"' :key="index" >
-              <el-input placeholder="硬件类别" style="width: 100px;padding-right:20px;" v-model="Table.hardwarecategory"></el-input>
-              <el-input placeholder="硬件名称" style="width: 100px;padding-right:20px;" v-model="Table.hardwarename"></el-input>
-              <el-input placeholder="配置" style="width: 100px;padding-right:20px;" v-model="Table.setting"></el-input>
-              <el-input placeholder="数量" style="width: 100px;padding-right:20px;" v-model="Table.quantity"></el-input>
-          </el-form-item> 
-          </el-form>
-          <el-form label-width="680px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"软件环境"' :key="index" >
-              <el-input placeholder="软件类别" style="width: 100px;padding-right:20px;" v-model="Table.softwarecategory"></el-input>
-              <el-input placeholder="软件名称" style="width: 100px;padding-right:20px;" v-model="Table.softwarename"></el-input>
-              <el-input placeholder="版本" style="width: 100px;padding-right:20px;" v-model="Table.edition"></el-input>
-          </el-form-item> 
           </el-form>
         </el-main>
       <LoginDialog :show='showLogin'/>

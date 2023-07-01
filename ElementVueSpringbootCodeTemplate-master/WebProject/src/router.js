@@ -47,6 +47,7 @@ import Defectlist from './views/test/Defectlist'
 import SoftwareDocumentReviewForm1 from './views/report/SoftwareDocumentReviewForm1'
 import SoftwareDocumentReviewForm2 from './views/report/SoftwareDocumentReviewForm2'
 import TestReportCover from './views/report/TestReportCover'
+import TestEnvironment from './views/report/TestEnvironment'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -229,8 +230,12 @@ export default new VueRouter({
             component: SoftwareDocumentReviewForm2       // 跳转到的组件
         },
         {
-            path: '/TestReportCover',      // 路径
+            path: '/report/TestReportCover',      // 路径
             component: TestReportCover     // 跳转到的组件
+        },
+        {
+            path: '/report/TestEnvironment',      // 路径
+            component: TestEnvironment    // 跳转到的组件
         },
 
     ]
