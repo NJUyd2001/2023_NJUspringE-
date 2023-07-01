@@ -87,7 +87,7 @@
           </el-form-item>
             <el-form-item label="样品状态:">
               <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
-              v-model="SoftwareUserObjectDescription" type="textarea" />
+              v-model="SampleStatus" type="textarea" />
             </el-form-item>
             <el-form-item label="测试依据:">
               <el-select v-model="NeededStandard" multiple allow-create filterable>
@@ -236,6 +236,7 @@
                 ClientChinese:'',
                 ClientEnglish:'',
                 DevelopmentCompany:'',
+                SampleStatus:'',
                 NeededStandard:'',
                 SampleList:'',
                 TestConclusion:'',
