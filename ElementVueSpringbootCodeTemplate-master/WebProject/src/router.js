@@ -230,11 +230,11 @@ export default new VueRouter({
             component: SoftwareDocumentReviewForm2       // 跳转到的组件
         },
         {
-            path: '/report/TestReportCover',      // 路径
+            path: '/TestReportCover',      // 路径
             component: TestReportCover     // 跳转到的组件
         },
         {
-            path: '/report/TestEnvironment',      // 路径
+            path: '/TestEnvironment',      // 路径
             component: TestEnvironment    // 跳转到的组件
         },
 

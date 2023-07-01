@@ -93,12 +93,20 @@ public class UserService {
         String new_nickname = jsonObject.getString("new_uname");
         String new_password = jsonObject.getString("new_password");
         String new_phone = jsonObject.getString("new_phone");
+
+        //TODO: ip
+        String new_ip = jsonObject.getString("new_ip");
+        String new_address = jsonObject.getString("new_address");
+        String new_contact = jsonObject.getString("new_contact");
+        String new_contactTel = jsonObject.getString("new_contactTel");
+        String new_zipcode = jsonObject.getString("new_zipcode");
+
         if(userDao.findByUID(UID) == null) return "不存在 UID = "+ UID + " 的用户";
         try{
             userDao.update(UID, new_nickname, new_password, new_emailAddr
-                    , new_phone, new_fax);
+                    , new_phone, new_fax, new_ip, new_address, new_contact, new_contactTel, new_zipcode);
         }catch (DataAccessException e){
-            //return e.getMessage();
+            // return e.getMessage();
             return simplifyErrMsg(e.getCause().getMessage());
         }
         return "信息已更新";

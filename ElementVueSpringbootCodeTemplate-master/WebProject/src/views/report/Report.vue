@@ -6,6 +6,7 @@
         <el-col :span="22">
         <el-breadcrumb separator="->">
           <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
+          <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
           <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
         </el-breadcrumb>
         </el-col>
@@ -15,13 +16,22 @@
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/Test">
+            <router-link to="/TestReportCover">
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="4"><div class="grid-content bg-purple">
+          <el-col :span="10" style="margin-left: 35%;"><div class="grid-content bg-purple">
           <span class="logo-title">测试报告</span>
           </div></el-col>
+          <el-col :span="16">
+          <el-steps :space="200" :active="1" finish-status="success">
+          <el-step title="测试报告信息查看"></el-step>
+          <el-step title="测试报告查看"></el-step>
+          <el-step title="测试环境查看"></el-step>
+          <el-step title="测试内容查看"></el-step>
+          <el-step title="完成"></el-step>
+          </el-steps>
+          </el-col>
             <el-col :span="6" pull="3">
             <div class="grid-content bg-purple-light text-right">
               <span v-if="user != null">
@@ -34,8 +44,8 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div></el-col>
-          <el-col :span="6" push="5">
-            <router-link to="/admin">
+          <el-col :span="6" push="1">
+            <router-link to="/TestEnvironment">
             <el-button style="margin-top: 15px;" size="middle" type="success">下一步</el-button>
             </router-link>
           </el-col>
@@ -45,7 +55,7 @@
           <br><br>
           <el-form :label-position="top" label-width="40%" style="margin-top: 10px;">
           <el-form-item label="测试类型:"> 
-            <el-input style="width:200px;padding:10px" v-model="SampleName"></el-input>
+            <el-input style="width:200px;padding:10px" v-model="TestType"></el-input>
            </el-form-item>
           <el-form-item label="样品名称:"> 
             <el-input style="width:200px;padding:10px" v-model="SampleName"></el-input>
@@ -77,7 +87,7 @@
           </el-form-item>
             <el-form-item label="样品状态:">
               <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
-              v-model="SoftwareUserObjectDescription" type="textarea" />
+              v-model="SampleStatus" type="textarea" />
             </el-form-item>
             <el-form-item label="测试依据:">
               <el-select v-model="NeededStandard" multiple allow-create filterable>
@@ -114,6 +124,7 @@
               <div class="demo-date-picker">
               <div class="block">
                 <el-date-picker
+                style="margin-left: -350px;"
                 v-model="SampleDate"
                 type="date"
                 placeholder="时间选择"
@@ -218,13 +229,14 @@
                           },
                           ],
                 TypeTest:[],
-                TypeTest:'',
+                TestType:'',
                 SampleName:'',
                 ProjectNum:'',
                 SampleDate:'',
                 ClientChinese:'',
                 ClientEnglish:'',
                 DevelopmentCompany:'',
+                SampleStatus:'',
                 NeededStandard:'',
                 SampleList:'',
                 TestConclusion:'',

@@ -2,16 +2,41 @@ package com.selab.demo.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.selab.demo.dao.FileDao;
+import com.selab.demo.dao.UserDao;
+import com.selab.demo.model.FileModel;
+import com.selab.demo.utils.FileUtil;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 @Service
 public class FileService {
     @Autowired
     FileDao fileDao;
-    public String upload(MultipartFile file){
-
-        return "";
+    @Autowired
+    FileUtil fileUtil;
+    public String upload(MultipartFile file, Integer PID){
+        try {
+            String fileName = file.getOriginalFilename();
+            String filePath = fileUtil.getUpload(file, PID);
+            if(filePath.isEmpty()) return "文件识别错误，上传失败";
+            fileDao.upload(new FileModel(filePath, PID, fileName));
+            return "上传成功";
+        }catch (IOException e){
+            return e.getCause().getMessage();
+        }
+    }
+    public FileModel[] selectAllFiles(){
+        return fileDao.selectAllFiles();
+    }
+    public FileModel[] selectByPID(Integer PID){
+        return fileDao.selectByPID(PID);
+    }
+    public FileModel selectByFID(Integer FID){
+        return fileDao.selectByFID(FID);
     }
 }
