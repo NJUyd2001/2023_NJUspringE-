@@ -14,12 +14,12 @@
   </el-col>
   </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="10">
+      <el-col :span="9">
         <router-link to="/Client">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="4" >
+      <el-col :span="5" >
         <span class="logo-title">申请界面-申请表</span>
       </el-col>
       <el-col :span="8">
@@ -268,83 +268,11 @@ export default {
        return{
         percentage:0,
         user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
+                name:this.$store.state.user.name,
             },
-        ruleForm1:{
-          applicantID:'1',
-          processID:'1',
-          time:"2017-09-02 10:29:14",
-          phone:"15968774896",
-          testTYPE:"C",
-            TypeTest:[{
-                id:1,
-                value:'软件确认测试',
-              }],
-            SoftWareName:'蔡徐坤炒粉事件',
-            VersionNumber:'2.5',
-            ClientChinese:'小黑子',
-            ClientEnglish:'ikun',
-            DevelopmentCompany:'C先生',
-            AttributeOfCompany:"内资企业",
-            SoftwareUserObjectDescription:'练习时长两年半',
-            MainFunction:'炒粉不放鸡精',
-            NeededStandard:[
-                  "GB/T 25000.51-2016",
-                ],
-            NeededTechnicalIndex:[
-                  "功能性",
-                ],
-            SoftWareSize:{
-              Number:1,
-              Point:2,
-              RowNumber:3,
-            },
-            SoftWareType:["操纵系统",
-                        ],
-            RuntimeEnvironment:{
-                Client:{
-                OS:{
-                  Windows:'xp',
-                  Linux:'12108',
-                  other:''
-              },
-              Mermory:'2048MB',
-              Other:''
-              },
-              Server:{
-                HardWare:{
-                FrameWork:["PC服务器",],  
-                Mermory:'1024',
-                HardDisk:'why',
-                OtherDisk:'to'
-              },
-              SoftWare:{
-                OS:'ji',
-                Versions:'ni',
-                PL:'tai',
-                FrameWork:["服务器端软件架构:C/S",],
-                DataBase:'mei',
-                MiddleWare:'oh',
-                Other:'baby'
-              },
-              },
-              NetWork:'zhi',  
-               },
-            SoftwareMedium:["U盘"],
-            Document:'yin',
-            SamplesSubmitted:["中心直接销毁"],
-            WantedFinishTime:'',
-        },
         ruleForm:{
+          applicantID:this.$store.state.user.id,
+          processID:'1',
             TypeTest:[],
             SoftWareName:'',
             VersionNumber:'',
@@ -361,7 +289,7 @@ export default {
               Point:0,
               RowNumber:0,
             },
-            SoftWareType:[],
+            SoftWareType:"",
             RuntimeEnvironment:{
                 Client:{
                 OS:{
@@ -717,9 +645,6 @@ export default {
         'RuntimeEnvironment.Server.SoftWare.Other':[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
-        'RuntimeEnvironment.Server.SoftWare.Other':[
-          { required: true, message: "不能为空！", trigger: "blur" },
-        ],
         'RuntimeEnvironment.NetWork':[
         { required: true, message: "不能为空！", trigger: "blur" },
         ],
@@ -740,33 +665,25 @@ export default {
 }, 
   methods:{
     submitForm(formName) {
-      console.log(this.ruleForm1)
-      Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm1),{
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+        Axios.post("http://localhost:9090/api/application/insert",{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
           console.log(ret.data);
-      }).catch(function (error) { // 请求失败处理
-        console.log(error);
-        // alert("error!");
-      });   
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //   Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
-      //   headers:{
-      //     'content-type': 'text/plain'}
-      // }).then(ret=>{
-      //     console.log(ret.data);
-
-      // })
-      //     this.info("提交成功！");
-      //     this.$router.push({path: "./functionlist", replace:true});
-      //   } else {
-      //     return false;
-      //   }
-      // });
-      
-      // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+          this.$store.state.user.application.AID=ret.data
+          this.$message.info("提交成功！");
+          setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
+        } else {
+          return false;
+        }
+      });
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

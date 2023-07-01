@@ -14,9 +14,18 @@
             </router-link>
           </el-col>
           <el-col :span="12" ><div class="grid-content bg-purple">
-            <h1>测试报告</h1>
+            <h1 style="margin-left: 70%;">测试报告</h1>
             </div></el-col>
-          <el-col :span="6" push="5">
+          <el-col :span="19">
+          <el-steps :space="200" :active="0" finish-status="success">
+          <el-step title="测试报告信息查看"></el-step>
+          <el-step title="测试报告查看"></el-step>
+          <el-step title="测试环境查看"></el-step>
+          <el-step title="测试内容查看"></el-step>
+          <el-step title="完成"></el-step>
+          </el-steps>
+          </el-col>
+          <el-col :span="6" push="3">
             <router-link to="/report">
             <el-button style="margin-top: 5px; margin-left: -60px;" size="middle" type="success">下一步</el-button>
             </router-link>
@@ -79,7 +88,7 @@
                 ruleForm:{
                   SoftwareName:'',
                   VersionNumber:'',
-                  Client:'豪大大鸡排',
+                  Client:'',
                   TypeTest:'',
                   date:'',
                 },

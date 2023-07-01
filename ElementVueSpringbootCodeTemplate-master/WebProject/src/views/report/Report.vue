@@ -6,6 +6,7 @@
         <el-col :span="22">
         <el-breadcrumb separator="->">
           <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
+          <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
           <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
         </el-breadcrumb>
         </el-col>
@@ -15,13 +16,22 @@
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/Test">
+            <router-link to="/TestReportCover">
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="4"><div class="grid-content bg-purple">
+          <el-col :span="10" style="margin-left: 35%;"><div class="grid-content bg-purple">
           <span class="logo-title">测试报告</span>
           </div></el-col>
+          <el-col :span="16">
+          <el-steps :space="200" :active="1" finish-status="success">
+          <el-step title="测试报告信息查看"></el-step>
+          <el-step title="测试报告查看"></el-step>
+          <el-step title="测试环境查看"></el-step>
+          <el-step title="测试内容查看"></el-step>
+          <el-step title="完成"></el-step>
+          </el-steps>
+          </el-col>
             <el-col :span="6" pull="3">
             <div class="grid-content bg-purple-light text-right">
               <span v-if="user != null">
@@ -34,8 +44,8 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div></el-col>
-          <el-col :span="6" push="5">
-            <router-link to="/admin">
+          <el-col :span="6" push="1">
+            <router-link to="/TestEnvironment">
             <el-button style="margin-top: 15px;" size="middle" type="success">下一步</el-button>
             </router-link>
           </el-col>
@@ -44,11 +54,9 @@
         <el-main>
           <br><br>
           <el-form :label-position="top" label-width="40%" style="margin-top: 10px;">
-            <el-form-item label="测试类型:"> 
-            <el-select v-model="TypeTest" multiple allow-create filterable>
-            <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
-            </el-select>
-           </el-form-item>o
+          <el-form-item label="测试类型:"> 
+            <el-input style="width:200px;padding:10px" v-model="TestType"></el-input>
+           </el-form-item>
           <el-form-item label="样品名称:"> 
             <el-input style="width:200px;padding:10px" v-model="SampleName"></el-input>
           </el-form-item> 
@@ -59,9 +67,10 @@
               <div class="demo-date-picker">
               <div class="block">
                 <el-date-picker
+                style="margin-top: 60px; margin-left: -550px;"
                 v-model="SampleDate"
                 type="date"
-                placeholder="完成时间选择"
+                placeholder="时间选择"
                 :size=large
                 />
                 </div>
@@ -78,7 +87,7 @@
           </el-form-item>
             <el-form-item label="样品状态:">
               <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
-              v-model="SoftwareUserObjectDescription" type="textarea" />
+              v-model="SampleStatus" type="textarea" />
             </el-form-item>
             <el-form-item label="测试依据:">
               <el-select v-model="NeededStandard" multiple allow-create filterable>
@@ -87,46 +96,60 @@
             </el-form-item> 
             <el-form-item label="样品清单:">
               <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
-              v-model="SoftwareUserObjectDescription" type="textarea" />
+              v-model="SampleList" type="textarea" />
             </el-form-item>
             <el-form-item label="测试结论:">
               <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
-              v-model="SoftwareUserObjectDescription" type="textarea" />
+              v-model="TestConclusion" type="textarea" />
             </el-form-item>
-          <el-form-item label="编制人:"> 
+            <el-form-item label="编制人:"> 
             <el-input style="width:200px;padding:10px" v-model="Organizer"></el-input>
-          </el-form-item> 
-          <el-form-item label="审核人:"> 
+            <el-form-item style="margin-left: -150px;" label='日期:'>
+              <div class="demo-date-picker">
+              <div class="block">
+                <el-date-picker
+                style="margin-left: -350px;"
+                v-model="SampleDate"
+                type="date"
+                placeholder="时间选择"
+                :size=large
+                />
+                </div>
+                </div>
+            </el-form-item>
+            </el-form-item> 
+            <el-form-item label="审核人:"> 
             <el-input style="width:200px;padding:10px" v-model="Auditor"></el-input>
-          </el-form-item> 
-          <el-form-item label="批准人:"> 
+            <el-form-item style="margin-left: -150px;" label='日期:'>
+              <div class="demo-date-picker">
+              <div class="block">
+                <el-date-picker
+                style="margin-left: -350px;"
+                v-model="SampleDate"
+                type="date"
+                placeholder="时间选择"
+                :size=large
+                />
+                </div>
+                </div>
+            </el-form-item>
+            </el-form-item> 
+            <el-form-item label="批准人:"> 
             <el-input style="width:200px;padding:10px" v-model="Approver"></el-input>
-          </el-form-item>  
-          <el-form-item label="测试环境" prop="Introduction" style="font-weight: bold; font-size: 15px;">
+            <el-form-item style="margin-left: -150px;" label='日期:'>
+              <div class="demo-date-picker">
+              <div class="block">
+                <el-date-picker
+                style="margin-left: -350px;"
+                v-model="SampleDate"
+                type="date"
+                placeholder="时间选择"
+                :size=large
+                />
+                </div>
+                </div>
+            </el-form-item>
             </el-form-item>  
-          </el-form>
-          <el-form label-width="680px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"硬件环境"' :key="index" >
-              <el-input placeholder="硬件类别" style="width: 100px;padding-right:20px;" v-model="Table.hardwarecategory"></el-input>
-              <el-input placeholder="硬件名称" style="width: 100px;padding-right:20px;" v-model="Table.hardwarename"></el-input>
-              <el-input placeholder="配置" style="width: 100px;padding-right:20px;" v-model="Table.setting"></el-input>
-              <el-input placeholder="数量" style="width: 100px;padding-right:20px;" v-model="Table.quantity"></el-input>
-          </el-form-item> 
-          </el-form>
-          <el-form label-width="680px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"软件环境"' :key="index" >
-              <el-input placeholder="软件类别" style="width: 100px;padding-right:20px;" v-model="Table.softwarecategory"></el-input>
-              <el-input placeholder="软件名称" style="width: 100px;padding-right:20px;" v-model="Table.softwarename"></el-input>
-              <el-input placeholder="版本" style="width: 100px;padding-right:20px;" v-model="Table.edition"></el-input>
-          </el-form-item> 
           </el-form>
         </el-main>
       <LoginDialog :show='showLogin'/>
@@ -206,21 +229,21 @@
                           },
                           ],
                 TypeTest:[],
-                SoftWareName:'',
-                VersionNumber:'',
+                TestType:'',
+                SampleName:'',
+                ProjectNum:'',
+                SampleDate:'',
                 ClientChinese:'',
                 ClientEnglish:'',
                 DevelopmentCompany:'',
-                AttributeOfCompany:[],
-                SoftwareUserObjectDescription:'',
-                MainFunction:'',
-                NeededStandard:[],
-                NeededTechnicalIndex:[],
-                SoftWareSize:{
-                  Number:0,
-                  Point:0,
-                  RowNumber:0,
-                },
+                SampleStatus:'',
+                NeededStandard:'',
+                SampleList:'',
+                TestConclusion:'',
+                Organizer:'',
+                Auditor:'',
+                Approver:'',
+                
                 SoftWareType:'',
                 RuntimeEnvironment:{
                   Server:{
@@ -232,16 +255,6 @@
                   },
                   NetWork:'',  
                    },
-                SampleAndQuantity:{
-                SoftwareMedium:[],
-                Document:'',
-                SamplesSubmitted:'',
-                },
-                WantedFinishTime:'',
-                SampleDate:'',
-                Organizer:'',
-                Auditor:'',
-                Approver:'',
         }
     }, 
       methods:{

@@ -37,21 +37,17 @@
         UPDATE selabspringe.user
         <set>
             set
-            <if test="new_nickname!=null">
-                nickname = #{new_nickname},
-            </if>
-            <if test="new_emailAddr!=null">
-                emailAddr = #{new_emailAddr},
-            </if>
-            <if test="new_password!=null">
-                password = #{new_password},
-            </if>
-            <if test="new_phone!=null">
-                phone = #{new_phone},
-            </if>
-            <if test="new_fax!=null">
-                USERFAX = #{new_fax}
-        </if>
+            <if test="new_nickname!=null">    nickname = #{new_nickname},   </if>
+            <if test="new_emailAddr!=null">   emailAddr = #{new_emailAddr}, </if>
+            <if test="new_password!=null">    password = #{new_password},   </if>
+            <if test="new_phone!=null">       phone = #{new_phone},         </if>
+            <if test="new_fax!=null">         USERFAX = #{new_fax},         </if>
+            <if test='new_ip!= null'>         ip = #{new_ip},               </if>
+            <if test='new_address!= null'>    address = #{new_address},     </if>
+            <if test='new_contact != null'>   contact = #{new_contact} ,    </if>
+            <if test='new_contactTel!= null'> contactTel= #{new_contactTel},</if>
+            <if test='new_zipcode   != null'> zipcode  = #{new_zipcode}     </if>
+
         </set>
         WHERE UID=#{UID}
     </update>
