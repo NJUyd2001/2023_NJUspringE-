@@ -11,7 +11,7 @@ author:李晨博
 注意！在此处定义AID没有任何意义，AID会变为sql设定的自增变量！
 
 输入示例：
-
+```
 {
     "applicantID":"1",
     "processID":"1",
@@ -72,7 +72,7 @@ author:李晨博
         "SamplesSubmitted":"中心直接销毁",
         "WantedFinishTime":""
 }
-
+```
 为空的部分可以直接不加入
 
 输出：该application的AID
