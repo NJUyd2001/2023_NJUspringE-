@@ -160,13 +160,13 @@
         data(){
            return{
                 ruleForm1:{
-                  hardwarecategory:'',
-                  hardwarename:'',
-                  setting:'',
-                  quantity:'',
-                  softwarecategory:'',
-                  softwarename:'',
-                  edition:'',
+                  HardwareCategory:'',
+                  HardwareName:'',
+                  Setting:'',
+                  Quantity:'',
+                  SoftwareCategory:'',
+                  SoftwareName:'',
+                  Edition:'',
                 TableData:[
                   {
                     id:1,

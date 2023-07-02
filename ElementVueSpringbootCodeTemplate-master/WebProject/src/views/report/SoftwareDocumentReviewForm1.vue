@@ -20,7 +20,7 @@
             <el-button style="margin-top: -20px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="12" push="6"><div class="grid-content bg-purple">
+          <el-col :span="13" push="6"><div class="grid-content bg-purple">
             <span class="logo-title">软件文档评审表</span>
             </div></el-col>
             <el-col :span="12" push="4" style="margin-left: 20%">
