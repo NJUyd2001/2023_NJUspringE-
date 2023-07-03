@@ -62,8 +62,10 @@
             <el-table-column prop="description" label="内容描述" width="450"></el-table-column>
             <el-table-column prop="checkresult" label="检查结果" width="120">
               <template slot-scope="scope">
-                <el-radio  v-model="radio" label="1">通过</el-radio>
-                <el-radio  v-model="radio" label="2">不通过</el-radio>
+                <el-radio-group v-model="scope.row.HandleState">
+                <el-radio  v-model="radio" label="1" @change="operation(scope.row)">通过</el-radio>
+                <el-radio  v-model="radio" label="2" >不通过</el-radio>
+                </el-radio-group>
               </template>
             </el-table-column>
           </el-table>
@@ -189,9 +191,12 @@
       methods: {
         handleClick() {
         console.log('click');
-      }
-    },
+      },
+        operation(row){
+        console.log(row);
+   },
     }
+  }
 
    </script>
 
