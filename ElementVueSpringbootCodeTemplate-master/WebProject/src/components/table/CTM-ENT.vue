@@ -89,9 +89,10 @@ export default {
   },
   methods: {
     SolvePro(row){
-      console.log(row);
+      // console.log(row);
         this.$store.state.user.process.UID=row.uid;
-        // this.$router.push({path: "./marketaudituser", replace:true})
+        console.log(this.$store.state.user.process.UID);
+        this.$router.push({path: "./marketaudituser", replace:true})
     },
     handleClick(row) {
      

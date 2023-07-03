@@ -73,20 +73,18 @@
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
+import Axios from "axios"
 export default {
+  created(){
+    console.log(this.$store.state.user.process.UID)
+    Axios.post("http://localhost:9090/api/user/selectAll/customer",JSON.stringify(this.$store.state.user.process.UID)).then(ret=>{
+      // console.log(ret.data)
+      this.user=ret.data
+    })
+  },
     data(){
        return{
             user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
             },
             ruleForm:{
               SoftwareName:'',
