@@ -75,6 +75,7 @@ public class ApplicationModel extends BaseEntity {
 
     private String version;
     private String confirmopinion;
+    private Integer auditID;
 
 
 
@@ -159,7 +160,7 @@ public class ApplicationModel extends BaseEntity {
      * }
      * **/
 
-    public ApplicationModel(Integer AID, Integer applicantID, Integer processID, Date time, String phone, String testTYPE, String sNAME, String PA, String PAE, String PB, String PB_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, Integer scale_num, Integer scale_score, Integer scale_lines, String sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, String sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, String MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, String SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor,String version_num,String hOPERATINGENVIRONMENT,String sOPERATINGENVIRONMENT,String mainfunction,String tableid,String version,String confirmopinion) {
+    public ApplicationModel(Integer AID, Integer applicantID, Integer processID, Date time, String phone, String testTYPE, String sNAME, String PA, String PAE, String PB, String PB_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, Integer scale_num, Integer scale_score, Integer scale_lines, String sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, String sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, String MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, String SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor,String version_num,String hOPERATINGENVIRONMENT,String sOPERATINGENVIRONMENT,String mainfunction,String tableid,String version,String confirmopinion,Integer auditID) {
         this.AID = AID;
         this.applicantID = applicantID;
         this.processID = processID;
@@ -215,6 +216,7 @@ public class ApplicationModel extends BaseEntity {
         this.tableid = tableid;
         this.version = version;
         this.confirmopinion = confirmopinion;
+        this.auditID = auditID;
     }
 
 
@@ -626,6 +628,14 @@ public class ApplicationModel extends BaseEntity {
 
     public void setConfirmopinion(String confirmopinion) {
         this.confirmopinion = confirmopinion;
+    }
+
+    public Integer getAuditID() {
+        return auditID;
+    }
+
+    public void setAuditID(Integer auditID) {
+        this.auditID = auditID;
     }
 }
 

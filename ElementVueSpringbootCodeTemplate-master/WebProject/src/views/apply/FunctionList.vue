@@ -15,12 +15,12 @@
   </el-col>
     </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="5">
         <router-link to="/application">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="5" ><div class="grid-content bg-purple">
+      <el-col :span="10" ><div class="grid-content bg-purple">
         <span class="logo-title">申请界面-功能列表</span>
         </div></el-col>
         <el-col :span="8">

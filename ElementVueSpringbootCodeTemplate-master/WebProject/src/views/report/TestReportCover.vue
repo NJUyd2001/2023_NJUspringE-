@@ -2,11 +2,17 @@
 <template>
     <el-container style="height:100%">
       <el-header style="height: 30px " @back="goback">
+        <el-row>
+        <el-col :span="22">
         <el-breadcrumb separator="->">
         <el-breadcrumb-item :to="{ path: '/test' }">测试部主页</el-breadcrumb-item>
         <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
       </el-breadcrumb>
-      <br>
+      </el-col>
+      <el-col :span="2">
+        <el-button style="margin-top: 5px; margin-left: 70px;" size="mini" type="primary">登出</el-button>
+        </el-col>
+        </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="10">
             <router-link to="/test">

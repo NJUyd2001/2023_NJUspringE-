@@ -66,7 +66,8 @@
                     <el-date-picker
                     v-model="value1"
                     type="date"
-                    placeholder="Pick a day">
+                    placeholder="Pick a day"
+                    :picker-options="pickerOptions">
                     </el-date-picker>
                 </div>
             </el-form-item>
@@ -82,8 +83,10 @@
             </el-table-column>
             <el-table-column prop="ReviewResult" label="评审结果" width="120">
               <template slot-scope="scope">
-                <el-radio  v-model="radio" label="1">通过</el-radio>
-                <el-radio  v-model="radio" label="2">不通过</el-radio>
+                <el-radio-group v-model="scope.row.HandleState">
+                <el-radio  v-model="radio" label="1" @change="operation(scope.row)">通过</el-radio>
+                <el-radio  v-model="radio" label="2" >不通过</el-radio>
+                </el-radio-group>
               </template>
             </el-table-column>
           </el-table>
@@ -121,12 +124,27 @@
                 email:'',
                 URL:'',
             },
-            pickerOptions: {
-            disabledDate(time) {
-            return time.getTime() > Date.now();
-            },
-            value1: '',
-            },
+            shortcuts: [{
+            text: 'Today',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: 'Yesterday',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: 'A week ago',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }],
+            value1:'',
             tableData1: [{
             ReviewCategories: '1',
             Reviewitem: '完备性',
@@ -253,6 +271,9 @@
       methods: {
         handleClick() {
         console.log('click');
+        },
+        operation(row){
+        console.log(row);
         },
         list(){
           this.input_type = 'textarea'

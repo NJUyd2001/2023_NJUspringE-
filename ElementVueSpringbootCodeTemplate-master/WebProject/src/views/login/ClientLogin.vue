@@ -85,7 +85,7 @@ export default {
         this.$store.state.user.contactTel=ret.data.contactTel;
         
         if(ret.data.usertype == "C"){
-          this.info("登录成功");
+          this.$message.success("登录成功");
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
           }
         }

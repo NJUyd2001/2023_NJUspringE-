@@ -186,7 +186,7 @@ export default {
       });
     },
     jump2application() {
-      this.$router.push('/auditapplication');
+      this.$router.push('/marketaudituser');
     },
     jump2myinf(){
       this.$router.push('/myinf');

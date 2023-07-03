@@ -8,12 +8,12 @@
       </el-breadcrumb>
       <br>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="10">
+          <el-col :span="2">
             <router-link to="/Market">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="12"><div class="grid-content bg-purple">
+          <el-col :span="20"><div class="grid-content bg-purple">
             <span class="logo-title">委托进度-生成报价单</span>
             </div></el-col>
             <el-col :span="2">
@@ -46,7 +46,6 @@
         <el-row type="flex" justify="center">
             <el-col :span="20">
             <el-form-item label="有效期：">
-                <div class="block">
                     <el-date-picker
                     v-model="ruleForm.Time"
                     type="daterange"
@@ -54,7 +53,6 @@
                     start-placeholder="报价日期"
                     end-placeholder="报价有效期">
                     </el-date-picker>
-                </div>
             </el-form-item>
         </el-col>
         </el-row>

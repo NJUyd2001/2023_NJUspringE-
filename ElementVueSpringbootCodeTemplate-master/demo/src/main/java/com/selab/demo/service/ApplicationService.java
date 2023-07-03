@@ -4,8 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
 import com.selab.demo.dao.ApplicationDao;
+import com.selab.demo.dao.AuditinformationDao;
 import com.selab.demo.model.ApplicationModel;
 import com.selab.demo.dao.TabledataDao;
+import com.selab.demo.model.AuditinformationModel;
 import com.selab.demo.model.TabledataModel;
 import com.selab.demo.model.enums.ARCHITECTURE;
 import com.selab.demo.model.enums.state;
@@ -20,7 +22,9 @@ public class ApplicationService {
     ApplicationDao applicationDao;
     @Autowired
     TabledataDao tabledataDao;
-    private JSONArray stringcrack(String words, JSONArray array){
+    @Autowired
+    AuditinformationDao auditinformationDao;
+    private JSONArray StringtoArray(String words, JSONArray array){
         if(words == null) return array;
         Integer i = words.length();
         Integer j = 0;
@@ -37,6 +41,45 @@ public class ApplicationService {
             j++;
         }
         return array;
+    }
+
+    private JSONArray StringtoArray2(String words){
+        JSONArray array = new JSONArray();
+        if(words == null) return array;
+        Integer i = words.length();
+        Integer j = 0;
+        while (i>j){
+            String unit = new String();
+            while(i>j&&words.charAt(j)!=','){
+                if(words.charAt(j)!='\0')
+                    unit += words.charAt(j);
+                j++;
+            }
+            //unit += '\0';
+            //System.out.print(unit+'\n');
+            array.add(unit);
+            j++;
+        }
+        return array;
+    }
+
+    private String ArraytoString(String words, JSONArray array){
+        Integer r = array.size();
+        if (r != null) {
+            Integer i = 0;
+            while (i < r) {
+                words += array.get(i);
+                if (i < r - 1) {
+                    words += ',';
+                }
+                i++;
+            }
+        }
+        if(r==null)
+        {
+            return null;
+        }
+        return words;
     }
 
     private String JSONrepack(String postJson){
@@ -56,7 +99,7 @@ public class ApplicationService {
             newjsonObject.put("phone",jsonObject.getString("phone"));
             JSONArray typetest = new JSONArray();
             String testTYPE = jsonObject.getString("testTYPE");
-            typetest = stringcrack(testTYPE, typetest) ;
+            typetest = StringtoArray(testTYPE, typetest) ;
             newjsonObject.put("TypeTest",typetest);
             newjsonObject.put("SoftWareName",jsonObject.getString("sNAME"));
             newjsonObject.put("VersionNumber",jsonObject.getString("version_num"));
@@ -68,11 +111,11 @@ public class ApplicationService {
             newjsonObject.put("MainFunction",jsonObject.getString("mainfunction"));
             JSONArray neededstandard = new JSONArray();
             String stestBASIS = jsonObject.getString("stestBASIS");
-            neededstandard = stringcrack(stestBASIS,neededstandard);
+            neededstandard = StringtoArray(stestBASIS,neededstandard);
             newjsonObject.put("NeededStandard",neededstandard);
             JSONArray neededTechnicalIndex = new JSONArray();
             String TESTINDEX = jsonObject.getString("tESTINDEX");
-            neededTechnicalIndex = stringcrack(TESTINDEX,neededTechnicalIndex);
+            neededTechnicalIndex = StringtoArray(TESTINDEX,neededTechnicalIndex);
             newjsonObject.put("NeededTechnicalIndex",neededTechnicalIndex);
             JSONObject softwaresize = new JSONObject();
             softwaresize.put("Number",jsonObject.getString("scale_num"));
@@ -95,7 +138,7 @@ public class ApplicationService {
             JSONObject hardware = new JSONObject();
             JSONArray hardFramework = new JSONArray();
             String hOPERATINGENVIRONMENT = jsonObject.getString("hOPERATINGENVIRONMENT");
-            hardFramework = stringcrack(hOPERATINGENVIRONMENT,hardFramework);
+            hardFramework = StringtoArray(hOPERATINGENVIRONMENT,hardFramework);
             hardware.put("Mermory",jsonObject.getString("hMEMORY"));
             hardware.put("HardDisk",jsonObject.getString("hHARDDISK"));
             hardware.put("OtherDisk",jsonObject.getString("hELSEDEMAND"));
@@ -106,7 +149,7 @@ public class ApplicationService {
             software.put("PL",jsonObject.getString("sLANGUAGE"));
             JSONArray softFramework = new JSONArray();
             String sOPERATINGENVIRONMENT = jsonObject.getString("sOPERATINGENVIRONMENT");
-            softFramework = stringcrack(sOPERATINGENVIRONMENT,softFramework);
+            softFramework = StringtoArray(sOPERATINGENVIRONMENT,softFramework);
             software.put("FrameWork",softFramework);
             software.put("DataBase",jsonObject.getString("sDATABASE"));
             software.put("MiddleWare",jsonObject.getString("sMIDDLEWARE"));
@@ -117,7 +160,7 @@ public class ApplicationService {
             newjsonObject.put("RuntimeEnvironment",runtimeenvironment);
             JSONArray medium = new JSONArray();
             String MEDIUM = jsonObject.getString("mEDIUM");
-            medium = stringcrack(MEDIUM,medium);
+            medium = StringtoArray(MEDIUM,medium);
             newjsonObject.put("SoftwareMedium",medium);
             newjsonObject.put("Document",jsonObject.getString("doc_path1"));
             String samplessubmitted = jsonObject.getString("sAMPLEDELETE");
@@ -378,7 +421,7 @@ public class ApplicationService {
         state m_state  = jsonObject.getObject("m_state",state.class);
         String auditinfor = jsonObject.getString("auditinfor");
 
-        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null,null);
+        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null,null,0);
         applicationDao.insertApp(applicationModel);
         Integer AID = applicationModel.getAID();
         JSONObject jsonObjectAID = new JSONObject();
@@ -773,7 +816,7 @@ public class ApplicationService {
         if(sOPERATINGENVIRONMENT == null)   sOPERATINGENVIRONMENT = oldjsonObject.getString("sOPERATINGENVIRONMENT");
 
 
-        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null,null);
+        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null,null,0);
 
 
         applicationDao.updateapplication(applicationModel);
@@ -920,7 +963,7 @@ public class ApplicationService {
         if(tableid!=null && tableid!=new String()){
 
             JSONArray realtableid = new JSONArray();
-            realtableid = stringcrack(tableid,realtableid);
+            realtableid = StringtoArray(tableid,realtableid);
 
             Integer r = realtableid.size();
             Integer i =0;
@@ -929,6 +972,8 @@ public class ApplicationService {
                 Integer rs = tabledataDao.findbyTID2(TID);
                 if(rs!=null){
                     JSONObject table = JSONObject.parseObject(JSON.toJSONString(tabledataDao.findbyTID(TID).get(0)));
+                    table.put("TID",table.getInteger("tID"));
+                    table.remove("tID");
                     res.add(table);
                 }
                 ++i;
@@ -964,7 +1009,7 @@ public class ApplicationService {
             return ("TID:" + failedTID + " failed, no delete complete");
         }
         JSONArray realtableid = new JSONArray();
-        realtableid = stringcrack(tableid,realtableid);
+        realtableid = StringtoArray(tableid,realtableid);
         Integer r1 = deleteTID.size();
         Integer r2 = realtableid.size();
         Integer i = 0;
@@ -1052,7 +1097,7 @@ public class ApplicationService {
         if(result == null){
             return("the application does not exist");
         }
-        JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)) );
+        JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(applicationDao.findopinion(AID).get(0)) );
         JSONObject res = new JSONObject();
         res.put("ConfirmOpinion",oldjsonObject.getString("confirmopinion"));
         res.put("Views",oldjsonObject.getString("auditinfor"));
@@ -1060,8 +1105,152 @@ public class ApplicationService {
 
     }
 
-}
+    public String insertauditinformation(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer AID = jsonObject.getInteger("AID");
+        Integer result = applicationDao.findbyAID2(AID);
+        if(result == null){
+            return("the application does not exist");
+        }
+        Integer auditID2  = applicationDao.findauditinformation(AID);
+        if(auditID2!=null){
+            //auditinformationDao.delete(auditID2);
+            JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(auditinformationDao.find(auditID2).get(0)) );
+            String security = jsonObject.getString("Security");
+            String finish = jsonObject.getJSONObject("VirusDetection").getString("Finish");
+            String tool = jsonObject.getJSONObject("VirusDetection").getString("Tool");
+            String testsample = new String();
+            testsample = ArraytoString(testsample, jsonObject.getJSONObject("CheckofMaterials").getJSONArray("TestSample"));
+            String requirementdocument = new String();
+            requirementdocument = ArraytoString(requirementdocument, jsonObject.getJSONObject("CheckofMaterials").getJSONArray("RequirementDocument"));
+            String userdocument = new String();
+            userdocument = ArraytoString(userdocument, jsonObject.getJSONObject("CheckofMaterials").getJSONArray("UserDocument"));
+            String operationducument = new String();
+            operationducument = ArraytoString(operationducument, jsonObject.getJSONObject("CheckofMaterials").getJSONArray("OperationDocument"));
+            String other = jsonObject.getJSONObject("CheckofMaterials").getString("Other");
+            String confirmopinion = jsonObject.getString("ConfirmOpinion");
+            String opinionofacceptance = jsonObject.getString("OpinionofAcceptance");
+            String number = jsonObject.getString("Number");
+            String ps = jsonObject.getString("PS");
+            if(security == null){
+                security = oldjsonObject.getString("security");
+            }
+            if(finish == null){
+                finish = oldjsonObject.getString("finish");
+            }
+            if(tool == null){
+                tool = oldjsonObject.getString("tool");
+            }
+            if(testsample == null){
+                testsample  = oldjsonObject.getString("testsample");
+            }
+            if(requirementdocument == null){
+                requirementdocument = oldjsonObject.getString("requirementdocument");
+            }
+            if(userdocument == null){
+                userdocument = oldjsonObject.getString("userdocument");
+            }
+            if(operationducument == null){
+                operationducument = oldjsonObject.getString("operationducument");
+            }
+            if(other == null){
+                other = oldjsonObject.getString("other");
+            }
+            if(confirmopinion == null){
+                confirmopinion = oldjsonObject.getString("confirmopinion");
+            }
+            if(opinionofacceptance == null){
+                opinionofacceptance = oldjsonObject.getString("opinionofacceptance");
+            }
+            if(number == null)
+            {
+                number = oldjsonObject.getString("number");
+            }
+            if(ps == null){
+                ps = oldjsonObject.getString("ps");
+            }
+            AuditinformationModel auditinformationModel = new AuditinformationModel(auditID2, security, finish, tool, testsample, requirementdocument, userdocument, operationducument, other, confirmopinion, opinionofacceptance, number, ps);
+            auditinformationDao.update(auditinformationModel);
+            return "opinion update complete";
+            //Integer auditID = auditinformationModel.getAuditID();
+            //applicationDao.insertauditinformation(auditID, AID);
+        }
+        else {
+            String security = jsonObject.getString("Security");
+            String finish = jsonObject.getJSONObject("VirusDetection").getString("Finish");
+            String tool = jsonObject.getJSONObject("VirusDetection").getString("Tool");
+            String testsample = new String();
+            testsample = ArraytoString(testsample, jsonObject.getJSONObject("CheckofMaterials").getJSONArray("TestSample"));
+            String requirementdocument = new String();
+            requirementdocument = ArraytoString(requirementdocument, jsonObject.getJSONObject("CheckofMaterials").getJSONArray("RequirementDocument"));
+            String userdocument = new String();
+            userdocument = ArraytoString(userdocument, jsonObject.getJSONObject("CheckofMaterials").getJSONArray("UserDocument"));
+            String operationducument = new String();
+            operationducument = ArraytoString(operationducument, jsonObject.getJSONObject("CheckofMaterials").getJSONArray("OperationDocument"));
+            String other = jsonObject.getJSONObject("CheckofMaterials").getString("Other");
+            String confirmopinion = jsonObject.getString("ConfirmOpinion");
+            String opinionofacceptance = jsonObject.getString("OpinionofAcceptance");
+            String number = jsonObject.getString("Number");
+            String ps = jsonObject.getString("PS");
+            AuditinformationModel auditinformationModel = new AuditinformationModel(0, security, finish, tool, testsample, requirementdocument, userdocument, operationducument, other, confirmopinion, opinionofacceptance, number, ps);
+            auditinformationDao.insert(auditinformationModel);
+            Integer auditID = auditinformationModel.getAuditID();
+            applicationDao.insertauditinformation(auditID, AID);
+            return "opinion insert complete";
+        }
 
+    }
+
+    public String findauditinformation(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer AID = jsonObject.getInteger("AID");
+        Integer result = applicationDao.findbyAID2(AID);
+        if(result == null){
+            return("the application does not exist");
+        }
+        Integer auditID = applicationDao.findauditinformation(AID);
+        if(auditID == null){
+            return("AID :"+AID +" has no auditinformation");
+        }
+        JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(auditinformationDao.find(auditID).get(0)) );
+        JSONObject res = new JSONObject();
+        res.put("Security",oldjsonObject.getString("security"));
+        JSONObject vir = new JSONObject();
+        vir.put("Finish",oldjsonObject.getString("finish"));
+        vir.put("Tool",oldjsonObject.getString("tool"));
+        res.put("VirusDetection",vir);
+        JSONObject che = new JSONObject();
+        che.put("TestSample",StringtoArray2(oldjsonObject.getString("testsample")));
+        che.put("RequirementDocument",StringtoArray2(oldjsonObject.getString("requirementdocument")));
+        che.put("UserDocument",StringtoArray2(oldjsonObject.getString("userdocument")));
+        che.put("OperationDocument",StringtoArray2(oldjsonObject.getString("operationducument")));
+        che.put("Other",oldjsonObject.getString("other"));
+        res.put("CheckofMaterials",che);
+        res.put("ConfirmOpinion",oldjsonObject.getString("confirmopinion"));
+        res.put("OpinionofAcceptance",oldjsonObject.getString("opinionofacceptance"));
+        res.put("Number",oldjsonObject.getString("number"));
+        res.put("PS",oldjsonObject.getString("ps"));
+        return JSON.toJSONString(res);
+
+    }
+
+    public String deleteauditinformation(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer AID = jsonObject.getInteger("AID");
+        Integer result = applicationDao.findbyAID2(AID);
+        if(result == null){
+            return("the application does not exist");
+        }
+        Integer auditID = applicationDao.findauditinformation(AID);
+        if(auditID == null){
+            return("AID :"+AID +" has no auditinformation");
+        }
+        auditinformationDao.delete(auditID);
+        applicationDao.insertauditinformation(null,AID);
+        return ("auditinformation delete complete");
+    }
+
+}
 
 
 

@@ -47,22 +47,22 @@
             <el-table :data="tableData1" :span-method="objectSpanMethod" style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="HardwareCategory" label="硬件类别" width="90">
                 <template slot-scope="scope">
-                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.HardwareCategory" :rows="2"  placeholder="Please input"/>
+                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.HardwareCategory" :rows="2"  placeholder="请填写内容"/>
                 </template>
             </el-table-column>
             <el-table-column prop="HardwareName" label="硬件名称" width="100">
                 <template slot-scope="scope">
-                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.HardwareName" :rows="2"  placeholder="Please input"/>
+                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.HardwareName" :rows="2"  placeholder="请填写内容"/>
                 </template>
             </el-table-column>
             <el-table-column prop="Setting" label="配置" width="350">
                 <template slot-scope="scope">
-                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.Setting" :rows="2"  placeholder="Please input"/>
+                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.Setting" :rows="2"  placeholder="请填写内容"/>
                 </template>
             </el-table-column>
             <el-table-column prop="Quantity" label="数量" width="140">
                 <template slot-scope="scope">
-                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.Quantity" :rows="2"  placeholder="Please input"/>
+                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.Quantity" :rows="2"  placeholder="请填写内容"/>
                 </template>
             </el-table-column>
           </el-table>
@@ -73,12 +73,12 @@
                 </el-table-column>
                 <el-table-column prop="SoftwareName" label="软件名称" width="490">
                     <template slot-scope="scope">
-                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.SoftwareName" :rows="2"  placeholder="Please input"/>
+                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.SoftwareName" :rows="2"  placeholder="请填写内容"/>
                 </template>
                 </el-table-column>
                 <el-table-column prop="Edition" label="版本" width="100">
                     <template slot-scope="scope">
-                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.Edition" :rows="2"  placeholder="Please input"/>
+                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.Edition" :rows="2"  placeholder="请填写内容"/>
                 </template>
                 </el-table-column>
             </el-table>

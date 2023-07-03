@@ -63,12 +63,13 @@
             </el-form-item>
           <el-form-item style="margin-top: -15px; margin-left: -150px;" label="评审人:" prop="Reviewer"> 
             <el-input style="width:200px; padding:10px;" v-model="Reviewer"></el-input>
-            <el-form-item style="margin-top: -60px;"  label-width="330px" label="评审完成时间:" prop="ReviewCompleteDate"> 
+            <el-form-item style="margin-top: -50px;"  label-width="330px" label="评审完成时间:" prop="ReviewCompleteDate"> 
                 <div class="block" style="margin-top: 0px; margin-left: 0px;">
                     <el-date-picker
                     v-model="value1"
                     type="date"
-                    placeholder="Pick a day">
+                    placeholder="Pick a day"
+                    :picker-options="pickerOptions">
                     </el-date-picker>
                 </div>
             </el-form-item>
@@ -79,13 +80,15 @@
             <el-table-column prop="ReviewContent" label="评审内容" width="140"></el-table-column>
             <el-table-column prop="ReviewResultExplanation" label="评审结果说明" width="350">
               <template slot-scope="scope">
-                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.ReviewResultExplanation" :rows="2"  placeholder="请填写内容"/>
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.ReviewResultExplanation" :rows="2"  placeholder="请填写内容"/>
               </template>
             </el-table-column>
             <el-table-column prop="ReviewResult" label="评审结果" width="120">
               <template slot-scope="scope">
-                <el-radio  v-model="radio" label="1">通过</el-radio>
-                <el-radio  v-model="radio" label="2">不通过</el-radio>
+                <el-radio-group v-model="scope.row.HandleState">
+                <el-radio  v-model="radio" label="1" @change="operation(scope.row)">通过</el-radio>
+                <el-radio  v-model="radio" label="2" >不通过</el-radio>
+                </el-radio-group>
               </template>
             </el-table-column>
           </el-table>
@@ -122,12 +125,27 @@
                 email:'',
                 URL:'',
             },
-            pickerOptions: {
-            disabledDate(time) {
-            return time.getTime() > Date.now();
-            },
-            value1: '',
-            },
+            shortcuts: [{
+            text: 'Today',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: 'Yesterday',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: 'A week ago',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }],
+            value1:'',
             tableData: [{
             ReviewCategories: '1',
             Reviewitem: '可用性',
@@ -218,8 +236,11 @@
       methods: {
         handleClick() {
         console.log('click');
-      },
-      list(){
+        },
+        operation(row){
+        console.log(row);
+        },
+        list(){
           this.input_type = 'textarea'
            this.$nextTick(function () { 
                if (this.$refs.enterInput) {
