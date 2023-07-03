@@ -1,35 +1,17 @@
 <!-- hdw添加 -->
 <template>
+  <div id="logo">
     <el-container style="height:100%">
-      <el-header style="height: 30px">
-        <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="12"><div class="grid-content bg-purple">
-            <span class="logo-title">管理员操作界面</span>
-            </div></el-col>
-          <el-col :span="4"><div class="grid-content bg-purple-light">
-            <!-- <el-button  plain size="mini" type="primary" @click="handleStart">Hello World</el-button> -->
-          </div></el-col>
-          <el-col :span="8">
-            <div class="grid-content bg-purple-light text-right">
-              <router-link to="/home">
-              <el-button type='success' plain size="middle" style="margin-left:10px">退出</el-button>
-              </router-link>
-              <!-- <span v-if="user != null">
-                <span class="user">{{user.nick}}</span><el-button  plain size="mini"  type="danger" @click="logout">退出</el-button>
-              </span>
-              <span v-else><el-button type="success" plain size="mini" @click="loginOpen">点击登陆</el-button></span> -->
-              <!-- <el-dropdown  @command="switchLang">
-                <el-button  plain size="mini"  type="primary">
-                  {{lang.startsWith('zh') ? '中': 'En' }}<i class="el-icon-arrow-down el-icon--right"></i>
-                </el-button>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="zh">中</el-dropdown-item>
-                  <el-dropdown-item command="en">En</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown> -->
-            </div></el-col>
-        </el-row>
-      </el-header>
+      <el-header style="height: 10%;">
+    <el-row  type="flex" justify="center" align="middle">
+      <el-col :span="8"><div class="grid-content bg-purple">
+        <span style="font-size: 30px; font-weight: 1000;">管理员界面</span>
+        </div></el-col>
+        <el-col :span="12">
+          <img src="../../assets/l3.png" style="height:80px"/>
+        </el-col>
+    </el-row>
+  </el-header>
     
     
       <el-container>
@@ -86,8 +68,15 @@
           </el-tabs>
         </el-main>
       </el-container>
+      <el-footer style="height: 10%;">
+        <p>南京大学 计算机软件新技术国家重点实验室 软件测试中心<br>
+        江苏省 南京市 栖霞区 仙林大道163号南京大学仙林校区计算机科学与技术楼<br>
+        电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
+      </el-footer>
       <LoginDialog :show='showLogin'/>
     </el-container>
+
+    </div>
     </template>
     <script>
     import Vue from "vue";

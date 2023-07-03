@@ -23,19 +23,19 @@
         sortable
         prop="uid"
         label="UID"        
-        width="200">
+        width="180">
       </el-table-column>
       <el-table-column
         prop="regTime"
         sortable
         label="注册时间"
-        width="300">
+        width="280">
       </el-table-column>
       <el-table-column
         sortable
         prop="nickname"
         label="用户名"
-        width="310">
+        width="280">
       </el-table-column>
       <el-table-column
         sortable
@@ -47,7 +47,7 @@
         sortable
         prop="phone"
         label="电话"
-        width="250">
+        width="240">
       </el-table-column>
     </el-table>
 
