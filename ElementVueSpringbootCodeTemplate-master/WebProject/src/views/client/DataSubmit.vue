@@ -5,77 +5,54 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-        <el-breadcrumb-item :to="{ path: '/test' }">测试部主页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/client' }">用户主页</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/client/DataSubmit">软件项目委托测试提交材料</a></el-breadcrumb-item>
       </el-breadcrumb>
       </el-col>
-      <el-col :span="2">
+        <el-col :span="2">
         <el-button style="margin-top: 5px; margin-left: 70px;" size="mini" type="primary">登出</el-button>
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="10">
-            <router-link to="/test">
+          <el-col :span="6">
+            <router-link to="/client">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
           <el-col :span="12" ><div class="grid-content bg-purple">
-            <h1 style="margin-left: 70%;">测试报告</h1>
+            <h1 style="margin-left: 30%;">软件项目委托测试提交材料</h1>
             </div></el-col>
-          <el-col :span="19">
-          <el-steps :space="200" :active="0" finish-status="success">
-          <el-step title="测试报告信息查看"></el-step>
-          <el-step title="测试报告查看"></el-step>
-          <el-step title="测试环境查看"></el-step>
-          <el-step title="测试内容查看"></el-step>
-          <el-step title="完成"></el-step>
-          </el-steps>
-          </el-col>
-          <el-col :span="6" push="3">
-            <router-link to="/report">
-            <el-button style="margin-top: 5px; margin-left: -60px;" size="middle" type="success">下一步</el-button>
-            </router-link>
+          <el-col :span="6" push="4">
+            <el-button style="margin-top: -25px; margin-left: 70px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
         <br><br>
         <el-main>
           <br>
-          <el-form style="margin-top: 50px;" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item  label="软件名称:" label-width="650px">
-              <el-input v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
-            </el-form-item>
-            <el-form-item label="版 本 号:" label-width="650px">
-              <el-input v-model="ruleForm.VersionNumber" style="width: 200px;"></el-input>
-            </el-form-item>
-            <el-form-item  label="委托单位:" label-width="650px">
-              <el-input v-model="ruleForm.Client" style="width: 200px;"></el-input>
-            </el-form-item>
-            <el-form-item  label="测试类别:" label-width="650px">
-              <el-input v-model="ruleForm.TypeTest" style="width: 200px;"></el-input>
-            </el-form-item>
-            <el-form-item  label='报告日期:' label-width="650px">
-              <div class="block">
-                <el-date-picker
-                style="margin-top: 75px; margin-left: -580px;"
-                v-model="ruleForm.date"
-                type="date"
-                placeholder="完成时间选择"
-                :size=large
-                  />
-                </div>
-            </el-form-item>
-          </el-form>
-            <h2>南京大学软件测试中心</h2>
-            <p id="ContractText">声  明<br>
-                1、本测试报告仅适用于本报告明确指出的委托单位的被测样品及版本。<br>
-                2、本测试报告是本中心对所测样品进行科学、客观测试的结果，为被测样品提供第三方独立、客观、公正的重要判定依据，也为最终用户选择产品提供参考和帮助。<br>
-                3、未经本中心书面批准，不得复制本报告中的内容（全文复制除外），以免误导他人（尤其是用户）对被测样品做出不准确的评价。<br>
-                4、在任何情况下，若需引用本测试报告中的结果或数据都应保持其本来的意义，在使用时务必要保持其完整，不得擅自进行增加、修改、伪造，并应征得本中心同意。<br>
-                5、本测试报告不得拷贝或复制作为广告材料使用。<br>
-                6、当被测样品出现版本更新或其它任何改变时，本测试结果不再适用，涉及到的任何技术、模块（或子系统）甚至整个软件都必须按要求进行必要的备案或重新测试，更不能出现将本测试结果应用于低于被测样品版本的情况。<br>
-                7、本报告无编制人员、审核人员、批准人员（授权签字人）签字无效。<br>
-                8、本报告无本中心章、涂改均无效。</p>
+            <p id="ContractText" style="margin-top: 70px; margin-left: 10%;"><strong>一.	软件项目委托测试需要提交的文档： </strong><br>
+                1.	《软件项目委托测试申请表》：<br>
+                (1) 书面一份加盖公章；<br>
+                (2) 电子文档。<br>
+                2.	《委托测试软件功能列表》: <br>
+                (1) 书面一份加盖公章 <br>
+                (2) 电子文档 <br>
+                3.	《软件项目委托测试保密协议》、《软件项目委托测试合同》：格式按照合同及协议规范签订。<br>
+                (1) 书面各两分 <br>
+                (2) 电子文档 <br>
+                4.   软件资料: 包括《用户手册》、《安装手册》、《操作手册》、《维护手册》。(手册要有详细的目录索引、页码标识、文档版本号、技术支持联系方法、公司名称、地址等) <br>
+                (1) 电子文档 <br>
+                5.	《无法检测功能的声明》<br>
+                (1) 书面一份加盖公章 <br>
+                (2) 电子文档 </p>
+          <br>
+            <p id="ContractText" style="margin-top: 70px; margin-left: 10%;"><strong> 二.  提交软件样品： </strong> <br>
+                1.	提交软件样品一套（与《委托测试软件功能列表》一致）；附相应的平台及支持性数据。</p>
+          <br>
+            <p id="ContractText" style="margin-top: 70px; margin-left: 10%;"><strong> 三.	其它  </strong> <br>
+                1.	以上一、二项所要求提交的电子文档集中刻成一张（或按实际情况分开来刻录）光盘里； <br>
+                2.	以上申报材料（书面文档、电子文档）请在签订合同5天内提交我中心； <br>
+                3.	如有疑问请发电子邮件或电话联系。</p>
         </el-main>
       <LoginDialog :show='showLogin'/>
     </el-container>
