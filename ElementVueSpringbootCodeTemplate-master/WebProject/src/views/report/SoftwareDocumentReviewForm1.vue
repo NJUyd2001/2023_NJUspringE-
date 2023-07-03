@@ -63,12 +63,13 @@
             </el-form-item>
           <el-form-item style="margin-top: -15px; margin-left: -150px;" label="评审人:" prop="Reviewer"> 
             <el-input style="width:200px; padding:10px;" v-model="Reviewer"></el-input>
-            <el-form-item style="margin-top: -60px;"  label-width="330px" label="评审完成时间:" prop="ReviewCompleteDate"> 
+            <el-form-item style="margin-top: -50px;"  label-width="330px" label="评审完成时间:" prop="ReviewCompleteDate"> 
                 <div class="block" style="margin-top: 0px; margin-left: 0px;">
                     <el-date-picker
                     v-model="value1"
                     type="date"
-                    placeholder="Pick a day">
+                    placeholder="Pick a day"
+                    :picker-options="pickerOptions">
                     </el-date-picker>
                 </div>
             </el-form-item>
@@ -124,12 +125,27 @@
                 email:'',
                 URL:'',
             },
-            pickerOptions: {
-            disabledDate(time) {
-            return time.getTime() > Date.now();
-            },
-            value1: '',
-            },
+            shortcuts: [{
+            text: 'Today',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: 'Yesterday',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: 'A week ago',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }],
+            value1:'',
             tableData: [{
             ReviewCategories: '1',
             Reviewitem: '可用性',

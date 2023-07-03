@@ -58,10 +58,10 @@
                 <el-date-picker
                 style="margin-left: 20px;"
                 v-model="value1"
-                type="datetimerange"
+                type="daterange"
+                range-separator="To"
                 start-placeholder="起始时间"
                 end-placeholder="预计完成时间"
-                :default-time="defaultTime1"
                 />
             </div>
           </template>
@@ -71,7 +71,7 @@
             <el-form-item style="margin-top: -50px;"  label-width="330px" label="实际完成时间:" prop="ActualFinishDate"> 
                 <div class="block" style="margin-top: 0px; margin-left: 0px;">
                     <el-date-picker
-                    v-model="value1"
+                    v-model="value2"
                     type="date"
                     placeholder="Pick a day">
                     </el-date-picker>
@@ -107,6 +107,35 @@
             Tester:'',
             ActualFinishDate:'',
             Examiner:'',
+            pickerOptions: {
+            shortcuts: [{
+            text: 'Last week',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+            }, {
+            text: 'Last month',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+            }, {
+            text: 'Last 3 months',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        value1: '',
+        value2: '',
             user:{
                 name:'风车村',
                 password:'shazihuang',
@@ -118,12 +147,6 @@
                 mobilephone:'',
                 email:'',
                 URL:'',
-            },
-            pickerOptions: {
-            disabledDate(time) {
-            return time.getTime() > Date.now();
-            },
-            value1: '',
             },
             tableData: [{
             Num: '一、前期指导工作',
