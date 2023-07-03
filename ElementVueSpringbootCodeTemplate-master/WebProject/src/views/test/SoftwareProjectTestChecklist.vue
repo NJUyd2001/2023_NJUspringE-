@@ -15,7 +15,7 @@
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/report">
+            <router-link to="/test">
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
@@ -48,26 +48,27 @@
             <el-input style="width:200px; padding:10px;" v-model="VersionNumber"></el-input>
           </el-form-item>
           </el-form-item> 
-          <el-form-item style="margin-top: -15px; margin-right: 220px;" label="委托单位:" prop="Client"> 
+          <el-form-item style="margin-top: -15px; margin-right: 150px;" label="委托单位:" prop="Client"> 
             <el-input style="width:200px; padding:10px;" v-model="Client"></el-input>
           </el-form-item>
-        <el-form-item>
+        <el-form-item style="margin-left: -220px;">
           <template>
             <div class="block1">
-                <span class="demonstration">起始时间至预计完成时间</span>
+                <span class="demonstration" style="font-weight: lighter;">起始时间至预计完成时间</span>
                 <el-date-picker
+                style="margin-left: 20px;"
                 v-model="value1"
                 type="datetimerange"
-                start-placeholder="Start Date"
-                end-placeholder="Expected Complete Date"
+                start-placeholder="起始时间"
+                end-placeholder="预计完成时间"
                 :default-time="defaultTime1"
                 />
             </div>
           </template>
         </el-form-item>
-          <el-form-item style="margin-top: -15px;" label="主测人:" prop="Tester"> 
+          <el-form-item style="margin-top: -10px; margin-right: 150px;" label="主测人:" prop="Tester"> 
             <el-input style="width:200px; padding:10px;" v-model="Reviewer"></el-input>
-            <el-form-item style="margin-top: -60px;"  label-width="330px" label="实际完成时间:" prop="ActualFinishDate"> 
+            <el-form-item style="margin-top: -50px;"  label-width="330px" label="实际完成时间:" prop="ActualFinishDate"> 
                 <div class="block" style="margin-top: 0px; margin-left: 0px;">
                     <el-date-picker
                     v-model="value1"
@@ -77,17 +78,17 @@
                 </div>
             </el-form-item>
           </el-form-item> 
-          <el-table :data="tableData" :span-method="objectSpanMethod"  style="width: 60%; margin-left: 25%;">
+          <el-table :data="tableData" :span-method="objectSpanMethod"  style="width: 52%; margin-left: 25%;">
             <el-table-column fixed prop="Num" label="序号" width="130"></el-table-column>
             <el-table-column prop="Workflow" label="工作（项目）流程" width="140"></el-table-column>
             <el-table-column prop="IssuesAndPrecautions" label="可预见问题及注意事项" width="450"></el-table-column>
             <el-table-column prop="Confirm" label="确 认" width="120">
               <template slot-scope="scope">
-                    <el-input :type="input_type" ref="enterInput" v-model="scope.row.ReviewResultExplanation" :rows="2"  placeholder="Please input"/>
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Confirm" :rows="2"  placeholder="请填写内容"/>
               </template>
             </el-table-column>
           </el-table>
-          <el-form-item style="margin-right: 20%; margin-top: 20px; font-weight: bold;" label="检查人：" prop="Examiner"> 
+          <el-form-item style="margin-left: 50px; margin-top: 20px; font-weight: bold;" label="检查人：" prop="Examiner"> 
             <el-input style="width:200px; padding:10px;" v-model="Examiner"></el-input>
           </el-form-item>
           </el-form>
@@ -126,9 +127,6 @@
             },
             tableData: [{
             Num: '一、前期指导工作',
-            Workflow: '',
-            IssuesAndPrecautions: '',
-            Confirm: '',
             }, {
             Num: '1',
             Workflow: '接受委托单位委托测试申请',
@@ -441,5 +439,6 @@
    .span .logo-title {
      width: 200px;
    }
+
 
    </style>
