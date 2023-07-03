@@ -16,11 +16,11 @@
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/report">
+            <router-link to="/report/SoftwareDocumentReviewForm1">
             <el-button style="margin-top: -20px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="12" push="6"><div class="grid-content bg-purple">
+          <el-col :span="13" push="6"><div class="grid-content bg-purple">
             <span class="logo-title">软件文档评审表</span>
             </div></el-col>
             <el-col :span="12" push="4" style="margin-left: 20%">
@@ -77,13 +77,15 @@
             <el-table-column prop="ReviewContent" label="评审内容" width="140"></el-table-column>
             <el-table-column prop="ReviewResultExplanation" label="评审结果说明" width="350">
               <template slot-scope="scope">
-                <el-input :type="input_type" ref="enterInput" v-model="scope.row.ReviewResultExplanation" :rows="2"  placeholder="Please input"/>
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.ReviewResultExplanation" :rows="2"  placeholder="请填写内容"/>
               </template>
             </el-table-column>
             <el-table-column prop="ReviewResult" label="评审结果" width="120">
               <template slot-scope="scope">
-                <el-radio  v-model="radio" label="1">通过</el-radio>
-                <el-radio  v-model="radio" label="2">不通过</el-radio>
+                <el-radio-group v-model="scope.row.HandleState">
+                <el-radio  v-model="radio" label="1" @change="operation(scope.row)">通过</el-radio>
+                <el-radio  v-model="radio" label="2" >不通过</el-radio>
+                </el-radio-group>
               </template>
             </el-table-column>
           </el-table>
@@ -98,9 +100,6 @@
     </template>
 
     <script>
-    import { ref } from 'vue'
-    const textarea = ref('')
-    
     export default {
         data(){
            return{
@@ -256,6 +255,9 @@
       methods: {
         handleClick() {
         console.log('click');
+        },
+        operation(row){
+        console.log(row);
         },
         list(){
           this.input_type = 'textarea'

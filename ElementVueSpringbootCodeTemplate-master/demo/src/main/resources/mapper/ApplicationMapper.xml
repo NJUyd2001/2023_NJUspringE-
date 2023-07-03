@@ -62,6 +62,8 @@
         <result property="sOPERATINGENVIRONMENT" column="sOPERATINGENVIRONMENT"/>
         <result property="tableid" column="tableid"/>
         <result property="version" column="version"/>
+        <result property="confirmopinion" column="confirmopinion"/>
+        <result property="auditID" column="auditID"/>
     </resultMap>
 
     <select id="checkbyuser" parameterType="String" resultMap="applicationMap">
@@ -74,16 +76,33 @@
         SELECT * FROM application WHERE AID=#{arg0}
     </select>
     <update id="updateapplicant" parameterType="com.selab.demo.model.ApplicationModel" >
-        UPDATE application
-        SET applicantID = #{applicantID}, processID = #{processID}, time = #{time}, phone = #{phone}, testTYPE = #{testTYPE}, sNAME = #{sNAME}, PA = #{PA}, PAE = #{PAE}, PB = #{PB}, PB_type = #{PB_type}, mainfunction = #{mainfunction}, USS = #{USS}, sDES = #{sDES}, stestBASIS = #{stestBASIS}, elsestestBASIS = #{elsestestBASIS}, TESTINDEX = #{TESTINDEX}, elseINDEX = #{elseINDEX}, scale_num = #{scale_num}, scale_score = #{scale_score}, scale_lines = #{scale_lines}, sTYPE = #{sTYPE}, ENVIRONMENTW = #{ENVIRONMENTW}, ENVIRONMENTL = #{ENVIRONMENTL}, ENVIRONMENTN = #{ENVIRONMENTN}, ENVIRONMENTE = #{ENVIRONMENTE}, ENVIRONMENT = #{ENVIRONMENT}, ARCHITECTURE = #{ARCHITECTURE}, hMEMORY = #{hMEMORY}, hHARDDISK = #{hHARDDISK}, hELSEDEMAND = #{hELSEDEMAND}, sOS = #{sOS}, sVERSION = #{sVERSION}, sLANGUAGE = #{sLANGUAGE}, sARCHITECTURE = #{sARCHITECTURE}, sDATABASE = #{sDATABASE}, sMIDDLEWARE = #{sMIDDLEWARE}, sELSEDEMAND = #{sELSEDEMAND}, MEDIUM = #{MEDIUM}, doc_path1 = #{doc_path1}, doc_path2 = #{doc_path2}, doc_path3 = #{doc_path3}, doc_path4 = #{doc_path4}, SAMPLEDELETE = #{SAMPLEDELETE}, EXDATE = #{EXDATE}, t_state = #{t_state}, m_state = #{m_state}, auditinfor = #{auditinfor}, version_num = #{version_num}, hOPERATINGENVIRONMENT = #{hOPERATINGENVIRONMENT}, sOPERATINGENVIRONMENT = #{sOPERATINGENVIRONMENT}
+        UPDATE selabspringe.application
+        SET applicantID = #{applicantID}, processID = #{processID}, time = #{time}, phone = #{phone}, testTYPE = #{testTYPE}, sNAME = #{sNAME}, PA = #{PA}, PAE = #{PAE}, PB = #{PB}, PB_type = #{PB_type}, mainfunction = #{mainfunction}, USS = #{USS}, sDES = #{sDES}, stestBASIS = #{stestBASIS}, elsestestBASIS = #{elsestestBASIS}, TESTINDEX = #{TESTINDEX}, elseINDEX = #{elseINDEX}, scale_num = #{scale_num}, scale_score = #{scale_score}, scale_lines = #{scale_lines}, sTYPE = #{sTYPE}, ENVIRONMENTW = #{ENVIRONMENTW}, ENVIRONMENTL = #{ENVIRONMENTL}, ENVIRONMENTN = #{ENVIRONMENTN}, ENVIRONMENTE = #{ENVIRONMENTE}, ENVIRONMENT = #{ENVIRONMENT}, ARCHITECTURE = #{ARCHITECTURE}, hMEMORY = #{hMEMORY}, hHARDDISK = #{hHARDDISK}, hELSEDEMAND = #{hELSEDEMAND}, sOS = #{sOS}, sVERSION = #{sVERSION}, sLANGUAGE = #{sLANGUAGE}, sARCHITECTURE = #{sARCHITECTURE}, sDATABASE = #{sDATABASE}, sMIDDLEWARE = #{sMIDDLEWARE}, sELSEDEMAND = #{sELSEDEMAND}, MEDIUM = #{MEDIUM}, doc_path1 = #{doc_path1}, doc_path2 = #{doc_path2}, doc_path3 = #{doc_path3}, doc_path4 = #{doc_path4}, SAMPLEDELETE = #{SAMPLEDELETE}, EXDATE = #{EXDATE}, t_state = #{t_state}, m_state = #{m_state}, auditinfor = #{auditinfor}, version_num = #{version_num}
         WHERE AID=#{AID}
+
     </update>
     <delete id="deleteapplicant" parameterType="int" >
         DELETE FROM application WHERE AID = #{arg0}
     </delete>
     <update id="updateruleform" parameterType="String" >
         UPDATE selabspringe.application
-        SET USS = #{USS}, version = #{version}, tableid = #{tableid}
-        WHERE AID = #{AID}
+        SET USS = #{arg0}, version = #{arg1}, tableid = #{arg2}
+        WHERE AID = #{arg3}
     </update>
+    <update id="insertopinion" parameterType="String" >
+        UPDATE selabspringe.application
+        SET auditinfor = #{arg0}, confirmopinion = #{arg1}
+        WHERE AID = #{arg2}
+    </update>
+    <select id="findopinion" parameterType="int" resultMap="applicationMap">
+        SELECT * FROM application WHERE AID=#{arg0}
+    </select>
+    <update id="insertauditinformation" parameterType="String" >
+        UPDATE selabspringe.application
+        SET auditID = #{arg0}
+        WHERE AID = #{arg1}
+    </update>
+    <select id="findauditinformation" parameterType="int" resultMap="applicationMap">
+        SELECT auditID FROM selabspringe.application WHERE AID=#{arg0}
+</select>
 </mapper>

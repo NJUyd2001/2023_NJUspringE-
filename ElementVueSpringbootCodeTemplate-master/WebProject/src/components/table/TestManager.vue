@@ -23,31 +23,31 @@
       <el-table-column
         fixed
         sortable
-        prop="uid"
-        label="UID"        
+        prop="PID"
+        label="PID"        
         width="200">
       </el-table-column>
       <el-table-column
-        prop="regTime"
+        prop="client_id"
         sortable
         label="注册时间"
         width="300">
       </el-table-column>
       <el-table-column
         sortable
-        prop="nickname"
+        prop="curr_state"
         label="用户名"
         width="310">
       </el-table-column>
       <el-table-column
         sortable
-        prop="emailAddr"
+        prop="price"
         label="邮箱"
         width="250">
       </el-table-column>
       <el-table-column
         sortable
-        prop="phone"
+        prop="notes"
         label="电话"
         width="250">
       </el-table-column>
@@ -61,7 +61,7 @@
 import Axios from "axios"
 export default {
   created(){
-    Axios.get("http://localhost:9090/api/user/selectAll/staff",).then(ret=>{
+    Axios.get("http://localhost:9090/api/process/findbyPID",).then(ret=>{
         console.log(ret.data);
         //console.log(this.datas);
       var i=0;
@@ -97,7 +97,7 @@ export default {
     deleteConfig(row) {
       this.ajax.post("/config/delete?id=" + row.id).then(result => {
         if (result.code == 0) {
-          this.$message.success("delete success");
+          this.info("delete success");
           this.refreshConfig();
         } else {
           this.error(result.msg);

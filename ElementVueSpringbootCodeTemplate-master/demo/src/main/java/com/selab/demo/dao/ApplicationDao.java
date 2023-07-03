@@ -30,4 +30,15 @@ public interface ApplicationDao {
     @Update("UPDATE selabspringe.application SET USS = #{USS}, version = #{version}, tableid = #{tableid} WHERE AID = #{AID}")
     void updateruleform(String USS,String version,String tableid,int AID);
 
+    @Update("UPDATE selabspringe.application SET auditinfor = #{auditinfor}, confirmopinion = #{confirmopinion} WHERE AID = #{AID}")
+    void insertopinion(String auditinfor,String confirmopinion,Integer AID);
+
+    @Select("SELECT * FROM selabspringe.application WHERE AID=#{AID}")
+    List<ApplicationModel> findopinion(Integer AID);
+
+    @Update("UPDATE selabspringe.application SET auditID = #{auditID} WHERE AID = #{AID}")
+    void insertauditinformation(Integer auditID,Integer AID);
+
+    @Select("SELECT auditID FROM selabspringe.application WHERE AID=#{AID}")
+    Integer findauditinformation(Integer AID);
 }

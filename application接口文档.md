@@ -260,8 +260,8 @@ the application does not exist
 ```
 delete complete
 ```
-## /application/insertruleform
-为指定的application插入ruleform
+## /application/inserttabledata
+为指定的application插入tabledata
 
 输入：
 
@@ -288,10 +288,10 @@ the application does not exist
 ```
 输出示例2：（插入成功）
 ```
-ruleForm insert complete
+tabledata insert complete
 ```
-## /application/updateruleform
-为指定的application更新指定的ruleform信息
+## /application/updatetabledata
+为指定的application更新指定的tabledata信息
 
 输入：
 
@@ -325,14 +325,14 @@ the application does not exist
 ```
 输出示例2：（全部更新成功）
 ```
-ruleForm update complete
+tabledata update complete
 ```
 输出示例3：（部分更新成功）
 ```
-TID:2 failed, but other ruleForm update complete
+TID:2 failed, but other tabledata update complete
 ```
-## /application/getruleform
-查询对应AID的application下的所有ruleform
+## /application/gettabledata
+查询对应AID的application下的所有tabledata以及softwarename与versions
 
 输入示例：
 ```
@@ -340,7 +340,6 @@ TID:2 failed, but other ruleForm update complete
     "AID":"34"
 }
 ```
-输出：所有ruleform组成的list
 
 输出示例1：（AID对应的application不存在）
 ```
@@ -352,10 +351,10 @@ the application does not exist
 ```
 输出示例3：
 ```
-[{"functions":"","name":"","id":1,"tID":3},{"functions":"","name":"","id":1,"tID":6}]
+{"Versions":"1","TableData":[{"functions":"","name":"","id":1,"tID":3},{"functions":"","name":"","id":1,"tID":6}],"SoftwareName":"1"}
 ```
-## /application/deleteruleform
-删除对应AID的application下对应TID的ruleform
+## /application/deletetabledata
+删除对应AID的application下对应TID的tabledata
 
 输入：AID和一个所有需要删除的TID组成的JSONArray
 
@@ -376,9 +375,130 @@ TID:1，2 failed, no delete complete
 ```
 输出示例3：（部分删除成功）
 ```
-TID:2 failed,  but other ruleForm delete complete
+TID:2 failed,  but other tabledata delete complete
 ```
 输出示例4：（删除成功）
 ```
-ruleForm delete complete
+tabledata delete complete
+```
+## /application/insertopinion
+更新对应AID的application下的opinion信息，可重复更新
+
+输入示例：
+```
+{
+    "AID":"34",
+    "Views":"1",
+    "ConfirmOpinion":"1"
+}
+
+```
+输出示例1：（AID对应的application不存在）
+```
+the application does not exist
+```
+输出示例2：
+```
+opinion insert complete
+```
+
+## /application/findopinion
+查看对应AID下的opinion
+
+输入示例：
+```
+{
+    "AID":"34"
+}
+
+```
+输出示例1：（AID对应的application不存在）
+```
+the application does not exist
+```
+输出示例2：
+```
+{"Views":"1","ConfirmOpinion":"1"}
+```
+
+## /application/insertauditinformation
+为对应AID的application添加/修改auditinformation，如果没有auditinformation就是添加，如果有就是修改
+
+输入示例：
+```
+{ 
+    "AID":"34",
+    "Security":"''",    
+    "VirusDetection":{
+        "Finish":"",
+        "Tool":"''"
+    },
+    "CheckofMaterials":{
+        "TestSample":["1","2"],
+        "RequirementDocument":["1"],
+        "UserDocument":["2","3"],
+        "OperationDocument":["ji","ni","tai","mei"],
+        "Other":""
+    },
+    "ConfirmOpinion":"",
+    "OpinionofAcceptance":"''",
+    "Number":"''",
+    "PS":"''"
+}
+```
+输出示例1：（AID对应的application不存在）
+```
+the application does not exist
+```
+输出示例2：（添加）
+```
+opinion insert complete
+```
+输出示例3：（修改）
+```
+opinion update complete
+```
+
+## /application/findauditinformation
+查询对应AID的application下的auditinformation
+
+输入示例：
+```
+{
+    "AID":"34"
+}
+```
+输出示例1：（AID对应的application不存在）
+```
+the application does not exist
+```
+输出示例2：（AID对应的application下没有auditinformation）
+```
+AID :34 has no auditinformation
+```
+输出示例3：
+```
+{"VirusDetection":{"Finish":"","Tool":"''"},"OpinionofAcceptance":"''","PS":"''","Number":"''","CheckofMaterials":{"TestSample":["1","2"],"UserDocument":["2","3"],"OperationDocument":["ji","ni","tai","mei"],"RequirementDocument":["1"],"Other":""},"Security":"''","ConfirmOpinion":""}
+```
+
+## /application/deleteauditinformation
+删除对应AID的application下的auditinformation
+
+输入示例：
+```
+{
+    "AID":"34"
+}
+```
+输出示例1：（AID对应的application不存在）
+```
+the application does not exist
+```
+输出示例2：（AID对应的application下没有auditinformation）
+```
+AID :34 has no auditinformation
+```
+输出示例3：
+```
+auditinformation delete complete
 ```

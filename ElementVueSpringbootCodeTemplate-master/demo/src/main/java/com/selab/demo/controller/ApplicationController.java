@@ -41,27 +41,49 @@ public class ApplicationController {
     public String deleteapplication(@RequestBody String postJson){
         return applicationService.deleteapplication(postJson);
     }
-    @RequestMapping("/insertruleform")
+    @RequestMapping("/inserttabledata")
     public String insertruleform(@RequestBody String postJson){
         return  applicationService.insertruleform(postJson);
     }
 
-    @RequestMapping("/updateruleform")
+    @RequestMapping("/updatetabledata")
     public String updateruleform(@RequestBody String postJson){
         return  applicationService.updateruleform(postJson);
     }
 
-    @RequestMapping("/getruleform")
+    @RequestMapping("/gettabledata")
     public String getruleform(@RequestBody String postJson){
         return  applicationService.getruleform(postJson);
     }
 
-    @RequestMapping("/deleteruleform")
+    @RequestMapping("/deletetabledata")
     public String deleteruleform(@RequestBody String postJson){
         return  applicationService.deleteruleform(postJson);
     }
+    @RequestMapping("/insertopinion")
+    public String insertopinion(@RequestBody String postJson){
+        return  applicationService.insertopinion(postJson);
+    }
 
+    @RequestMapping("/findopinion")
+    public String findopinion(@RequestBody String postJson){
+        return applicationService.findopinion(postJson);
+    }
 
+    @RequestMapping("/insertauditinformation")
+    public String insertauditinformation(@RequestBody String postJson){
+        return applicationService.insertauditinformation(postJson);
+    }
+
+    @RequestMapping("/findauditinformation")
+    public String findauditinformation(@RequestBody String postJson){
+        return applicationService.findauditinformation(postJson);
+    }
+
+    @RequestMapping("/deleteauditinformation")
+    public String deleteauditinformation(@RequestBody String postJson){
+        return applicationService.deleteauditinformation(postJson);
+    }
 
 
 
