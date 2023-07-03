@@ -378,7 +378,7 @@ public class ApplicationService {
         state m_state  = jsonObject.getObject("m_state",state.class);
         String auditinfor = jsonObject.getString("auditinfor");
 
-        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null);
+        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null,null);
         applicationDao.insertApp(applicationModel);
         Integer AID = applicationModel.getAID();
         JSONObject jsonObjectAID = new JSONObject();
@@ -773,7 +773,7 @@ public class ApplicationService {
         if(sOPERATINGENVIRONMENT == null)   sOPERATINGENVIRONMENT = oldjsonObject.getString("sOPERATINGENVIRONMENT");
 
 
-        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null);
+        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null,null);
 
 
         applicationDao.updateapplication(applicationModel);
@@ -836,7 +836,7 @@ public class ApplicationService {
             versions = oldjsonObject.getString("Versions");
         }
         applicationDao.insertruleform(USS,versions,tableid,AID);
-        return("ruleForm insert complete");
+        return("tabledata insert complete");
     }
 
     public String updateruleform(String postJson){
@@ -897,11 +897,11 @@ public class ApplicationService {
         applicationDao.updateruleform(USS,versions,tableid,AID);
         if(failedTID == new String())
         {
-            return("ruleForm update complete");
+            return("tabledata update complete");
         }
         else {
             failedTID = failedTID.substring(0,failedTID.length()-1);
-            return ("TID:"+failedTID+ " failed, but other ruleForm update complete");
+            return ("TID:"+failedTID+ " failed, but other tabledata update complete");
         }
     }
     public String getruleform(String postJson){
@@ -911,8 +911,11 @@ public class ApplicationService {
         if (result == null) {
             return ("the application does not exist");
         }
+        JSONObject a = new JSONObject();
+
         JSONArray res = new JSONArray();
         JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)) );
+
         String tableid = oldjsonObject.getString("tableid");
         if(tableid!=null && tableid!=new String()){
 
@@ -931,7 +934,12 @@ public class ApplicationService {
                 ++i;
             }
         }
-        return JSON.toJSONString(res);
+
+
+        a.put("SoftwareName",oldjsonObject.getString("uSS"));
+        a.put("Versions",oldjsonObject.getString("version"));
+        a.put("TableData",res);
+        return JSON.toJSONString(a);
     }
     public String deleteruleform(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
@@ -1013,14 +1021,42 @@ public class ApplicationService {
         newtableid = newtableid.substring(0,newtableid.length()-1);
         applicationDao.updateruleform(USS,versions,newtableid,AID);
         if(failedTID == new String()){
-            return("ruleForm delete complete");
+            return("tabledata delete complete");
         }
         else{
             failedTID = failedTID.substring(0,newtableid.length()-1);
-            return ("TID:" + failedTID +" failed, but other ruleForm delete complete");
+            return ("TID:" + failedTID +" failed, but other tabledata delete complete");
         }
 
 
+
+    }
+
+    public String insertopinion(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer AID = jsonObject.getInteger("AID");
+        Integer result = applicationDao.findbyAID2(AID);
+        if(result == null){
+            return("the application does not exist");
+        }
+        String auditinfor = jsonObject.getString("Views");
+        String confirmopinion = jsonObject.getString("ConfirmOpinion");
+        applicationDao.insertopinion(auditinfor,confirmopinion,AID);
+        return("opinion insert complete");
+    }
+
+    public String findopinion(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer AID = jsonObject.getInteger("AID");
+        Integer result = applicationDao.findbyAID2(AID);
+        if(result == null){
+            return("the application does not exist");
+        }
+        JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)) );
+        JSONObject res = new JSONObject();
+        res.put("ConfirmOpinion",oldjsonObject.getString("confirmopinion"));
+        res.put("Views",oldjsonObject.getString("auditinfor"));
+        return JSON.toJSONString(res);
 
     }
 
