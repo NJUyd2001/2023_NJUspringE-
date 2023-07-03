@@ -408,7 +408,7 @@ opinion insert complete
 输入示例：
 ```
 {
-    "AID":"34",
+    "AID":"34"
 }
 
 ```
