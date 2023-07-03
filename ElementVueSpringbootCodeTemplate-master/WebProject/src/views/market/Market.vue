@@ -50,17 +50,17 @@
             <span>生成报价</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="0-2" @click="addTab('委托审核结果', 'SelectUser')">委托审核结果</el-menu-item>
+            <el-menu-item index="0-2" @click="addTab('个人信息完善', 'MyInformation')">委托审核结果</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
         <el-submenu index="9">
           <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span>设置</span>
+            <i class="el-icon-user"></i>
+            <span>我的</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="9-1" @click="addTab('用户信息', 'ConfigTable2')">用户信息</el-menu-item>
+            <el-menu-item index="9-1" @click="jump2myinf()">用户信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -187,6 +187,9 @@ export default {
     },
     jump2application() {
       this.$router.push('/auditapplication');
+    },
+    jump2myinf(){
+      this.$router.push('/myinf');
     },
     addTab(targetName, commentName) {
       // 如果已经存在
