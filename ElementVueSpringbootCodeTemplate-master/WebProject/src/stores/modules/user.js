@@ -5,6 +5,7 @@ const user = {
         name: '期末', 
         password: '吸氧',
         Permissions:"t",
+        AID:"0",
     },
     mutations: {
         changename (state,newname){

@@ -17,8 +17,8 @@ public class MessageService {
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
-        int sender_id = jsonObject.getInteger("sender_id");
-        int receiver_id = jsonObject.getInteger("receiver_id");
+        Integer sender_id = jsonObject.getInteger("sender_id");
+        Integer receiver_id = jsonObject.getInteger("receiver_id");
         Date regTime = jsonObject.getDate("regTime");
         String message = jsonObject.getString("message");
         String doc_ex_path = jsonObject.getString("doc_ex_path");
@@ -31,41 +31,53 @@ public class MessageService {
 
     public String findbyMID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        int MID = jsonObject.getInteger("MID");
+        Integer MID = jsonObject.getInteger("MID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(messageDao.findbyMID(MID)));
-        return JSON.toJSONString(res);
+        return JSON.toJSONString(messageDao.findbyMID(MID));
     }
 
     public String findbysender_id(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        int sender_id = jsonObject.getInteger("sender_id");
+        Integer sender_id = jsonObject.getInteger("sender_id");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(messageDao.finfbysender_id(sender_id)));
-        return JSON.toJSONString(res);
+        return JSON.toJSONString(messageDao.finfbysender_id(sender_id));
     }
 
     public String findbyreceiver_id(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        int receiver_id = jsonObject.getInteger("receiver_id");
+        Integer receiver_id = jsonObject.getInteger("receiver_id");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(messageDao.findbyreceiver_id(receiver_id)));
-        return JSON.toJSONString(res);
+        return JSON.toJSONString(messageDao.findbyreceiver_id(receiver_id));
     }
 
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        int MID = jsonObject.getInteger("MID");
-        int sender_id = jsonObject.getInteger("sender_id");
-        int receiver_id = jsonObject.getInteger("receiver_id");
+        Integer MID = jsonObject.getInteger("MID");
+        Integer sender_id = jsonObject.getInteger("sender_id");
+        Integer receiver_id = jsonObject.getInteger("receiver_id");
         Date regTime = jsonObject.getDate("regTime");
         String message = jsonObject.getString("message");
         String doc_ex_path = jsonObject.getString("doc_ex_path");
         String checker = messageDao.findbyMID2(MID);
         if(checker == null){
-            return ("the process does not exist");
+            return ("the messages does not exist");
         }
         else{
+            JSONObject oldjsonObject =  JSONObject.parseObject(JSON.toJSONString(messageDao.findbyMID(MID).get(0)) ) ;
+            if(sender_id == null)
+                sender_id = oldjsonObject.getInteger("sender_id");
+            if(receiver_id == null)
+                receiver_id = jsonObject.getInteger("receiver_id");
+            if(regTime == null)
+                regTime = jsonObject.getDate("regTime");
+            if(message == null)
+                message = jsonObject.getString("message");
+            if(doc_ex_path == null)
+                doc_ex_path = jsonObject.getString("doc_ex_path");
+
             MessageModel  messageModel = new MessageModel(MID,sender_id,receiver_id,regTime,message,doc_ex_path);
             messageDao.update(messageModel);
             return ("message update complete");
@@ -73,7 +85,7 @@ public class MessageService {
     }
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        int MID = jsonObject.getInteger("MID");
+        Integer MID = jsonObject.getInteger("MID");
         String checker = messageDao.findbyMID2(MID);
         if(checker == null){
             return ("the process does not exist");

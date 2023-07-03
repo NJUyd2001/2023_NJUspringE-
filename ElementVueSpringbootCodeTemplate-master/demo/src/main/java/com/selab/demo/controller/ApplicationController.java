@@ -2,12 +2,11 @@ package com.selab.demo.controller;
 
 import com.selab.demo.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
+@CrossOrigin
 @RequestMapping("/application")
 public class ApplicationController {
     @Autowired
@@ -32,6 +31,8 @@ public class ApplicationController {
     public String checkbyAID(@RequestBody String postJson){
         return applicationService.checkbyAID(postJson);
     }
+    @RequestMapping("/getallAID")
+    public  String findAID(@RequestBody String postJson){return applicationService.findAID(postJson);}
     @RequestMapping("/updateapplication")
     public String updatrapplication(@RequestBody String postJson){
         return applicationService.updateapplication(postJson);
@@ -40,9 +41,34 @@ public class ApplicationController {
     public String deleteapplication(@RequestBody String postJson){
         return applicationService.deleteapplication(postJson);
     }
+    @RequestMapping("/inserttabledata")
+    public String insertruleform(@RequestBody String postJson){
+        return  applicationService.insertruleform(postJson);
+    }
 
+    @RequestMapping("/updatetabledata")
+    public String updateruleform(@RequestBody String postJson){
+        return  applicationService.updateruleform(postJson);
+    }
 
+    @RequestMapping("/gettabledata")
+    public String getruleform(@RequestBody String postJson){
+        return  applicationService.getruleform(postJson);
+    }
 
+    @RequestMapping("/deletetabledata")
+    public String deleteruleform(@RequestBody String postJson){
+        return  applicationService.deleteruleform(postJson);
+    }
+    @RequestMapping("/insertopinion")
+    public String insertopinion(@RequestBody String postJson){
+        return  applicationService.insertopinion(postJson);
+    }
+
+    @RequestMapping("/findopinion")
+    public String findopinion(@RequestBody String postJson){
+        return applicationService.findopinion(postJson);
+    }
 
 
 

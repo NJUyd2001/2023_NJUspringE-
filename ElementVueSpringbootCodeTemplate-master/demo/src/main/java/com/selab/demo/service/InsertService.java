@@ -28,14 +28,6 @@ public class InsertService{
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         String dataString = jsonObject.getString("data");
-        try {
-            insertDao.insertTest(dataString);
-        } catch (Exception e){
-            if (e instanceof DuplicateKeyException){
-                return e.getMessage();
-            }
-        }
-
         return "success";
     }
 }
