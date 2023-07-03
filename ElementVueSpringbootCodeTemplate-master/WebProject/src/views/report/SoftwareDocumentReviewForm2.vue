@@ -97,10 +97,7 @@
     </el-container>
     </template>
 
-    <script>
-    import { ref } from 'vue'
-    const textarea = ref('')
-    
+    <script>    
     export default {
         data(){
            return{
