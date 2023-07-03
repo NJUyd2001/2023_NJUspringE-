@@ -9,13 +9,6 @@
           <div class="user_name">
             <span> {{ user.uname }} </span>
           </div>
-          <div class="user-v" v-if="v === 3">
-            <img src="../../assets/nju.png" class="user-v-img" />
-            <span class="user-v-font">优质媒体作者</span>
-          </div>
-          <div class="user_qianming">
-            <span> {{ design }}</span>
-          </div>
           <div class="user_anniu">
             <el-button
               class="el-icon-edit"
@@ -38,40 +31,18 @@
               >个人中心</span
             >
           </div>
-          <!-- <div
-            class="person_body_list"
-            v-for="(item, index) in person_body_list"
-            :key="index"
-          >
-            <router-link :to="{ name: item.name, params: item.params }">{{
-              item.label
-            }}</router-link>
-          </div> -->
           <el-menu
             router
             active-text-color="#00c3ff"
             class="el-menu-vertical-demo"
           >
-            <el-menu-item
-              index="Info"
-              :route="{ name: 'Info', params: $route.params.id }"
-            >
+            <el-menu-item>
               <i class="el-icon-user"></i>
               <span slot="title">个人简介</span>
             </el-menu-item>
-
-            <el-menu-item
-              index="myarticle"
-            >
+            <el-menu-item>
               <i class="el-icon-edit"></i>
               <span slot="title" @click="edit">编辑</span>
-            </el-menu-item>
-            <el-menu-item
-              index="mycollect"
-              :route="{ name: 'mycollect', params: $route.params.id }"
-            >
-              <i class="el-icon-close"></i>
-              <span slot="title">登出</span>
             </el-menu-item>
           </el-menu>
         </el-card>
@@ -79,9 +50,6 @@
       <div >
     <el-card class="person_body_right">
       <el-descriptions class="margin-top" title="简介" :column="2" border>
-        <template slot="extra">
-          <el-button type="primary" v-if="$route.params.id==$store.state.id" size="small">操作</el-button>
-        </template>
         <el-descriptions-item>
           <template slot="label">
             <i class="el-icon-user"></i>
@@ -185,15 +153,6 @@ export default {
   },
   mounted() {
   },
-  watch: {
-    $route(to, from) {
-      if (to.path == `/newsuser/personal/${this.$store.state.id}`) {
-        this.reload();
-      } else if (to.path == `/newsuser/personal/${this.$route.params.id}`) {
-        this.reload();
-      }
-    },
-  },
   methods: {
 
     addTab(targetName, commentName) {
@@ -213,62 +172,6 @@ export default {
       this.selectTabName = commentName;
     },
 
-    myfan() {
-      this.$router.push({
-        path: `/newsuser/personal/myfan/${this.$route.params.id}`,
-      });
-    },
-    myfollow() {
-      this.$router.push({
-      path:`/newsuser/personal/myfollow/${this.$route.params.id}`,
-      });
-    },
-    follow() {
-      if (!this.$store.state.id) {
-        this.$message({
-          showClose: true,
-          message: "请登录后再进行操作哦",
-          type: "warning",
-        });
-      } else {
-        this.followData.followId = this.$route.params.id;
-        this.followData.fanId = this.$store.state.id;
-        if (this.isfollowid.indexOf(this.followData.followId) > -1) {
-          this.isfollow = true;
-        } else {
-          this.isfollow = false;
-        }
-        if (this.isfollow) {
-          deleteFollow(this.followData)
-            .then((res) => {
-              this.isfollow = false;
-              this.$message({
-                showClose: true,
-                message: "已取消关注",
-                type: "success",
-              });
-              this.reload();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else if (!this.isfollow) {
-          addFollow(this.followData)
-            .then((res) => {
-              this.isfollow = true;
-              this.$message({
-                showClose: true,
-                message: "已成功关注",
-                type: "success",
-              });
-              this.reload();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      }
-    },
     edit() {
       this.$refs.dia.open();
     },
@@ -288,13 +191,6 @@ export default {
   z-index: 0;
   top: 0;
 }
-/* .Person{
-  background: url("../../assets/b3.jpg");
-  background-size: 100% 100%;
-  height: 100%;
-  position: fixed;
-  width: 100%
-} */
 .PersonTop {
   width: 75%;
   height: 140px;

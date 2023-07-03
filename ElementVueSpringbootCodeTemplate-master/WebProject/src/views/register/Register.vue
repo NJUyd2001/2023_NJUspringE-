@@ -34,12 +34,16 @@
         <el-form-item label="电话" prop="phone">
           <el-input v-model="ruleForm.phone"></el-input>
         </el-form-item>
-        <el-form-item label="所属部门">
-          <el-radio-group v-model="ruleForm.type">
-          <el-radio  label="M">市场部</el-radio>
-          <el-radio  label="T">测试部</el-radio>
-        </el-radio-group>
-        </el-form-item>
+        
+        <el-form-item label="用户类型" prop="type">
+        <el-select v-model="ruleForm.type" allow-create filterable>
+        <el-option label="授权签字人" value="A"></el-option>
+        <el-option label="测试部" value="T"></el-option>
+        <el-option label="市场部" value="M"></el-option>
+        <el-option label="测试部主管" value="TL"></el-option>
+        <el-option label="质量部" value="Q"></el-option>
+        </el-select>
+       </el-form-item>
         <el-form-item label="邮箱" prop="emailAddr">
           <el-input
             v-model="ruleForm.emailAddr"
@@ -49,7 +53,7 @@
       <el-button type="primary" @click="submitForm('ruleForm')" style = "margin: 18px"
           >提交</el-button>
         <el-button @click="resetForm('ruleForm')" style = "margin: 18px">重置</el-button>
-        <el-button @click="goBack">登录</el-button>
+        <el-button @click="goBack">返回</el-button>
     </el-card>
   </div>
 </template>
@@ -95,11 +99,11 @@ export default {
           { required: true, validator: validatePass2, trigger: "blur" },
           {min: 6, max: 10, message: '名称长度在6到10个字符', trigger: 'blur'},
         ],
-        email: [
+        emailAddr: [
           { required: true, message: "邮箱不能为空！", trigger: "blur" },
           {pattern: /(^[a-zA-Z]\w{5,17}@((126|163)\.com|yeah\.net)$)|(^[1-9]\d{4,10}@qq\.com$)/, message:"邮箱格式不符合规则"}
         ],
-        department: [
+        type: [
           { required: true,message: "请选择您的部门", trigger: "blur" },
         ],
         phone: [
@@ -107,6 +111,20 @@ export default {
           {pattern: /^[1]+[3,5,8]+\d{9}$/, message: "请输入正确的电话号码"}
         ],
       },
+      TypeOfTest:[
+              {
+                id:1,
+                value:"M",
+              },
+              {
+                id:2,
+                value:"T",
+              },
+              {
+                id:3,
+                value:"A",
+              },
+            ],
     };
   },
   methods: {
