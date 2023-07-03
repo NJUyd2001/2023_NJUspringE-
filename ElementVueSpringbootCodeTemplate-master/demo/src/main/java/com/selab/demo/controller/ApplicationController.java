@@ -70,6 +70,21 @@ public class ApplicationController {
         return applicationService.findopinion(postJson);
     }
 
+    @RequestMapping("/insertauditinformation")
+    public String insertauditinformation(@RequestBody String postJson){
+        return applicationService.insertauditinformation(postJson);
+    }
+
+    @RequestMapping("/findauditinformation")
+    public String findauditinformation(@RequestBody String postJson){
+        return applicationService.findauditinformation(postJson);
+    }
+
+    @RequestMapping("/deleteauditinformation")
+    public String deleteauditinformation(@RequestBody String postJson){
+        return applicationService.deleteauditinformation(postJson);
+    }
+
 
 
 }

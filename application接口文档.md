@@ -412,7 +412,93 @@ opinion insert complete
 }
 
 ```
-输出示例：
+输出示例1：（AID对应的application不存在）
+```
+the application does not exist
+```
+输出示例2：
 ```
 {"Views":"1","ConfirmOpinion":"1"}
+```
+
+## /application/insertauditinformation
+为对应AID的application添加/修改auditinformation，如果没有auditinformation就是添加，如果有就是修改
+
+输入示例：
+```
+{ 
+    "AID":"34",
+    "Security":"''",    
+    "VirusDetection":{
+        "Finish":"",
+        "Tool":"''"
+    },
+    "CheckofMaterials":{
+        "TestSample":["1","2"],
+        "RequirementDocument":["1"],
+        "UserDocument":["2","3"],
+        "OperationDocument":["ji","ni","tai","mei"],
+        "Other":""
+    },
+    "ConfirmOpinion":"",
+    "OpinionofAcceptance":"''",
+    "Number":"''",
+    "PS":"''"
+}
+```
+输出示例1：（AID对应的application不存在）
+```
+the application does not exist
+```
+输出示例2：（添加）
+```
+opinion insert complete
+```
+输出示例3：（修改）
+```
+opinion update complete
+```
+
+## /application/findauditinformation
+查询对应AID的application下的auditinformation
+
+输入示例：
+```
+{
+    "AID":"34"
+}
+```
+输出示例1：（AID对应的application不存在）
+```
+the application does not exist
+```
+输出示例2：（AID对应的application下没有auditinformation）
+```
+AID :34 has no auditinformation
+```
+输出示例3：
+```
+{"VirusDetection":{"Finish":"","Tool":"''"},"OpinionofAcceptance":"''","PS":"''","Number":"''","CheckofMaterials":{"TestSample":["1","2"],"UserDocument":["2","3"],"OperationDocument":["ji","ni","tai","mei"],"RequirementDocument":["1"],"Other":""},"Security":"''","ConfirmOpinion":""}
+```
+
+## /application/deleteauditinformation
+删除对应AID的application下的auditinformation
+
+输入示例：
+```
+{
+    "AID":"34"
+}
+```
+输出示例1：（AID对应的application不存在）
+```
+the application does not exist
+```
+输出示例2：（AID对应的application下没有auditinformation）
+```
+AID :34 has no auditinformation
+```
+输出示例3：
+```
+auditinformation delete complete
 ```
