@@ -193,7 +193,7 @@ export default {
       });
     },
     jump2application() {
-      this.$router.push('/auditapplication');
+      this.$router.push('/marketaudituser');
     },
     addTab(targetName, commentName) {
       // 如果已经存在

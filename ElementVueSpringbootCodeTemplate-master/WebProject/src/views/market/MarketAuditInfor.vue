@@ -17,15 +17,15 @@
   </el-col> 
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="5">
         <router-link to="/marketauditfunctionlist">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="3" ><div class="grid-content bg-purple">
-        <span class="logo-title">审核意见查看</span>
+      <el-col :span="6" ><div class="grid-content bg-purple">
+        <span class="logo-title">审核信息填写</span>
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="12">
         <el-steps :space="200" :active="StepNumber" finish-status="success" >
           <el-step title="客户信息查看"></el-step>
           <el-step title="申请表查看"></el-step>
@@ -81,7 +81,7 @@ export default {
       //     return false;
       //   }
       // });
-      this.info("提交成功，正在返回测试部界面！");
+      this.$message.success("提交成功，正在返回测试部界面！");
       this.StepNumber+=2;
       setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
     },

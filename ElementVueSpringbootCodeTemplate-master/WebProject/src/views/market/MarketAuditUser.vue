@@ -14,15 +14,15 @@
   </el-col>
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="5">
         <router-link to="/market">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="3" ><div class="grid-content bg-purple">
+      <el-col :span="7" ><div class="grid-content bg-purple">
         <span class="logo-title">客户信息审核</span>
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="12">
         <el-steps :space="200" :active="0" finish-status="success" >
           <el-step title="客户信息审核"></el-step>
           <el-step title="申请表审核"></el-step>
@@ -31,7 +31,7 @@
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-       <el-col :span="1">
+       <el-col :span="2">
          <router-link to="/marketauditapplication">
 	          <el-button type="success" style="margin: 14px">下一步</el-button>
         </router-link>
@@ -41,6 +41,7 @@
     <br><br><br>
     <el-main >
       <el-form label-width="550px" disabled :model="ruleForm" ref="ruleForm">
+        <br>
         <el-form-item label="电话：">
           <el-input v-model="telephone" style="width: 200px;"></el-input>
         </el-form-item>

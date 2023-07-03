@@ -1,11 +1,15 @@
 const user = {
     namespaced: true,
     state: {
-        id: 0,
+        id: "0",
         name: '期末', 
         password: '吸氧',
         Permissions:"t",
-        AID:"0",
+        process:{
+            UID:"0",
+            AID:"0",
+        },
+        
     },
     mutations: {
         changename (state,newname){

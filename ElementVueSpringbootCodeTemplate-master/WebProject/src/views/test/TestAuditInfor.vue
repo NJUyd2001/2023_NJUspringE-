@@ -18,15 +18,15 @@
   </el-col> 
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="10">
+      <el-col :span="6">
         <router-link to="/testcheckmarketinfor">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="3" ><div class="grid-content bg-purple">
+      <el-col :span="8" ><div class="grid-content bg-purple">
         <span class="logo-title">审核信息填写</span>
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="12">
         <el-steps :space="200" :active="StepNumber" finish-status="success" >
           <el-step title="客户信息查看"></el-step>
           <el-step title="申请表查看"></el-step>
@@ -41,7 +41,7 @@
       </el-col>
     </el-row>
   </el-header>
-    <br><br><br>
+    <br><br><br><br><br>
     <el-main>
       <el-form :label-position="top" label-width="550px">
         <el-form-item label="密级：">
