@@ -78,7 +78,8 @@
             <el-date-picker
               v-model="value1"
               type="date"
-              placeholder="Pick a day">
+              placeholder="Pick a day"
+              :picker-options="pickerOptions">
             </el-date-picker>
           </div>
         </el-main>
@@ -106,12 +107,27 @@
                 email:'',
                 URL:'',
             },
-            pickerOptions: {
-            disabledDate(time) {
-            return time.getTime() > Date.now();
-            },
-            value1: '',
-            },
+            shortcuts: [{
+            text: 'Today',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: 'Yesterday',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: 'A week ago',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }],
+            value1:'',
             tableData: [{
             num: '1',
             checkcontent: '报告编号',

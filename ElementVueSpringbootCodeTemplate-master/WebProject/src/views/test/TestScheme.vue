@@ -260,6 +260,10 @@
                 ruleForm1:{
                   SoftwareName:'',
                   Versions:'',
+                  workload1:'',
+                  workload2:'',
+                  workload3:'',
+                  workload4:'',
                 TableData:[
                   {
                     id:1,
