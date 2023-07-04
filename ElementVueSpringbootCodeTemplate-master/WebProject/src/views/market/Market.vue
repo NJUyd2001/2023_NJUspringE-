@@ -101,12 +101,16 @@
 import Vue from "vue";
 
 export default {
-  created() {
-    // 载入config数据
-    //this.$store.dispatch("config/reload");
-    this.$bus.on("login-open", this.loginOut);
-    this.$bus.on("login-success", this.loginSuccess);
-    this.$bus.on("login-cancel", this.loginCancel);
+  created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    if (sessionStorage.getItem("store") ) {
+    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
+    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
+      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      sessionStorage.removeItem('store');
+    }
+    this.user.uname=this.$store.state.user.name;
+    this.user.utype=this.$store.state.user.Permissions;
   },
   data() {
     return {
@@ -117,8 +121,8 @@ export default {
 
       menus: [{}],
       user:{
-        uname:this.$store.state.user.name,
-        utype:this.$store.state.user.Permissions,
+        uname:"",
+        utype:"",
       },
       //Tabs
       selectTabName: "ConfigAdd",
@@ -131,34 +135,17 @@ export default {
       }
     };
   },
-  computed: {
-    lang: {
-      get: function() {
-        console.log("config", Vue.config);
-        return Vue.config.lang;
-      },
-      set: function(v) {
-        //do nothing
-        this.$bus.emit("lang-change", v);
-      }
-    }
-  },
   mounted() {
-    this.$nextTick(function() {
-      this.ajax.post("/app/user").then(result => {
-        if (result.code == 0) {
-          this.user = result.data;
-        }
-      });
-    });
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
   },
   methods: {
-    switchLang(command) {
-      this.lang = command;
-    },
-    handleStart() {
-      this.$router.push('client/Personal');
-    },
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     loginOut() {
       //this.showLogin = true;
       // 移除本地用户登录信息

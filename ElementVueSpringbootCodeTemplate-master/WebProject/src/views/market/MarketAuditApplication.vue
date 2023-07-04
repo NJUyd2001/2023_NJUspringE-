@@ -199,14 +199,26 @@
   export default {
     created(){
       // console.log(this.$store.state.user.id)
+      if (sessionStorage.getItem("store") ) {
+    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
+    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
+      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      sessionStorage.removeItem('store');
+      }
+      console.log(this.$store.state.user.process.UID)
+      this.userid.applicantID=this.$store.state.user.process.UID
+
+
+
       Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.userid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
           // this.tempForm=ret.data[0];
-          console.log(ret.data)
+          // console.log(ret.data[0])
           this.ruleForm=ret.data[0];
-          this.$store.state.user.process.AID=ret.data.AID;
+          this.$store.state.user.process.AID=ret.data[0].AID;
+          console.log(this.$store.state.user.process.AID)
           // this.$message.info("提交成功！");
           // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       }).catch(function (error)
@@ -219,7 +231,7 @@
          return{
           percentage:0,
           userid:{
-            applicantID:this.$store.state.user.id
+            applicantID:"",
           },
           user:{
                   name:'风车村',
@@ -287,7 +299,17 @@
           },
       }
   },
+  mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
     methods:{
+      handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
       submitForm(formName) {
         // console.log(this.tempForm);
         console.log(this.ruleForm);

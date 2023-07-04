@@ -44,10 +44,10 @@
       <br>
       <el-form :label-position="top" label-width="550px">
         <el-form-item label="审核意见：">
-          <el-input style="width:700px;" :rows="5" v-model="ruleform.Views" type="textarea" ></el-input>
+          <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" ></el-input>
         </el-form-item>
-        <el-form-item label="受理意见：">
-          <el-radio-group v-model="ruleform.ConfirmOpinion">
+        <el-form-item label="受理意见：" prop="ConfirmOpinion" required>
+          <el-radio-group v-model="ruleForm.ConfirmOpinion">
             <el-radio label="受理-进入测试部审核阶段 "></el-radio>
             <el-radio label="不受理"></el-radio>
             <el-radio label="进一步联系"></el-radio>
@@ -62,30 +62,88 @@
 </el-container>
 </template>
 <script>
+import Axios from 'axios'
 export default {
+  created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    if (sessionStorage.getItem("store") ) {
+    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
+    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
+      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      sessionStorage.removeItem('store');
+    }
+    this.ruleForm.AID=this.$store.state.user.process.AID
+  },
     data(){
        return{
-        ruleform:{
+        ruleForm:{
+          AID:"",
           Views:"",
           ConfirmOpinion:"",
         },
         StepNumber:3,
+        rules:{
+          ConfirmOpinion:[
+          { required: true, message: "请至少选择一个受理意见", trigger: "change" },
+        ],
+        }
         }
         },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
     methods:{
-      submitForm(formName) {
-      // this.$refs[formName].validate((valid) => {
+      handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+    handleUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+    submitForm(formName) {
+      console.log(this.ruleForm)
+      // this.$confirm("是否确认该操作","提示",{
+      //   iconClass: "el-icon-question",//自定义图标样式
+      //     confirmButtonText: "确认",//确认按钮文字更换
+      //     cancelButtonText: "取消",//取消按钮文字更换
+      //     showClose: true,//是否显示右上角关闭按钮
+      //     type: "warning",//提示类型  success/info/warning/error
+      // }).then(() => {
+      //   this.$refs[formName].validate((valid) => {
       //   if (valid) {
-      //     this.$router.push({path: "./market", replace:true});
+      //   Axios.post("http://localhost:9090/api/application/insertopinion",JSON.stringify(this.ruleForm),{
+      //   headers:{
+      //     'content-type': 'text/plain'}
+      // }).then(ret=>{
+      //   this.$message.success("提交成功，正在返回测试部界面！");
+      //   this.StepNumber+=2;
+      // setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+      // })
+      // .catch(function (error) { // 请求失败处理
+      //   console.log(error);
+      // }) 
       //   } else {
+      //     console.log("error!")
       //     return false;
       //   }
       // });
-      this.$message.success("提交成功，正在返回测试部界面！");
-      this.StepNumber+=2;
+      // })
+      // .catch(function (err) {
+      //   //捕获异常
+      // });
+      Axios.post("http://localhost:9090/api/application/insertopinion",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        this.$message.success("提交成功，正在返回测试部界面！");
+        this.StepNumber+=2;
       setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      }) 
+    }
     },
-}
 }
 
 </script>
