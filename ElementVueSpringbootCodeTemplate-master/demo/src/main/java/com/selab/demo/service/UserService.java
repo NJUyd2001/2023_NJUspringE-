@@ -28,7 +28,7 @@ public class UserService {
     UserDao userDao;
     // 插入用户数据
     public String insert(String postJson){
-        //System.out.println("内容：" + postJson);
+        System.out.println("内容：" + postJson);
         postJson = URLDecoder.decode(postJson, StandardCharsets.UTF_8); // ascii 码转义
 
         JSONObject jsonObject = JSONObject.parseObject(postJson);
@@ -50,7 +50,7 @@ public class UserService {
     }
     // 用户登录
     public User customerLogin(String postJson) {
-        //System.out.println("内容：" + postJson);
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         String nickname = jsonObject.getString("uname");
         String password = jsonObject.getString("password");
@@ -58,7 +58,7 @@ public class UserService {
         return userDao.customerLogin(nickname, password);
     }
     public User staffLogin(String postJson) {
-        //System.out.println("内容：" + postJson);
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         String nickname = jsonObject.getString("uname");
         String password = jsonObject.getString("password");
@@ -67,6 +67,11 @@ public class UserService {
     }
     public List<User> selectAll(){
         return userDao.selectAll();
+    }
+    public User selectByUID(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer UID = jsonObject.getInteger("UID");
+        return userDao.selectByUID(UID);
     }
     public List<User> selectAllCustomer(){
         return userDao.selectAllCustomer();

@@ -7,9 +7,9 @@ import javax.persistence.Entity;
  * */
 @Entity
 public class FileModel {
-    private long FID;           // 文件ID
+    private Integer FID;           // 文件ID
     private String filePath;        // 文件在服务器中的存储路径
-    private long PID;    // 上传用户ID
+    private Integer PID;    // 上传用户ID
 
     private String fileName;
 
@@ -30,23 +30,26 @@ public class FileModel {
     }
 
     private String uploadTime;
-    public FileModel( String filePath, long PID, String fileName) {
+    public FileModel( String filePath, Integer PID, String fileName) {
         this.filePath = filePath;
         this.PID = PID;
         this.fileName = fileName;
     }
-    public FileModel( Integer FID,String filePath, long PID, String uploadTime, String fileName) {
+    public FileModel( ) {
+
+    }
+    public FileModel( Integer FID,String filePath, Integer PID, String uploadTime, String fileName) {
         this.FID = FID;
         this.filePath = filePath;
         this.PID = PID;
         this.uploadTime = uploadTime;
         this.fileName  = fileName;
     }
-    public long getFID() {
+    public Integer getFID() {
         return FID;
     }
 
-    public void setFID(long FID) {
+    public void setFID(Integer FID) {
         this.FID = FID;
     }
 
@@ -58,11 +61,11 @@ public class FileModel {
         this.filePath = filePath;
     }
 
-    public long getPID() {
+    public Integer getPID() {
         return PID;
     }
 
-    public void setPID(long PID) {
+    public void setPID(Integer PID) {
         this.PID = PID;
     }
 }

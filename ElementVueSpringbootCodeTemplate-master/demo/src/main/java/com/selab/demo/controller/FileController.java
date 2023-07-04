@@ -2,7 +2,7 @@ package com.selab.demo.controller;
 
 import com.selab.demo.model.FileModel;
 import com.selab.demo.service.FileService;
-import com.selab.demo.service.UserService;
+
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.nio.Buffer;
-import java.nio.charset.StandardCharsets;
+
 
 @RestController
 @RequestMapping("/file")
@@ -22,7 +20,7 @@ public class FileController {
     FileService fileService;
     @CrossOrigin
     @RequestMapping(value="/upload", method = RequestMethod.POST)
-    public String upload(@RequestParam("file") MultipartFile file,
+    public Integer upload(@RequestParam("file") MultipartFile file,
                          @RequestParam("PID") Integer PID){
         return fileService.upload(file, PID);
     }
@@ -50,7 +48,7 @@ public class FileController {
         if(fileModel == null) return "不存在FID为 "+FID.toString() + " 的文件";
         try (FileInputStream fis = new FileInputStream(fileModel.getFilePath());
              BufferedInputStream bis = new BufferedInputStream(fis);
-             OutputStream os = response.getOutputStream()) {    //  OutputStream 是文件写出流，讲文件下载到浏览器客户端
+             OutputStream os = response.getOutputStream()) {    //  OutputStream 是文件写出流，将文件下载到浏览器客户端
             // 新建字节数组，长度是文件的大小，比如文件 6kb, bis.available() = 1024 * 6
             byte[] bytes = new byte[bis.available()];
             // 从文件流读取字节到字节数组中
@@ -61,7 +59,6 @@ public class FileController {
             response.setContentType("application/octet-stream");
             response.setHeader("Content-disposition", "attachment;filename="
                     + fileModel.getFileName());
-            // 注意，这里要设置文件名的编码，否则中文的文件名下载后不显示
             // 写出字节数组到输出流
             os.write(bytes);
             // 刷新输出流

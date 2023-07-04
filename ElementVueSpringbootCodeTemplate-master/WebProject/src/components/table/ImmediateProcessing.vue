@@ -1,8 +1,13 @@
+/**
+ * 表格组件范例
+ * 
+ * 文炫添加
+ */
 <template>
   <div>
-  <el-row :gutter="20">
+  <el-row :gutter="30">
     <el-col :span="12">
-    <div class="block">
+    <div class="Progress">
   <el-timeline>
     <el-timeline-item timestamp="2018/4/12" color="#0bbd87" placement="top">
       <el-card>
