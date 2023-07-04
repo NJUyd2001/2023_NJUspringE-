@@ -145,7 +145,7 @@ author:李晨博
 ```
 [{"SoftWareSize":{"RowNumber":"3","Number":"1","Point":"2"},"RuntimeEnvironment":{"NetWork":"zhi","SoftWare":{"MiddleWare":"oh","Versions":"ni","OS":"ji","PL":"tai","FrameWork":["服务器端软件架构:C/S"],"DataBase":"mei","Other":"baby"},"Client":{"Mermory":"2048MB","OS":{"other":"","Linux":"12108","windows":"xp"},"Other":""}},"TypeTest":["软件确认测试"],"SamplesSubmitted":"中心直接销毁","SoftWareType":"操纵系统","ClientChinese":"小黑子","Document":"yin","SoftwareUserObjectDescription":"练习时长两年半","SoftwareMedium":["U盘"],"VersionNumber":"2.5","WantedFinishTime":"","NeededStandard":["GB/T 25000.51-2016"],"NeededTechnicalIndex":["功能性"],"ClientEnglish":"ikun","SoftWareName":"蔡徐坤炒粉事件","processID":"1","phone":"15968774896","DevelopmentCompany":"C先生","MainFunction":"炒粉不放鸡精","AttributeOfCompany":"内资企业","time":1504319354000,"AID":"27","applicantID":"1"}]
 ```
-## /applicat/findallAID
+## /applicat/getallAID
 获得所有application的AID
 
 输入：
@@ -163,6 +163,25 @@ author:李晨博
 ```
 [1,2,3,4,12,39]
 ```
+## /application/getall
+获得所有application
+
+输入：
+
+一个空JSON
+
+
+输入示例：
+```
+{
+    "xiaoheizi":"jinitaimei"
+}
+```
+输出示例：
+```
+[{"SoftWareSize":{"RowNumber":"3","Number":"1","Point":"2"},"RuntimeEnvironment":{"NetWork":"zhi","SoftWare":{"MiddleWare":"oh","Versions":"ni","OS":"ji","PL":"tai","FrameWork":["服务器端软件架构:C/S"],"DataBase":"mei","Other":"baby"},"Client":{"Mermory":"2048MB","OS":{"other":"","Linux":"12108","windows":"xp"},"Other":""}},"TypeTest":["软件确认测试"],"SamplesSubmitted":"中心直接销毁","SoftWareType":"操纵系统","ClientChinese":"小黑子","Document":"yin","SoftwareUserObjectDescription":"练习时长两年半","SoftwareMedium":["U盘"],"VersionNumber":"2.5","WantedFinishTime":"","NeededStandard":["GB/T 25000.51-2016"],"NeededTechnicalIndex":["功能性"],"ClientEnglish":"ikun","SoftWareName":"蔡徐坤炒粉事件","processID":"1","phone":"15968774896","DevelopmentCompany":"C先生","MainFunction":"炒粉不放鸡精","AttributeOfCompany":"内资企业","time":1504319354000,"AID":"27","applicantID":"1"},{"SoftWareSize":{"RowNumber":"3","Number":"1","Point":"2"},"RuntimeEnvironment":{"NetWork":"zhi","SoftWare":{"MiddleWare":"oh","Versions":"ni","OS":"ji","PL":"tai","FrameWork":["服务器端软件架构:C/S"],"DataBase":"mei","Other":"baby"},"Client":{"Mermory":"2048MB","OS":{"other":"","Linux":"12108","windows":"xp"},"Other":""}},"TypeTest":["软件确认测试"],"SamplesSubmitted":"中心直接销毁","SoftWareType":"操纵系统","ClientChinese":"小黑子","Document":"yin","SoftwareUserObjectDescription":"练习时长两年半","SoftwareMedium":["U盘"],"VersionNumber":"2.5","WantedFinishTime":"","NeededStandard":["GB/T 25000.51-2016"],"NeededTechnicalIndex":["功能性"],"ClientEnglish":"ikun","SoftWareName":"蔡徐坤炒粉事件","processID":"1","phone":"15968774896","DevelopmentCompany":"C先生","MainFunction":"炒粉不放鸡精","AttributeOfCompany":"内资企业","time":1504319354000,"AID":"28","applicantID":"123123"}]
+```
+
 ## /application/updateapplication
 更新对应AID的application信息
 

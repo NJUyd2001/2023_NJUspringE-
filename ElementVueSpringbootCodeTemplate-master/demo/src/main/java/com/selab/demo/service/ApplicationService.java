@@ -454,6 +454,15 @@ public class ApplicationService {
     public String findAID(String postJson){
         return JSON.toJSONString(applicationDao.findAID());
     }
+
+    public String findALL(String postJson){
+
+        JSONArray oldobject = JSONArray.parseArray(JSON.toJSONString(applicationDao.findALL()));
+        if(oldobject==null ||oldobject == new JSONArray()){
+            return  JSON.toJSONString(oldobject);
+        }
+        return JSON.toJSONString(JSONrepack(JSON.toJSONString(oldobject)));
+    }
     public String updateapplication(String postJson) {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer AID = jsonObject.getInteger("AID");
@@ -957,7 +966,7 @@ public class ApplicationService {
         JSONObject a = new JSONObject();
 
         JSONArray res = new JSONArray();
-        JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)) );
+        JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)));
 
         String tableid = oldjsonObject.getString("tableid");
         if(tableid!=null && tableid!=new String()){
