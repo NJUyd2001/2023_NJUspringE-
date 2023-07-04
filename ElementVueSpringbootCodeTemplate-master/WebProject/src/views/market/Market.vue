@@ -11,7 +11,7 @@
           <img src="../../assets/l3.png" style="height:80px"/>
         </el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
+        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{isLogin}}</el-button>
         <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
       </el-col>
     </el-row>
@@ -101,6 +101,9 @@
 import Vue from "vue";
 
 export default {
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'margin:0;')
+  },
   created() {
     // 载入config数据
     //this.$store.dispatch("config/reload");
@@ -114,6 +117,7 @@ export default {
       user: null,
       keyword: "",
       isCollapse: false,
+      isLogin: sessionStorage.getItem('isLogin'),
 
       menus: [{}],
       user:{

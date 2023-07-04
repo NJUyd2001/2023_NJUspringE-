@@ -72,7 +72,7 @@
           {{ user.fax }}
         </el-descriptions-item>
         <el-descriptions-item>
-          <template slot="label">
+          <template slot="label" prop="address">
             <i class="el-icon-location-outline"></i>
             地址
           </template>
@@ -124,6 +124,21 @@ export default {
   components: { PersonalDia },
   name: "Personal",
   inject: ["reload"],
+  created(){
+    Axios.get("http://localhost:9090/api/user/selectAll/staff",).then(ret=>{
+        console.log(ret.data);
+        //console.log(this.datas);
+      var i=0;
+      for(;i<ret.data.length;i++)
+         {
+          this.datas.push(ret.data[i]);
+         }  
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+        alert("error!");
+      });
+  },
   data() {
     return {
       avatar: "",

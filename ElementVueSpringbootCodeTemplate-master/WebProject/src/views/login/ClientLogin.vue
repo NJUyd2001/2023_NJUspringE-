@@ -86,6 +86,8 @@ export default {
         
         if(ret.data.usertype == "C"){
           this.$message.success("登录成功");
+          sessionStorage.setItem('isLogin',1);
+          sessionStorage.setItem('isSelect',1);
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
           }
         }

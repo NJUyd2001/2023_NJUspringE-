@@ -9,7 +9,7 @@
           <img src="../../assets/l3.png" style="height:80px"/>
         </el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
+        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.isLogin}}</el-button>
         <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
       </el-col>
     </el-row>
@@ -96,6 +96,7 @@ export default {
       user:{
         uname:this.$store.state.user.name,
         utype:this.$store.state.user.Permissions,
+        isLogin:sessionStorage.getItem("isLogin"),
       },
       keyword: "",
       isCollapse: false,

@@ -86,6 +86,7 @@ export default new VueRouter({
         {
             path: '/market',     // 路径
             component: Market    // 跳转到的组件
+            
         },
         {
             path: '/quality',     // 路径

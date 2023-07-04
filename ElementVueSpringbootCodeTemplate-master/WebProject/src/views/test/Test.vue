@@ -102,6 +102,9 @@
 import Vue from "vue";
 
 export default {
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'margin:0;')
+  },
   created() {
     // 载入config数据
     //this.$store.dispatch("config/reload");
