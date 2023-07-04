@@ -20,7 +20,8 @@ public interface ProcessDao {
     ProcessModel findByPID(int PID);
     @Select("SELECT * FROM selabspringe.process WHERE AID=#{AID} ")
     List<ProcessModel> findByAID(int AID);
-
+    @Select("SELECT * FROM selabspringe.process")
+    List<ProcessModel> findAll();
     @Select("SELECT PID FROM selabspringe.process WHERE PID=#{PID} ")
     Integer findByPID2(int PID);
 // TODO:

@@ -5,7 +5,7 @@
       <div style="float:left;width:2px;height:20px;"></div> 
         委托流程及意见
     </div>
-    <div class="approvalProcess" >
+    <div class="approvalProcess">
         <el-steps :active="active" finish-status="success" direction="vertical" >
            <el-step :title="item.label"  v-for="item in approvalProcessProject" :id="item.id">
             <template slot="description" >
@@ -59,8 +59,16 @@
  
            </el-step>
         </el-steps>
+        <div>
          <el-button style="margin-top: 12px;" @click="next">查看保密协议</el-button>
- 
+         <el-button v-if="active=='0'" style="margin-top: 12px;" @click="next">发起委托</el-button>
+         <el-button v-if="active=='1'" style="margin-top: 12px;" @click="next">1</el-button>
+         <el-button v-if="active=='2'" style="margin-top: 12px;" @click="next">2</el-button>
+         <el-button v-if="active=='3'" style="margin-top: 12px;" @click="next">查看报价</el-button>
+         <el-button v-if="active=='4'" style="margin-top: 12px;" @click="next">完成合同及样品</el-button>
+         <el-button v-if="active=='5'" style="margin-top: 12px;" @click="next">查看测试报告</el-button>
+         <el-button v-if="active=='6'" style="margin-top: 12px;" @click="next">6</el-button>  
+         </div>
   </div>
  
 </div>
@@ -82,7 +90,7 @@ export default {
   props: ['data', 'defaultActive'],
   data() {
     return {
-       active: 2,
+       active: 3,
        approvalProcessProject:[
           {id:'0',label: "您尚未发起委托"},
           {id:'1',label: "委托已发起，等待审核"},
@@ -220,7 +228,7 @@ export default {
             this.userInfo=true
         },
     next() {
-        if (this.active++ > 2) this.active = 0;
+        if (this.active++ > 5) this.active = 0;
       },
   }
 };

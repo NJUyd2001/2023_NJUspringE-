@@ -75,30 +75,41 @@ export default {
         this.$store.state.user.id=ret.data.uid;
         this.$store.state.user.name=ret.data.nickname;
         this.$store.state.user.password=ret.data.password;
+        this.$store.state.user.email=ret.data.emailAddr;
+        this.$store.state.user.phone=ret.data.phone;
+        this.$store.state.user.fax=ret.data.userfax;
         this.$store.state.user.Permissions=ret.data.usertype;
-        this.info("登录成功!");
+        this.$store.state.user.address=ret.data.address;
+        this.$store.state.user.zipcode=ret.data.zipcode;
+        this.$store.state.user.ip=ret.data.ip;
+        this.$store.state.user.contact=ret.data.contact;
+        this.$store.state.user.contactTel=ret.data.contactTel;
         console.log(ret.data)
         if(ret.data.usertype=="T")
         {
+          this.$message.success("登录成功!");
           setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 1000);
         }
         else if(ret.data.usertype=='M')
         {
+          this.$message.success("登录成功!");
           setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 1000);
         }
         else if(ret.data.usertype=='Q')
         {
+          this.$message.success("登录成功!");
           setTimeout(() => {this.$router.push({path: "./quality", replace:true});}, 1000);
         }
         else if(ret.data.usertype=='TL')
         {
+          this.$message.success("登录成功!");
           setTimeout(() => {this.$router.push({path: "./TestDirector", replace:true});}, 1000);
         }
         else if(ret.data.usertype=='A')
         {
+          this.$message.success("登录成功!");
           setTimeout(() => {this.$router.push({path: "./signatory", replace:true});}, 1000);
         }
-        //setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
         }
   })
       .catch(function (error) { // 请求失败处理

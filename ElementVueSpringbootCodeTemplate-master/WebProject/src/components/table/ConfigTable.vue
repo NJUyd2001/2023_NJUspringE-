@@ -97,7 +97,7 @@ export default {
     deleteConfig(row) {
       this.ajax.post("/config/delete?id=" + row.id).then(result => {
         if (result.code == 0) {
-          this.info("delete success");
+          this.$message.success("delete success");
           this.refreshConfig();
         } else {
           this.error(result.msg);

@@ -7,19 +7,13 @@
         VALUES (#{notes}, #{UID}, #{AID}, #{state}, #{price}, #{fileIDs})
 
     </insert>
-    <resultMap id="processMap" type="com.selab.demo.model.ProcessModel">
-        <id property="AID" column="AID"/>
-        <result property="PID" column="PID"/>
-        <result property="UID" column="UID"/>
-        <result property="state" column="state"/>
-        <result property="notes" column="notes"/>
-        <result property="price" column="price"/>
-        <result property="fileIDs" column="fileIDs"/>
-    </resultMap>
-    <select id="findByUID" parameterType="int" resultMap="processMap">
+    <select id="findByUID" parameterType="int" resultType="com.selab.demo.model.ProcessModel">
     SELECT * FROM process WHERE UID=#{UID}
     </select>
-    <select id="findByPID" parameterType="int" resultMap="processMap">
+    <select id="findAll" parameterType="int" resultType="com.selab.demo.model.ProcessModel">
+        SELECT * FROM process
+    </select>
+    <select id="findByPID" parameterType="int" resultType="com.selab.demo.model.ProcessModel">
         SELECT * FROM process WHERE PID=#{PID}
     </select>
     <select id="findByPID2" parameterType="int" resultType="String">
@@ -27,7 +21,7 @@
     </select>
 
     <delete id="delete" parameterType="int" >
-        DELETE FROM process WHERE PID = #{arg0}
+        DELETE FROM process WHERE PID = #{PID}
     </delete>
 
 </mapper>

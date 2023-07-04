@@ -53,7 +53,7 @@
       </el-header>
         <el-main>
           <br><br>
-          <el-form :label-position="top" label-width="40%" style="margin-top: 10px;">
+          <el-form :label-position="top" label-width="40%" style="margin-top:  100px;">
           <el-form-item label="测试类型:"> 
             <el-input style="width:200px;padding:10px" v-model="TestType"></el-input>
            </el-form-item>
@@ -65,8 +65,7 @@
           </el-form-item>
           <el-form-item label='来样日期:'>
               <div class="demo-date-picker">
-              <div class="block">
-                <el-date-picker
+              <el-date-picker
                 style="margin-top: 60px; margin-left: -550px;"
                 v-model="SampleDate"
                 type="date"
@@ -74,82 +73,69 @@
                 :size=large
                 />
                 </div>
-                </div>
             </el-form-item>
           <el-form-item label="委托单位(中文):">  
-                <el-input style="width:200px;padding:10px" v-model="ClientChinese"></el-input>
+                <el-input style="width:200px;padding:10px;" v-model="ClientChinese"></el-input>
           </el-form-item>
           <el-form-item label="委托单位(英文):">  
-            <el-input style="width:200px;padding:10px" v-model="ClientEnglish"></el-input>
+            <el-input style="width:200px;padding:10px;" v-model="ClientEnglish"></el-input>
           </el-form-item>
           <el-form-item label="测试单位:">  
-             <el-input style="width:200px;padding:10px" v-model="DevelopmentCompany"></el-input>
+             <el-input style="width:200px;padding:10px;" v-model="DevelopmentCompany"></el-input>
           </el-form-item>
             <el-form-item label="样品状态:">
-              <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
+              <el-input style="width:500px;margin-top: 15px;" :autosize="{ minRows: 2, maxRows: 4 }" 
               v-model="SampleStatus" type="textarea" />
             </el-form-item>
             <el-form-item label="测试依据:">
-              <el-select v-model="NeededStandard" multiple allow-create filterable>
-            <el-option   v-for='item in Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
+              <el-select style="margin-top: 20px;" v-model="NeededStandard" multiple allow-create filterable>
+            <el-option v-for='item in Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
             </el-select>
             </el-form-item> 
             <el-form-item label="样品清单:">
-              <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
+              <el-input style="width:500px;margin-top: 15px;" :autosize="{ minRows: 2, maxRows: 4 }" 
               v-model="SampleList" type="textarea" />
             </el-form-item>
             <el-form-item label="测试结论:">
-              <el-input style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" 
+              <el-input style="width:500px;margin-top: 15px;" :autosize="{ minRows: 2, maxRows: 4 }" 
               v-model="TestConclusion" type="textarea" />
             </el-form-item>
-            <el-form-item label="编制人:"> 
-            <el-input style="width:200px;padding:10px" v-model="Organizer"></el-input>
-            <el-form-item style="margin-left: -150px;" label='日期:'>
-              <div class="demo-date-picker">
-              <div class="block">
-                <el-date-picker
-                style="margin-left: -350px;"
-                v-model="SampleDate"
-                type="date"
-                placeholder="时间选择"
-                :size=large
-                />
-                </div>
+            <el-form-item style="margin-top: 15px; " label="编制人:"> 
+            <el-input style="width:200px; padding:10px;" v-model="Organizer"></el-input>
+            <el-form-item style="margin-top: -50px;"  label-width="330px" label="日期:"> 
+                <div class="block1" style="margin-top: 0px; margin-left: 0px;">
+                    <el-date-picker
+                    v-model="SampleDate1"
+                    type="date"
+                    placeholder="Pick a day">
+                    </el-date-picker>
                 </div>
             </el-form-item>
-            </el-form-item> 
-            <el-form-item label="审核人:"> 
-            <el-input style="width:200px;padding:10px" v-model="Auditor"></el-input>
-            <el-form-item style="margin-left: -150px;" label='日期:'>
-              <div class="demo-date-picker">
-              <div class="block">
-                <el-date-picker
-                style="margin-left: -350px;"
-                v-model="SampleDate"
-                type="date"
-                placeholder="时间选择"
-                :size=large
-                />
-                </div>
+            </el-form-item>
+            <el-form-item style="margin-top: 15px; " label="审核人:"> 
+            <el-input style="width:200px; padding:10px;" v-model="Auditor"></el-input>
+            <el-form-item style="margin-top: -50px;"  label-width="330px" label="日期:"> 
+                <div class="block2" style="margin-top: 0px; margin-left: 0px;">
+                    <el-date-picker
+                    v-model="SampleDate2"
+                    type="date"
+                    placeholder="Pick a day">
+                    </el-date-picker>
                 </div>
             </el-form-item>
-            </el-form-item> 
-            <el-form-item label="批准人:"> 
-            <el-input style="width:200px;padding:10px" v-model="Approver"></el-input>
-            <el-form-item style="margin-left: -150px;" label='日期:'>
-              <div class="demo-date-picker">
-              <div class="block">
-                <el-date-picker
-                style="margin-left: -350px;"
-                v-model="SampleDate"
-                type="date"
-                placeholder="时间选择"
-                :size=large
-                />
-                </div>
+            </el-form-item>
+            <el-form-item style="margin-top: 15px;" label="批准人:"> 
+            <el-input style="width:200px; padding:10px;" v-model="Approver"></el-input>
+            <el-form-item style="margin-top: -50px;"  label-width="330px" label="日期:"> 
+                <div class="block3" style="margin-top: 0px; margin-left: 0px;">
+                    <el-date-picker
+                    v-model="SampleDate3"
+                    type="date"
+                    placeholder="Pick a day">
+                    </el-date-picker>
                 </div>
             </el-form-item>
-            </el-form-item>  
+            </el-form-item>
           </el-form>
         </el-main>
       <LoginDialog :show='showLogin'/>
@@ -160,13 +146,13 @@
         data(){
            return{
                 ruleForm1:{
-                  hardwarecategory:'',
-                  hardwarename:'',
-                  setting:'',
-                  quantity:'',
-                  softwarecategory:'',
-                  softwarename:'',
-                  edition:'',
+                  HardwareCategory:'',
+                  HardwareName:'',
+                  Setting:'',
+                  Quantity:'',
+                  SoftwareCategory:'',
+                  SoftwareName:'',
+                  Edition:'',
                 TableData:[
                   {
                     id:1,
@@ -233,6 +219,9 @@
                 SampleName:'',
                 ProjectNum:'',
                 SampleDate:'',
+                SampleDate1:'',
+                SampleDate2:'',
+                SampleDate3:'',
                 ClientChinese:'',
                 ClientEnglish:'',
                 DevelopmentCompany:'',

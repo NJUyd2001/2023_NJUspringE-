@@ -16,15 +16,15 @@
   </el-col>
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="6">
         <router-link to="/marketauditapplication">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="3" ><div class="grid-content bg-purple">
+      <el-col :span="6" ><div class="grid-content bg-purple">
         <span class="logo-title">功能列表审核</span>
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="11">
           <el-steps :space="200" :active="2" finish-status="success">
           <el-step title="客户信息查看"></el-step>
           <el-step title="申请表查看"></el-step>
@@ -33,7 +33,7 @@
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-       <el-col :span="1">
+       <el-col :span="2">
          <router-link to="/marketAuditinfor">
 	          <el-button type="success" style="margin: 14px">下一步</el-button>
         </router-link>
@@ -67,7 +67,24 @@
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
+  import Axios from 'axios'
 export default {
+  created(){
+      // console.log(this.$store.state.user.id)
+      Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.$store.state.user.AID),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          // this.tempForm=ret.data[0];
+          this.ruleForm=ret.data[0];
+          // this.$message.info("提交成功！");
+          // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
+    },
     data(){
        return{
             user:{

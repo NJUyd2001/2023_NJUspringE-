@@ -21,6 +21,7 @@ public class ProcessService {
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
+
         int UID = jsonObject.getInteger("UID");
         String notes = jsonObject.getString("notes");
         double price = jsonObject.getDouble("price");
@@ -38,15 +39,19 @@ public class ProcessService {
         return ("进程创建成功");
 
 
+
     }
     public List<ProcessModel> findByUID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
+
         int UID= jsonObject.getInteger("UID");
 
         return processDao.findByUID(UID);
+
     }
     public ProcessModel findByPID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
+
         int PID = jsonObject.getInteger("PID");
         return processDao.findByPID(PID);
     }
@@ -55,19 +60,27 @@ public class ProcessService {
         int AID = jsonObject.getInteger("AID");
         return processDao.findByAID(AID);
     }
+    public List<ProcessModel> findAll(){
+
+        return processDao.findAll();
+    }
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
+
         String notes = jsonObject.getString("notes");
         double price = jsonObject.getDouble("price");
         String state = jsonObject.getString("state");
         Integer checker = processDao.findByPID2(PID);
+
         if(checker == null){
             return ("不存在PID = "+ PID + "的进程");
         }
         else{
+
             // TODO: 实现update
             processDao.update();
+
             return ("process update complete");
         }
     }
@@ -75,8 +88,10 @@ public class ProcessService {
 
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
+
         int PID = jsonObject.getInteger("PID");
         Integer checker = processDao.findByPID2(PID);
+
         if(checker == null){
             return ("the process does not exist");
         }
@@ -85,4 +100,5 @@ public class ProcessService {
             return ("process delete successfully");
         }
     }
+
 }

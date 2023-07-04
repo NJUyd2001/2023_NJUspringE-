@@ -2,14 +2,12 @@ package com.selab.demo.controller;
 import com.selab.demo.model.ProcessModel;
 import com.selab.demo.service.ProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/process")
 public class ProcessController {
     @Autowired
@@ -31,6 +29,10 @@ public class ProcessController {
         return processService.findByAID(postJson);
     }
 
+    @RequestMapping("/findAll")
+    public List<ProcessModel> findAll(){
+        return processService.findAll();
+    }
 
     @RequestMapping("/findByPID")
     public ProcessModel findByPID(@RequestBody String postJson){

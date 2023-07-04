@@ -5,8 +5,8 @@
         <el-col :span="23">
       <el-breadcrumb separator="->">
       <el-breadcrumb-item :to="{ path: '/market' }">市场部主页-审核委托</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/marketaudituser' }">客户信息查看</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="">申请表查看</a></el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/marketaudituser' }">客户信息审核</el-breadcrumb-item>
+      <el-breadcrumb-item><a href="">申请表审核</a></el-breadcrumb-item>
     </el-breadcrumb>
   </el-col>
   <el-col :span="1">
@@ -14,15 +14,15 @@
   </el-col>
       </el-row>
       <el-row  type="flex" justify="center" align="middle">
-        <el-col :span="9">
+        <el-col :span="6">
           <router-link to="/marketaudituser">
           <el-button  size="middle" type="danger">上一步</el-button>
           </router-link>
         </el-col>
-        <el-col :span="3" ><div class="grid-content bg-purple">
+        <el-col :span="5" ><div class="grid-content bg-purple">
           <span class="logo-title">申请表查看</span> 
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="12">
         <el-steps :space="200" :active="1" finish-status="success">
           <el-step title="客户信息查看"></el-step>
           <el-step title="申请表查看"></el-step>
@@ -166,17 +166,15 @@
             </el-radio-group>
         </el-form-item>
         <el-form-item label='希望测试完成时间:' prop="WantedFinishTime">
-            <div class="demo-date-picker">
-            <div class="block">
-              <el-date-picker
-              v-model="ruleForm.WantedFinishTime"
-              type="date"
-              placeholder="完成时间选择"
-              :size=large
-                />
-              </div>
-              </div>
-          </el-form-item>
+        <div class="demo-date-picker">
+            <el-date-picker
+            v-model="ruleForm.WantedFinishTime"
+            type="date"
+            placeholder="完成时间选择"
+            size=large
+              />
+            </div>
+        </el-form-item>
           <el-form-item  label="申请人签字下载：">
                         <el-upload
                             class="upload-demo"
@@ -197,12 +195,33 @@
   </el-container>
   </template>
   <script>
+  import Axios from 'axios'
   export default {
+    created(){
+      // console.log(this.$store.state.user.id)
+      Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.userid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          // this.tempForm=ret.data[0];
+          console.log(ret.data)
+          this.ruleForm=ret.data[0];
+          this.$store.state.user.process.AID=ret.data.AID;
+          // this.$message.info("提交成功！");
+          // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
+    },
       data(){
          return{
           percentage:0,
-          ruleForm:{
-            user:{
+          userid:{
+            applicantID:this.$store.state.user.id
+          },
+          user:{
                   name:'风车村',
                   password:'shazihuang',
                   telephone:'',
@@ -214,12 +233,14 @@
                   email:'',
                   URL:'',
               },
-              TypeTest:[],
+          tempForm:{},
+          ruleForm:{
+              TypeTest:{},
               SoftWareName:'',
               ClientChinese:'',
               ClientEnglish:'',
               DevelopmentCompany:'',
-              AttributeOfCompany:[],
+              AttributeOfCompany:{},
               SoftwareUserObjectDescription:'',
               MainFunction:'',
               NeededStandard:[],
@@ -264,250 +285,12 @@
               SamplesSubmitted:[],
               WantedFinishTime:'',
           },
-          TypeOfTest:[
-                {
-                  id:1,
-                  value:'软件确认测试',
-                },
-                {
-                  id:2,
-                  value:'成果/技术鉴定测试',
-                },
-                {
-                  id:3,
-                  value:'专项资金验收测试',
-                },
-              ],
-          Standard:[
-                  {
-                    id:1,
-                    value:'GB/T 25000.51-2016',
-                  },
-                  {
-                    id:2,
-                    value:'GB/T 25000.10-2016',
-                  },
-                  {
-                    id:3,
-                    value:'GB/T 28452-2012',
-                  },
-                  {
-                    id:4,
-                    value:'GB/T 30961-2014',
-                  },
-                  {
-                    id:5,
-                    value:'NST-03-WI12-2011',
-                  },
-                  {
-                    id:6,
-                    value:'NST-03-WI13-2011',
-                  },
-                  {
-                    id:7,
-                    value:'NST-03-WI22-2014',
-                  }
-              ],
-          TechnicalIndex:[{
-                    id:1,
-                    value:'功能性',
-                  },
-                  {
-                    id:2,
-                    value:'可靠性',
-                  },
-                  {
-                    id:3,
-                    value:'易用性',
-                  },
-                  {
-                    id:4,
-                    value:'效率',
-                  },
-                  {
-                    id:5,
-                    value:'可维护性',
-                  },
-                  {
-                    id:6,
-                    value:'可移植性',
-                  },
-                  {
-                    id:7,
-                    value:'代码覆盖度',
-                  },
-                  {
-                    id:8,
-                    value:'缺陷检测率',
-                  },
-                  {
-                    id:9,
-                    value:'代码风格符合度',
-                  },
-                  {
-                    id:10,
-                    value:'代码不符合项检测率',
-                  },
-                  {
-                    id:11,
-                    value:'产品说明要求',
-                  },
-                  {
-                    id:12,
-                    value:'用户文档集要求',
-                  },
-                  {
-                    id:13,
-                    value:'可移植性',
-                  },
-                  {
-                    id:14,
-                    value:'代码覆盖度',
-                  }],
-          TypeOfSoftWare:[
-      {
-        label:'系统软件',
-        options:[{
-                                      name:'操纵系统',
-                                      id:1,
-                                    },
-                                    {
-                                      name:'中文处理系统',
-                                      id:2,
-                                    },
-                                    {
-                                      name:'网络系统',
-                                      id:3,
-                                    },
-                                    {
-                                      name:'嵌入式操作系统',
-                                      id:4,
-                                    },
-                                    {
-                                      name:'其他(系统软件)',
-                                      id:5,
-                                    }],
-                                    },
-                                    {
-                                      label:'支持软件',
-                                      options:[{            
-                                    name:'程序设计语言',
-                                      id:6,
-                                    },
-                                    {
-                                      name:'数据库系统设计',
-                                      id:7,
-                                    },
-                                    {
-                                      name:'工具软件',
-                                      id:8,
-                                    },
-                                    {
-                                      name:'网络通信软件',
-                                      id:9,
-                                    },
-                                    {
-                                      name:'中间件',
-                                      id:10,
-                                    },
-                                    {
-                                      name:'其他(支持软件)',
-                                      id:11,
-                                    }
-                                    ],
-                                    },
-                                    {
-                                      label:'应用软件',
-                                      options:[
-                                    {            
-                                      name:'行业管理软件',
-                                      id:12,
-                                    },
-                                    {
-                                      name:'办公软件',
-                                      id:13,
-                                    },
-                                    {
-                                      name:'模式识别软件',
-                                      id:14,
-                                    },
-                                    {
-                                      name:'图形图像软件',
-                                      id:15,
-                                    },
-                                    {
-                                      name:'控制软件',
-                                      id:16,
-                                    },
-                                    {            
-                                      name:'网络应用软件',
-                                      id:17,
-                                    },
-                                    {
-                                      name:'信息管理软件',
-                                      id:18,
-                                    },
-                                    {
-                                      name:'数据库管理应用软件',
-                                      id:19,
-                                    },
-                                    {
-                                      name:'安全与保密软件',
-                                      id:20,
-                                    },
-                                    {
-                                      name:'嵌入式应用软件',
-                                      id:21,
-                                    },
-                                    {
-                                      name:'教育软件',
-                                      id:22,
-                                    },
-                                    {
-                                      name:'游戏软件',
-                                      id:23,
-                                    },
-                                    {
-                                      name:'其他(应用软件)',
-                                      id:24,
-                                    }
-                                  ],
-                                    },
-                                    {
-                                      label:'其他',
-                                      options:[
-                                      {
-                                      name:'其他',
-                                      id:25,
-                                      }
-                                      ]
-                                    },
-                    ],
-          HardWareFrameWork:[
-                  {
-                    id:1,
-                    value:'PC服务器',
-                  },
-                  {
-                    id:2,
-                    value:'UNIX/Linux服务器',
-                  }
-          ],
-          SoftwareMedium:[
-                  {
-                    id:1,
-                    value:'光盘',
-                  },
-                  {
-                    id:2,
-                    value:'U盘',
-                  }
-          ],
-
       }
-  }, 
+  },
     methods:{
       submitForm(formName) {
+        // console.log(this.tempForm);
+        console.log(this.ruleForm);
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$router.push({path: "./marketauditfunctionlist", replace:true});

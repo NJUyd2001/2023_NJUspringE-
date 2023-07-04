@@ -4,9 +4,9 @@ import javax.persistence.Table;
 
 @Table
 public class MessageModel {
-    private int MID;
-    private int sender_id;
-    private int receiver_id;
+    private Integer MID;
+    private Integer sender_id;
+    private Integer receiver_id;
     private Date regTime;
     private String message;
     private String doc_ex_path;
@@ -21,7 +21,7 @@ public class MessageModel {
      }
      **/
 
-    public MessageModel(int MID,int sender_id,int receiver_id,Date regTime,String message, String doc_ex_path){
+    public MessageModel(Integer MID,Integer sender_id,Integer receiver_id,Date regTime,String message, String doc_ex_path){
         this.MID =  MID;
         this.sender_id = sender_id;
         this.receiver_id = receiver_id;
@@ -29,11 +29,11 @@ public class MessageModel {
         this.message = message;
         this.doc_ex_path = doc_ex_path;
     }
-    public int getMID() {
+    public Integer getMID() {
         return MID;
     }
 
-    public void setMID(int MID) {
+    public void setMID(Integer MID) {
         this.MID = MID;
     }
 
@@ -41,7 +41,7 @@ public class MessageModel {
         return sender_id;
     }
 
-    public void setSender_id(int sender_id) {
+    public void setSender_id(Integer sender_id) {
         this.sender_id = sender_id;
     }
 
@@ -49,7 +49,7 @@ public class MessageModel {
         return receiver_id;
     }
 
-    public void setReceiver_id(int receiver_id) {
+    public void setReceiver_id(Integer receiver_id) {
         this.receiver_id = receiver_id;
     }
 

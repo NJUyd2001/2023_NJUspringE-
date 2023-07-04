@@ -6,19 +6,34 @@ import com.selab.demo.model.enums.open_to_curr;
 import javax.persistence.Table;
 
 
+
 @Table
 public class ProcessModel {
     private int PID;
     private String notes;
 
     public ProcessModel(String notes, Integer UID, Integer AID, String state, double price) {
-
         this.notes = notes;
         this.UID = UID;
         this.AID = AID;
         this.state = state;
         this.price = price;
     }
+
+    public ProcessModel(int PID, String notes, double price, Integer UID, Integer AID, String state, String fileIDs) {
+        this.PID = PID;
+        this.notes = notes;
+        this.price = price;
+        this.UID = UID;
+        this.AID = AID;
+        this.state = state;
+        this.fileIDs = fileIDs;
+    }
+
+    private double price;
+
+
+
 
     @Override
     public String toString() {
@@ -30,17 +45,17 @@ public class ProcessModel {
                 ", state='" + state + '\'' +
                 ", price=" + price +
                 ", fileIDs='" + fileIDs + '\'' +
-                ", record_path='" + record_path + '\'' +
                 '}';
     }
 
-    public int getPID() {
+    public Integer getPID() {
         return PID;
     }
 
-    public void setPID(int PID) {
+    public void setPID(Integer PID) {
         this.PID = PID;
     }
+
 
     public String getNotes() {
         return notes;
@@ -49,6 +64,7 @@ public class ProcessModel {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
 
     public Integer getUID() {
         return UID;
@@ -75,10 +91,11 @@ public class ProcessModel {
     }
 
     public double getPrice() {
+
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -90,13 +107,6 @@ public class ProcessModel {
         this.fileIDs = fileIDs;
     }
 
-    public String getRecord_path() {
-        return record_path;
-    }
-
-    public void setRecord_path(String record_path) {
-        this.record_path = record_path;
-    }
 
     private Integer UID; // 对应用户的编号
     private Integer AID; // 对应委托的编号
@@ -109,8 +119,8 @@ public class ProcessModel {
      *测试完成，生成测试报告 7 -> 测试部主管通过 71 不通过 70 -> 用户审核通过 711 不通过710 -> 授权签字人 7111 7110
      *测试部 归档 发送测试报告 8 -> 确认接受 81
      */
-    private double price;
+
     private String fileIDs;
-    private String record_path;
+
 
 }

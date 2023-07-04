@@ -15,12 +15,12 @@
   </el-col>
     </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="5">
         <router-link to="/application">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="5" ><div class="grid-content bg-purple">
+      <el-col :span="10" ><div class="grid-content bg-purple">
         <span class="logo-title">申请界面-功能列表</span>
         </div></el-col>
         <el-col :span="8">
@@ -87,6 +87,7 @@ export default {
                 URL:'',
             },
             ruleForm:{
+              AID:"37",//this.$store.state.user.AID,
               SoftwareName:'',
               Versions:'',
             TableData:[
@@ -143,14 +144,7 @@ export default {
         )
     },
     submitForm(formName) {
-      
-      // Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-      //   console.log(ret.data)
-      // })
-      // .catch(function (error) { // 请求失败处理
-      //   console.log(error);
-      // })
-      console.log(this.ruleForm)
+      console.log(this.ruleForm.AID)
       this.$confirm("是否确认该操作","提示",{
         iconClass: "el-icon-question",//自定义图标样式
           confirmButtonText: "确认",//确认按钮文字更换
@@ -160,9 +154,17 @@ export default {
       }).then(() => {
         this.$refs[formName].validate((valid) => {
         if (valid) {
-        //   this.StepNumber+=2;
-        // this.info("提交成功，正在返回用户界面！");
-        // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+        Axios.post("http://localhost:9090/api/application/inserttabledata",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        this.StepNumber+=2;
+        this.info("提交成功，正在返回用户界面！");
+        setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      }) 
         } else {
           return false;
         }

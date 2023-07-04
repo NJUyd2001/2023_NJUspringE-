@@ -14,12 +14,12 @@
   </el-col>
   </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="6">
         <router-link to="/Client">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="5" >
+      <el-col :span="8" >
         <span class="logo-title">申请界面-申请表</span>
       </el-col>
       <el-col :span="8">
@@ -211,14 +211,17 @@
         </el-form-item>
         <el-form-item label="样品文档:">
           <el-upload
+            list-type="text"
               class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="http://localhost:9090/api/file/upload"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
-              :before-remove="beforeRemove"
+              :before-upload="beforeUploadword"
               multiple
               :limit="3"
               :on-exceed="handleExceed"
+              accept=".doc, .docx"
+              :data="{ PID:'5' }"
               :file-list="ruleForm.SamplesSubmitted">
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
@@ -247,11 +250,13 @@
                       <el-upload
                           class="upload-demo"
                           drag
-                          action="https://jsonplaceholder.typicode.com/posts/"
-                          multiple>
+                          action="http://localhost:9090/api/file/upload"
+                          multiple
+                          :before-upload="beforeUploadjpg"
+                          :data="{ PID:'5' }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
                       </el-upload>
                 </el-form-item>
     </el-form>
@@ -272,7 +277,7 @@ export default {
             },
         ruleForm:{
           applicantID:this.$store.state.user.id,
-          processID:'4',
+          processID:'1',
             TypeTest:[],
             SoftWareName:'',
             VersionNumber:'',
@@ -563,6 +568,7 @@ export default {
                   value:'U盘',
                 }
         ],
+        
         rules:{
           TypeTest:[
           { required: true, message: "请至少选择一个测试类型", trigger: "change" },
@@ -645,9 +651,6 @@ export default {
         'RuntimeEnvironment.Server.SoftWare.Other':[
           { required: true, message: "不能为空！", trigger: "blur" },
         ],
-        'RuntimeEnvironment.Server.SoftWare.Other':[
-          { required: true, message: "不能为空！", trigger: "blur" },
-        ],
         'RuntimeEnvironment.NetWork':[
         { required: true, message: "不能为空！", trigger: "blur" },
         ],
@@ -668,36 +671,22 @@ export default {
 }, 
   methods:{
     submitForm(formName) {
-      // Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm1),{
-      //   headers:{
-      //     'content-type': 'text/plain'}
-      // }).then(ret=>{
-      //     console.log(ret.data);
-      // }).catch(function (error) { // 请求失败处理
-      //   console.log(error);
-      //   // alert("error!");
-      // });
-      // Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
-      //   headers:{
-      //     'content-type': 'text/plain'}
-      // }).then(ret=>{
-      //     console.log(ret.data);
-      //     this.$message.success("提交成功！");
-      //     //setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
-      // }).catch(function (error) { // 请求失败处理
-      //   console.log(error);
-      //   alert(error);
-      // });   
       this.$refs[formName].validate((valid) => {
         if (valid) {
+        console.log(this.ruleForm)
         Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
           console.log(ret.data);
-          this.$message.info("提交成功！");
+          this.$store.state.user.process.AID=ret.data
+          this.$message.success("提交成功！");
           setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
-      }) 
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
         } else {
           return false;
         }
@@ -713,17 +702,6 @@ export default {
           this.$store.state.user.Permissions="null";
       this.$router.push({path: "./home", replace:true});
     },
-    increasePer(format){
-      if(format!==""&&format!==[])
-        { 
-          this.percentage=50;
-        }
-      else  {
-        this.percentage-=2.8;
-          if(this.percentage<=0)
-          this.percentage=0;
-      }
-    },
     handleRemove(file, fileList) {
         console.log(file, fileList);
     },
@@ -733,9 +711,33 @@ export default {
     handleExceed(files, fileList) {
         this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
-    beforeRemove(file, fileList) {
-        return this.$confirm(`确定移除 ${ file.name }？`);
-    }
+    beforeUploadword(file) {
+        const isWord1 = file.type === 'application/msword';
+        const isWord2 = file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        const isPDF = file.type === 'application/pdf';
+        // const isLt2M = file.size / 1024 / 1024 < 2;
+        console.log(file.type)
+        if (!isWord1 && !isWord2 && !isPDF) {
+          this.$message.error('上传文件只能是 Word/PDF 格式!');
+        }
+        // if (!isLt2M) {
+        //   this.$message.error('上传头像图片大小不能超过 2MB!');
+        // }
+        return isWord1 || isWord2 || isPDF;
+      },
+    beforeUploadjpg(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isPNG = file.type === 'image/png';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        console.log(file.type)
+        if (!isJPG && !isPNG) {
+          this.$message.error('上传头像图片只能是 jpg/png 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG || isPNG;
+      }
   },
 }
 

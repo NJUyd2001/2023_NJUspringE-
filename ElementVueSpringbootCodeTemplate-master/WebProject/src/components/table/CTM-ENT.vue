@@ -1,7 +1,7 @@
 /**
  * 表格组件范例
  * 
- * @author xiaowenjie https://github.com/xwjie
+ * 黄大伟修改
  */
 <template>
   <div>
@@ -11,96 +11,133 @@
         v-model="keyword">
     </el-input>
     <p/>
-    <el-button @click="handleClick" size="small">审核</el-button> <!-- 接到客户委托，开始审核 -->
-    <el-button @click="handleClick" size="small">反馈</el-button> <!--测试部审核未通过，结果返回给客户 -->
-    <el-button @click="price" size="small">报价</el-button> <!--委托审核结束，进入报价阶段-->
     <el-table
-      :data="configs"
-      border
+      :data="filterdatas"
       size = "mini"
+      border
       stripe
       @sort-change="sortChange"
       style="width: 100%">
       <el-table-column
         fixed
         sortable
-        prop="id"
-        label="ID"        
-        width="70">
+        prop="uid"
+        label="UID"        
+        width="100">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="regTime"
         sortable
-        label="名称"
-        width="400">
-      </el-table-column>
-      <el-table-column
-        sortable
-        prop="value"
-        label="压缩包"
-        width="200">
+        label="注册时间"
+        width="300">
       </el-table-column>
       <el-table-column
         sortable
-        prop="description"
-        label="进度"
-        width="200">
+        prop="nickname"
+        label="用户名"
+        width="250">
       </el-table-column>
-      
+      <el-table-column
+        sortable
+        prop="emailAddr"
+        label="邮箱"
+        width="250">
+      </el-table-column>
+      <el-table-column
+        sortable
+        prop="phone"
+        label="电话"
+        width="150">
+      </el-table-column>
+      <el-table-column
+        sortable
+        prop="process"
+        label="当前进度"
+        width="180">
+      </el-table-column>
       <el-table-column
         fixed="right"
         label="操作"
-        width="200">
+        width="100"
+        align="center">
         <template slot-scope="scope">
-          <el-button @click="deleteConfig(scope.row)" type="text"><i class="el-icon-delete"></i></el-button>
+          <el-button @click="SolvePro(scope.row)" type="text" size="small">处理</el-button>
         </template>
       </el-table-column>
     </el-table>
-
-    <Pagination ref="page1" url="/config/list" :pageSize=5 :keyword="keyword" :sort="sort" v-model="configs"/>
+    
+    <Pagination ref="page1" url="http://localhost:9090/api/user/selectAll" :keyword="keyword" :sort="sort" v-model="datas"/>
   </div>
 </template>
 
 <script>
+import Axios from "axios"
 export default {
+  created(){
+    Axios.post("http://localhost:9090/api/user/selectAll/customer").then(ret=>{
+        //console.log(ret.data);
+        //console.log(this.datas);
+      var i=0;
+      for(;i<ret.data.length;i++)
+         {
+          this.datas.push(ret.data[i]);
+         }  
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+  },
   methods: {
-    handleClick() {
-      this.$router.push({path: "./login", replace:true});
+    SolvePro(row){
+      // console.log(row);
+        this.$store.state.user.process.UID=row.uid;
+        console.log(this.$store.state.user.process.UID);
+        this.$router.push({path: "./marketaudituser", replace:true})
     },
-    price() {
-      this.$router.push({path: "./market", replace:true});
+    handleClick(row) {
+     
     },
-    sortChange({ column, prop, order }) {
-      this.sort = { prop, order };
+    sortChange({column, prop, order}){
+      this.sort = {prop, order};
     },
-    deleteConfig(row) {
-      this.confirm("此操作将永久删除该记录, 是否继续?")
-        .then(() => {
-          this.ajax.post("/config/delete?id=" + row.id).then(result => {
-            if (result.code == 0) {
-              this.info("delete success");
-              this.refreshConfig();
-              this.info("删除成功!");
-            } else {
-              this.error(result.msg);
-            }
-          });
-        })
-        .catch(() => {
-          this.info("已取消删除");
-        });
+    dateFormat: function(row, column) {
+      var date = row[column.property];
+      if (date == undefined) {
+        return "";
+      }
+      return new Date(date).format("yyyy/MM/dd hh:mm");
     },
-    // 刷新表格数据
-    refreshConfig() {
+    refreshConfig(){
       this.$refs.page1.reload();
     }
   },
   data() {
     return {
-      keyword: "",
-      configs: [],
-      sort: {}
+      keyword:"",
+      datas: [
+      ],
+      sort: {},
+      passwordDlg:{
+        row: null,
+        show: false,
+        form:{
+          password:""
+        }
+      }
     };
+  },
+  computed:{
+  filterdatas(){
+      return this.datas.filter((i)=>{
+        var uid=i.uid+"";
+        return uid.indexOf(this.keyword)!==-1||i.regTime.indexOf(this.keyword)!==-1||i.nickname.indexOf(this.keyword)!==-1
+                ||i.emailAddr.indexOf(this.keyword)!==-1||i.phone.indexOf(this.keyword)!==-1
+      })
+    }
   }
 };
 </script>
+
+<style scoped>
+
+</style>

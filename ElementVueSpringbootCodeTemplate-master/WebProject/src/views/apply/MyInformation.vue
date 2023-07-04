@@ -1,5 +1,5 @@
 <template>
-<el-container style="height:100%">
+<el-container class="logo">
   <el-header style="height: 30px " @back="goback">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
@@ -107,7 +107,7 @@ export default {
       }).then(ret=>{
         console.log(ret)
         this.info("提交成功，正在返回用户界面！");
-        setTimeout(() => {this.$router.go(-1);}, 2000);
+        setTimeout(() => {this.$router.push({path: "../clientlogin", replace:true});}, 2000);
       })
     },
   },
@@ -120,6 +120,14 @@ export default {
   padding-right: 0px;
   text-align: right;
 }
+
+.logo{
+  background: url("../../assets/b3.jpg");
+    background-size: 100% 100%;
+    height: 100%;
+    position: fixed;
+    width: 100%
+  }
 
 .user {
   margin: 10px;

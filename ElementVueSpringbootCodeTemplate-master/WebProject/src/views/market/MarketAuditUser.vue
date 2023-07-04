@@ -14,15 +14,15 @@
   </el-col>
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="5">
         <router-link to="/market">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="3" ><div class="grid-content bg-purple">
+      <el-col :span="7" ><div class="grid-content bg-purple">
         <span class="logo-title">客户信息审核</span>
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="12">
         <el-steps :space="200" :active="0" finish-status="success" >
           <el-step title="客户信息审核"></el-step>
           <el-step title="申请表审核"></el-step>
@@ -31,7 +31,7 @@
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-       <el-col :span="1">
+       <el-col :span="2">
          <router-link to="/marketauditapplication">
 	          <el-button type="success" style="margin: 14px">下一步</el-button>
         </router-link>
@@ -40,30 +40,31 @@
   </el-header>
     <br><br><br>
     <el-main >
-      <el-form label-width="550px" disabled :model="ruleForm" ref="ruleForm">
+      <el-form label-width="550px" disabled :model="user" ref="user">
+        <br>
         <el-form-item label="电话：">
-          <el-input v-model="telephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.telephone" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="传真：">
-          <el-input v-model="fax" style="width: 200px;"></el-input>
+          <el-input v-model="user.fax" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="地址：">
-          <el-input v-model="address" style="width: 200px;"></el-input>
+          <el-input v-model="user.address" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="邮编：">
-          <el-input v-model="postcode" style="width: 200px;"></el-input>
+          <el-input v-model="user.postcode" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="联系人：">
-          <el-input v-model="contacts" style="width: 200px;"></el-input>
+          <el-input v-model="user.contacts" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="手机：">
-          <el-input v-model="mobilephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.mobilephone" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="E-mail：">
-          <el-input v-model="email" style="width: 200px;"></el-input>
+          <el-input v-model="user.email" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="网址：">
-          <el-input v-model="URL" style="width: 200px;"></el-input>
+          <el-input v-model="user.URL" style="width: 200px;"></el-input>
         </el-form-item>
       </el-form>
     </el-main>
@@ -72,68 +73,26 @@
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
+import Axios from "axios"
 export default {
+  created(){
+    console.log(this.$store.state.user.process.UID)
+    Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.$store.state.user.process.UID)).then(ret=>{
+      console.log(ret.data)
+      this.user=ret.data[0]
+    })
+  },
     data(){
        return{
             user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
             },
             ruleForm:{
               SoftwareName:'',
               Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-                children:[],
             },
-          ],
-            },
-            rules:{
-              SoftwareName:[
-                      { required: true, message: "不能为空！", trigger: "blur" },
-                    ],
-              Versions:[
-                { required: true, message: "不能为空！", trigger: "blur"  },
-              ],
-              }
     }
 }, 
   methods:{
-    goback(){
-    },
-    addfatherItem(){
-      this.ruleForm.TableData.push({
-        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-        name:'',
-        function:'',
-        children:[],
-      })
-    },
-    removefatherItem(Table){
-      const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1) {
-      this.ruleForm.TableData.splice(index, 1);
-  }
-    },
-    addchildrenItem(Node){
-        Node.children.push(
-          {
-            id:'',
-            
-          }
-        )
-    },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {
         if (valid) {

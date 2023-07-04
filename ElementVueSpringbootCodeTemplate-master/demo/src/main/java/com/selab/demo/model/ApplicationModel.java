@@ -1,6 +1,6 @@
 package com.selab.demo.model;
 import java.util.Date;
-import com.selab.demo.model.enums.ApplicationState;
+
 import com.selab.demo.model.enums.testTYPE;
 import com.selab.demo.model.enums.PB_type;
 import com.selab.demo.model.enums.ARCHITECTURE;
@@ -8,8 +8,6 @@ import com.selab.demo.model.enums.sARCHITECTURE;
 import com.selab.demo.model.enums.MEDIUM;
 import com.selab.demo.model.enums.SAMPLEDELETE;
 import com.selab.demo.model.enums.state;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.core.codec.StringDecoder;
 
 
 import javax.persistence.Table;
@@ -21,28 +19,28 @@ import javax.persistence.Table;
  * */
 @Table
 public class ApplicationModel extends BaseEntity {
-    private int AID;
-    private int applicantID;//申请单ID
-    private int processID;
+    private Integer AID;
+    private Integer applicantID;//申请单ID
+    private Integer processID;
     private Date time;//时间
     private String phone;//手机号
-    private testTYPE testTYPE;//测试类型，C：软件确认测试，I：成果/技术鉴定测试，A：转向资金验收测试
+    private String testTYPE;//测试类型，C：软件确认测试，I：成果/技术鉴定测试，A：转向资金验收测试
     private String sNAME;//软件名称
     private String PA;//委托方
     private String PAE;//委托方（英文）
     private String PB;//受委托方（开发单位）
-    private PB_type PB_type;//单位性质D：内资企业F：外（合）资企业G：港澳台企业S：科研院校O：政府事业团队E：其他
-    private String else_type;//单位性质为其他
+    private String PB_type;//单位性质D：内资企业F：外（合）资企业G：港澳台企业S：科研院校O：政府事业团队E：其他
+    //private String else_type;//单位性质为其他
     private String USS;//用户对象描述
     private String sDES;//软件描述（功能、简介）
     private String stestBASIS;//测试依据1:GB/T 25000.51-2016;2:GB/T 25000.10-2016;3:GB/T 28452-2012;4:GB/T 30961-2014;5:NST-03-Wl12-2011;6:NST-03-Wl13-2011;7:NST-03-Wl22-2014
     private String elsestestBASIS;//测试依据其他
     private String elseINDEX;
     private String TESTINDEX;
-    private int scale_num;
-    private int scale_score;
-    private int scale_lines;
-    private char sTYPE;
+    private Integer scale_num;
+    private Integer scale_score;
+    private Integer scale_lines;
+    private String sTYPE;
     private String ENVIRONMENTW;
     private String ENVIRONMENTL;
     private String ENVIRONMENTN;
@@ -56,22 +54,28 @@ public class ApplicationModel extends BaseEntity {
     private String sOS;
     private String sVERSION;
     private String sLANGUAGE;
-    private sARCHITECTURE sARCHITECTURE;
+    private String sARCHITECTURE;
     private String sDATABASE;
     private String sMIDDLEWARE;
     private String sELSEDEMAND;
     private String sOPERATINGENVIRONMENT;
-    private MEDIUM MEDIUM;
+    private String MEDIUM;
     private String doc_path1;
     private String doc_path2;
     private String doc_path3;
     private String doc_path4;
-    private SAMPLEDELETE SAMPLEDELETE;
+    private String SAMPLEDELETE;
     private String EXDATE;
     private state t_state;
     private state m_state;
     private String auditinfor;
     private String version_num;
+    private String mainfunction;
+    private String tableid;
+
+    private String version;
+    private String confirmopinion;
+    private Integer auditID;
 
 
 
@@ -156,7 +160,7 @@ public class ApplicationModel extends BaseEntity {
      * }
      * **/
 
-    public ApplicationModel(int AID, int applicantID, int processID, Date time, String phone, testTYPE testTYPE, String sNAME, String PA, String PAE, String PB, PB_type PB_type, String else_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, int scale_num, int scale_score, int scale_lines, char sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, sARCHITECTURE sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, MEDIUM MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, SAMPLEDELETE SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor,String version_num,String hOPERATINGENVIRONMENT,String sOPERATINGENVIRONMENT) {
+    public ApplicationModel(Integer AID, Integer applicantID, Integer processID, Date time, String phone, String testTYPE, String sNAME, String PA, String PAE, String PB, String PB_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, Integer scale_num, Integer scale_score, Integer scale_lines, String sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, String sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, String MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, String SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor,String version_num,String hOPERATINGENVIRONMENT,String sOPERATINGENVIRONMENT,String mainfunction,String tableid,String version,String confirmopinion,Integer auditID) {
         this.AID = AID;
         this.applicantID = applicantID;
         this.processID = processID;
@@ -168,7 +172,7 @@ public class ApplicationModel extends BaseEntity {
         this.PAE = PAE;
         this.PB = PB;
         this.PB_type = PB_type;
-        this.else_type = else_type;
+        //this.else_type = else_type;
         this.USS = USS;
         this.sDES = sDES;
         this.stestBASIS = stestBASIS;
@@ -208,30 +212,35 @@ public class ApplicationModel extends BaseEntity {
         this.version_num = version_num;
         this.hOPERATINGENVIRONMENT = hOPERATINGENVIRONMENT;
         this.sOPERATINGENVIRONMENT = sOPERATINGENVIRONMENT;
+        this.mainfunction = mainfunction;
+        this.tableid = tableid;
+        this.version = version;
+        this.confirmopinion = confirmopinion;
+        this.auditID = auditID;
     }
 
 
-    public int getAID() {
+    public Integer getAID() {
         return AID;
     }
 
-    public void setAID(int AID) {
+    public void setAID(Integer AID) {
         this.AID = AID;
     }
 
-    public int getApplicantID() {
+    public Integer getApplicantID() {
         return applicantID;
     }
 
-    public void setApplicantID(int applicantID) {
+    public void setApplicantID(Integer applicantID) {
         this.applicantID = applicantID;
     }
 
-    public int getProcessID() {
+    public Integer getProcessID() {
         return processID;
     }
 
-    public void setProcessID(int processID) {
+    public void setProcessID(Integer processID) {
         this.processID = processID;
     }
 
@@ -250,9 +259,9 @@ public class ApplicationModel extends BaseEntity {
     public void setTime(Date time) {
         this.time = time;
     }
-    public testTYPE getTestTYPE(){return testTYPE;}
+    public String getTestTYPE(){return testTYPE;}
 
-    public void setTestTYPE(com.selab.demo.model.enums.testTYPE testTYPE) {
+    public void setTestTYPE(String testTYPE) {
         this.testTYPE = testTYPE;
     }
 
@@ -285,21 +294,21 @@ public class ApplicationModel extends BaseEntity {
         this.PB = PB;
     }
 
-    public com.selab.demo.model.enums.PB_type getPB_type() {
+    public String getPB_type() {
         return PB_type;
     }
 
-    public void setPB_type(com.selab.demo.model.enums.PB_type PB_type) {
+    public void setPB_type(String PB_type) {
         this.PB_type = PB_type;
     }
 
-    public String getElse_type() {
-        return else_type;
-    }
+    //public String getElse_type() {
+    //    return else_type;
+    //}
 
-    public void setElse_type(String else_type) {
-        this.else_type = else_type;
-    }
+    //public void setElse_type(String else_type) {
+    //    this.else_type = else_type;
+    //}
 
     public String getUSS() {
         return USS;
@@ -349,35 +358,35 @@ public class ApplicationModel extends BaseEntity {
         this.TESTINDEX = TESTINDEX;
     }
 
-    public int getScale_num() {
+    public Integer getScale_num() {
         return scale_num;
     }
 
-    public void setScale_num(int scale_num) {
+    public void setScale_num(Integer scale_num) {
         this.scale_num = scale_num;
     }
 
-    public int getScale_score() {
+    public Integer getScale_score() {
         return scale_score;
     }
 
-    public void setScale_score(int scale_score) {
+    public void setScale_score(Integer scale_score) {
         this.scale_score = scale_score;
     }
 
-    public int getScale_lines() {
+    public Integer getScale_lines() {
         return scale_lines;
     }
 
-    public void setScale_lines(int scale_lines) {
+    public void setScale_lines(Integer scale_lines) {
         this.scale_lines = scale_lines;
     }
 
-    public char getsTYPE() {
+    public String getsTYPE() {
         return sTYPE;
     }
 
-    public void setsTYPE(char sTYPE) {
+    public void setsTYPE(String sTYPE) {
         this.sTYPE = sTYPE;
     }
 
@@ -477,11 +486,11 @@ public class ApplicationModel extends BaseEntity {
         this.sLANGUAGE = sLANGUAGE;
     }
 
-    public com.selab.demo.model.enums.sARCHITECTURE getsARCHITECTURE() {
+    public String getsARCHITECTURE() {
         return sARCHITECTURE;
     }
 
-    public void setsARCHITECTURE(com.selab.demo.model.enums.sARCHITECTURE sARCHITECTURE) {
+    public void setsARCHITECTURE(String sARCHITECTURE) {
         this.sARCHITECTURE = sARCHITECTURE;
     }
 
@@ -509,11 +518,11 @@ public class ApplicationModel extends BaseEntity {
         this.sELSEDEMAND = sELSEDEMAND;
     }
 
-    public com.selab.demo.model.enums.MEDIUM getMEDIUM() {
+    public String getMEDIUM() {
         return MEDIUM;
     }
 
-    public void setMEDIUM(com.selab.demo.model.enums.MEDIUM MEDIUM) {
+    public void setMEDIUM(String MEDIUM) {
         this.MEDIUM = MEDIUM;
     }
 
@@ -549,11 +558,11 @@ public class ApplicationModel extends BaseEntity {
         this.doc_path4 = doc_path4;
     }
 
-    public com.selab.demo.model.enums.SAMPLEDELETE getSAMPLEDELETE() {
+    public String getSAMPLEDELETE() {
         return SAMPLEDELETE;
     }
 
-    public void setSAMPLEDELETE(com.selab.demo.model.enums.SAMPLEDELETE SAMPLEDELETE) {
+    public void setSAMPLEDELETE(String SAMPLEDELETE) {
         this.SAMPLEDELETE = SAMPLEDELETE;
     }
 
@@ -589,7 +598,45 @@ public class ApplicationModel extends BaseEntity {
         this.auditinfor = auditinfor;
     }
 
+    public String getMainfunction() {
+        return mainfunction;
+    }
 
+    public void setMainfunction(String mainfunction) {
+        this.mainfunction = mainfunction;
+    }
+
+    public String getTableid() {
+        return tableid;
+    }
+
+    public void setTableid(String tableid) {
+        this.tableid = tableid;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getConfirmopinion() {
+        return confirmopinion;
+    }
+
+    public void setConfirmopinion(String confirmopinion) {
+        this.confirmopinion = confirmopinion;
+    }
+
+    public Integer getAuditID() {
+        return auditID;
+    }
+
+    public void setAuditID(Integer auditID) {
+        this.auditID = auditID;
+    }
 }
 
 
