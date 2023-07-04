@@ -10,20 +10,22 @@ import org.apache.ibatis.annotations.Delete;
 import java.util.List;
 @Mapper
 public interface ProcessDao {
-    @Insert("INSERT INTO selabspringe.process (client_id, curr_state, notes, price, open_to_curr, file_path1, file_path2, file_path3, record_path) VALUES(#{client_id}, #{curr_state}, #{notes}, #{price}, #{open_to_curr}, #{file_path1}, #{file_path2}, #{file_path3}, #{record_path}) ")
+    @Insert("INSERT INTO selabspringe.process (notes, UID, AID, state, price, fileIDs) VALUES(#{notes}, #{UID}, #{AID}, #{state}, #{price}, #{fileIDs}) ")
     void insert(ProcessModel processModel);
 
-    @Select("SELECT * FROM selabspringe.process WHERE client_id=#{client_id} ")
-    List<ProcessModel> findbyclient_id(int client_id);
+    @Select("SELECT * FROM selabspringe.process WHERE UID=#{UID} ")
+    List<ProcessModel> findByUID(int UID);
 
     @Select("SELECT * FROM selabspringe.process WHERE PID=#{PID} ")
-    List<ProcessModel> findbyPID(int PID);
+    ProcessModel findByPID(int PID);
+    @Select("SELECT * FROM selabspringe.process WHERE AID=#{AID} ")
+    List<ProcessModel> findByAID(int AID);
 
-    @Select("SELECT record_path FROM selabspringe.process WHERE PID=#{PID} ")
-    String findbyPID2(int PID);
-
-    @Update("UPDATE selabspringe.process SET client_id=#{client_id}, curr_state=#{curr_state}, notes=#{notes}, price=#{price}, open_to_curr=#{open_to_curr},file_path1=#{file_path1},file_path2=#{file_path2},file_path3=#{file_path3},record_path=#{record_path} WHERE PID=#{PID}")
-    void update(ProcessModel processModel);
+    @Select("SELECT PID FROM selabspringe.process WHERE PID=#{PID} ")
+    Integer findByPID2(int PID);
+// TODO:
+    //@Update("UPDATE selabspringe.process SET PID=#{PID}, notes=#{notes}, UID=#{UID}, AID=#{AID}, state=#{state},fileIDs=#{fileIDs} WHERE PID=#{PID}")
+    void update();
 
     @Delete("DELETE FROM selabspringe.process WHERE PID = #{PID}")
     void delete(int PID);
