@@ -221,6 +221,7 @@
               :limit="3"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
+              :data="{ PID:'5' }"
               :file-list="ruleForm.SamplesSubmitted">
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
@@ -251,7 +252,8 @@
                           drag
                           action="http://localhost:9090/api/file/upload"
                           multiple
-                          :before-upload="beforeUploadjpg">
+                          :before-upload="beforeUploadjpg"
+                          :data="{ PID:'5' }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                           <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
@@ -671,13 +673,14 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-        Axios.post("http://localhost:9090/api/application/insert",{
+        console.log(this.ruleForm)
+        Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
           console.log(ret.data);
-          this.$store.state.user.application.AID=ret.data
-          this.$message.info("提交成功！");
+          this.$store.state.user.process.AID=ret.data
+          this.$message.success("提交成功！");
           setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       }).catch(function (error)
         {

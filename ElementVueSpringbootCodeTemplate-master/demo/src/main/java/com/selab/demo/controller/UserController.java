@@ -38,6 +38,11 @@ public class UserController {
         return userService.selectAll();
     }
     @CrossOrigin
+    @RequestMapping("/selectByUID")
+    public User selectByUID(@RequestBody String postJson){
+        return userService.selectByUID(postJson);
+    }
+    @CrossOrigin
     @RequestMapping("/selectAll/customer")
     public List<User> selectAllCustomer(){
         return userService.selectAllCustomer();

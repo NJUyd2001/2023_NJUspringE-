@@ -201,9 +201,9 @@
     }
     
     span.logo-title2{
-      font-size: 20px;
+      font-size: 30px;
       font-weight: bold;
-      margin-left: 50px;
+      margin-left: 50%;
     }
     .demo-date-picker {
       display: flex;

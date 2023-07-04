@@ -40,31 +40,31 @@
   </el-header>
     <br><br><br>
     <el-main >
-      <el-form label-width="550px" disabled :model="ruleForm" ref="ruleForm">
+      <el-form label-width="550px" disabled :model="user" ref="user">
         <br>
         <el-form-item label="电话：">
-          <el-input v-model="telephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.telephone" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="传真：">
-          <el-input v-model="fax" style="width: 200px;"></el-input>
+          <el-input v-model="user.fax" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="地址：">
-          <el-input v-model="address" style="width: 200px;"></el-input>
+          <el-input v-model="user.address" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="邮编：">
-          <el-input v-model="postcode" style="width: 200px;"></el-input>
+          <el-input v-model="user.postcode" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="联系人：">
-          <el-input v-model="contacts" style="width: 200px;"></el-input>
+          <el-input v-model="user.contacts" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="手机：">
-          <el-input v-model="mobilephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.mobilephone" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="E-mail：">
-          <el-input v-model="email" style="width: 200px;"></el-input>
+          <el-input v-model="user.email" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="网址：">
-          <el-input v-model="URL" style="width: 200px;"></el-input>
+          <el-input v-model="user.URL" style="width: 200px;"></el-input>
         </el-form-item>
       </el-form>
     </el-main>
@@ -77,9 +77,9 @@ import Axios from "axios"
 export default {
   created(){
     console.log(this.$store.state.user.process.UID)
-    Axios.post("http://localhost:9090/api/user/selectAll/customer",JSON.stringify(this.$store.state.user.process.UID)).then(ret=>{
-      // console.log(ret.data)
-      this.user=ret.data
+    Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.$store.state.user.process.UID)).then(ret=>{
+      console.log(ret.data)
+      this.user=ret.data[0]
     })
   },
     data(){
@@ -89,50 +89,10 @@ export default {
             ruleForm:{
               SoftwareName:'',
               Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-                children:[],
             },
-          ],
-            },
-            rules:{
-              SoftwareName:[
-                      { required: true, message: "不能为空！", trigger: "blur" },
-                    ],
-              Versions:[
-                { required: true, message: "不能为空！", trigger: "blur"  },
-              ],
-              }
     }
 }, 
   methods:{
-    goback(){
-    },
-    addfatherItem(){
-      this.ruleForm.TableData.push({
-        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-        name:'',
-        function:'',
-        children:[],
-      })
-    },
-    removefatherItem(Table){
-      const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1) {
-      this.ruleForm.TableData.splice(index, 1);
-  }
-    },
-    addchildrenItem(Node){
-        Node.children.push(
-          {
-            id:'',
-            
-          }
-        )
-    },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {
         if (valid) {

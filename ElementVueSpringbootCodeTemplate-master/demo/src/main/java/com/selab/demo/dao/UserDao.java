@@ -27,6 +27,8 @@ public interface UserDao {
     @Select("SELECT * FROM selabspringe.user")
     public List<User> selectAll();
 
+    @Select("SELECT * FROM selabspringe.user WHERE UID = #{UID}")
+    public User selectByUID(Integer UID);
 
     @Update("<script>                                           "
             + "update selabspringe.user                         "
