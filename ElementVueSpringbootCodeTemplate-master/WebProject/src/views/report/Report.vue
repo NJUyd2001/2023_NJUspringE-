@@ -65,15 +65,13 @@
           </el-form-item>
           <el-form-item label='来样日期:'>
               <div class="demo-date-picker">
-              <div class="block">
-                <el-date-picker
+              <el-date-picker
                 style="margin-top: 60px; margin-left: -550px;"
                 v-model="SampleDate"
                 type="date"
                 placeholder="时间选择"
                 :size=large
                 />
-                </div>
                 </div>
             </el-form-item>
           <el-form-item label="委托单位(中文):">  

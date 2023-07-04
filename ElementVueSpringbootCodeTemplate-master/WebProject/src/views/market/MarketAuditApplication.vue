@@ -204,8 +204,9 @@
           'content-type': 'text/plain'}
       }).then(ret=>{
           // this.tempForm=ret.data[0];
+          console.log(ret.data)
           this.ruleForm=ret.data[0];
-          this.$store.state.user.AID=ret.data.AID;
+          this.$store.state.user.process.AID=ret.data.AID;
           // this.$message.info("提交成功！");
           // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       }).catch(function (error)
@@ -218,7 +219,7 @@
          return{
           percentage:0,
           userid:{
-            applicantID:this.$store.state.user.id+1
+            applicantID:this.$store.state.user.id
           },
           user:{
                   name:'风车村',

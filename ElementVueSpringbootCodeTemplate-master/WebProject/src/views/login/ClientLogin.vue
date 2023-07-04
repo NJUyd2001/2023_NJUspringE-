@@ -88,11 +88,9 @@ export default {
         this.$store.state.user.ip=ret.data.ip;
         this.$store.state.user.contact=ret.data.contact;
         this.$store.state.user.contactTel=ret.data.contactTel;
-        
-        if(ret.data.usertype == "C"){
           this.$message.success("登录成功");
+          console.log(this.$store.state.user.name)
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
-          }
         }
   })
       .catch(function (error) { // 请求失败处理

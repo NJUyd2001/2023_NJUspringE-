@@ -154,7 +154,7 @@ export default {
       }).then(() => {
         this.$refs[formName].validate((valid) => {
         if (valid) {
-        Axios.post("http://localhost:9090/api/application/insertruleform",JSON.stringify(this.ruleForm),{
+        Axios.post("http://localhost:9090/api/application/inserttabledata",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
