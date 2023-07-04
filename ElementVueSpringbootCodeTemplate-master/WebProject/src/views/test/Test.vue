@@ -1,25 +1,19 @@
 <!-- 文炫添加 -->
 <template>
 <div class="Person">
-<el-container style="height:700px;">
-  <el-header style="height: 30px">
+<el-container style="height:880px;">
+  <el-header style="height: 10%">
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="20"><div class="grid-content bg-purple">
-        <span class="logo-title">测试部</span>
+      <el-col :span="8"><div class="grid-content bg-purple">
+        <span style="font-size: 30px; font-weight: 1000;">{{user.uname}},您好（测试部）</span>
         </div></el-col>
-        <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain size="mini" type="primary" class="el-icon-user" @click="handleStart">我的</el-button></div></el-col>
-        <el-col :span="8"><div class="grid-content bg-purple-light text-right">
-          <span><el-button type="success" plain size="mini" style = "margin:10px" @click="loginOut">登出</el-button></span>
-
-        <el-dropdown  @command="switchLang">
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="zh">En</el-dropdown-item>
-            <el-dropdown-item command="en">中</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-
-        </div></el-col>
+        <el-col :span="12">
+          <img src="../../assets/l3.png" style="height:80px"/>
+        </el-col>
+      <el-col :span="4"><div class="grid-content bg-purple-light">
+        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
+        <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
+      </el-col>
     </el-row>
   </el-header>
 
@@ -127,6 +121,10 @@ export default {
       isCollapse: false,
 
       menus: [{}],
+      user:{
+        uname:this.$store.state.user.name,
+        utype:this.$store.state.user.Permissions,
+      },
       
       data: [{}],
       //Tabs
