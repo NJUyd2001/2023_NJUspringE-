@@ -668,8 +668,27 @@ export default {
         ],
         }
     }
-}, 
+},
+mounted(){
+  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('unload', this.handleUnload);
+},
+created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    if (sessionStorage.getItem("store") ) {
+    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
+    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
+      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      sessionStorage.removeItem('store');
+    }
+  },
   methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -678,8 +697,8 @@ export default {
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-          console.log(ret.data);
-          this.$store.state.user.process.AID=ret.data
+          console.log(ret.data.AID);
+          this.$store.state.user.process.AID=ret.data.AID
           this.$message.success("提交成功！");
           setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       }).catch(function (error)
