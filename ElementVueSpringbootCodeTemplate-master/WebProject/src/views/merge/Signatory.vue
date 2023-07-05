@@ -4,7 +4,7 @@
   <el-header style="height: 10%;">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
-        <span class="logo-title">{{user.uname}},您好(授权签字人)</span>
+        <span class="lt3">{{user.uname}},您好(授权签字人)</span>
         </div></el-col>
         <el-col :span="12">
           <img src="../../assets/l3.png" style="height:80px"/>
@@ -283,7 +283,7 @@ export default {
     line-height: 20px;
 }
 
-span.logo-title{
+span.lt3{
   font-size: 30px;
   font-weight: 1000;
 }

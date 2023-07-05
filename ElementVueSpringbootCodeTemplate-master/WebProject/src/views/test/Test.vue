@@ -17,7 +17,6 @@
     </el-row>
   </el-header>
 
-
   <el-container>
     <el-aside style="width:auto;">
       <!--
@@ -103,6 +102,9 @@
 import Vue from "vue";
 
 export default {
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'margin:0;')
+  },
   created() {
     // 载入config数据
     //this.$store.dispatch("config/reload");
@@ -167,7 +169,7 @@ export default {
       this.lang = command;
     },
     handleStart() {
-      this.info("工作正常");
+      this.$router.push('client/Personal');
     },
     loginOut() {
       //this.showLogin = true;

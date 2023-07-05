@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.selab.demo.dao.QuoteDao">
+    <insert id="insert" parameterType="com.selab.demo.model.QuoteModel">
+        INSERT INTO selabspringe.quote (time,softwarename,item,description,unitprice,ps,subtotalprice,tax,totalprice,provider)
+        VALUES (#{time},#{softwarename},#{item},#{description},#{unitprice},#{ps},#{subtotalprice},#{tax},#{totalprice},#{provider})
+    </insert>
+    <resultMap id="quoteMap" type="com.selab.demo.model.QuoteModel">
+        <id property="QID" column="QID"/>
+        <result property="time" column="time"/>
+        <result property="softwarename" column="softwarename"/>
+        <result property="item" column="item"/>
+        <result property="message" column="message"/>
+        <result property="description" column="description"/>
+        <result property="unitprice" column="unitprice"/>
+        <result property="ps" column="ps"/>
+        <result property="subtotalprice" column="subtotalprice"/>
+        <result property="tax" column="tax"/>
+        <result property="totalprice" column="totalprice"/>
+        <result property="provider" column="provider"/>
+    </resultMap>
+    <select id="findbyQID" parameterType="int" resultMap="quoteMap">
+        SELECT * FROM selabspringe.quote WHERE QID = #{arg0}
+    </select>
+</mapper>
