@@ -6,9 +6,9 @@
     <el-col :span="22">
     <el-breadcrumb separator="->">
       <el-breadcrumb-item :to="{ path: '/Client' }">用户主页-委托修改</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/checkauditinfor">审核意见查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/applicationamend">申请表修改</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/functionlistamend">功能列表修改</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/checkauditinfortest">审核意见查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/applicationamendtest">申请表修改</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/functionlistamendtest">功能列表修改</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
   <el-col :span="2">
@@ -88,7 +88,7 @@ export default {
             },
           ],
             },
-            StepNumber:2,
+            StepNumber:2  ,
             rules:{
               SoftwareName:[
                       { required: true, message: "不能为空！", trigger: "blur" },

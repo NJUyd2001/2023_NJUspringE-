@@ -133,7 +133,7 @@ export default {
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        this.info("注册成功！");
+        this.$message.success("注册成功！");
         setTimeout(() => {this.$router.push({path: "./admin", replace:true});}, 2000);
       })
       .catch(function (error) { // 请求失败处理

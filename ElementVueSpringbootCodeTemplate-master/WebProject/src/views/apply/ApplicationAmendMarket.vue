@@ -709,14 +709,14 @@ created(){
       this.$refs[formName].validate((valid) => {
         if (valid) {
         console.log(this.ruleForm)
-        Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
+        Axios.post("http://localhost:9090/api/application/updateapplication",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-          console.log(ret.data.AID);
+          console.log(ret.data);
           this.$store.state.user.process.AID=ret.data.AID
           this.$message.success("提交成功！");
-          setTimeout(() => {this.$router.push({path: "./functionlistamendmarket", replace:true});}, 2000);
+          //setTimeout(() => {this.$router.push({path: "./functionlistamendmarket", replace:true});}, 2000);
       }).catch(function (error)
         {
           console.log(error);

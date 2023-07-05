@@ -6,8 +6,8 @@
     <el-col :span="22">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页-委托修改</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/checkauditinfor">审核意见查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/applicationamend">申请表修改</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/checkauditinfortest">审核意见查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/applicationamendtest">申请表修改</a></el-breadcrumb-item>
     </el-breadcrumb>
   </el-col>
   <el-col :span="2">
@@ -16,7 +16,7 @@
   </el-row>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="6">
-        <router-link to="/checkauditinfor">
+        <router-link to="/checkauditinfortest">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>

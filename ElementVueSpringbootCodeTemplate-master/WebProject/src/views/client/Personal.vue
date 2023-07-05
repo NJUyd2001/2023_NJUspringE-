@@ -72,7 +72,7 @@
           {{ user.userfax }}
         </el-descriptions-item>
         <el-descriptions-item>
-          <template slot="label" prop="address">
+          <template slot="label">
             <i class="el-icon-location-outline"></i>
             地址
           </template>
@@ -110,57 +110,21 @@
     </el-card>
       </div>
     </div>
-    <personal-dia ref="dia" />
+    <personal-dia ref="dia" @flesh="reload" />
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+
 import PersonalDia from "./PersonalDia.vue";
 import Info from "./Info.vue";
 import Axios from "axios";
+
 export default {
   components: { PersonalDia },
   name: "Personal",
-<<<<<<< HEAD
-  created(){
-    //在页面加载时读取sessionStorage里的状态信息
-    if (sessionStorage.getItem("store") ) {
-    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
-    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
-      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-      sessionStorage.removeItem('store');
-      this.userid.UID=this.$store.state.user.id;
-      Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.userid),{
-        headers:{
-          'content-type': 'text/plain'}
-      }).then(ret=>{
-        console.log(ret.data)
-        this.user=ret.data;
-      })
-    }
-  },
-  mounted() {
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-    window.addEventListener('unload', this.handleUnload);
-=======
   inject: ["reload"],
-  created(){
-    Axios.get("http://localhost:9090/api/user/selectAll/staff",).then(ret=>{
-        console.log(ret.data);
-        //console.log(this.datas);
-      var i=0;
-      for(;i<ret.data.length;i++)
-         {
-          this.datas.push(ret.data[i]);
-         }  
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-        alert("error!");
-      });
->>>>>>> ce5fb8a66630b5d7fb739d81f76555fae09f68c3
-  },
   data() {
     return {
       avatar: "",
@@ -182,6 +146,29 @@ export default {
       user:{
       },
     };
+  },
+  created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    if (sessionStorage.getItem("store") ) {
+    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
+    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
+      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      sessionStorage.removeItem('store');
+    }
+      this.userid.UID=this.$store.state.user.id;
+
+      Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.userid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.user=ret.data;
+      })
+    
+  },
+  mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
   },
   methods: {
     handleBeforeUnload() {
@@ -208,7 +195,7 @@ export default {
     },
 
     edit() {
-      //this.$refs.dia.open();
+      this.$refs.dia.open();
     },
   },
 };
