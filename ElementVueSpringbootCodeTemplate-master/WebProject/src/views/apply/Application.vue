@@ -681,6 +681,7 @@ created(){
       this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
       sessionStorage.removeItem('store');
     }
+    this.ruleForm.applicantID=this.$store.state.user.id
   },
   methods:{
     handleBeforeUnload() {

@@ -8,6 +8,7 @@ const store = new Vuex.Store({
     modules: {
       config,
       user,
+      
   },
   
 });

@@ -7,9 +7,9 @@
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/market' }">市场部主页-审核委托</el-breadcrumb-item>
     <el-breadcrumb-item :to="{ path: '/marketaudituser' }">客户信息查看</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/marketauditapplication">申请表查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/marketauditfunctionlist">功能列表查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/marketapplication">审核信息填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/marketauditapplication">申请表查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/marketauditfunctionlist">功能列表查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/marketapplication">审核信息填写</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
 <el-col :span="1">
@@ -42,7 +42,7 @@
     <br><br><br>
     <el-main>
       <br>
-      <el-form :label-position="top" label-width="550px">
+      <el-form label-position="middle" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
         <el-form-item label="审核意见：">
           <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" ></el-input>
         </el-form-item>
@@ -101,17 +101,36 @@ export default {
       sessionStorage.setItem("store",JSON.stringify(this.$store.state))
             },
     submitForm(formName) {
-      console.log(this.ruleForm)
-      // this.$confirm("是否确认该操作","提示",{
-      //   iconClass: "el-icon-question",//自定义图标样式
-      //     confirmButtonText: "确认",//确认按钮文字更换
-      //     cancelButtonText: "取消",//取消按钮文字更换
-      //     showClose: true,//是否显示右上角关闭按钮
-      //     type: "warning",//提示类型  success/info/warning/error
-      // }).then(() => {
-      //   this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //   Axios.post("http://localhost:9090/api/application/insertopinion",JSON.stringify(this.ruleForm),{
+      this.$confirm("是否确认该操作","提示",{
+        iconClass: "el-icon-question",//自定义图标样式
+          confirmButtonText: "确认",//确认按钮文字更换
+          cancelButtonText: "取消",//取消按钮文字更换
+          showClose: true,//是否显示右上角关闭按钮
+          type: "warning",//提示类型  success/info/warning/error
+      }).then(() => {
+        this.$refs[formName].validate((valid) => {
+        if (valid) {
+      Axios.post("http://localhost:9090/api/application/insertopinion",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        this.$message.success("提交成功，正在返回测试部界面！");
+        this.StepNumber+=2;
+        setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      }) 
+        } else {
+          console.log("!")
+          return false;
+        }
+      });
+      })
+      .catch(function (err) {
+        //捕获异常
+      });
+      // Axios.post("http://localhost:9090/api/application/insertopinion",JSON.stringify(this.ruleForm),{
       //   headers:{
       //     'content-type': 'text/plain'}
       // }).then(ret=>{
@@ -122,26 +141,6 @@ export default {
       // .catch(function (error) { // 请求失败处理
       //   console.log(error);
       // }) 
-      //   } else {
-      //     console.log("error!")
-      //     return false;
-      //   }
-      // });
-      // })
-      // .catch(function (err) {
-      //   //捕获异常
-      // });
-      Axios.post("http://localhost:9090/api/application/insertopinion",JSON.stringify(this.ruleForm),{
-        headers:{
-          'content-type': 'text/plain'}
-      }).then(ret=>{
-        this.$message.success("提交成功，正在返回测试部界面！");
-        this.StepNumber+=2;
-      setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      }) 
     }
     },
 }

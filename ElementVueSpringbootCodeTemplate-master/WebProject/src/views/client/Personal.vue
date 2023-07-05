@@ -55,7 +55,7 @@
             <i class="el-icon-user"></i>
             账户名
           </template>
-          {{ user.uname }}
+          {{ user.nickname }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -69,7 +69,7 @@
             <i class="el-icon-printer"></i>
             传真
           </template>
-          {{ user.fax }}
+          {{ user.userfax }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -83,7 +83,7 @@
             <i class="el-icon-message"></i>
             邮箱Email
           </template>
-          {{ user.email }}
+          {{ user.emailAddr }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
@@ -110,20 +110,39 @@
     </el-card>
       </div>
     </div>
-    <personal-dia ref="dia" @flesh="reload" />
+    <personal-dia ref="dia" />
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-
 import PersonalDia from "./PersonalDia.vue";
 import Info from "./Info.vue";
-
+import Axios from "axios";
 export default {
   components: { PersonalDia },
   name: "Personal",
-  inject: ["reload"],
+  created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    if (sessionStorage.getItem("store") ) {
+    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
+    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
+      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      sessionStorage.removeItem('store');
+      this.userid.UID=this.$store.state.user.id;
+      Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.userid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.user=ret.data;
+      })
+    }
+  },
+  mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
   data() {
     return {
       avatar: "",
@@ -139,22 +158,20 @@ export default {
         followId: "",
       },
       isfollowid: [],
+      userid:{
+        UID:"",
+      },
       user:{
-        uname:this.$store.state.user.name,
-        phone:this.$store.state.user.phone,
-        fax:this.$store.state.user.fax,
-        email:this.$store.state.user.email,
-        address:this.$store.state.user.address,
-        zipcode:this.$store.state.user.zipcode,
-        contact:this.$store.state.user.contact,
-        contactTel:this.$store.state.user.contactTel,
       },
     };
   },
-  mounted() {
-  },
   methods: {
-
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     addTab(targetName, commentName) {
       // 如果已经存在
       /*if (this.tabs[commentName]) {
@@ -173,7 +190,7 @@ export default {
     },
 
     edit() {
-      this.$refs.dia.open();
+      //this.$refs.dia.open();
     },
   },
 };
