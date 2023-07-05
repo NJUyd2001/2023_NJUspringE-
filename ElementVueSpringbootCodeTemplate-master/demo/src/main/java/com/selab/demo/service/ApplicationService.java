@@ -171,7 +171,6 @@ public class ApplicationService {
             String samplessubmitted = jsonObject.getString("sAMPLEDELETE");
             newjsonObject.put("SamplesSubmitted",samplessubmitted);
             newjsonObject.put("WantedFinishTime",jsonObject.getString("eXDATE"));
-
             res.add(newjsonObject);
             ++i;
         }
