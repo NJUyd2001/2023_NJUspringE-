@@ -14,7 +14,7 @@ public class ProcessController {
     ProcessService processService;
 
     @RequestMapping("/insert")
-    public String insert(@RequestBody String postJson){
+    public Integer insert(@RequestBody String postJson){
         return processService.insert(postJson);
     }
 
@@ -28,7 +28,14 @@ public class ProcessController {
     public List<ProcessModel> findByAID(@RequestBody String postJson){
         return processService.findByAID(postJson);
     }
-
+    @RequestMapping("/byState/selectAID")
+    public List<Integer> selectAIDsByState(@RequestBody String postJson){
+        return processService.selectAIDsByState(postJson);
+    }
+    @RequestMapping("/byState/selectPID")
+    public List<Integer> selectPIDsByState(@RequestBody String postJson){
+        return processService.selectPIDsByState(postJson);
+    }
     @RequestMapping("/findAll")
     public List<ProcessModel> findAll(){
         return processService.findAll();

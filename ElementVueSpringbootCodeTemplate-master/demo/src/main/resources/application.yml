@@ -7,6 +7,10 @@
 #        password: 86bc514d3780ac7e
 server:
   port: 1234
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
   tomcat:
     uri-encoding: utf-8
 

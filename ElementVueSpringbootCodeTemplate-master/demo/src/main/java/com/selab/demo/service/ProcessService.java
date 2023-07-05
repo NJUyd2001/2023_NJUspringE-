@@ -18,7 +18,7 @@ import java.util.List;
 public class ProcessService {
     @Autowired
     ProcessDao processDao;
-    public String insert(String postJson){
+    public Integer insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
 
@@ -30,16 +30,13 @@ public class ProcessService {
 
 
         ProcessModel processmodel = new ProcessModel(notes, UID, AID, state, price);
-        try {
-            processDao.insert(processmodel);
-        }catch(Exception e){
-            return e.getCause().getMessage();
-        }
         System.out.println("收到内容："+ processmodel.toString());
-        return ("进程创建成功");
-
-
-
+        try {
+            return processDao.insert(processmodel);
+        }catch(Exception e){
+            System.out.println(e.getCause().getMessage());
+            return -1;
+        }
     }
     public List<ProcessModel> findByUID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
@@ -54,6 +51,19 @@ public class ProcessService {
 
         int PID = jsonObject.getInteger("PID");
         return processDao.findByPID(PID);
+    }
+    // 返回AID
+    public List<Integer> selectAIDsByState(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+
+        String state = jsonObject.getString("state");
+        return processDao.selectAIDsByState(state);
+    }
+    public List<Integer> selectPIDsByState(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+
+        String state = jsonObject.getString("state");
+        return processDao.selectPIDsByState(state);
     }
     public List<ProcessModel> findByAID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
