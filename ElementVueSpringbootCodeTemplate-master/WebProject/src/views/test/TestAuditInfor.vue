@@ -154,7 +154,7 @@ export default {
       //     return false;
       //   }
       // });
-      this.info("提交成功，正在返回测试部界面！");
+      this.$message.success("提交成功，正在返回测试部界面！");
       this.StepNumber+=2;
       setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
     },

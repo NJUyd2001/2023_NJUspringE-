@@ -11,7 +11,7 @@
           <img src="../../assets/l3.png" style="height:80px"/>
         </el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
+        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{isLogin}}</el-button>
         <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
       </el-col>
     </el-row>
@@ -50,17 +50,17 @@
             <span>生成报价</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="0-2" @click="addTab('委托审核结果', 'SelectUser')">委托审核结果</el-menu-item>
+            <el-menu-item index="0-2" @click="addTab('个人信息完善', 'MyInformation')">委托审核结果</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
         <el-submenu index="9">
           <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span>设置</span>
+            <i class="el-icon-user"></i>
+            <span>我的</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="9-1" @click="addTab('用户信息', 'ConfigTable2')">用户信息</el-menu-item>
+            <el-menu-item index="9-1" @click="jump2myinf()">用户信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -101,6 +101,9 @@
 import Vue from "vue";
 
 export default {
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'margin:0;')
+  },
   created(){
     //在页面加载时读取sessionStorage里的状态信息
     if (sessionStorage.getItem("store") ) {
@@ -118,6 +121,7 @@ export default {
       user: null,
       keyword: "",
       isCollapse: false,
+      isLogin: sessionStorage.getItem('isLogin'),
 
       menus: [{}],
       user:{
@@ -174,6 +178,9 @@ export default {
     },
     jump2application() {
       this.$router.push('/marketaudituser');
+    },
+    jump2myinf(){
+      this.$router.push('/myinf');
     },
     addTab(targetName, commentName) {
       // 如果已经存在
