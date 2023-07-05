@@ -45,7 +45,7 @@
           <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
           </el-select>
          </el-form-item>
-        <el-form-item label="软件名称:"  > 
+        <el-form-item label="软件名称:"> 
           <el-input style="width:200px;padding:10px" v-model="ruleForm.SoftWareName"></el-input>
         </el-form-item> 
         <el-form-item label="版本号:" > 
@@ -141,24 +141,11 @@
           <el-option   v-for='item in SoftwareMedium' :key='item.id' :label="item.value" :value="item.value"></el-option>
           </el-select>
           </el-form-item>
-          <el-form-item label="样品文档:">
-            <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                :before-remove="beforeRemove"
-                multiple
-                :limit="3"
-                :on-exceed="handleExceed"
-                :file-list="ruleForm.SamplesSubmitted">
-    <el-button size="small" type="primary">点击下载</el-button>
-    <div slot="tip" class="el-upload__tip">注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
-                                                2、用户文档（例如：用户手册、用户指南等）（必须）<br>
-                                                3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）
-                                              </div>
-              </el-upload>
+          <el-form>
+          <el-form-item label="样品文档:" label-width="550px" >
+            <el-button size="small" type="primary" @click="download">点击下载</el-button>
           </el-form-item>
+          </el-form>
           <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="SamplesSubmitted">
             <el-radio-group v-model="ruleForm.SamplesSubmitted">
               <el-radio label="中心直接销毁"></el-radio>
@@ -205,22 +192,26 @@
       this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
       sessionStorage.removeItem('store');
       }
-      console.log(this.$store.state.user.process.UID)
-      this.userid.applicantID=this.$store.state.user.process.UID
-
-
-
-      Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.userid),{
+      this.Aid.applicantID=this.$store.state.user.process.UID
+      this.Pid.PID=this.$store.state.user.process.UID
+      Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.Pid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-          // this.tempForm=ret.data[0];
-          // console.log(ret.data[0])
+          //console.log(ret.data)
+          this.Fid.FID=ret.data.fileIDs;
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
+      Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.Aid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
           this.ruleForm=ret.data[0];
           this.$store.state.user.process.AID=ret.data[0].AID;
           console.log(this.$store.state.user.process.AID)
-          // this.$message.info("提交成功！");
-          // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       }).catch(function (error)
         {
           console.log(error);
@@ -230,21 +221,15 @@
       data(){
          return{
           percentage:0,
-          userid:{
+          Aid:{
             applicantID:"",
           },
-          user:{
-                  name:'风车村',
-                  password:'shazihuang',
-                  telephone:'',
-                  fax:'',
-                  address:'',
-                  postcode:'',
-                  contacts:'',
-                  mobilephone:'',
-                  email:'',
-                  URL:'',
-              },
+          Pid:{
+            PID:"",
+          },
+          Fid:{
+            FID:"",
+          },
           tempForm:{},
           ruleForm:{
               TypeTest:{},
@@ -310,6 +295,42 @@
   handleUnload() {
     sessionStorage.setItem("store",JSON.stringify(this.$store.state))
             },
+      download(){
+        console.log(this.Fid.FID)
+        var formdata=new FormData()
+        
+        formdata.append('FID' ,this.Fid.FID)
+        //console.log(formdata.get('FID'))
+        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
       submitForm(formName) {
         // console.log(this.tempForm);
         console.log(this.ruleForm);
