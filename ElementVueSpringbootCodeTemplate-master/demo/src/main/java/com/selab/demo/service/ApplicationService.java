@@ -131,9 +131,9 @@ public class ApplicationService {
             JSONObject runtimeenvironment = new JSONObject();
             JSONObject client = new JSONObject();
             JSONObject os = new JSONObject();
-            os.put("windows",jsonObject.getString("eNVIRONMENTW"));
+            os.put("Windows",jsonObject.getString("eNVIRONMENTW"));
             os.put("Linux",jsonObject.getString("eNVIRONMENTL"));
-            os.put("other",jsonObject.getString("eNVIRONMENTE"));
+            os.put("Other",jsonObject.getString("eNVIRONMENTE"));
             client.put("OS",os);
             client.put("Mermory",jsonObject.getString("eNVIRONMENTN"));
             client.put("Other",jsonObject.getString("eNVIRONMENT"));
@@ -143,9 +143,10 @@ public class ApplicationService {
             JSONArray hardFramework = new JSONArray();
             String hOPERATINGENVIRONMENT = jsonObject.getString("hOPERATINGENVIRONMENT");
             hardFramework = StringtoArray(hOPERATINGENVIRONMENT,hardFramework);
+            hardware.put("FrameWork",hardFramework);
             hardware.put("Mermory",jsonObject.getString("hMEMORY"));
             hardware.put("HardDisk",jsonObject.getString("hHARDDISK"));
-            hardware.put("OtherDisk",jsonObject.getString("hELSEDEMAND"));
+            hardware.put("Other",jsonObject.getString("hELSEDEMAND"));
             server.put("HardWare",hardware);
             JSONObject software = new JSONObject();
             software.put("OS",jsonObject.getString("sOS"));
