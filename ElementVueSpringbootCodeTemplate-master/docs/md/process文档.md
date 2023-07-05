@@ -1,46 +1,24 @@
-# Process文档
-author：李晨博
+# process 操作文档
 
-# 数据结构
+## 接口列表
 
+### 插入
 
-注：这段内容是根据王辰枫在MySQL当中的注释整理而来的，如果有疑问，除去联系我，也请额外联系他，谢谢！
+端口：`/process/insert`
 
-
-|key|数据类型|数据含义|是否不能为空（NOT NULL）|
-|---|---|---|---|
-|PID（主键）|int|进程号|NOT NULL|
-|client_id|int|客户id|NOT NULL|
-|curr_state|enum|审核结果<br />R：委托被拒绝,<br />W：待审核,<br />P：正在审核中（已经有人再审了）,<br />A：审核通过|NOT NULL|
-|notes|string|备注|-|
-|price|double|价格|-|
-|open_to_curr|enum|open_to_curr是一个标号，用于记录流程当前执行情况，例如“正在由xx部门处理”这样的信息,<br />A：市场部生成合同草稿给客户,<br />B：客户填写合同给市场部审核,<br />C：用户发送样品给市场部验收,<br />D：测试部提交方案给质量部审核,<br />E：测试部提交测试报告给测试部主管,<br />F：用户审核（后存一个流程记录 -- 暂定）,<br />G：授权签字人签字测试报告后发送给客户,<br />H：客户确认收到或到期自动确认|NOT NULL|
-|file_path1|string|存储文件路径1<br /><font size=2>这部分文件路径使用方法视情况而定，前端自己约定好就行</font>|-|
-|file_path2|string|存储文件路径2|-|
-|file_path3|string|存储文件路径3|-|
-|record_path|string|存储每个经手人的uid|NOT NULL|
-
-# 接口
-
-## /process/inset
-增加一个新的process项目
-
-注意！所有数据文档中除去PID以外的NOT NULL的key必须都有定义，否则会报错！在此处定义PID没有任何意义，PID会变为sql设定的自增变量！
-
-
-输入示例：
-
+参数：（参数没提供则默认为空）
+``` js
 {
-   "client_id":"1",
-   "curr_state":"A",
-   "notes":"1",
-   "price":"1",
-   "open_to_curr":"E",
-   "file_path1":"1",
-   "file_path2":"1",
-   "file_path3":"1",
-   "record_path":"1"
+    "UID":"",
+    "PID":"",
+    "notes":"",  // 备注
+    "state":"",  // 状态
+    "fileIDs":"" // 进程中上传的文件
+    "price":""   // 报价
 }
+<<<<<<< HEAD:process文档.md
+```
+=======
 
 输出：
 
@@ -140,3 +118,4 @@ the process does not exist
 输出2：（删除成功）
 
 process delete successfully
+>>>>>>> 2311a68b61487d324cde3b3d4a476ee9859e01cd:ElementVueSpringbootCodeTemplate-master/docs/md/process文档.md

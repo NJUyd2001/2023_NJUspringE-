@@ -21,7 +21,7 @@
             </router-link>
           </el-col>
           <el-col :span="10" style="margin-left: 35%;"><div class="grid-content bg-purple">
-          <span class="logo-title">测试报告</span>
+          <span class="lt1">测试报告</span>
           </div></el-col>
           <el-col :span="16">
           <el-steps :space="200" :active="1" finish-status="success">
@@ -65,13 +65,15 @@
           </el-form-item>
           <el-form-item label='来样日期:'>
               <div class="demo-date-picker">
-              <el-date-picker
-                style="margin-top: 60px; margin-left: -550px;"
+              <div class="block">
+                <el-date-picker
+                style="margin-top: 60px; margin-left: -460px;"
                 v-model="SampleDate"
                 type="date"
                 placeholder="时间选择"
                 :size=large
                 />
+                </div>
                 </div>
             </el-form-item>
           <el-form-item label="委托单位(中文):">  
@@ -317,7 +319,7 @@
       height: 100%;
     }
     
-    span.logo-title{
+    span.lt1{
       font-size: 30px;
       font-weight: bold;
     }

@@ -85,6 +85,7 @@ export default {
         this.$store.state.user.contact=ret.data.contact;
         this.$store.state.user.contactTel=ret.data.contactTel;
         console.log(ret.data)
+        sessionStorage.setItem('isLogin',true);
         if(ret.data.usertype=="T")
         {
           this.$message.success("登录成功!");

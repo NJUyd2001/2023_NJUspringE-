@@ -1,5 +1,6 @@
 package com.selab.demo.controller;
 
+import com.fasterxml.jackson.core.json.UTF8JsonGenerator;
 import com.selab.demo.model.FileModel;
 import com.selab.demo.service.FileService;
 
@@ -11,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 
 @RestController
@@ -56,16 +60,18 @@ public class FileController {
             // 重置 response
             response.reset();
             // 设置 response 的下载响应头
+            response.setHeader("Access-Control-Allow-Origin","*");
+            response.setHeader("Access-Control-Expose-Headers", "Content-disposition");
             response.setContentType("application/octet-stream");
             response.setHeader("Content-disposition", "attachment;filename="
-                    + fileModel.getFileName());
+                    + URLEncoder.encode(fileModel.getFileName(), StandardCharsets.UTF_8));
             // 写出字节数组到输出流
             os.write(bytes);
             // 刷新输出流
             os.flush();
         } catch (Exception e) {
-            e.printStackTrace();
-            return "错误";
+
+            return e.getMessage();
         }
         return "下载任务创建成功";
     }

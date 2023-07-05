@@ -73,7 +73,7 @@
             </el-col>
             <el-col :span="5">
                 <el-form-item  label="说明：">
-                    <el-input style="width: 200px;padding:10px;" :autosize="{ minRows: 3, maxRows: 8}" type="textarea" v-model="ruleForm.descrption"></el-input>
+                    <el-input style="width: 200px;padding:10px;" :autosize="{ minRows: 3, maxRows: 8}" type="textarea" v-model="ruleForm.description"></el-input>
                 </el-form-item>
             </el-col>
             <el-col :span="3">
@@ -83,7 +83,7 @@
             </el-col>
             <el-col :span="7">
                 <el-form-item  label="备注：">
-                    <el-input style="width: 200px;padding:10px;" :autosize="{ minRows: 3, maxRows: 8}" type="textarea" v-model="ruleForm.descrption"></el-input>
+                    <el-input style="width: 200px;padding:10px;" :autosize="{ minRows: 3, maxRows: 8}" type="textarea" v-model="ruleForm.description"></el-input>
                 </el-form-item>
             </el-col>
         </el-row>
@@ -150,7 +150,7 @@
                   Time:'',
                   SoftwareName:"",
                   item:"",
-                  descrption:"",
+                  description:"",
                   UnitPrice:0,
                   PS:"",
                   SubTotalPrice:0,

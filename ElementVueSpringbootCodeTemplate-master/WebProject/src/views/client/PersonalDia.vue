@@ -108,7 +108,7 @@ export default {
           'content-type': 'text/plain'}
       }).then(ret=>{
         console.log(ret)
-        this.info("提交成功，正在返回用户界面！");
+        this.info("提交成功，正在返回登录界面！");
         setTimeout(() => {this.$router.push({path: "../clientlogin", replace:true});}, 2000);
       })
     },

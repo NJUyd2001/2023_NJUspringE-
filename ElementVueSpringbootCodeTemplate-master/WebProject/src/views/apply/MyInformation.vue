@@ -8,7 +8,7 @@
   <br>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="6">
-        <router-link to="/application">
+        <router-link to="/client">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
@@ -106,8 +106,8 @@ export default {
           'content-type': 'text/plain'}
       }).then(ret=>{
         console.log(ret)
-        this.info("提交成功，正在返回用户界面！");
-        setTimeout(() => {this.$router.push({path: "../clientlogin", replace:true});}, 2000);
+        this.$message.success("提交成功，正在返回用户界面！");
+        setTimeout(() => {this.$router.push({path: "../client", replace:true});}, 2000);
       })
     },
   },
