@@ -44,10 +44,10 @@
     <el-main>
       <br>
       <el-form label-width="550px" disabled :model="ruleForm" ref="ruleForm">
-        <el-form-item label="软件名称:" prop="SoftwareName">
+        <el-form-item label="软件名称:" >
           <el-input v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="版本号:" prop="Versions">
+        <el-form-item label="版本号:">
           <el-input v-model="ruleForm.Versions" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
@@ -70,13 +70,18 @@
   import Axios from 'axios'
 export default {
   created(){
-      // console.log(this.$store.state.user.id)
-      Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.$store.state.user.AID),{
+      if (sessionStorage.getItem("store") ) {
+              this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+               sessionStorage.removeItem('store');
+              }
+      this.user.AID=this.$store.state.user.process.AID
+      Axios.post("http://localhost:9090/api/application/gettabledata",JSON.stringify(this.user),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
           // this.tempForm=ret.data[0];
-          this.ruleForm=ret.data[0];
+          console.log(ret.data)
+           this.ruleForm=ret.data;
           // this.$message.info("提交成功！");
           // setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       }).catch(function (error)
@@ -88,42 +93,24 @@ export default {
     data(){
        return{
             user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
+              AID:"", 
             },
             ruleForm:{
-              SoftwareName:'',
-              Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-                children:[],
+
             },
-          ],
-            },
-            rules:{
-              SoftwareName:[
-                      { required: true, message: "不能为空！", trigger: "blur" },
-                    ],
-              Versions:[
-                { required: true, message: "不能为空！", trigger: "blur"  },
-              ],
-              }
     }
-}, 
+},
+  mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
   methods:{
-    goback(){
-    },
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+    handleUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
     addfatherItem(){
       this.ruleForm.TableData.push({
         id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
@@ -155,7 +142,7 @@ export default {
           return false;
         }
       });*/
-      this.info("提交成功，正在返回用户界面！");
+      this.$message.success("提交成功，正在返回用户界面！");
       setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
     }
   },

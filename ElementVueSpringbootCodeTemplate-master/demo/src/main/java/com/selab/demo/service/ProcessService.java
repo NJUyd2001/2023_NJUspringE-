@@ -32,7 +32,8 @@ public class ProcessService {
         ProcessModel processmodel = new ProcessModel(notes, UID, AID, state, price);
         System.out.println("收到内容："+ processmodel.toString());
         try {
-            return processDao.insert(processmodel);
+            processDao.insert(processmodel);
+            return processmodel.getPID();
         }catch(Exception e){
             System.out.println(e.getCause().getMessage());
             return -1;
@@ -79,19 +80,28 @@ public class ProcessService {
         Integer PID = jsonObject.getInteger("PID");
 
         String notes = jsonObject.getString("notes");
-        double price = jsonObject.getDouble("price");
+        // double price = jsonObject.getDouble("price");
         String state = jsonObject.getString("state");
-        Integer checker = processDao.findByPID2(PID);
+        ProcessModel checker = processDao.findByPID(PID);
 
         if(checker == null){
             return ("不存在PID = "+ PID + "的进程");
         }
         else{
+            if(notes != null) checker.setNotes(notes);
+            try{
+                double price = jsonObject.getDouble("price");
+                checker.setPrice(price);
+            } catch (NullPointerException e){
+                return "价格不能为空！";
+            }
 
+            if(state != null) checker.setState(state);
             // TODO: 实现update
-            processDao.update();
+            System.out.println(checker.toString());
+            processDao.update(checker);
 
-            return ("process update complete");
+            return ("进程信息已更新");
         }
     }
 

@@ -221,7 +221,7 @@
               :limit="3"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:'5' }"
+              :data="{ PID:applicantID }"
               :file-list="ruleForm.SamplesSubmitted">
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
@@ -253,7 +253,7 @@
                           action="http://localhost:9090/api/file/upload"
                           multiple
                           :before-upload="beforeUploadjpg"
-                          :data="{ PID:'5' }">
+                          :data="{ PID:applicantID }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                           <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
@@ -668,8 +668,27 @@ export default {
         ],
         }
     }
-}, 
+},
+mounted(){
+  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('unload', this.handleUnload);
+},
+created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    if (sessionStorage.getItem("store") ) {
+    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
+    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
+      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      sessionStorage.removeItem('store');
+    }
+  },
   methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -678,8 +697,8 @@ export default {
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-          console.log(ret.data);
-          this.$store.state.user.process.AID=ret.data
+          console.log(ret.data.AID);
+          this.$store.state.user.process.AID=ret.data.AID
           this.$message.success("提交成功！");
           setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       }).catch(function (error)

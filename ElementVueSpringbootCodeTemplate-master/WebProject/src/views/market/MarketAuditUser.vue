@@ -76,11 +76,18 @@
 import Axios from "axios"
 export default {
   created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    if (sessionStorage.getItem("store") ) {
+    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
+    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
+      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      sessionStorage.removeItem('store');
+    }
     console.log(this.$store.state.user.process.UID)
-    Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.$store.state.user.process.UID)).then(ret=>{
-      console.log(ret.data)
-      this.user=ret.data[0]
-    })
+    // Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.$store.state.user.process.UID)).then(ret=>{
+    //   console.log(ret.data)
+    //   this.user=ret.data[0]
+    // })
   },
     data(){
        return{
@@ -92,7 +99,17 @@ export default {
             },
     }
 }, 
+mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
   methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -102,7 +119,7 @@ export default {
           return false;
         }
       });*/
-      this.info("提交成功，正在返回用户界面！");
+      this.$message.success("提交成功，正在返回用户界面！");
       setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
     }
   },

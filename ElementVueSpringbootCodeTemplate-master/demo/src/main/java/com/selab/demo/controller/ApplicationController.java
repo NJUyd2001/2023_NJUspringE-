@@ -33,6 +33,8 @@ public class ApplicationController {
     }
     @RequestMapping("/getallAID")
     public  String findAID(@RequestBody String postJson){return applicationService.findAID(postJson);}
+    @RequestMapping("/getall")
+    public String findall(@RequestBody String postJson){return applicationService.findALL(postJson);}
     @RequestMapping("/updateapplication")
     public String updatrapplication(@RequestBody String postJson){
         return applicationService.updateapplication(postJson);

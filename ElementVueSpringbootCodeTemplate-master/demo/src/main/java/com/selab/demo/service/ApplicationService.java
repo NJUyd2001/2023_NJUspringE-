@@ -431,7 +431,7 @@ public class ApplicationService {
 
    public String checkbyuserA(String postJson){
        JSONObject jsonObject = JSONObject.parseObject(postJson);
-       int username = jsonObject.getInteger("applicantID");
+       Integer username = jsonObject.getInteger("applicantID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyuserA(username)));
         return JSONrepack(JSON.toJSONString(applicationDao.findbyuserA(username)));
@@ -439,20 +439,29 @@ public class ApplicationService {
 
     public String checkbyprocess(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        int username = jsonObject.getInteger("processID");
+        Integer username = jsonObject.getInteger("processID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyprocess(username)));
         return JSONrepack(JSON.toJSONString(applicationDao.findbyprocess(username)));
     }
     public String checkbyAID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        int AID = jsonObject.getInteger("AID");
+        Integer AID = jsonObject.getInteger("AID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyAID(AID)));
         return JSONrepack(JSON.toJSONString(applicationDao.findbyAID(AID)));
     }
     public String findAID(String postJson){
         return JSON.toJSONString(applicationDao.findAID());
+    }
+
+    public String findALL(String postJson){
+
+        JSONArray oldobject = JSONArray.parseArray(JSON.toJSONString(applicationDao.findALL()));
+        if(oldobject==null ||oldobject == new JSONArray()){
+            return  JSON.toJSONString(oldobject);
+        }
+        return JSON.toJSONString(JSONrepack(JSON.toJSONString(oldobject)));
     }
     public String updateapplication(String postJson) {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
@@ -827,7 +836,7 @@ public class ApplicationService {
 
     public String deleteapplication(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        int AID = jsonObject.getInteger("AID");
+        Integer AID = jsonObject.getInteger("AID");
         Integer result = applicationDao.findbyAID2(AID);
         if (result == null) {
             return "the application does not exist";
@@ -957,7 +966,7 @@ public class ApplicationService {
         JSONObject a = new JSONObject();
 
         JSONArray res = new JSONArray();
-        JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)) );
+        JSONObject oldjsonObject = JSONObject.parseObject(JSON.toJSONString(applicationDao.findbyAID(AID).get(0)));
 
         String tableid = oldjsonObject.getString("tableid");
         if(tableid!=null && tableid!=new String()){
@@ -974,6 +983,8 @@ public class ApplicationService {
                     JSONObject table = JSONObject.parseObject(JSON.toJSONString(tabledataDao.findbyTID(TID).get(0)));
                     table.put("TID",table.getInteger("tID"));
                     table.remove("tID");
+                    table.put("function",table.getString("functions"));
+                    table.remove("functions");
                     res.add(table);
                 }
                 ++i;

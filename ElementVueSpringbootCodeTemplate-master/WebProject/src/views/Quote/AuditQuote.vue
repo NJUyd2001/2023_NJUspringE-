@@ -230,7 +230,7 @@
               return false;
             }
           });*/
-          this.info("提交成功，正在返回用户界面！");
+          this.$message.success("提交成功，正在返回用户界面！");
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
         }
       },
