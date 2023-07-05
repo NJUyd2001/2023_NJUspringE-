@@ -75,6 +75,18 @@ public class ProcessService {
 
         return processDao.findAll();
     }
+    public String updateState(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer PID = jsonObject.getInteger("PID");
+        String state = jsonObject.getString("state");
+        try {
+            processDao.updateState(PID, state);
+        }catch (Exception e){
+            return e.getMessage();
+        }
+        return "状态更新成功";
+    }
+
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");

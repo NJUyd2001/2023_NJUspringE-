@@ -14,6 +14,9 @@
     <select id="findByUID" parameterType="int" resultType="com.selab.demo.model.ProcessModel">
     SELECT * FROM process WHERE UID=#{UID}
     </select>
+    <update id="updateState" parameterType="integer">
+        UPDATE selabspringe.process SET state=#{state} WHERE PID=#{PID}
+    </update>
     <select id="findByState" parameterType="String" resultType="com.selab.demo.model.ProcessModel">
         SELECT * FROM process WHERE state=#{state}
     </select>

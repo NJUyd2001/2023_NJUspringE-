@@ -32,6 +32,10 @@ public class ProcessController {
     public List<Integer> selectAIDsByState(@RequestBody String postJson){
         return processService.selectAIDsByState(postJson);
     }
+    @RequestMapping("/updateState")
+    public String updateState(@RequestBody String postJson){
+        return processService.updateState(postJson);
+    }
     @RequestMapping("/byState/selectPID")
     public List<Integer> selectPIDsByState(@RequestBody String postJson){
         return processService.selectPIDsByState(postJson);

@@ -13,6 +13,8 @@ public interface ProcessDao {
 
     @Select("SELECT * FROM selabspringe.process WHERE UID=#{UID} ")
     List<ProcessModel> findByUID(int UID);
+    @Update("UPDATE selabspringe.process SET state=#{state} WHERE PID=#{PID}")
+    void updateState(int PID, String state);
 
     @Select("SELECT * FROM selabspringe.process WHERE PID=#{PID} ")
     ProcessModel findByPID(int PID);
