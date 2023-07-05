@@ -33,6 +33,9 @@
     <select id="selectAllStaff" resultMap="userMap">
         SELECT * FROM selabspringe.user WHERE usertype!='C'
     </select>
+    <select id="selectByUID" parameterType="integer" resultType="com.selab.demo.model.User">
+        SELECT * FROM selabspringe.user WHERE UID = #{UID}
+    </select>
     <update id="update" parameterType="String">
         UPDATE selabspringe.user
         <set>
@@ -56,7 +59,7 @@
         DELETE FROM user WHERE UID=#{UID}
     </delete>
 
-    <select id="findByUID" parameterType="Integer" resultType="Integer">
+    <select id="findByUID" parameterType="Integer" resultType="com.selab.demo.model.User">
         SELECT UID FROM selabspringe.user WHERE UID=#{UID}
     </select>
 

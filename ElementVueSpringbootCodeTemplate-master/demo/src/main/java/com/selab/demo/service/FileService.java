@@ -19,15 +19,17 @@ public class FileService {
     FileDao fileDao;
     @Autowired
     FileUtil fileUtil;
-    public String upload(MultipartFile file, Integer PID){
+    public Integer upload(MultipartFile file, Integer PID){
         try {
             String fileName = file.getOriginalFilename();
             String filePath = fileUtil.getUpload(file, PID);
-            if(filePath.isEmpty()) return "文件识别错误，上传失败";
-            fileDao.upload(new FileModel(filePath, PID, fileName));
-            return "上传成功";
+            FileModel fileModel = new FileModel(filePath, PID, fileName);
+            if(filePath.isEmpty()) return null;
+            fileDao.upload(fileModel);
+            return fileModel.getFID();
         }catch (IOException e){
-            return e.getCause().getMessage();
+            System.out.println(e.getCause().getMessage());
+            return null;
         }
     }
     public FileModel[] selectAllFiles(){

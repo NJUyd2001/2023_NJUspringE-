@@ -109,6 +109,7 @@ export default {
   methods: {
     SolvePro(row){
       // console.log(row);
+      //sessionStorage.setItem
         this.$store.state.user.process.UID=row.applicantID;
         console.log(this.$store.state.user.process.UID);
         this.$router.push({path: "./marketaudituser", replace:true})

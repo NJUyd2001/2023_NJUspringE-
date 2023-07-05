@@ -43,10 +43,10 @@
       <el-form label-width="550px" disabled :model="user" ref="user">
         <br>
         <el-form-item label="电话：">
-          <el-input v-model="user.phone" prop="user.telephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.phone" prop="telephone" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="传真：">
-          <el-input v-model="user.fax" style="width: 200px;"></el-input>
+          <el-input v-model="user.userfax" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="地址：">
           <el-input v-model="user.address" style="width: 200px;"></el-input>
@@ -61,7 +61,7 @@
           <el-input v-model="user.contactTel" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="E-mail：">
-          <el-input v-model="user.email" style="width: 200px;"></el-input>
+          <el-input v-model="user.emailAddr" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="网址：">
           <el-input v-model="user.ip" style="width: 200px;"></el-input>
@@ -75,34 +75,44 @@
 <script>
 import Axios from "axios"
 export default {
-  created(){
-    console.log(this.$store.state.user.process.UID)
-    Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.$store.state.user.process.UID)).then(ret=>{
-      console.log(ret.data)
-      this.user=ret.data[0]
-    })
-  },
-    data(){
+  
+   data(){
        return{
-            user:{
-              uname:this.$store.state.user.name,
-              utype:this.$store.state.user.Permissions,
-              phone:this.$store.state.user.phone,
-              fax:this.$store.state.user.fax,
-              email:this.$store.state.user.email,
-              address:this.$store.state.user.address,
-              zipcode:this.$store.state.user.zipcode,
-              contact:this.$store.state.user.contact,
-              contactTel:this.$store.state.user.contactTel,
-              ip:this.$store.state.user.ip,
+            user:{},
+            SelectForm:{
+              "UID":this.$store.state.user.process.UID
             },
+
             ruleForm:{
               SoftwareName:'',
               Versions:'',
             },
     }
+  },
+  created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    
+    //console.log(this.$store.state.user.process.UID)
+     Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.SelectForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        this.user=ret.data;
+     })
+   
 }, 
+mounted() {
+    //this.$forceUpdate();
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
   methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -112,7 +122,7 @@ export default {
           return false;
         }
       });*/
-      this.info("提交成功，正在返回用户界面！");
+      this.$message.success("提交成功，正在返回用户界面！");
       setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
     }
   },

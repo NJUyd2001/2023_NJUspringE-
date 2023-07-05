@@ -19,7 +19,7 @@
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="1">
+          <el-col :span="7" push="1">
             <div class="grid-content bg-purple">
             <span class="logo-title">问题（缺陷）清单</span>
             </div></el-col>
@@ -149,7 +149,7 @@
               return false;
             }
           });*/
-          this.info("提交成功，正在返回用户界面！");
+          this.$message.success("提交成功，正在返回用户界面！");
           setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
         }
       },

@@ -1,11 +1,11 @@
 <!-- 文炫添加 -->
 <template>
 <div class="Person">
-<el-container style="height:700px;">
-  <el-header style="height: 10%;">
+<el-container style="height:880px;">
+  <el-header style="height: 10%">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
-        <span style="font-size: 30px; font-weight: 1000;">{{user.uname}},您好(测试部)</span>
+        <span style="font-size: 30px; font-weight: 1000;">{{user.uname}},您好（测试部）</span>
         </div></el-col>
         <el-col :span="12">
           <img src="../../assets/l3.png" style="height:80px"/>
@@ -123,6 +123,10 @@ export default {
       isCollapse: false,
 
       menus: [{}],
+      user:{
+        uname:this.$store.state.user.name,
+        utype:this.$store.state.user.Permissions,
+      },
       
       data: [{}],
       //Tabs

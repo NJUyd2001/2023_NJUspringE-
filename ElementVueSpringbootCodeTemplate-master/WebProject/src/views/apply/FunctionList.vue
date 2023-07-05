@@ -74,20 +74,8 @@ import Axios from 'axios';
 export default {
     data(){
        return{
-            user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
-            },
             ruleForm:{
-              AID:"37",//this.$store.state.user.AID,
+              AID:"",
               SoftwareName:'',
               Versions:'',
             TableData:[
@@ -108,8 +96,29 @@ export default {
               ],
               }
     }
-}, 
+},
+mounted(){
+  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('unload', this.handleUnload);
+},
+created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    if (sessionStorage.getItem("store") ) {
+    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
+    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
+      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      sessionStorage.removeItem('store');
+    }
+    this.ruleForm.AID=this.$store.state.user.process.AID
+    console.log(this.$store.state.user.process.AID)
+  },
   methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     TestInfor(){
       alert(JSON.stringify(this.ruleForm));
     },
@@ -144,7 +153,7 @@ export default {
         )
     },
     submitForm(formName) {
-      console.log(this.ruleForm.AID)
+      console.log(this.ruleForm)
       this.$confirm("是否确认该操作","提示",{
         iconClass: "el-icon-question",//自定义图标样式
           confirmButtonText: "确认",//确认按钮文字更换
@@ -159,7 +168,7 @@ export default {
           'content-type': 'text/plain'}
       }).then(ret=>{
         this.StepNumber+=2;
-        this.info("提交成功，正在返回用户界面！");
+        this.$message.success("提交成功，正在返回用户界面！");
         setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
       })
       .catch(function (error) { // 请求失败处理

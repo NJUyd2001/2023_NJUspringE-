@@ -144,7 +144,7 @@
               return false;
             }
           });*/
-          this.info("提交成功，正在返回用户界面！");
+          this.$message.success("提交成功，正在返回用户界面！");
           setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
         }
       },
@@ -201,9 +201,9 @@
     }
     
     span.logo-title2{
-      font-size: 20px;
+      font-size: 30px;
       font-weight: bold;
-      margin-left: 50px;
+      margin-left: 50%;
     }
     .demo-date-picker {
       display: flex;

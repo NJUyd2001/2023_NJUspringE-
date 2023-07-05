@@ -50,6 +50,7 @@ import TestReportCover from './views/report/TestReportCover'
 import TestEnvironment from './views/report/TestEnvironment'
 import SoftwareProjectTestChecklist from './views/test/SoftwareProjectTestChecklist'
 import DataSubmit from './views/client/DataSubmit'
+import ConfidentialityAgreement from './views/client/ConfidentialityAgreement'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -247,6 +248,10 @@ export default new VueRouter({
         {
             path: '/client/DataSubmit',   // 路径
             component: DataSubmit         // 跳转到的组件
+        },
+        {
+            path: '/client/ConfidentialityAgreement',   // 路径
+            component: ConfidentialityAgreement         // 跳转到的组件
         },
     ]
 })
