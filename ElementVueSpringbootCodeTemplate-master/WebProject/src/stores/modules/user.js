@@ -14,7 +14,22 @@ const user = {
     mutations: {
         changename (state,newname){
             state.user.name=newname
-        }
+        },
+        changeid (state,newid){
+            state.user.id=newid
+        },
+        changepassword(state,newpassword){
+            state.user.password=newpassword
+        },
+        changepermissions(state,newPermissions){
+            state.user.Permissions=newPermissions
+        },
+        changeprocessuid(state,newprocessuid){
+            state.user.process.UID=newprocessuid
+        },
+        changeprocessaid(state,newprocessaid){
+            state.user.process.AID=newprocessaid
+        },
     },
     actions: {
     }

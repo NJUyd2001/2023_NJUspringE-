@@ -40,31 +40,31 @@
   </el-header>
     <br><br><br>
     <el-main >
-      <el-form label-width="550px" disabled :model="ruleForm" ref="ruleForm">
+      <el-form label-width="550px" disabled :model="user" ref="user">
         <br>
         <el-form-item label="电话：">
-          <el-input v-model="telephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.phone" prop="user.telephone" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="传真：">
-          <el-input v-model="fax" style="width: 200px;"></el-input>
+          <el-input v-model="user.fax" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="地址：">
-          <el-input v-model="address" style="width: 200px;"></el-input>
+          <el-input v-model="user.address" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="邮编：">
-          <el-input v-model="postcode" style="width: 200px;"></el-input>
+          <el-input v-model="user.zipcode" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="联系人：">
-          <el-input v-model="contacts" style="width: 200px;"></el-input>
+          <el-input v-model="user.contact" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="手机：">
-          <el-input v-model="mobilephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.contactTel" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="E-mail：">
-          <el-input v-model="email" style="width: 200px;"></el-input>
+          <el-input v-model="user.email" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="网址：">
-          <el-input v-model="URL" style="width: 200px;"></el-input>
+          <el-input v-model="user.ip" style="width: 200px;"></el-input>
         </el-form-item>
       </el-form>
     </el-main>
@@ -73,68 +73,36 @@
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
+import Axios from "axios"
 export default {
+  created(){
+    console.log(this.$store.state.user.process.UID)
+    Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.$store.state.user.process.UID)).then(ret=>{
+      console.log(ret.data)
+      this.user=ret.data[0]
+    })
+  },
     data(){
        return{
             user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
+              uname:this.$store.state.user.name,
+              utype:this.$store.state.user.Permissions,
+              phone:this.$store.state.user.phone,
+              fax:this.$store.state.user.fax,
+              email:this.$store.state.user.email,
+              address:this.$store.state.user.address,
+              zipcode:this.$store.state.user.zipcode,
+              contact:this.$store.state.user.contact,
+              contactTel:this.$store.state.user.contactTel,
+              ip:this.$store.state.user.ip,
             },
             ruleForm:{
               SoftwareName:'',
               Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-                children:[],
             },
-          ],
-            },
-            rules:{
-              SoftwareName:[
-                      { required: true, message: "不能为空！", trigger: "blur" },
-                    ],
-              Versions:[
-                { required: true, message: "不能为空！", trigger: "blur"  },
-              ],
-              }
     }
 }, 
   methods:{
-    goback(){
-    },
-    addfatherItem(){
-      this.ruleForm.TableData.push({
-        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-        name:'',
-        function:'',
-        children:[],
-      })
-    },
-    removefatherItem(Table){
-      const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1) {
-      this.ruleForm.TableData.splice(index, 1);
-  }
-    },
-    addchildrenItem(Node){
-        Node.children.push(
-          {
-            id:'',
-            
-          }
-        )
-    },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {
         if (valid) {

@@ -47,6 +47,7 @@ import Axios from 'axios'
 export default {
   data() {
     return {
+      
       ruleForm: {
         uname: "",
         password: "",
@@ -71,6 +72,10 @@ export default {
           this.$message.error('您的用户名或密码错误，请更改后重试');
         else
         {
+          // this.$store.commit('changeid',ret.data.uid);
+          // this.$store.commit('changename',ret.data.nickname);
+          // this.$store.commit('changepassword',ret.data.password);
+          // this.$store.commit('changepermissions',ret.data.Permissions);
         this.$store.state.user.id=ret.data.uid;
         this.$store.state.user.name=ret.data.nickname;
         this.$store.state.user.password=ret.data.password;
@@ -83,13 +88,9 @@ export default {
         this.$store.state.user.ip=ret.data.ip;
         this.$store.state.user.contact=ret.data.contact;
         this.$store.state.user.contactTel=ret.data.contactTel;
-        
-        if(ret.data.usertype == "C"){
           this.$message.success("登录成功");
-          sessionStorage.setItem('isLogin',1);
-          sessionStorage.setItem('isSelect',1);
+          console.log(this.$store.state.user.name)
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 1000);
-          }
         }
   })
       .catch(function (error) { // 请求失败处理

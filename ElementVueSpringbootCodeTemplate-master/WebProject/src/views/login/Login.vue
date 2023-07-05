@@ -88,27 +88,27 @@ export default {
         sessionStorage.setItem('isLogin',true);
         if(ret.data.usertype=="T")
         {
-          this.info("登录成功!");
+          this.$message.success("登录成功!");
           setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 1000);
         }
         else if(ret.data.usertype=='M')
         {
-          this.info("登录成功!");
+          this.$message.success("登录成功!");
           setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 1000);
         }
         else if(ret.data.usertype=='Q')
         {
-          this.info("登录成功!");
+          this.$message.success("登录成功!");
           setTimeout(() => {this.$router.push({path: "./quality", replace:true});}, 1000);
         }
         else if(ret.data.usertype=='TL')
         {
-          this.info("登录成功!");
+          this.$message.success("登录成功!");
           setTimeout(() => {this.$router.push({path: "./TestDirector", replace:true});}, 1000);
         }
         else if(ret.data.usertype=='A')
         {
-          this.info("登录成功!");
+          this.$message.success("登录成功!");
           setTimeout(() => {this.$router.push({path: "./signatory", replace:true});}, 1000);
         }
         }

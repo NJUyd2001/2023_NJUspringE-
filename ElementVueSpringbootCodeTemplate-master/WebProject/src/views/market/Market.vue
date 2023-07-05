@@ -123,6 +123,13 @@ export default {
       user:{
         uname:this.$store.state.user.name,
         utype:this.$store.state.user.Permissions,
+        phone:this.$store.state.user.phone,
+        fax:this.$store.state.user.fax,
+        email:this.$store.state.user.email,
+        address:this.$store.state.user.address,
+        zipcode:this.$store.state.user.zipcode,
+        contact:this.$store.state.user.contact,
+        contactTel:this.$store.state.user.contactTel,
       },
       //Tabs
       selectTabName: "ConfigAdd",

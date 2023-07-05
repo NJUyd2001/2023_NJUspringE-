@@ -77,12 +77,21 @@ export default {
   beforeCreate() {
     document.querySelector('body').setAttribute('style', 'margin:0;')
   },
-  created() {
-    // 载入config数据
-    //this.$store.dispatch("config/reload");
-    this.$bus.on("login-open", this.loginOut);
-    this.$bus.on("login-success", this.loginSuccess);
-    this.$bus.on("login-cancel", this.loginCancel);
+  created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    if (sessionStorage.getItem("store") ) {
+    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
+    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
+      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
+      sessionStorage.removeItem('store');
+    }
+    console.log(this.$store.state.user.name)
+    this.user.uname=this.$store.state.user.name;
+    this.user.utype=this.$store.state.user.Permissions;
+  },
+  mounted(){
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
   },
   data() {
     return {
@@ -135,16 +144,13 @@ export default {
       }
     }
   },
-  mounted() {
-    // this.$nextTick(function() {
-    //   this.ajax.post("/app/user").then(result => {
-    //     if (result.code == 0) {
-    //       this.user = result.data;
-    //     }
-    //   });
-    // });
-  },
   methods: {
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     // 点击步骤条
     handleStep(val) {
       if (this.stepSuc.includes(val) === true) {
