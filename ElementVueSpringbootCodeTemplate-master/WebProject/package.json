@@ -24,7 +24,10 @@
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-plugin-eslint": "^3.0.1",
     "@vue/cli-service": "^3.0.1",
+    "stylus": "^0.59.0",
+    "stylus-loader": "^3.0.2",
     "vue-cli-plugin-element": "^1.0.0",
+    "vue-loader": "^17.2.2",
     "vue-template-compiler": "^2.7.14"
   },
   "eslintConfig": {

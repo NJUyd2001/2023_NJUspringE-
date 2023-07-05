@@ -95,7 +95,11 @@ public class ApplicationService {
             newjsonObject.put("AID",jsonObject.getString("aID"));
             newjsonObject.put("applicantID",jsonObject.getString("applicantID"));
             newjsonObject.put("processID",jsonObject.getString("processID"));
-            newjsonObject.put("time",jsonObject.getDate("time"));
+            Date t =  jsonObject.getDate("time");
+            if(t!=null)
+                newjsonObject.put("time",t.toString());
+            else
+                newjsonObject.put("time",null);
             newjsonObject.put("phone",jsonObject.getString("phone"));
             JSONArray typetest = new JSONArray();
             String testTYPE = jsonObject.getString("testTYPE");
