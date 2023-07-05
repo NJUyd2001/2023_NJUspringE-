@@ -221,7 +221,7 @@
               :limit="3"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:'5' }"
+              :data="{ PID:applicantID }"
               :file-list="ruleForm.SamplesSubmitted">
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
@@ -253,7 +253,7 @@
                           action="http://localhost:9090/api/file/upload"
                           multiple
                           :before-upload="beforeUploadjpg"
-                          :data="{ PID:'5' }">
+                          :data="{ PID:applicantID }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                           <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
