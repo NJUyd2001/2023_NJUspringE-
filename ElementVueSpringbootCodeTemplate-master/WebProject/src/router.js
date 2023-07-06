@@ -27,6 +27,7 @@ import CheckAuditInforTest from './views/apply/CheckAuditInforTest'
 import CheckAuditInforFailedTest from './views/apply/CheckAuditInforFailedTest'
 import Report from './views/report/Report'
 import Personal from "./views/client/Personal";
+import ProQurey from "./views/client/ProQurey";
 import Info from "./views/client/Info";
 import MarketAuditUser from './views/market/MarketAuditUser'
 import MarketAuditApplication from './views/market/MarketAuditApplication'
@@ -218,8 +219,12 @@ export default new VueRouter({
             component: TestReviewDelegation // 跳转到的组件
         },
         {
-            path: '/client/Personal',     // 路径
+            path: '/Personal',     // 路径
             component: Personal    // 跳转到的组件
+        },
+        {
+            path: '/ProQurey',     // 路径
+            component: ProQurey    // 跳转到的组件
         },
         {
             path: '/client/Info',     // 路径
