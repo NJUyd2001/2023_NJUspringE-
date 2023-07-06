@@ -1,8 +1,6 @@
 # process 操作文档
 
-## 接口列表
-
-### 插入
+## 插入
 
 端口：`/process/insert`
 
@@ -16,106 +14,183 @@
     "fileIDs":"" // 进程中上传的文件
     "price":""   // 报价
 }
-<<<<<<< HEAD:process文档.md
 ```
-=======
 
-输出：
+返回值：新建进程的PID，发生错误返回-1，并在后端打印错误信息
 
-process inserted successfully
+## 查找
 
-## /process/findbyclientid
-根据client_id项查找所有符合的process
+1. 仅查找ID
 
-输入示例：
+- 返回AID
 
+端口：`/process/byState/selectAID`
+
+参数：（参数没提供则默认为空）
+``` js
 {
-    "client_id":"1"
+    "state":""  // 状态
 }
+```
 
-输出：所有符合条件的process组成的list，如果没有，则输出空list
+返回值：对应的AID组成的数组，没有则返回空数组
 
 
-输出示例1：（为空）
+- 返回PID
 
+端口：`/process/byState/selectPID`
+
+参数：（参数没提供则默认为空）
+
+``` js
+{
+    "state":""  // 状态
+}
+```
+
+返回值：对应的PID组成的数组，没有则返回空数组
+
+2. 返回所有信息
+
+- 返回所有
+
+端口：`/process/findAll`
+
+参数：无需参数
+
+返回值：对应的AID组成的数组，没有则返回空数组
+
+返回实例：
+``` js
 [
-    "[]"
+    {
+        "notes": "2023/7/5 test",
+        "price": 562.32,
+        "state": "11",
+        "fileIDs": "8",
+        "aid": 8,
+        "pid": 16,
+        "uid": 1
+    },
+    {
+        "notes": "2023/7/5 test",
+        "price": 100.0,
+        "state": "61",
+        "fileIDs": "2",
+        "aid": 2,
+        "pid": 23,
+        "uid": 1
+    },
+    {
+        "notes": "2023/7/5 test",
+        "price": 100.0,
+        "state": "61",
+        "fileIDs": "20",
+        "aid": 20,
+        "pid": 25,
+        "uid": 1
+    },
+    {
+        "notes": "2023/7/5 test",
+        "price": 100.0,
+        "state": "61",
+        "fileIDs": "200",
+        "aid": 200,
+        "pid": 26,
+        "uid": 1
+    },
+    {
+        "notes": "wzx",
+        "price": 31432.0,
+        "state": "11",
+        "fileIDs": "27",
+        "aid": 27,
+        "pid": 114514,
+        "uid": 1
+    }
 ]
+```
 
-输出示例2：
+- 根据PID查找
 
-["[{\"client_id\":1,\"curr_state\":\"A\",\"file_path2\":\"1\",\"file_path3\":\"1\",\"files_path1\":\"1\",\"notes\":\"1\",\"open_to_curr\":\"E\",\"pID\":2,\"price\":1.0,\"record_path\":\"1\"}]"]
+端口：`/process/findByPID`
 
-输出示例3：
-
-["[{\"client_id\":1,\"curr_state\":\"A\",\"file_path2\":\"1\",\"file_path3\":\"1\",\"files_path1\":\"1\",\"notes\":\"1\",\"open_to_curr\":\"E\",\"pID\":2,\"price\":1.0,\"record_path\":\"1\"},{\"client_id\":1,\"curr_state\":\"A\",\"file_path2\":\"1\",\"file_path3\":\"1\",\"files_path1\":\"1\",\"notes\":\"1\",\"open_to_curr\":\"A\",\"pID\":3,\"price\":1.0,\"record_path\":\"231\"}]"]
-
-## /process/findByPID
-根据PID项查找所有符合的process
-
-输入示例：
-
+参数：
+``` js
 {
-    "PID":"2"
+    "PID":""  
 }
+```
 
-输出：所有符合条件的process组成的list，如果没有，则输出空list
+返回值：对应PID的进程信息（不是数组，单个对象），没有则返回空
 
+- 根据AID查找
 
-输出示例1：（为空）
+端口：`/process/findByAID`
 
-[
-    "[]"
-]
-
-输出示例2：
-
-["[{\"client_id\":1,\"curr_state\":\"A\",\"file_path2\":\"1\",\"file_path3\":\"1\",\"files_path1\":\"1\",\"notes\":\"1\",\"open_to_curr\":\"E\",\"pID\":2,\"price\":1.0,\"record_path\":\"1\"}]"]
-
-## /process/update
-更新对应PID的process信息
-
-注意！此项更新只看PID，其余所有信息都会被更新覆盖；所有项目都必须提到（如果不想改就维持原样），<font color=red>包括不为NOT NULL的部分！</font>
-
-输入示例：
-
+参数：
+``` js
 {
-    "PID":"2",
-    "client_id":"1",
-    "curr_state":"A",
-    "notes":"1",
-    "price":"1",
-    "open_to_curr":"A",
-    "file_path1":"1",
-    "file_path2":"1",
-    "file_path3":"1",
-    "record_path":"231"
+    "AID":""  
 }
+```
 
-输出1：（PID对应的process不存在）
+返回值：对应AID的进程信息（不是数组，单个对象），没有则返回空
 
-the process does not exist
+- 根据UID查找
 
-输出2：（更新成功）
+端口：`/process/findByPID`
 
-process update complete
-
-## /process/delete
-删除对应PID的process
-
-注意！此处只看PID，所有PID之外的信息都会被无视
-
-输入示例：
-
+参数：
+``` js
 {
-    "PID":"2"
+    "UID":""  
 }
+```
 
-输出1：（PID对应的process不存在）
+返回值：对应UID的所有进程信息（数组），没有则返回空
 
-the process does not exist
+## 更新
 
-输出2：（删除成功）
+- 仅更新state
 
-process delete successfully
->>>>>>> 2311a68b61487d324cde3b3d4a476ee9859e01cd:ElementVueSpringbootCodeTemplate-master/docs/md/process文档.md
+端口：`/process/updateState`
+
+参数：
+``` js
+{
+    "PID":""  ,
+    "state":""
+}
+```
+
+返回值：字符串提示
+
+- 更新所有
+
+端口：`/process/update`
+
+参数：
+``` js
+{
+    "PID":""  ,
+    "state":"", // 可选参数
+    "price":"", // 可选参数
+    "notes":""  // 可选参数，备注
+}
+```
+
+返回值：字符串提示
+
+## 删除 （与文件联动还未实现 on 2023/7/6）
+
+端口：`/process/delete`
+
+参数：
+``` js
+{
+    "PID":""  ,
+}
+```
+
+返回值：字符串提示
