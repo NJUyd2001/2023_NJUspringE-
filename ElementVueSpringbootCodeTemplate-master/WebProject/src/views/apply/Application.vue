@@ -137,7 +137,7 @@
         <el-form-item label="服务器端硬件(运行环境):" required>
         <el-form-item prop="RuntimeEnvironment.Server.HardWare.FrameWork" style="margin-bottom: 20px;">
             <el-select placeholder="硬件架构" v-model="ruleForm.RuntimeEnvironment.Server.HardWare.FrameWork" multiple  allow-create filterable>
-        <el-option   v-for='item in HardWareFrameWork' :key='item.id' :label="item.value" :value="item.value"></el-option>
+        <el-option   v-for='item in HardWare.FrameWork' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
         </el-form-item>
         <el-row>
@@ -326,7 +326,7 @@ export default {
                },
             SoftwareMedium:[],
             Document:'',
-            SamplesSubmitted:[],
+            SamplesSubmitted:"",
             WantedFinishTime:'',
         },
         TypeOfTest:[
@@ -681,6 +681,7 @@ created(){
       this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
       sessionStorage.removeItem('store');
     }
+    this.ruleForm.applicantID=this.$store.state.user.id
   },
   methods:{
     handleBeforeUnload() {

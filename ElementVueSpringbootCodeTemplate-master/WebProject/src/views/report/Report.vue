@@ -21,7 +21,7 @@
             </router-link>
           </el-col>
           <el-col :span="10" style="margin-left: 35%;"><div class="grid-content bg-purple">
-          <span class="logo-title">测试报告</span>
+          <span class="lt1">测试报告</span>
           </div></el-col>
           <el-col :span="16">
           <el-steps :space="200" :active="1" finish-status="success">
@@ -60,14 +60,17 @@
           <el-form-item label="版本/型号:" prop="Versioin"> 
             <el-input style="width:200px;padding:10px" v-model="ruleForm.Version"></el-input>
           </el-form-item> 
-          <el-form-item label='来样日期:' prop="SampleDate">
-              <div class="demo-date-picker1">
-              <el-date-picker
-                v-model="ruleForm.SampleDate"
+          <el-form-item label='来样日期:'>
+              <div class="demo-date-picker">
+              <div class="block">
+                <el-date-picker
+                style="margin-top: 60px; margin-left: -460px;"
+                v-model="SampleDate"
                 type="date"
                 placeholder="时间选择"
                 :size=large
                 />
+                </div>
                 </div>
             </el-form-item>
           <el-form-item label="测试类型:" prop="TypeTest">  
@@ -340,7 +343,7 @@
       height: 100%;
     }
     
-    span.logo-title{
+    span.lt1{
       font-size: 30px;
       font-weight: bold;
     }

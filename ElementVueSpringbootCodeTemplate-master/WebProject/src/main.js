@@ -34,7 +34,19 @@ Vue.prototype.info = function (msg) {
         message: msg
     });
 }
-
+ /*
+router.beforeEach((to, from, next) => {
+        const userId = window.sessionStorage.getItem('isLogin');
+        const userSeclect = window.sessionStorage.getItem('isSelect');
+        // 未登录重置路径
+        //alert(userId);
+         if (userId != 0 && from.path !== '/home') {
+           alert('暂未登录，请您先去登录 ヾ(●´▽`●)ノ');
+           next('/home');
+         }
+         next();
+   })
+// */
 Vue.prototype.error = function (msg) {
     this.error("你在狗叫什么")
 }

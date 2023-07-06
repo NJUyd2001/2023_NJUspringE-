@@ -572,11 +572,11 @@
         goback(){
         },
         submitForm(formName) {
-          this.info("提交成功，正在返回用户界面！");
+          this.$message.success("提交成功，正在返回用户界面！");
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
         },
         scrollToElement(formName) {
-          this.info("请反馈意见写在修改意见栏");
+          this.$message.success("请反馈意见写在修改意见栏");
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
         },
         resetForm(formName) {

@@ -3,12 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.selab.demo.dao.ProcessDao">
     <insert id="insert" parameterType="com.selab.demo.model.ProcessModel">
-        INSERT INTO selabspringe.process (notes, UID, AID, state, price, fileIDs)
+        <selectKey keyProperty="PID" order="AFTER" resultType="Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO selabspringe.process(notes, UID, AID, state, price, fileIDs)
+
         VALUES (#{notes}, #{UID}, #{AID}, #{state}, #{price}, #{fileIDs})
 
     </insert>
     <select id="findByUID" parameterType="int" resultType="com.selab.demo.model.ProcessModel">
     SELECT * FROM process WHERE UID=#{UID}
+    </select>
+    <update id="updateState" parameterType="integer">
+        UPDATE selabspringe.process SET state=#{state} WHERE PID=#{PID}
+    </update>
+    <select id="findByState" parameterType="String" resultType="com.selab.demo.model.ProcessModel">
+        SELECT * FROM process WHERE state=#{state}
     </select>
     <select id="findAll" parameterType="int" resultType="com.selab.demo.model.ProcessModel">
         SELECT * FROM process
@@ -19,7 +29,9 @@
     <select id="findByPID2" parameterType="int" resultType="String">
         SELECT PID FROM process WHERE PID=#{PID}
     </select>
-
+    <update id="update" parameterType="com.selab.demo.model.ProcessModel">
+        UPDATE selabspringe.process SET notes=#{notes}, state=#{state}, price=#{price} WHERE PID=#{PID}
+    </update>
     <delete id="delete" parameterType="int" >
         DELETE FROM process WHERE PID = #{PID}
     </delete>

@@ -21,26 +21,26 @@
       <el-table-column
         fixed
         sortable
-        prop="uid"
-        label="UID"        
+        prop="AID"
+        label="AID"        
         width="100">
       </el-table-column>
       <el-table-column
-        prop="regTime"
+        prop="SoftWareName"
         sortable
-        label="注册时间"
+        label="name"
         width="300">
       </el-table-column>
       <el-table-column
         sortable
-        prop="nickname"
-        label="用户名"
+        prop="time"
+        label="time"
         width="250">
       </el-table-column>
       <el-table-column
         sortable
-        prop="emailAddr"
-        label="邮箱"
+        prop="applicantID"
+        label="用户ID"
         width="250">
       </el-table-column>
       <el-table-column
@@ -66,15 +66,34 @@
       </el-table-column>
     </el-table>
     
-    <Pagination ref="page1" url="http://localhost:9090/api/user/selectAll" :keyword="keyword" :sort="sort" v-model="datas"/>
+    <Pagination ref="page1" url="http://localhost:9090/api/application/checkbyprocess" :keyword="keyword" :sort="sort" v-model="datas"/>
   </div>
 </template>
 
 <script>
 import Axios from "axios"
 export default {
+  data() {
+    return {
+      keyword:"",
+      datas:[],
+      ruleForm:
+      { processID:1 },
+      sort: {},
+      passwordDlg:{
+        row: null,
+        show: false,
+        form:{
+          password:""
+        }
+      }
+    };
+  },
   created(){
-    Axios.post("http://localhost:9090/api/user/selectAll/customer").then(ret=>{
+    Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
         //console.log(ret.data);
         //console.log(this.datas);
       var i=0;
@@ -90,7 +109,8 @@ export default {
   methods: {
     SolvePro(row){
       // console.log(row);
-        this.$store.state.user.process.UID=row.uid;
+      //sessionStorage.setItem
+        this.$store.state.user.process.UID=row.applicantID;
         console.log(this.$store.state.user.process.UID);
         this.$router.push({path: "./marketaudituser", replace:true})
     },
@@ -110,21 +130,6 @@ export default {
     refreshConfig(){
       this.$refs.page1.reload();
     }
-  },
-  data() {
-    return {
-      keyword:"",
-      datas: [
-      ],
-      sort: {},
-      passwordDlg:{
-        row: null,
-        show: false,
-        form:{
-          password:""
-        }
-      }
-    };
   },
   computed:{
   filterdatas(){
