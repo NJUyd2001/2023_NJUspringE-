@@ -9,10 +9,10 @@
     <el-col :span="12">
     <div class="Progress">
   <el-timeline>
-    <el-timeline-item timestamp="2018/4/12" color="#0bbd87" placement="top">
+    <el-timeline-item timestamp="2018/4/2" color="#0bbd87" placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">报价处理</h4>
-        <p> 处理时间 2023/4/12 20:46</p>
+        <p> 处理时间 2023/4/2 20:46</p>
       </el-card>
     </el-timeline-item>
     <el-timeline-item timestamp="2018/4/3" placement="top">
@@ -21,25 +21,25 @@
         <p> 处理时间 2023/4/3 20:46</p>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="2018/4/2" placement="top">
+    <el-timeline-item timestamp="2018/4/4" placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">检查合同草稿中</h4>
         <p> 处理时间 2023/4/4 20:46</p>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="2018/4/2" placement="top">
+    <el-timeline-item timestamp="2018/4/5" placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">样品发送</h4>
         <p> 处理时间 2023/4/5 20:46</p>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="2018/4/2" placement="top">
+    <el-timeline-item timestamp="2018/4/6" placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">审核测试报告</h4>
         <p> 处理时间 2023/4/6 20:46</p>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="2018/4/2" placement="top">
+    <el-timeline-item timestamp="2018/4/7" placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">确认接受测试报告</h4>
         <p> 处理时间 2023/4/7 20:46</p>

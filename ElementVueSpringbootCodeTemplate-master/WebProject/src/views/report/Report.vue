@@ -64,9 +64,8 @@
             <el-input style="width:200px;padding:10px" v-model="ProjectNum"></el-input>
           </el-form-item>
           <el-form-item label='来样日期:'>
-              <div class="demo-date-picker">
+              <div class="demo-date-picker1">
               <el-date-picker
-                style="margin-top: 60px; margin-left: -550px;"
                 v-model="SampleDate"
                 type="date"
                 placeholder="时间选择"

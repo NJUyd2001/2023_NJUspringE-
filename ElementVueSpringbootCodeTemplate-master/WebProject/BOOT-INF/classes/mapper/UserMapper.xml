@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.selab.demo.dao.UserDao">
+    <insert id="insert" parameterType="com.selab.demo.model.User">
+        INSERT INTO selabspringe.user(nickname, emailAddr, password, phone, usertype)
+        VALUES (#{nickname}, #{emailAddr}, #{password}, #{phone}, #{type})
+    </insert>
+
+    <select id="customerLogin" parameterType="String" resultType="com.selab.demo.model.User">
+        SELECT * FROM user WHERE nickname=#{arg0} AND password=#{arg1} AND usertype='C'
+    </select>
+    <select id="staffLogin" parameterType="String" resultType="com.selab.demo.model.User">
+        SELECT * FROM user WHERE nickname=#{arg0} AND password=#{arg1} AND usertype!='C'
+    </select>
+    <resultMap id="userMap" type="com.selab.demo.model.User">
+        <id property="UID" column="UID"/>
+        <result property="usertype" column="usertype"/>
+        <result property="phone" column="phone"/>
+        <result property="password" column="password"/>
+        <result property="nickname" column="nickname"/>
+        <result property="emailAddr" column="emailAddr"/>
+        <result property="USERFAX" column="USERFAX"/>
+        <result property="regTime" column="regTime"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="userMap">
+        SELECT * FROM selabspringe.user
+    </select>
+    <select id="selectAllCustomer" resultMap="userMap">
+        SELECT * FROM selabspringe.user WHERE usertype='C'
+    </select>
+    <select id="selectAllStaff" resultMap="userMap">
+        SELECT * FROM selabspringe.user WHERE usertype!='C'
+    </select>
+    <select id="selectByUID" parameterType="integer" resultType="com.selab.demo.model.User">
+        SELECT * FROM selabspringe.user WHERE UID = #{UID}
+    </select>
+    <update id="update" parameterType="String">
+        UPDATE selabspringe.user
+        <set>
+            set
+            <if test="new_nickname!=null">    nickname = #{new_nickname},   </if>
+            <if test="new_emailAddr!=null">   emailAddr = #{new_emailAddr}, </if>
+            <if test="new_password!=null">    password = #{new_password},   </if>
+            <if test="new_phone!=null">       phone = #{new_phone},         </if>
+            <if test="new_fax!=null">         USERFAX = #{new_fax},         </if>
+            <if test='new_ip!= null'>         ip = #{new_ip},               </if>
+            <if test='new_address!= null'>    address = #{new_address},     </if>
+            <if test='new_contact != null'>   contact = #{new_contact} ,    </if>
+            <if test='new_contactTel!= null'> contactTel= #{new_contactTel},</if>
+            <if test='new_zipcode   != null'> zipcode  = #{new_zipcode}     </if>
+
+        </set>
+        WHERE UID=#{UID}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM user WHERE UID=#{UID}
+    </delete>
+
+    <select id="findByUID" parameterType="Integer" resultType="com.selab.demo.model.User">
+        SELECT UID FROM selabspringe.user WHERE UID=#{UID}
+    </select>
+
+</mapper>
