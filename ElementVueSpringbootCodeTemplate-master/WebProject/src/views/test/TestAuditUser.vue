@@ -14,15 +14,15 @@
   </el-col>
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="3">
         <router-link to="/test">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="3" ><div class="grid-content bg-purple">
+      <el-col :span="8" ><div class="grid-content bg-purple">
         <span class="logo-title">客户信息查看</span>
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="14">
         <el-steps :space="200" :active="0" finish-status="success" >
           <el-step title="客户信息查看"></el-step>
           <el-step title="申请表查看"></el-step>
@@ -32,7 +32,7 @@
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-       <el-col :span="1">
+       <el-col :span="2">
          <router-link to="/testauditapplication">
 	          <el-button type="success" style="margin: 14px">下一步</el-button>
         </router-link>

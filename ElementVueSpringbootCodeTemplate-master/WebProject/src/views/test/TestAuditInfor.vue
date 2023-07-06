@@ -5,12 +5,12 @@
     <el-row>
     <el-col :span="23">
     <el-breadcrumb separator="->">
-    <el-breadcrumb-item :to="{ path: '/market' }">测试部主页-审核委托</el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/test' }">测试部主页-审核委托</el-breadcrumb-item>
     <el-breadcrumb-item :to="{ path: '/testaudituser' }">客户信息查看</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/testauditapplication">申请表查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/testauditfunctionlist">功能列表查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/testaudit">审核意见查看(市场部)</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/testapplication">审核信息填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/testauditapplication">申请表查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/testauditfunctionlist">功能列表查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/testcheckmarketinfor">审核意见查看(市场部)</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/testapplication">审核信息填写</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
 <el-col :span="1">
@@ -18,15 +18,15 @@
   </el-col> 
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="6">
+      <el-col :span="5">
         <router-link to="/testcheckmarketinfor">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="8" ><div class="grid-content bg-purple">
+      <el-col :span="6" ><div class="grid-content bg-purple">
         <span class="logo-title">审核信息填写</span>
         </div></el-col>
-        <el-col :span="12">
+        <el-col :span="14">
         <el-steps :space="200" :active="StepNumber" finish-status="success" >
           <el-step title="客户信息查看"></el-step>
           <el-step title="申请表查看"></el-step>
@@ -36,7 +36,7 @@
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-      <el-col :span="1">
+      <el-col :span="2">
         <el-button  @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
       </el-col>
     </el-row>
