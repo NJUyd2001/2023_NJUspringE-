@@ -157,7 +157,7 @@
                     {
                       FunctionModule:'',
                       FunctionRequirement:'',
-                      TestResult1:'',   
+                      TestResult:'',   
                     },
                   ],
                 },
@@ -166,7 +166,7 @@
                     {
                       TestCharacteristic:'',
                       TestSpecification:'',
-                      TestResult2:'',
+                      TestResult1:'',
                     },
                   ],
                 },
@@ -175,7 +175,7 @@
                     {
                     TestCharacteristic1:'',
                     TestSpecification1:'',
-                    TestResult3:'',
+                    TestResult2:'',
                 },
               ],
                 },
@@ -184,7 +184,7 @@
                     {
                     TestCharacteristic2:'',
                     TestSpecification2:'',
-                    TestResult4:'',
+                    TestResult3:'',
                     },
                   ],
                 },
@@ -193,7 +193,7 @@
                     {
                     TestCharacteristic3:'',
                     TestSpecification3:'',
-                    TestResult5:'', 
+                    TestResult4:'', 
                     },
                   ],
                 },
@@ -202,12 +202,26 @@
                     {
                     TestCharacteristic4:'',
                     TestSpecification4:'',
-                    TestResult6:'',
+                    TestResult5:'',
                     },
                   ],
                 },
               rules:{
-                
+                FunctionModule:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                FunctionRequirement:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestResult:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestCharacteristic:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestSpecification:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
                 },
         }
     }, 

@@ -151,7 +151,7 @@
                 Edition:'',
             }],
             ruleForm:{
-                    NeededStandard:'',
+                  NeededStandard:'',
                 TableData:[
                   {
                     id:1,
@@ -162,7 +162,7 @@
               ],
             },
             ruleForm1:{
-                    ReferenceMaterial:'',
+                  ReferenceMaterial:'',
                 TableData:[
                   {
                     id:1,
@@ -172,6 +172,14 @@
                 },
               ],
             },
+            rules:{
+              NeededStandard:[
+                { required: true, message: "不能为空！", trigger: "blur" },
+              ],
+              ReferenceMaterial:[
+                { required: true, message: "不能为空！", trigger: "blur" },
+              ],
+            }
         }
         },
         methods:{

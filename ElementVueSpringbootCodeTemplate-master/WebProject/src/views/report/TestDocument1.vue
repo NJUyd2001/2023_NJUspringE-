@@ -75,18 +75,6 @@
     export default {
         data(){
            return{
-                user:{
-                    name:'风车村',
-                    password:'shazihuang',
-                    telephone:'',
-                    fax:'',
-                    address:'',
-                    postcode:'',
-                    contacts:'',
-                    mobilephone:'',
-                    email:'',
-                    URL:'',
-                },
                 ruleForm:{
                     TestClassification:'',
                     Num:'',
@@ -105,7 +93,27 @@
               ],
                 },
                 rules:{
-                
+                  TestClassification:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  Num:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  TestCaseDesign:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  StockDescription:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  ExpectedResult:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  Designer:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  TestTime:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
                   }
         }
     }, 
@@ -156,12 +164,7 @@
       padding-right: 0px;
       text-align: right;
     }
-    
-    .user {
-      margin: 10px;
-      font-size: 12px;
-    }
-    
+  
     .header {
       position: relative;
       z-index: 1;

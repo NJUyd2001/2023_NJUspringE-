@@ -88,18 +88,6 @@
     export default {
         data(){
            return{
-                user:{
-                    name:'风车村',
-                    password:'shazihuang',
-                    telephone:'',
-                    fax:'',
-                    address:'',
-                    postcode:'',
-                    contacts:'',
-                    mobilephone:'',
-                    email:'',
-                    URL:'',
-                },
                 ruleForm:{
                     TestClassification:'',
                     SerialNum:'',
@@ -125,7 +113,45 @@
               ],
                 },
                 rules:{
-                
+                  TestClassification:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  SerialNum:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  DesignSpecification:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  Regulation:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  Precondition:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  ExecutionProcess:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  ExpectedResult:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  Designer:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  ActualResult:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  BugNum:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  UsecaseExecutor:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  TestingTime:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  ConfirmPerson:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
                   }
         }
     }, 
@@ -188,12 +214,7 @@
       padding-right: 0px;
       text-align: right;
     }
-    
-    .user {
-      margin: 10px;
-      font-size: 12px;
-    }
-    
+  
     .header {
       position: relative;
       z-index: 1;
