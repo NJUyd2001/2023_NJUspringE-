@@ -86,23 +86,23 @@
             <el-form-item>
               <el-label>二、测试依据和参考资料</el-label>
             </el-form-item>
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
+            <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"测试依据"+index+":"' :key="index" >
               <el-input placeholder="测试依据" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.NeededStandard"></el-input>
-              <el-button @click="removefatherItem1(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
+              <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
-            <el-form-item v-for="(Table,index) in ruleForm2.TableData" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
+            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"参考资料"+index+":"' :key="index" >
               <el-input placeholder="参考资料" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.ReferenceMaterial"></el-input>
-              <el-button @click="removefatherItem2(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem2()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem1(Table)" type="primary" size="small">删除</el-button>
+              <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
         </el-form>
         </el-main>
@@ -150,7 +150,7 @@
                 SoftwareName:'',
                 Edition:'',
             }],
-            ruleForm1:{
+            ruleForm:{
                     NeededStandard:'',
                 TableData:[
                   {
@@ -161,7 +161,7 @@
                 },
               ],
             },
-            ruleForm2:{
+            ruleForm1:{
                     ReferenceMaterial:'',
                 TableData:[
                   {
@@ -185,6 +185,20 @@
                } 
            });
         },
+        addfatherItem(){
+          this.ruleForm.TableData.push({
+            id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
+            name:'',
+            function:'',
+            children:[],
+          })
+        },
+        removefatherItem(Table){
+          const index = this.ruleForm.TableData.indexOf(Table)
+          if (index !== 0) {
+          this.ruleForm.TableData.splice(index, 1);
+      }
+        },
         addfatherItem1(){
           this.ruleForm1.TableData.push({
             id:this.ruleForm1.TableData[this.ruleForm1.TableData.length-1]+1,
@@ -197,20 +211,6 @@
           const index = this.ruleForm1.TableData.indexOf(Table)
           if (index !== 0) {
           this.ruleForm1.TableData.splice(index, 1);
-      }
-        },
-        addfatherItem2(){
-          this.ruleForm2.TableData.push({
-            id:this.ruleForm2.TableData[this.ruleForm2.TableData.length-1]+1,
-            name:'',
-            function:'',
-            children:[],
-          })
-        },
-        removefatherItem2(Table){
-          const index = this.ruleForm2.TableData.indexOf(Table)
-          if (index !== 0) {
-          this.ruleForm2.TableData.splice(index, 1);
       }
         },
     }

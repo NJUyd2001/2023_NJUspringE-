@@ -58,7 +58,7 @@
               <div class="block">
                 <el-date-picker
                 style="margin-top: 75px; margin-left: -580px;"
-                v-model="ruleForm.date"
+                v-model="ruleForm.Date"
                 type="date"
                 placeholder="完成时间选择"
                 :size=large
@@ -96,13 +96,22 @@
                   VersionNumber:'',
                   Client:'',
                   TypeTest:'',
-                  date:'',
+                  Date:'',
                 },
                 rules:{
                   SoftwareName:[
-                          { required: true, message: "不能为空！", trigger: "blur" },
-                        ],
-                  Versions:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  VersionNumber:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Client:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  TypeTest:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Date:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   }

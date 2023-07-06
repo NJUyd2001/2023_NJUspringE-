@@ -90,10 +90,6 @@
     export default {
         data(){
            return{
-                user:{
-                    name:'风车村',
-                    password:'shazihuang',
-                },
                 ruleForm:{
                     Client:'',
                     Trustee:'南京大学软件测试中心',
@@ -102,10 +98,19 @@
                     Name:'',
                 },
                 rules:{
-                  SoftwareName:[
-                          { required: true, message: "不能为空！", trigger: "blur" },
-                        ],
-                  Versions:[
+                  Client:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  Trustee:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  LegalRepresentative1:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  LegalRepresentative2:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Name:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   },

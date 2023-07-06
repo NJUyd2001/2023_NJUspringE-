@@ -61,20 +61,20 @@
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"测试记录"+index+":"' :key="index" >
-              <el-input placeholder="测试分类" style="width: 90px;padding-right:10px;" v-model="Table.testclassification"></el-input>
-              <el-input placeholder="序号" style="width: 60px;padding-right:10px;" v-model="Table.serialnum"></el-input>
-              <el-input placeholder="测试用例设计说明" style="width: 145px;padding-right:10px;" v-model="Table.designspecification"></el-input>
-              <el-input placeholder="与本测试用例有关的规约说明" style="width: 215px;padding-right:10px;" v-model="Table.regulation"></el-input>
-              <el-input placeholder="前提条件" style="width: 90px;padding-right:10px;" v-model="Table.precondition"></el-input>
-              <el-input placeholder="测试用例执行过程" style="width: 145px;padding-right:10px;" v-model="Table.executionprocess"></el-input>
-              <el-input placeholder="预期的结果" style="width: 100px;padding-right:10px;" v-model="Table.expectedresult"></el-input>
-              <el-input placeholder="测试用例设计者" style="width: 130px;padding-right:10px;" v-model="Table.designer"></el-input>
-              <el-input placeholder="实际结果" style="width: 90px;padding-right:10px;" v-model="Table.actualresult"></el-input>
-              <el-input placeholder="是否与预期结果一致" style="width: 160px;padding-right:10px;" v-model="Table.conformity"></el-input>
-              <el-input placeholder="相关的BUG编号" style="width: 130px;padding-right:10px;" v-model="Table.bugnum"></el-input>
-              <el-input placeholder="用例执行者" style="width: 100px;padding-right:10px;" v-model="Table.usecaseexecutor"></el-input>
-              <el-input placeholder="执行测试时间" style="width: 120px;padding-right:10px;margin-top:10px;" v-model="Table.testingtime"></el-input>
-              <el-input placeholder="确认人" style="width: 75px;padding-right:10px;margin-top:10px;" v-model="Table.confirmperson"></el-input>
+              <el-input placeholder="测试分类" style="width: 90px;padding-right:10px;" v-model="Table.TestClassification"></el-input>
+              <el-input placeholder="序号" style="width: 60px;padding-right:10px;" v-model="Table.SerialNum"></el-input>
+              <el-input placeholder="测试用例设计说明" style="width: 145px;padding-right:10px;" v-model="Table.DesignSpecification"></el-input>
+              <el-input placeholder="与本测试用例有关的规约说明" style="width: 215px;padding-right:10px;" v-model="Table.Regulation"></el-input>
+              <el-input placeholder="前提条件" style="width: 90px;padding-right:10px;" v-model="Table.Precondition"></el-input>
+              <el-input placeholder="测试用例执行过程" style="width: 145px;padding-right:10px;" v-model="Table.ExecutionProcess"></el-input>
+              <el-input placeholder="预期的结果" style="width: 100px;padding-right:10px;" v-model="Table.ExpectedResult"></el-input>
+              <el-input placeholder="测试用例设计者" style="width: 130px;padding-right:10px;" v-model="Table.Designer"></el-input>
+              <el-input placeholder="实际结果" style="width: 90px;padding-right:10px;" v-model="Table.ActualResult"></el-input>
+              <el-input placeholder="是否与预期结果一致" style="width: 160px;padding-right:10px;" v-model="Table.Conformity"></el-input>
+              <el-input placeholder="相关的BUG编号" style="width: 130px;padding-right:10px;" v-model="Table.BugNum"></el-input>
+              <el-input placeholder="用例执行者" style="width: 100px;padding-right:10px;" v-model="Table.UsecaseExecutor"></el-input>
+              <el-input placeholder="执行测试时间" style="width: 120px;padding-right:10px;margin-top:10px;" v-model="Table.TestingTime"></el-input>
+              <el-input placeholder="确认人" style="width: 75px;padding-right:10px;margin-top:10px;" v-model="Table.ConfirmPerson"></el-input>
               <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -101,19 +101,19 @@
                     URL:'',
                 },
                 ruleForm:{
-                    testclassification:'',
-                    serialnum:'',
-                    designspecification:'',
-                    regulation:'',
-                    precondition:'',
-                    executionprocess:'',
-                    expectedresult:'',
-                    designer:'',
-                    actualresult:'',
-                    bugnum:'',
-                    usecaseexecutor:'',
-                    testingtime:'',
-                    confirmperson:'',
+                    TestClassification:'',
+                    SerialNum:'',
+                    DesignSpecification:'',
+                    Regulation:'',
+                    Precondition:'',
+                    ExecutionProcess:'',
+                    ExpectedResult:'',
+                    Designer:'',
+                    ActualResult:'',
+                    BugNum:'',
+                    UsecaseExecutor:'',
+                    TestingTime:'',
+                    ConfirmPerson:'',
                 
                 TableData:[
                   {

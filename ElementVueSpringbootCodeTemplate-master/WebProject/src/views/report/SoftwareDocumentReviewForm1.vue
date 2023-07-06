@@ -44,29 +44,29 @@
             </div></el-col>
             <el-col :span="6" push="2">
             <router-link to="/report/SoftwareDocumentReviewForm2">
-            <el-button style="margin-top: -20px; margin-left: -15px;" size="middle" type="success">下一步</el-button>
+            <el-button style="margin-top: -20px; margin-left: -15px;" @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
             </router-link>
           </el-col>
         </el-row>
       </el-header>
         <br><br>
         <el-main>
-          <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
+          <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item style="margin-top: 80px; margin-right: 220px;" label="软件名称:" prop="SoftWareName"> 
-                <el-input style="width:200px; padding:10px;" v-model="SoftWareName"></el-input>
+                <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
                 <el-form-item style="margin-top: -60px; margin-right: 120px;" label="版本号:" prop="VersionNumber"> 
-                    <el-input style="width:200px; padding:10px;" v-model="VersionNumber"></el-input>
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
                 </el-form-item>
             </el-form-item> 
             <el-form-item style="margin-top: -15px; margin-right: 220px;" label="委托单位:" prop="Client"> 
-                <el-input style="width:200px; padding:10px;" v-model="Client"></el-input>
+                <el-input style="width:200px; padding:10px;" v-model="ruleForm.Client"></el-input>
             </el-form-item>
           <el-form-item style="margin-top: -15px; margin-left: -150px;" label="评审人:" prop="Reviewer"> 
-            <el-input style="width:200px; padding:10px;" v-model="Reviewer"></el-input>
+            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Reviewer"></el-input>
             <el-form-item style="margin-top: -50px;"  label-width="330px" label="评审完成时间:" prop="ReviewCompleteDate"> 
                 <div class="block" style="margin-top: 0px; margin-left: 0px;">
                     <el-date-picker
-                    v-model="value1"
+                    v-model="ruleForm.Value1"
                     type="date"
                     placeholder="Pick a day"
                     :picker-options="pickerOptions">
@@ -86,14 +86,14 @@
             <el-table-column prop="ReviewResult" label="评审结果" width="120">
               <template slot-scope="scope">
                 <el-radio-group v-model="scope.row.HandleState">
-                <el-radio  v-model="radio" label="1" @change="operation(scope.row)">通过</el-radio>
-                <el-radio  v-model="radio" label="2" >不通过</el-radio>
+                <el-radio  v-model="scope.radio" label="1" @change="operation(scope.row)">通过</el-radio>
+                <el-radio  v-model="scope.radio" label="2" >不通过</el-radio>
                 </el-radio-group>
               </template>
             </el-table-column>
           </el-table>
           <el-form-item style="margin-left: 5%; margin-top: 20px; font-weight: bold;" label="检查人：" prop="Examiner"> 
-            <el-input style="width:200px; padding:10px;" v-model="Examiner"></el-input>
+            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Examiner"></el-input>
           </el-form-item>
           </el-form>
         </el-main>
@@ -105,14 +105,21 @@
     export default {
         data(){
            return{
-            input_type:'text',
-            SoftWareName:'',
-            VersionNumber:'',
-            Client:'',
-            Reviewer:'',
-            ReviewCompleteDate:'',
-            radio:'',
-            Examiner:'',
+             input_type:'text',
+             ruleForm:{
+                SoftWareName:'',
+                VersionNumber:'',
+                Client:'',
+                Value1:'',
+                Reviewer:'',
+                ReviewCompleteDate:'',
+                Examiner:'',
+              },
+              scope:{
+                ReviewResultExplanation:'',
+                HandleState:'',
+                radio:'',
+             },
             user:{
                 name:'风车村',
                 password:'shazihuang',

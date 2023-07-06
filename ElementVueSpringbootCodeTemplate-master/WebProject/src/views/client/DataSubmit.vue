@@ -63,22 +63,7 @@
     
     export default {
         data(){
-           return{
-                user:{
-                    name:'风车村',
-                    password:'shazihuang',
-                },
-                ruleForm:{
-                },
-                rules:{
-                  SoftwareName:[
-                          { required: true, message: "不能为空！", trigger: "blur" },
-                        ],
-                  Versions:[
-                    { required: true, message: "不能为空！", trigger: "blur"  },
-                  ],
-                  }
-        }
+           return{ }
     }, 
       methods:{
         TestInfor(){

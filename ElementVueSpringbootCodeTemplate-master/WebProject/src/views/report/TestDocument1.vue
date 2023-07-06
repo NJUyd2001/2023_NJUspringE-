@@ -55,13 +55,13 @@
               message: '功能项目不能为空！',
               trigger: 'blur',
             }" :label='"测试用例"+index+":"' :key="index" >
-              <el-input placeholder="测试分类" style="width: 100px;padding-right:20px;" v-model="Table.testclassification"></el-input>
-              <el-input placeholder="ID" style="width: 100px;padding-right:20px;" v-model="Table.num"></el-input>
-              <el-input placeholder="测试用例设计说明" style="width: 150px;padding-right:20px;" v-model="Table.testcasedesign"></el-input>
-              <el-input placeholder="与本测试用例有关的规约说明" style="width: 220px;padding-right:20px;" v-model="Table.stockdescription"></el-input>
-              <el-input placeholder="预期的结果" style="width: 100px;padding-right:20px;" v-model="Table.expectedresult"></el-input>
-              <el-input placeholder="测试用例设计者" style="width: 130px;padding-right:20px;" v-model="Table.designer"></el-input>
-              <el-input placeholder="测试时间" style="width: 100px;padding-right:20px;" v-model="Table.time"></el-input>
+              <el-input placeholder="测试分类" style="width: 100px;padding-right:20px;" v-model="Table.TestClassification"></el-input>
+              <el-input placeholder="ID" style="width: 100px;padding-right:20px;" v-model="Table.Num"></el-input>
+              <el-input placeholder="测试用例设计说明" style="width: 150px;padding-right:20px;" v-model="Table.TestCaseDesign"></el-input>
+              <el-input placeholder="与本测试用例有关的规约说明" style="width: 220px;padding-right:20px;" v-model="Table.StockDescription"></el-input>
+              <el-input placeholder="预期的结果" style="width: 100px;padding-right:20px;" v-model="Table.ExpectedResult"></el-input>
+              <el-input placeholder="测试用例设计者" style="width: 130px;padding-right:20px;" v-model="Table.Designer"></el-input>
+              <el-input placeholder="测试时间" style="width: 100px;padding-right:20px;" v-model="Table.TestTime"></el-input>
               <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -88,14 +88,13 @@
                     URL:'',
                 },
                 ruleForm:{
-                    testclassification:'',
-                    num:'',
-                    testcasedesign:'',
-                    stockdescription:'',
-                    expectedresult:'',
-                    designer:'',
-                    time:'',
-                
+                    TestClassification:'',
+                    Num:'',
+                    TestCaseDesign:'',
+                    StockDescription:'',
+                    ExpectedResult:'',
+                    Designer:'',
+                    TestTime:'',
                 TableData:[
                   {
                     id:1,
