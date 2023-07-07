@@ -8,14 +8,14 @@
       </el-breadcrumb>
       <br>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="10">
+          <el-col :span="2">
             <router-link to="/Market">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="12"><div class="grid-content bg-purple">
+          <el-col :span="22">
             <span class="logo-title">委托进度-审核报价单</span>
-            </div></el-col>
+            </el-col>
             <el-col :span="2">
              <router-link to="/Test">
                   <el-button type="success" style="margin: 14px">完成</el-button>
@@ -46,7 +46,6 @@
         <el-row type="flex" justify="center">
             <el-col :span="20">
             <el-form-item disabled label="有效期：">
-                <div class="block">
                     <el-date-picker
                     v-model="ruleForm.Time"
                     type="daterange"
@@ -54,7 +53,6 @@
                     start-placeholder="报价日期"
                     end-placeholder="报价有效期">
                     </el-date-picker>
-                </div>
             </el-form-item>
         </el-col>
         </el-row>
@@ -128,7 +126,8 @@
                           class="upload-demo"
                           drag
                           action="https://jsonplaceholder.typicode.com/posts/"
-                          multiple>
+                          multiple
+                          >
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                           <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -143,6 +142,7 @@
     </template>
     <el-backtop :right="50" :bottom="50" />
     <script>
+
     export default {
         data(){
            return{

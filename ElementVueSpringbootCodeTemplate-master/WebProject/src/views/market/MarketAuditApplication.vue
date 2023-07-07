@@ -199,7 +199,7 @@
           'content-type': 'text/plain'}
       }).then(ret=>{
           this.ruleForm=ret.data[0];
-          this.$store.state.user.process.AID=ret.data[0].AID;
+          //this.$store.state.user.process.AID=ret.data[0].AID;
           console.log(this.$store.state.user.process.AID)
       }).catch(function (error)
         {
@@ -245,7 +245,7 @@
                   OS:{
                     Windows:'',
                     Linux:'',
-                    other:''
+                    Other:''
                 },
                 Mermory:'',
                 Other:''

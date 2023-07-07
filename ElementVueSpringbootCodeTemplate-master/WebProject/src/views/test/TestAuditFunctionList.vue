@@ -68,67 +68,34 @@
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
+  import Axios from 'axios'
 export default {
     data(){
        return{
-            user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
+        user:{
+              AID:"", 
             },
-            ruleForm:{
-              SoftwareName:'',
-              Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-                children:[],
+        ruleForm:
+        {
+
             },
-          ],
-            },
-            rules:{
-              SoftwareName:[
-                      { required: true, message: "不能为空！", trigger: "blur" },
-                    ],
-              Versions:[
-                { required: true, message: "不能为空！", trigger: "blur"  },
-              ],
-              }
     }
 }, 
   methods:{
-    goback(){
-    },
-    addfatherItem(){
-      this.ruleForm.TableData.push({
-        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-        name:'',
-        function:'',
-        children:[],
-      })
-    },
-    removefatherItem(Table){
-      const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1) {
-      this.ruleForm.TableData.splice(index, 1);
-  }
-    },
-    addchildrenItem(Node){
-        Node.children.push(
-          {
-            id:'',
-            
-          }
-        )
+    created(){
+      this.KeepInfor();
+      this.user.AID=this.$store.state.user.process.AID
+      Axios.post("http://localhost:9090/api/application/gettabledata",JSON.stringify(this.user),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data)
+           this.ruleForm=ret.data;
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
     },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {

@@ -74,46 +74,15 @@
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
+import Axios from 'axios'
 export default {
     data(){
        return{
             user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
             },
-            ruleForm:{
-              SoftwareName:'',
-              Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-                children:[],
-            },
-          ],
-            },
-            rules:{
-              SoftwareName:[
-                      { required: true, message: "不能为空！", trigger: "blur" },
-                    ],
-              Versions:[
-                { required: true, message: "不能为空！", trigger: "blur"  },
-              ],
-              }
     }
 }, 
   methods:{
-    goback(){
-    },
     addfatherItem(){
       this.ruleForm.TableData.push({
         id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,

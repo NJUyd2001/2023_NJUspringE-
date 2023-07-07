@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px " >
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
@@ -35,7 +35,7 @@
   </el-header>
     <br><br><br>
     <el-main>
-      <el-form :label-position="top" label-width="550px" disabled>
+      <el-form label-position="top" label-width="550px" disabled>
         <el-form-item label="密级：">
           <el-radio-group v-model="ruleForm.Security">
             <el-radio label="无密级"></el-radio>
@@ -113,31 +113,52 @@
 </el-container>
 </template>
 <script>
+import Axios from 'axios'
 export default {
-    data(){
+  data(){
        return{
-        ruleForm:{ 
-          Security:'',    
-          VirusDetection:{
-            Finish:'',
-            Tool:'',
-          },
-          CheckofMaterials:{
-            TestSample:[],
-            RequirementDocument:[],
-            UserDocument:[],
-            OperationDocument:[],
-            Other:'',
-          },
-          ConfirmOpinion:'',
-          OpinionofAcceptance:'',
-          Number:'',
-          PS:'',
-        },
         StepNumber:0,
+        userUid:{
+          UID:"",
+        },
+        userAid:{
+          AID:"",
+        },
+        ruleForm:{
+        },
         }
         },
+    created(){
+        this.KeepInfor();
+        this.userUid.UID=this.$store.state.user.id;
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userUid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.$store.state.user.AID=ret.data[0].aid;
+      })
+      this.userAid.AID=this.$store.state.user.AID;
+      console.log(this.$store.state.user.AID);
+      Axios.post("http://localhost:9090/api/application/findauditinformation",JSON.stringify(this.userAid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.ruleForm=ret.data;
+      })
+    },
+    mounted(){
+      window.addEventListener('beforeunload', this.handleBeforeUnload);
+      window.addEventListener('unload', this.handleUnload);
+  },
     methods:{
+      handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+      },
+      handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+        },
       submitForm(formName) {
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {

@@ -108,28 +108,6 @@ export default {
     handleUnload() {
       sessionStorage.setItem("store",JSON.stringify(this.$store.state))
             },
-    addfatherItem(){
-      this.ruleForm.TableData.push({
-        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-        name:'',
-        function:'',
-        children:[],
-      })
-    },
-    removefatherItem(Table){
-      const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1) {
-      this.ruleForm.TableData.splice(index, 1);
-  }
-    },
-    addchildrenItem(Node){
-        Node.children.push(
-          {
-            id:'',
-            
-          }
-        )
-    },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {
         if (valid) {

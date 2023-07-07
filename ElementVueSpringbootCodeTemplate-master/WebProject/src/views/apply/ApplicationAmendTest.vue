@@ -302,7 +302,7 @@ export default {
                 OS:{
                   Windows:'',
                   Linux:'',
-                  other:''
+                  Other:''
               },
               Mermory:'',
               Other:''
@@ -312,7 +312,7 @@ export default {
                 FrameWork:[],  
                 Mermory:'',
                 HardDisk:'',
-                OtherDisk:''
+                Other:''
               },
               SoftWare:{
                 OS:'',

@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px ">
     <el-row>
     <el-col :span="23">
     <el-breadcrumb separator="->">
@@ -43,7 +43,7 @@
     <br><br><br>
     <el-main>
       <br>
-      <el-form :label-position="top" disabled label-width="550px">
+      <el-form label-position="top" disabled label-width="550px">
         <el-form-item label="审核意见：">
           <el-input style="width:700px;" :rows="5" v-model="ruleform.Views" type="textarea" ></el-input>
         </el-form-item>
@@ -63,12 +63,31 @@
 </el-container>
 </template>
 <script>
+import Axios from 'axios'
 export default {
+    created()
+    {
+      this.KeepInfor();
+      this.user.AID=this.$store.state.user.process.AID;
+      console.log(this.$store.state.user.process.AID)
+      Axios.post("http://localhost:9090/api/application/findopinion",JSON.stringify(this.user),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data)
+           //this.ruleForm=ret.data;
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
+    },
     data(){
        return{
+        user:{
+          AID:"",
+        },
         ruleform:{
-          Views:"",
-          ConfirmOpinion:"",
         },
         StepNumber:3,
         }

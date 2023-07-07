@@ -9,5 +9,6 @@
                   sessionStorage.removeItem('store');
                 }
         }
+        
     }
   }

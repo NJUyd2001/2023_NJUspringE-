@@ -198,6 +198,7 @@
   </el-container>
   </template>
   <script>
+  import Axios from 'axios'
   export default {
       data(){
          return{
@@ -207,12 +208,6 @@
           },
           Pid:{
             PID:"",
-          },
-          Fid:{
-            FID1:"",
-            FID2:"",
-            FID3:"",
-            FID4:"",
           },
           tempForm:{},
           ruleForm:{
@@ -290,7 +285,7 @@
           'content-type': 'text/plain'}
       }).then(ret=>{
           this.ruleForm=ret.data[0];
-          this.$store.state.user.process.AID=ret.data[0].AID;
+          //this.$store.state.user.process.AID=ret.data[0].AID;
           console.log(this.$store.state.user.process.AID)
       }).catch(function (error)
         {
@@ -299,6 +294,76 @@
       )
     },
     methods:{
+      download1(){
+        var formdata=new FormData()
+        formdata.append('FID' ,'23')
+        //formdata.append('FID' ,this.Fid.FID1)
+        //console.log(formdata.get('FID'))
+        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
+      download2(){
+        var formdata=new FormData()
+        
+        formdata.append('FID' ,this.Fid.FID4)
+        //console.log(formdata.get('FID'))
+        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
