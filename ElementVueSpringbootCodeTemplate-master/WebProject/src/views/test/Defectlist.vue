@@ -32,7 +32,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div></el-col>
-          <el-col :span="6" push="4">
+          <el-col :span="6" push="4" style="margin-left: -50px;">
             <el-button  size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
@@ -111,7 +111,33 @@
               ],
                 },
                 rules:{
-                
+                  Num:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  DefectDescription:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  RequirementItems:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  DefectdetectionInitialcondition:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  DefectdetectionSpecificpath:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  Usecase:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  DiscoveryTime:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  PersonResponsible:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
+                  Suggestion:[
+                    { required: true, message: "不能为空！", trigger: "blur" },
+                  ],
                   }
         }
     }, 

@@ -23,10 +23,11 @@
       <el-col :span="10" ><div class="grid-content bg-purple">
         <span class="logo-title">申请界面-功能列表</span>
         </div></el-col>
-        <el-col :span="8">
+        <el-col :span="12">
         <el-steps :space="200" :active="StepNumber" finish-status="success">
           <el-step title="申请表填写"></el-step>
           <el-step title="功能列表填写"></el-step>
+          <el-step title="文档与签字上传"></el-step>
           <el-step title="完成"></el-step>
         </el-steps>
       </el-col>
@@ -103,12 +104,7 @@ mounted(){
 },
 created(){
     //在页面加载时读取sessionStorage里的状态信息
-    if (sessionStorage.getItem("store") ) {
-    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
-    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
-      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-      sessionStorage.removeItem('store');
-    }
+    this.KeepInfor();
     this.ruleForm.AID=this.$store.state.user.process.AID
     console.log(this.$store.state.user.process.AID)
   },

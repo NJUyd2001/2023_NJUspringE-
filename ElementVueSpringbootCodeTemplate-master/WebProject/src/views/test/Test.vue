@@ -33,11 +33,10 @@
         <el-submenu index="1">
           <template slot="title" collapse=false>
             <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
-            <span> 审核/提交</span>
+            <span> 生产测试报告</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-11" @click="addTab('样品验收', 'TestResultTable')">样品验收</el-menu-item>
-            <el-menu-item index="1-11" @click="jump2report()">发送测试报告</el-menu-item>
+            <el-menu-item index="1-11" @click="addTab('样品验收', 'TestResultTable')"> 审核测试报告</el-menu-item>
             <!--<el-menu-item index="1-12" @click="addTab('发送测试报告','TestReportTable')">发送测试报告</el-menu-item>-->
           </el-menu-item-group>
         </el-submenu>
@@ -45,13 +44,10 @@
         <el-submenu index="0">
           <template slot="title" collapse=false>
             <i class="el-icon-setting"></i>
-            <span> 审核测试</span>
+            <span> 审核委托</span>
           </template>
-          <el-menu-item-group>
-            <el-menu-item index="0-2" @click="addTab('提交测试方案', 'UploadFile')">提交测试方案</el-menu-item>
           <el-menu-item-group title="审核发起的委托">
             <el-menu-item index="0-3" @click="addTab('委托进度及处理', 'ImmediateProcessing')">委托进度及处理</el-menu-item>
-          </el-menu-item-group>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="9">
@@ -69,7 +65,7 @@
             <span>使用记录</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="4-1" @click="addTab('填写测试文档', 'UploadFile')">填写测试文档</el-menu-item>
+            <el-menu-item index="4-1" @click="addTab('填写测试文档', 'UploadFile')">测试文档处理记录</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

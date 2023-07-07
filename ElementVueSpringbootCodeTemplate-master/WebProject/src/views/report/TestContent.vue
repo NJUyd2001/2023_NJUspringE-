@@ -53,15 +53,28 @@
       </el-header>
         <br><br>
         <el-main>
-          <el-form style="padding-top:30px; margin-top: 25px;" label-width="500px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+          <el-form style="padding-top:30px; margin-top: 25px;" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"功能性测试"+index+":"' :key="index" >
-              <el-input placeholder="功能模块" style="width: 100px;padding-right:20px;" v-model="Table.functionmodule"></el-input>
-              <el-input placeholder="功能要求" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.functionrequirement"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.testresult1"></el-input>
+              <el-input placeholder="功能模块" style="width: 100px;padding-right:20px;" v-model="Table.FunctionModule"></el-input>
+              <el-input placeholder="功能要求" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.FunctionRequirement"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
+              <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
+              <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
+            </el-form-item>
+          </el-form>
+          <el-form label-width="500px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
+            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"效率测试"+index+":"' :key="index" >
+              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
+              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult1"></el-input>
               <el-button @click="removefatherItem1(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -71,10 +84,10 @@
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
-          }" :label='"效率测试"+index+":"' :key="index" >
-              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.testcharacteristic1"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.testspecification1"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.testresult2"></el-input>
+          }" :label='"可移植性测试"+index+":"' :key="index" >
+              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic1"></el-input>
+              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification1"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult2"></el-input>
               <el-button @click="removefatherItem2(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem2()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -84,10 +97,10 @@
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
-          }" :label='"可移植性测试"+index+":"' :key="index" >
-              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.testcharacteristic2"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.testspecification2"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.testresult3"></el-input>
+          }" :label='"易用性测试"+index+":"' :key="index" >
+              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic2"></el-input>
+              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification2"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult3"></el-input>
               <el-button @click="removefatherItem3(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem3()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -97,10 +110,10 @@
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
-          }" :label='"易用性测试"+index+":"' :key="index" >
-              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.testcharacteristic3"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.testspecification3"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.testresult4"></el-input>
+          }" :label='"可靠性测试"+index+":"' :key="index" >
+              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic3"></el-input>
+              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification3"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult4"></el-input>
               <el-button @click="removefatherItem4(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem4()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -110,25 +123,12 @@
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
-          }" :label='"可靠性测试"+index+":"' :key="index" >
-              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.testcharacteristic4"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.testspecification4"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.testresult5"></el-input>
+          }" :label='"可维护性测试"+index+":"' :key="index" >
+              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic4"></el-input>
+              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification4"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult5"></el-input>
               <el-button @click="removefatherItem5(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem5()" type="primary" size="small">增加功能项目</el-button>
-            </el-form-item>
-          </el-form>
-          <el-form label-width="500px" :model="ruleForm6" :rules="rules" ref="ruleForm6">
-            <el-form-item v-for="(Table,index) in ruleForm6.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"可维护性测试"+index+":"' :key="index" >
-              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.testcharacteristic5"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.testspecification5"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.testresult6"></el-input>
-              <el-button @click="removefatherItem6(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem6()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
         </el-main>
@@ -152,94 +152,95 @@
                     email:'',
                     URL:'',
                 },
+                ruleForm:{
+                  TableData:[
+                    {
+                      FunctionModule:'',
+                      FunctionRequirement:'',
+                      TestResult:'',   
+                    },
+                  ],
+                },
                 ruleForm1:{
-                    functionmodule:'',
-                    functionrequirement:'',
-                    testresult1:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
+                  TableData:[
+                    {
+                      TestCharacteristic:'',
+                      TestSpecification:'',
+                      TestResult1:'',
+                    },
+                  ],
                 },
-              ],
-                },
-                rules:{
-                  
-                  },
-                  ruleForm2:{
-                  testcharacteristic1:'',
-                  testspecification1:'',
-                  testresult2:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
+                ruleForm2:{
+                  TableData:[
+                    {
+                    TestCharacteristic1:'',
+                    TestSpecification1:'',
+                    TestResult2:'',
                 },
               ],
                 },
                 ruleForm3:{
-                  testcharacteristic2:'',
-                  testspecification2:'',
-                  testresult3:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
+                  TableData:[
+                    {
+                    TestCharacteristic2:'',
+                    TestSpecification2:'',
+                    TestResult3:'',
+                    },
+                  ],
                 },
-              ],
-                }
-                ,
                 ruleForm4:{
-                  testcharacteristic3:'',
-                  testspecification3:'',
-                  testresult4:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
+                  TableData:[
+                    {
+                    TestCharacteristic3:'',
+                    TestSpecification3:'',
+                    TestResult4:'', 
+                    },
+                  ],
                 },
-              ],
-                }
-                ,
                 ruleForm5:{
-                  testcharacteristic4:'',
-                  testspecification4:'',
-                  testresult5:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
+                  TableData:[
+                    {
+                    TestCharacteristic4:'',
+                    TestSpecification4:'',
+                    TestResult5:'',
+                    },
+                  ],
                 },
-              ],
-                }
-                ,
-                ruleForm6:{
-                  testcharacteristic5:'',
-                  testspecification5:'',
-                  testresult6:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
+              rules:{
+                FunctionModule:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                FunctionRequirement:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestResult:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestCharacteristic:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestSpecification:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
                 },
-              ],
-                }
         }
     }, 
       methods:{
         goback(){
+        },
+        addfatherItem(){
+          this.ruleForm.TableData.push({
+            id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
+            name:'',
+            function:'',
+            children:[],
+          })
+        },
+        removefatherItem(Table){
+          const index = this.ruleForm.TableData.indexOf(Table)
+          if (index !== 0) {
+          this.ruleForm.TableData.splice(index, 1);
+      }
         },
         addfatherItem1(){
           this.ruleForm1.TableData.push({
@@ -309,20 +310,6 @@
           const index = this.ruleForm5.TableData.indexOf(Table)
           if (index !== 0) {
           this.ruleForm5.TableData.splice(index, 1);
-      }
-        },
-        addfatherItem6(){
-          this.ruleForm6.TableData.push({
-            id:this.ruleForm6.TableData[this.ruleForm6.TableData.length-1]+1,
-            name:'',
-            function:'',
-            children:[],
-          })
-        },
-        removefatherItem6(Table){
-          const index = this.ruleForm6.TableData.indexOf(Table)
-          if (index !== 0) {
-          this.ruleForm6.TableData.splice(index, 1);
       }
         },
         addchildrenItem(Node){

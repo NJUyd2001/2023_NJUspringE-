@@ -11,8 +11,9 @@ import Util from './libs/util';
 
 import store from './stores';
 import axios from 'axios'
-
-
+import publicMethod from './commons/common' 
+// -----------------------------------------公有方法引入
+Vue.use(publicMethod);
 // ---------------------------------------- element ui
 
 Vue.use(ElementUI)

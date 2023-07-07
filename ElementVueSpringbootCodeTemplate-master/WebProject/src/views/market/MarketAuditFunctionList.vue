@@ -70,10 +70,7 @@
   import Axios from 'axios'
 export default {
   created(){
-      if (sessionStorage.getItem("store") ) {
-              this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-               sessionStorage.removeItem('store');
-              }
+      this.KeepInfor();
       this.user.AID=this.$store.state.user.process.AID
       Axios.post("http://localhost:9090/api/application/gettabledata",JSON.stringify(this.user),{
         headers:{

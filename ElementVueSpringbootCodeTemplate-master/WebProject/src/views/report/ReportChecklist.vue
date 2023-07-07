@@ -49,11 +49,11 @@
       </el-header>
         <br><br>
         <el-main>
-          <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
+          <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item style="margin-top: 80px; margin-right: 150px;" label="软件名称:" prop="SoftWareName"> 
-            <el-input style="width:200px; padding:10px;" v-model="SoftWareName"></el-input>
+            <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
             <el-form-item style="margin-top: -60px; margin-right: 120px;" label="委托单位:" prop="Client"> 
-            <el-input style="width:200px; padding:10px;" v-model="Client"></el-input>
+            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Client"></el-input>
           </el-form-item>
           </el-form-item> 
           <el-table :data="tableData"  style="width: 60%; margin-left: 25%;">
@@ -63,14 +63,14 @@
             <el-table-column prop="checkresult" label="检查结果" width="120">
               <template slot-scope="scope">
                 <el-radio-group v-model="scope.row.HandleState">
-                <el-radio  v-model="radio" label="1" @change="operation(scope.row)">通过</el-radio>
-                <el-radio  v-model="radio" label="2" >不通过</el-radio>
+                <el-radio  v-model="ruleForm.radio" label="1" @change="operation(scope.row)">通过</el-radio>
+                <el-radio  v-model="ruleForm.radio" label="2" >不通过</el-radio>
                 </el-radio-group>
               </template>
             </el-table-column>
           </el-table>
           <el-form-item style="margin-right: 20%; margin-top: 20px; font-weight: bold;" label="检查人：" prop="Examiner"> 
-            <el-input style="width:200px; padding:10px;" v-model="Examiner"></el-input>
+            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Examiner"></el-input>
           </el-form-item>
           </el-form>
           <div class="block">
@@ -91,42 +91,44 @@
     export default {
         data(){
            return{
+             user:{
+               name:'风车村',
+               password:'shazihuang',
+               telephone:'',
+               fax:'',
+               address:'',
+               postcode:'',
+               contacts:'',
+               mobilephone:'',
+               email:'',
+               URL:'',
+              },
+            ruleForm:{
             SoftWareName:'',
             Client:'',
             radio:'',
             Examiner:'',
-            user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
             },
             shortcuts: [{
             text: 'Today',
             onClick(picker) {
               picker.$emit('pick', new Date());
             }
-          }, {
-            text: 'Yesterday',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: 'A week ago',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }],
+            }, {
+              text: 'Yesterday',
+              onClick(picker) {
+                const date = new Date();
+                date.setTime(date.getTime() - 3600 * 1000 * 24);
+                picker.$emit('pick', date);
+              }
+            }, {
+              text: 'A week ago',
+              onClick(picker) {
+                const date = new Date();
+                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                picker.$emit('pick', date);
+              }
+            }],
             value1:'',
             tableData: [{
             num: '1',
