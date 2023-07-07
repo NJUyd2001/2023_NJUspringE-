@@ -4,6 +4,7 @@ import ConfigTable2 from './table/ConfigTable2';
 import ConfigTableQ from './table/ConfigTableQ';
 
 import CTMENT from './table/CTM-ENT';
+import TestList from './table/TestList';
 import MyApp from './table/MyApp';
 import ProgressQuery from './table/ProgressQuery';
 
@@ -16,7 +17,7 @@ import TestDocAuditTable from './table/TestDocAuditTable';//黄大伟添加
 import TestCenterAccount  from './table/TestCenterAccount';//黄大伟添加
 import TestResultTable from './table/TestResultTable';//文炫添加
 import TestReportTable from './table/TestReportTable';//文炫添加
-import ImmediateProcessing from './table/ImmediateProcessing'
+import ImmediateProcessing from './table/ImmediateProcessing'//文炫添加
 //tree
 import SimpleTree from './tree/SimpleTree';
 import SimpleTreeWithIcon from './tree/SimpleTreeWithIcon';
@@ -38,6 +39,7 @@ function registerComponents(){
     Vue.component('ConfigTable2', ConfigTable2);
     Vue.component('ConfigTableQ', ConfigTableQ);
     Vue.component('CTMENT', CTMENT);
+    Vue.component('TestList', TestList);
     Vue.component('MyApp', MyApp);
     Vue.component('ProgressQuery', ProgressQuery); 
 

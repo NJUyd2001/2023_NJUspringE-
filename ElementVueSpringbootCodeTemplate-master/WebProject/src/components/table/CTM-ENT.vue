@@ -111,7 +111,8 @@ export default {
       // console.log(row);
       //sessionStorage.setItem
         this.$store.state.user.process.UID=row.applicantID;
-        console.log(this.$store.state.user.process.UID);
+        this.$store.state.user.process.AID=row.AID;
+        console.log(this.$store.state.user.process.AID);
         this.$router.push({path: "./marketaudituser", replace:true})
     },
     handleClick(row) {

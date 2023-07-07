@@ -18,7 +18,7 @@ import java.util.List;
 public class ProcessService {
     @Autowired
     ProcessDao processDao;
-    public String insert(String postJson){
+    public Integer insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
 
@@ -30,16 +30,14 @@ public class ProcessService {
 
 
         ProcessModel processmodel = new ProcessModel(notes, UID, AID, state, price);
+        System.out.println("收到内容："+ processmodel.toString());
         try {
             processDao.insert(processmodel);
+            return processmodel.getPID();
         }catch(Exception e){
-            return e.getCause().getMessage();
+            System.out.println(e.getCause().getMessage());
+            return -1;
         }
-        System.out.println("收到内容："+ processmodel.toString());
-        return ("进程创建成功");
-
-
-
     }
     public List<ProcessModel> findByUID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
@@ -55,6 +53,19 @@ public class ProcessService {
         int PID = jsonObject.getInteger("PID");
         return processDao.findByPID(PID);
     }
+    // 返回AID
+    public List<Integer> selectAIDsByState(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+
+        String state = jsonObject.getString("state");
+        return processDao.selectAIDsByState(state);
+    }
+    public List<Integer> selectPIDsByState(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+
+        String state = jsonObject.getString("state");
+        return processDao.selectPIDsByState(state);
+    }
     public List<ProcessModel> findByAID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         int AID = jsonObject.getInteger("AID");
@@ -64,24 +75,45 @@ public class ProcessService {
 
         return processDao.findAll();
     }
+    public String updateState(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer PID = jsonObject.getInteger("PID");
+        String state = jsonObject.getString("state");
+        try {
+            processDao.updateState(PID, state);
+        }catch (Exception e){
+            return e.getMessage();
+        }
+        return "状态更新成功";
+    }
+
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
 
         String notes = jsonObject.getString("notes");
-        double price = jsonObject.getDouble("price");
+        // double price = jsonObject.getDouble("price");
         String state = jsonObject.getString("state");
-        Integer checker = processDao.findByPID2(PID);
+        ProcessModel checker = processDao.findByPID(PID);
 
         if(checker == null){
             return ("不存在PID = "+ PID + "的进程");
         }
         else{
+            if(notes != null) checker.setNotes(notes);
+            try{
+                double price = jsonObject.getDouble("price");
+                checker.setPrice(price);
+            } catch (NullPointerException e){
+                return "价格不能为空！";
+            }
 
+            if(state != null) checker.setState(state);
             // TODO: 实现update
-            processDao.update();
+            System.out.println(checker.toString());
+            processDao.update(checker);
 
-            return ("process update complete");
+            return ("进程信息已更新");
         }
     }
 

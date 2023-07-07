@@ -6,7 +6,7 @@
     <el-col :span="22">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页-委托修改</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/auditapplication">审核意见查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/auditapplicationtest">审核意见查看</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
 <el-col :span="2">

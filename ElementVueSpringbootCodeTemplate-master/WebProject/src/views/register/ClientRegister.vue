@@ -123,7 +123,7 @@ export default {
         this.error("电话已被注册")
         else
         {
-        this.info("注册成功！");
+        this.$message.success("注册成功！");
         setTimeout(() => {this.$router.push({path: "./clientlogin", replace:true});}, 2000);
       }
       })

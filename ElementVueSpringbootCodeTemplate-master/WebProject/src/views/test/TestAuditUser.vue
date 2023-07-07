@@ -5,8 +5,8 @@
     <el-row>
       <el-col :span="23">
     <el-breadcrumb separator="->">
-    <el-breadcrumb-item :to="{ path: '/Test' }">测试部主页-审核委托</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/testaudituser">用户信息查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/Test' }">市场部主页-审核委托</el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/testaudituser">用户信息审核</a></el-breadcrumb-item>
   </el-breadcrumb>
   </el-col>
   <el-col :span="1">
@@ -14,25 +14,24 @@
   </el-col>
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="5">
         <router-link to="/test">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="3" ><div class="grid-content bg-purple">
-        <span class="logo-title">客户信息查看</span>
+      <el-col :span="7" ><div class="grid-content bg-purple">
+        <span class="logo-title">客户信息审核</span>
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="12">
         <el-steps :space="200" :active="0" finish-status="success" >
-          <el-step title="客户信息查看"></el-step>
-          <el-step title="申请表查看"></el-step>
-          <el-step title="功能列表查看"></el-step>
-          <el-step title="审核意见查看"></el-step>
+          <el-step title="客户信息审核"></el-step>
+          <el-step title="申请表审核"></el-step>
+          <el-step title="功能列表审核"></el-step>
           <el-step title="审核信息填写"></el-step>
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-       <el-col :span="1">
+       <el-col :span="2">
          <router-link to="/testauditapplication">
 	          <el-button type="success" style="margin: 14px">下一步</el-button>
         </router-link>
@@ -41,31 +40,31 @@
   </el-header>
     <br><br><br>
     <el-main >
-      <br>
-      <el-form label-width="550px" disabled :model="ruleForm" ref="ruleForm">
+      <el-form label-width="550px" disabled :model="user" ref="user">
+        <br>
         <el-form-item label="电话：">
-          <el-input v-model="telephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.phone" prop="telephone" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="传真：">
-          <el-input v-model="fax" style="width: 200px;"></el-input>
+          <el-input v-model="user.userfax" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="地址：">
-          <el-input v-model="address" style="width: 200px;"></el-input>
+          <el-input v-model="user.address" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="邮编：">
-          <el-input v-model="postcode" style="width: 200px;"></el-input>
+          <el-input v-model="user.zipcode" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="联系人：">
-          <el-input v-model="contacts" style="width: 200px;"></el-input>
+          <el-input v-model="user.contact" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="手机：">
-          <el-input v-model="mobilephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.contactTel" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="E-mail：">
-          <el-input v-model="email" style="width: 200px;"></el-input>
+          <el-input v-model="user.emailAddr" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="网址：">
-          <el-input v-model="URL" style="width: 200px;"></el-input>
+          <el-input v-model="user.ip" style="width: 200px;"></el-input>
         </el-form-item>
       </el-form>
     </el-main>
@@ -74,68 +73,45 @@
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
+import Axios from "axios"
 export default {
-    data(){
+  
+   data(){
        return{
-            user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
+            user:{},
+            SelectForm:{
+              "UID":this.$store.state.user.process.UID
             },
+
             ruleForm:{
               SoftwareName:'',
               Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-                children:[],
             },
-          ],
-            },
-            rules:{
-              SoftwareName:[
-                      { required: true, message: "不能为空！", trigger: "blur" },
-                    ],
-              Versions:[
-                { required: true, message: "不能为空！", trigger: "blur"  },
-              ],
-              }
     }
+  },
+  created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    
+    //console.log(this.$store.state.user.process.UID)
+     Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.SelectForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        this.user=ret.data;
+     })
 }, 
+mounted() {
+    //this.$forceUpdate();
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
   methods:{
-    goback(){
-    },
-    addfatherItem(){
-      this.ruleForm.TableData.push({
-        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-        name:'',
-        function:'',
-        children:[],
-      })
-    },
-    removefatherItem(Table){
-      const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1) {
-      this.ruleForm.TableData.splice(index, 1);
-  }
-    },
-    addchildrenItem(Node){
-        Node.children.push(
-          {
-            id:'',
-            
-          }
-        )
-    },
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -145,7 +121,7 @@ export default {
           return false;
         }
       });*/
-      this.info("提交成功，正在返回用户界面！");
+      this.$message.success("提交成功，正在返回用户界面！");
       setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
     }
   },

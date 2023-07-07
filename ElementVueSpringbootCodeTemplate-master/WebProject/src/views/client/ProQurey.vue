@@ -104,6 +104,7 @@ export default {
         this.pstate=ret.data.state;
         console.log(this.pstate)
       })
+    
   },
   props: ['data', 'defaultActive'],
   data() {
@@ -254,6 +255,7 @@ export default {
         },
     next() {
         this.active=this.pstate/10;
+        console.log(this.active)
       },
   }
 };

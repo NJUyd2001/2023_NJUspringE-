@@ -99,7 +99,6 @@ export default {
       }).then(ret=>{
         this.user=ret.data;
      })
-   
 }, 
 mounted() {
     //this.$forceUpdate();
