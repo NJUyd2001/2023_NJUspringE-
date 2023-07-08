@@ -16,15 +16,15 @@
   </el-col>
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="5">
         <router-link to="/testauditapplication">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="3" ><div class="grid-content bg-purple">
+      <el-col :span="6" ><div class="grid-content bg-purple">
         <span class="logo-title">功能列表查看</span>
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="14">
           <el-steps :space="200" :active="2" finish-status="success">
           <el-step title="客户信息查看"></el-step>
           <el-step title="申请表查看"></el-step>
@@ -34,7 +34,7 @@
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-       <el-col :span="1">
+       <el-col :span="2">
          <router-link to="/testAuditinfor">
 	          <el-button type="success" style="margin: 14px">下一步</el-button>
         </router-link>
@@ -68,67 +68,34 @@
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
+  import Axios from 'axios'
 export default {
     data(){
        return{
-            user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
+        user:{
+              AID:"", 
             },
-            ruleForm:{
-              SoftwareName:'',
-              Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-                children:[],
+        ruleForm:
+        {
+
             },
-          ],
-            },
-            rules:{
-              SoftwareName:[
-                      { required: true, message: "不能为空！", trigger: "blur" },
-                    ],
-              Versions:[
-                { required: true, message: "不能为空！", trigger: "blur"  },
-              ],
-              }
     }
 }, 
   methods:{
-    goback(){
-    },
-    addfatherItem(){
-      this.ruleForm.TableData.push({
-        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-        name:'',
-        function:'',
-        children:[],
-      })
-    },
-    removefatherItem(Table){
-      const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1) {
-      this.ruleForm.TableData.splice(index, 1);
-  }
-    },
-    addchildrenItem(Node){
-        Node.children.push(
-          {
-            id:'',
-            
-          }
-        )
+    created(){
+      this.KeepInfor();
+      this.user.AID=this.$store.state.user.process.AID
+      Axios.post("http://localhost:9090/api/application/gettabledata",JSON.stringify(this.user),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data)
+           this.ruleForm=ret.data;
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
     },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {

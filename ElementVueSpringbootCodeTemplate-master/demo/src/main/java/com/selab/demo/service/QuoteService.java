@@ -43,6 +43,7 @@ public class QuoteService {
 
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
+        String PID = jsonObject.getString("PID");
         String time = jsonObject.getString("Time");
         String softwarename = jsonObject.getString("SoftwareName");
         String item = jsonObject.getString("item");
@@ -59,6 +60,7 @@ public class QuoteService {
         quoteDao.insert(quoteModel);
         JSONObject res = new JSONObject();
         res.put("QID",quoteModel.getQID());
+        //TODO:INSERT INTO PROCESS
         return JSON.toJSONString(res);
     }
 

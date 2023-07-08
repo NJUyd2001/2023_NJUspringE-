@@ -13,7 +13,7 @@
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="20"><div class="grid-content bg-purple">
+          <el-col :span="22"><div class="grid-content bg-purple">
             <span class="logo-title">委托进度-生成报价单</span>
             </div></el-col>
             <el-col :span="2">
@@ -25,7 +25,7 @@
       </el-header>
         <br><br><br>
         <el-main style="border-radius: 30px;box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
-          <el-form   :model="ruleForm" ref="ruleForm">
+          <el-form   :model="ruleForm" :rules="rules" ref="ruleForm" >
             <el-row type="flex" justify="center" >
             <el-col :span="5">
             <el-form-item label="户名:">
@@ -45,7 +45,7 @@
         </el-row>
         <el-row type="flex" justify="center">
             <el-col :span="20">
-            <el-form-item label="有效期：">
+            <el-form-item label="有效期：" prop="Time">
                     <el-date-picker
                     v-model="ruleForm.Time"
                     type="daterange"
@@ -58,53 +58,53 @@
         </el-row>
         <el-row type="flex" justify="center">
              <el-col :span="20">
-                <el-form-item label="软件名称：">
+                <el-form-item label="软件名称：" prop="SoftwareName">
                     <el-input style="width: 200px;padding:10px;" v-model="ruleForm.SoftwareName"></el-input>
                 </el-form-item>
             </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
+        <el-row type="flex" justify="center" >
              <el-col :span="5">
-                <el-form-item label="项目：">
+                <el-form-item label="项目：" prop="item">
                     <el-input style="width: 200px;padding:10px;" v-model="ruleForm.item"></el-input>
                 </el-form-item>
             </el-col>
             <el-col :span="5">
-                <el-form-item label="说明：">
+                <el-form-item label="说明：" prop="description">
                     <el-input style="width: 200px;padding:10px;" :autosize="{ minRows: 3, maxRows: 8}" type="textarea" v-model="ruleForm.description"></el-input>
                 </el-form-item>
             </el-col>
             <el-col :span="3">
-                <el-form-item label="单价:￥">
+                <el-form-item label="单价:￥" prop="UnitPrice">
                     <el-input style="width: 100px;padding:10px;"  v-model="ruleForm.UnitPrice"></el-input>
                 </el-form-item>
             </el-col>
             <el-col :span="7">
                 <el-form-item label="备注：">
-                    <el-input style="width: 200px;padding:10px;" :autosize="{ minRows: 3, maxRows: 8}" type="textarea" v-model="ruleForm.description"></el-input>
+                    <el-input style="width: 200px;padding:10px;" :autosize="{ minRows: 3, maxRows: 8}" type="textarea" v-model="ruleForm.PS"></el-input>
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row type="flex" justify="center">
              <el-col :span="6">
-                <el-form-item label="小计:￥">
+                <el-form-item label="小计:￥" prop="SubTotalPrice">
                     <el-input style="width: 100px;padding:10px;" v-model="ruleForm.SubTotalPrice"></el-input>
                 </el-form-item>
             </el-col>
             <el-col :span="6">
-                <el-form-item label="税率(3%):￥">
+                <el-form-item label="税率(3%):￥"  prop="Tax">
                     <el-input style="width: 100px;padding:10px;" v-model="ruleForm.Tax"></el-input>
                 </el-form-item>
             </el-col>
             <el-col :span="8">
-                <el-form-item label="总计:￥">
+                <el-form-item label="总计:￥" prop="TotalPrice">
                     <el-input style="width: 100px;padding:10px;" v-model="ruleForm.TotalPrice"></el-input>
                 </el-form-item>
             </el-col>
         </el-row>
         <el-row type="flex" justify="center">
              <el-col :span="20">
-                <el-form-item label="报价提供人：">
+                <el-form-item label="报价提供人："  prop="Provider">
                     <el-input style="width: 200px;padding:10px;" v-model="ruleForm.Provider"></el-input>
                 </el-form-item>
             </el-col>
@@ -116,6 +116,7 @@
     </template>
     <el-backtop :right="50" :bottom="50" />
     <script>
+  import Axios from 'axios'
     export default {
         data(){
            return{
@@ -124,11 +125,11 @@
                   SoftwareName:"",
                   item:"",
                   description:"",
-                  UnitPrice:0,
+                  UnitPrice:"",
                   PS:"",
-                  SubTotalPrice:0,
-                  Tax:0,
-                  TotalPrice:0,
+                  SubTotalPrice:"",
+                  Tax:"",
+                  TotalPrice:"",
                   Provider:"",
                 },
                 shortcuts: [{
@@ -160,15 +161,47 @@
                   SoftwareName:[
                           { required: true, message: "不能为空！", trigger: "blur" },
                         ],
-                  Versions:[
+                 item:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
+                  description:[
+                          { required: true, message: "不能为空！", trigger: "blur" },
+                        ],
+                        Tax:[
+                          { required: true, message: "不能为空！", trigger: "blur" },
+                        ],
+                  UnitPrice:[
+                          { required: true, message: "不能为空！", trigger: "blur" },
+                        ],
+                  SubTotalPrice:[
+                          { required: true, message: "不能为空！", trigger: "blur" },
+                        ],
+                  TotalPrice:[
+                          { required: true, message: "不能为空！", trigger: "blur" },
+                        ],
+                  Provider:[
+                          { required: true, message: "不能为空！", trigger: "blur" },
+                        ],
+                  Time:[
+                          { required: true, message: "请选择日期！", trigger: "change" },
+                        ],
                   }
         }
-    }, 
-      methods:{
-        goback(){
-        },
+    },
+    created(){
+      this.KeepInfor();
+    },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
+    methods:{
+      handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
         addfatherItem(){
           this.ruleForm.TableData.push({
             id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,

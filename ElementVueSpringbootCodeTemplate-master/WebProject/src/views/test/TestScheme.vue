@@ -56,7 +56,7 @@
             <el-form-item label="2 引用文件:" prop="ApplicationFile" style="font-weight: bold; font-size: 15px; ">
               <el-input placeholder="《计算机软件文档编制规范》GB/T 8567－2006" v-model="ruleForm.ApplicationFile" style="width: 350px; "></el-input>
             </el-form-item>
-            <el-form-item label="3 软件测试环境" prop="Introduction" style="font-weight: bold; font-size: 15px; margin-left: 20px;">
+            <el-form-item label="3 软件测试环境" prop="SoftwareTestEnvironment" style="font-weight: bold; font-size: 15px; margin-left: 20px;">
             </el-form-item>
             <el-form-item label="3.1硬件:" prop="Hardware">
               <el-input v-model="ruleForm.Hardware" style="width: 200px;"></el-input>
@@ -78,9 +78,9 @@
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"测试工程师"' :key="index" >
-              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.evaluationopinion1"></el-input>
-              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.sign1"></el-input>
-              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.date1"></el-input>
+              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.EvaluationOpinion1"></el-input>
+              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.Sign1"></el-input>
+              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.Date1"></el-input>
             </el-form-item>
           </el-form>
           <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
@@ -89,9 +89,9 @@
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"测试室负责人"' :key="index" >
-              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.evaluationopinion2"></el-input>
-              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.sign2"></el-input>
-              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.date2"></el-input>
+              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.EvaluationOpinion2"></el-input>
+              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.Sign2"></el-input>
+              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.Date2"></el-input>
             </el-form-item>
           </el-form>
           <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
@@ -100,9 +100,9 @@
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"质量负责人"' :key="index" >
-              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.evaluationopinion3"></el-input>
-              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.sign3"></el-input>
-              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.date3"></el-input>
+              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.EvaluationOpinion3"></el-input>
+              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.Sign3"></el-input>
+              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.Date3"></el-input>
             </el-form-item>
           </el-form>
           <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
@@ -111,9 +111,9 @@
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"技术负责人"' :key="index" >
-              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.evaluationopinion4"></el-input>
-              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.sign4"></el-input>
-              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.date4"></el-input>
+              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.EvaluationOpinion4"></el-input>
+              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.Sign4"></el-input>
+              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.Date4"></el-input>
             </el-form-item>
           </el-form>
           <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
@@ -122,9 +122,9 @@
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"监督人"' :key="index" >
-              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.evaluationopinion5"></el-input>
-              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.sign5"></el-input>
-              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.date5"></el-input>
+              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.EvaluationOpinion5"></el-input>
+              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.Sign5"></el-input>
+              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.Date5"></el-input>
             </el-form-item>
           </el-form>
             <el-form-item label="4 计划" prop="Plan" style="font-weight: bold; font-size: 15px; ">
@@ -200,48 +200,48 @@
             </el-form-item>
             <el-form-item label="5 测试进度表" prop="TestSchedule" style="font-weight: bold; font-size: 15px; ">
             </el-form-item>
-            <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+            <el-form label-width="400px" :model="ruleForm2" :rules="rules" ref="ruleForm2">
+            <el-form-item v-for="(Table,index) in ruleForm2.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"制定测试计划"' :key="index" >
-              <el-input placeholder="工作量" style="width: 100px;padding-right:20px;" v-model="Table.workload1"></el-input>
-              <el-input placeholder="开始时间" style="width: 100px;padding-right:20px;" v-model="Table.start1"></el-input>
-              <el-input placeholder="结束时间" style="width: 100px;padding-right:20px;" v-model="Table.end1"></el-input>
+              <el-input placeholder="工作量" style="width: 100px;padding-right:20px;" v-model="Table.Workload1"></el-input>
+              <el-input placeholder="开始时间" style="width: 100px;padding-right:20px;" v-model="Table.Start1"></el-input>
+              <el-input placeholder="结束时间" style="width: 100px;padding-right:20px;" v-model="Table.End1"></el-input>
             </el-form-item>
           </el-form>
-          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+          <el-form label-width="400px" :model="ruleForm2" :rules="rules" ref="ruleForm2">
+            <el-form-item v-for="(Table,index) in ruleForm2.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"设计测试"' :key="index" >
-              <el-input placeholder="工作量" style="width: 100px;padding-right:20px;" v-model="Table.workload2"></el-input>
-              <el-input placeholder="开始时间" style="width: 100px;padding-right:20px;" v-model="Table.start2"></el-input>
-              <el-input placeholder="结束时间" style="width: 100px;padding-right:20px;" v-model="Table.end2"></el-input>
+              <el-input placeholder="工作量" style="width: 100px;padding-right:20px;" v-model="Table.Workload2"></el-input>
+              <el-input placeholder="开始时间" style="width: 100px;padding-right:20px;" v-model="Table.Start2"></el-input>
+              <el-input placeholder="结束时间" style="width: 100px;padding-right:20px;" v-model="Table.End2"></el-input>
             </el-form-item>
           </el-form>
-          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+          <el-form label-width="400px" :model="ruleForm2" :rules="rules" ref="ruleForm2">
+            <el-form-item v-for="(Table,index) in ruleForm2.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"执行测试"' :key="index" >
-              <el-input placeholder="工作量" style="width: 100px;padding-right:20px;" v-model="Table.workload3"></el-input>
-              <el-input placeholder="开始时间" style="width: 100px;padding-right:20px;" v-model="Table.start3"></el-input>
-              <el-input placeholder="结束时间" style="width: 100px;padding-right:20px;" v-model="Table.end3"></el-input>
+              <el-input placeholder="工作量" style="width: 100px;padding-right:20px;" v-model="Table.Workload3"></el-input>
+              <el-input placeholder="开始时间" style="width: 100px;padding-right:20px;" v-model="Table.Start3"></el-input>
+              <el-input placeholder="结束时间" style="width: 100px;padding-right:20px;" v-model="Table.End3"></el-input>
             </el-form-item>
           </el-form>
-          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+          <el-form label-width="400px" :model="ruleForm2" :rules="rules" ref="ruleForm2">
+            <el-form-item v-for="(Table,index) in ruleForm2.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
           }" :label='"评估测试"' :key="index" >
-              <el-input placeholder="工作量" style="width: 100px;padding-right:20px;" v-model="Table.workload4"></el-input>
-              <el-input placeholder="开始时间" style="width: 100px;padding-right:20px;" v-model="Table.start4"></el-input>
-              <el-input placeholder="结束时间" style="width: 100px;padding-right:20px;" v-model="Table.end4"></el-input>
+              <el-input placeholder="工作量" style="width: 100px;padding-right:20px;" v-model="Table.Workload4"></el-input>
+              <el-input placeholder="开始时间" style="width: 100px;padding-right:20px;" v-model="Table.Start4"></el-input>
+              <el-input placeholder="结束时间" style="width: 100px;padding-right:20px;" v-model="Table.End4"></el-input>
             </el-form-item>
           </el-form>
             <el-form-item label="6 需求的可追踪性" prop="Testcase" style="font-weight: bold; font-size: 15px; ">
@@ -256,14 +256,56 @@
     <script>
     export default {
         data(){
-           return{
+          return{
+             ruleForm:{
+               Mark:'',
+               SystemOverview:'',
+               DocumentationOverview:'',
+               BaseLine:'',
+               Hardware:'',
+               Software:'',
+               Other:'',
+               ParticipatingOrganization:'',
+               SoftWareName:'',
+               VersionNumber:'',
+               TypeTest:'',
+               GeneralTestCondition:'',
+               PlannedExecutionTest:'',
+               WritingNormality:'',
+               TestEnvironment:'',
+               Completeness:'',
+               SelectMethod:'',
+               TestcaseCover:'',
+               InputOutputData:'',
+               Timing:'',
+               HumanResourcesArrangement:'',
+               Testcase:'',
+             TableData:[
+               {
+                 id:1,
+                 name:'',
+                 function:'',
+                 children:[],
+             },
+           ],
+             },
                 ruleForm1:{
-                  SoftwareName:'',
-                  Versions:'',
-                  workload1:'',
-                  workload2:'',
-                  workload3:'',
-                  workload4:'',
+                  EvaluationOpinion1:'',
+                  Sign1:'',
+                  Date:'',
+                  EvaluationOpinion2:'',
+                  Sign2:'',
+                  Date:'',
+                  EvaluationOpinion3:'',
+                  Sign3:'',
+                  Date:'',
+                  EvaluationOpinion4:'',
+                  Sign4:'',
+                  Date4:'',
+                  EvaluationOpinion5:'',
+                  Sign5:'',
+                  Date5:'',
+
                 TableData:[
                   {
                     id:1,
@@ -272,6 +314,20 @@
                     children:[],
                 },
               ],
+                },
+                ruleForm2:{
+                    Workload1:'',
+                    Start1:'',
+                    End1:'',
+                    Workload2:'',
+                    Start2:'',
+                    End2:'',
+                    Workload3:'',
+                    Start3:'',
+                    End3:'',
+                    Workload4:'',
+                    Start4:'',
+                    End4:'',
                 },
                 user:{
                     name:'风车村',
@@ -285,45 +341,7 @@
                     email:'',
                     URL:'',
                 },
-                ruleForm:{
-                  Introduction:'',
-                  Mark:'',
-                  SystemOverview:'',
-                  DocumentationOverview:'',
-                  BaseLine:'',
-                  Hardware:'',
-                  Software:'',
-                  Other:'',
-                  ParticipatingOrganization:'',
-                  Personnel:'',
-                  Plan:'',
-                  OverallDesign:'',
-                  TestLevel:'',
-                  TypeofTest:'',
-                  GeneralTestCondition:'',
-                  PlannedExecutionTest:'',
-                  Testcase:'',
-                  WritingNormality:'',
-                  TestEnvironment:'',
-                  Completeness:'',
-                  SelectMethod:'',
-                  TestcaseCover:'',
-                  InputOutputData:'',
-                  Timing:'',
-                  HumanResourcesArrangement:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
-                },
-              ],
-                },
                 rules:{
-                  Introdcution:[
-                          { required: true, message: "不能为空！", trigger: "blur" },
-                        ],
                   Mark:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
@@ -334,6 +352,60 @@
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   BaseLine:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Hardware:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Software:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Other:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  ParticipatingOrganization:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  SoftWareName:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  VersionNumber:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  TypeTest:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  GeneralTestCondition:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  PlannedExecutionTest:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  WritingNormality:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  TestEnvironment:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Completeness:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  SelectMethod:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  TestcaseCover:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  InputOutputData:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Timing:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  HumanResourcesArrangement:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Testcase:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   }

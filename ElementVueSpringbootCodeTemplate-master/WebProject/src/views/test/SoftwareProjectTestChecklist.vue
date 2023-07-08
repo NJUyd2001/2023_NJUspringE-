@@ -41,15 +41,15 @@
       </el-header>
         <br><br>
         <el-main>
-          <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
+          <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item style="margin-top: 80px; margin-right: 150px;" label="软件名称:" prop="SoftWareName"> 
-            <el-input style="width:200px; padding:10px;" v-model="SoftWareName"></el-input>
+            <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
             <el-form-item style="margin-top: -60px; margin-right: 120px;" label="版本号:" prop="Client"> 
-            <el-input style="width:200px; padding:10px;" v-model="VersionNumber"></el-input>
+            <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
           </el-form-item>
           </el-form-item> 
           <el-form-item style="margin-top: -15px; margin-right: 150px;" label="委托单位:" prop="Client"> 
-            <el-input style="width:200px; padding:10px;" v-model="Client"></el-input>
+            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Client"></el-input>
           </el-form-item>
         <el-form-item style="margin-left: -220px;">
           <template>
@@ -57,7 +57,7 @@
                 <span class="demonstration" style="font-weight: lighter;">起始时间至预计完成时间</span>
                 <el-date-picker
                 style="margin-left: 20px;"
-                v-model="value1"
+                v-model="ruleForm.value1"
                 type="daterange"
                 range-separator="To"
                 start-placeholder="起始时间"
@@ -67,11 +67,11 @@
           </template>
         </el-form-item>
           <el-form-item style="margin-top: -10px; margin-right: 150px;" label="主测人:" prop="Tester"> 
-            <el-input style="width:200px; padding:10px;" v-model="Reviewer"></el-input>
+            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Reviewer"></el-input>
             <el-form-item style="margin-top: -50px;"  label-width="330px" label="实际完成时间:" prop="ActualFinishDate"> 
                 <div class="block" style="margin-top: 0px; margin-left: 0px;">
                     <el-date-picker
-                    v-model="value2"
+                    v-model="ruleForm.value2"
                     type="date"
                     placeholder="Pick a day">
                     </el-date-picker>
@@ -89,7 +89,7 @@
             </el-table-column>
           </el-table>
           <el-form-item style="margin-left: 50px; margin-top: 20px; font-weight: bold;" label="检查人：" prop="Examiner"> 
-            <el-input style="width:200px; padding:10px;" v-model="Examiner"></el-input>
+            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Examiner"></el-input>
           </el-form-item>
           </el-form>
         </el-main>
@@ -101,12 +101,17 @@
     export default {
         data(){
            return{
-            SoftWareName:'',
-            VersionNumber:'',
-            Client:'',
-            Tester:'',
-            ActualFinishDate:'',
-            Examiner:'',
+            ruleForm:{
+              SoftWareName:'',
+              VersionNumber:'',
+              Client:'',
+              Tester:'',
+              ActualFinishDate:'',
+              Examiner:'',
+            },
+            scope:{
+              Confirm:'',
+            },
             pickerOptions: {
             shortcuts: [{
             text: 'Last week',
@@ -132,10 +137,10 @@
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit('pick', [start, end]);
             }
-          }]
-        },
-        value1: '',
-        value2: '',
+              }]
+            },
+            value1: '',
+            value2: '',
             user:{
                 name:'风车村',
                 password:'shazihuang',
@@ -281,7 +286,27 @@
             IssuesAndPrecautions: '3、确保归档资料方便查找取阅',
             Confirm: '',
             }
-          ]
+          ],
+          rules:{
+            SoftWareName:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            VersionNumber:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            Client:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            Tester:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            ActualFinishDate:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            Examiner:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+          }
       }
     },
       methods: {

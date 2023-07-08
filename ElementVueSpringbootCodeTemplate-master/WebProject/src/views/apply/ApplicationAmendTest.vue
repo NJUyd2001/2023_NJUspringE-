@@ -302,7 +302,7 @@ export default {
                 OS:{
                   Windows:'',
                   Linux:'',
-                  other:''
+                  Other:''
               },
               Mermory:'',
               Other:''
@@ -312,7 +312,7 @@ export default {
                 FrameWork:[],  
                 Mermory:'',
                 HardDisk:'',
-                OtherDisk:''
+                Other:''
               },
               SoftWare:{
                 OS:'',
@@ -677,12 +677,7 @@ mounted(){
 },
 created(){
     //在页面加载时读取sessionStorage里的状态信息
-    if (sessionStorage.getItem("store") ) {
-    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
-    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
-      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-      sessionStorage.removeItem('store');
-    }
+    this.KeepInfor();
   },
   methods:{
     handleBeforeUnload() {

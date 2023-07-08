@@ -180,12 +180,7 @@
   export default {
     created(){
       // console.log(this.$store.state.user.id)
-      if (sessionStorage.getItem("store") ) {
-    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
-    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
-      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-      sessionStorage.removeItem('store');
-      }
+      this.KeepInfor();
       this.Aid.applicantID=this.$store.state.user.process.UID
       this.Pid.PID=this.$store.state.user.process.UID
       Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.Pid),{
@@ -204,7 +199,7 @@
           'content-type': 'text/plain'}
       }).then(ret=>{
           this.ruleForm=ret.data[0];
-          this.$store.state.user.process.AID=ret.data[0].AID;
+          //this.$store.state.user.process.AID=ret.data[0].AID;
           console.log(this.$store.state.user.process.AID)
       }).catch(function (error)
         {
@@ -250,7 +245,7 @@
                   OS:{
                     Windows:'',
                     Linux:'',
-                    other:''
+                    Other:''
                 },
                 Mermory:'',
                 Other:''

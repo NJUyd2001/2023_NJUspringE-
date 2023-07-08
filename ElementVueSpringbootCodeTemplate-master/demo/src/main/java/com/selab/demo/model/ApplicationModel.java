@@ -22,7 +22,7 @@ public class ApplicationModel extends BaseEntity {
     private Integer AID;
     private Integer applicantID;//申请单ID
     private Integer processID;
-    private Date time;//时间
+    private String time;//时间
     private String phone;//手机号
     private String testTYPE;//测试类型，C：软件确认测试，I：成果/技术鉴定测试，A：转向资金验收测试
     private String sNAME;//软件名称
@@ -78,34 +78,6 @@ public class ApplicationModel extends BaseEntity {
     private Integer auditID;
 
 
-
-    public String gethOPERATINGENVIRONMENT() {
-        return hOPERATINGENVIRONMENT;
-    }
-
-    public void sethOPERATINGENVIRONMENT(String hOPERATINGENVIRONMENT) {
-        this.hOPERATINGENVIRONMENT = hOPERATINGENVIRONMENT;
-    }
-
-    public String getsOPERATINGENVIRONMENT() {
-        return sOPERATINGENVIRONMENT;
-    }
-
-    public void setsOPERATINGENVIRONMENT(String sOPERATINGENVIRONMENT) {
-        this.sOPERATINGENVIRONMENT = sOPERATINGENVIRONMENT;
-    }
-
-
-    public String getVersion_num() {
-        return version_num;
-    }
-
-    public void setVersion_num(String version_num) {
-        this.version_num = version_num;
-    }
-
-
-
     /**
      * {
      *     "applicantID":"1",
@@ -159,20 +131,18 @@ public class ApplicationModel extends BaseEntity {
      *
      * }
      * **/
-
-    public ApplicationModel(Integer AID, Integer applicantID, Integer processID, Date time, String phone, String testTYPE, String sNAME, String PA, String PAE, String PB, String PB_type, String USS, String sDES, String stestBASIS, String elsestestBASIS,  String TESTINDEX, String elseINDEX, Integer scale_num, Integer scale_score, Integer scale_lines, String sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, ARCHITECTURE ARCHITECTURE, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, String sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, String MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, String SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor,String version_num,String hOPERATINGENVIRONMENT,String sOPERATINGENVIRONMENT,String mainfunction,String tableid,String version,String confirmopinion,Integer auditID) {
+    public ApplicationModel(Integer AID, Integer applicantID, Integer processID, String time, String phone, String testTYPE, String sNAME, String PA, String PAE, String PB, String PB_type, String USS, String sDES, String stestBASIS, String elsestestBASIS, String elseINDEX, String TESTINDEX, Integer scale_num, Integer scale_score, Integer scale_lines, String sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, com.selab.demo.model.enums.ARCHITECTURE ARCHITECTURE, String hOPERATINGENVIRONMENT, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, String sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, String sOPERATINGENVIRONMENT, String MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, String SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor, String version_num, String mainfunction, String tableid, String version, String confirmopinion, Integer auditID) {
         this.AID = AID;
         this.applicantID = applicantID;
         this.processID = processID;
-        this.phone = phone;
         this.time = time;
+        this.phone = phone;
         this.testTYPE = testTYPE;
         this.sNAME = sNAME;
         this.PA = PA;
         this.PAE = PAE;
         this.PB = PB;
         this.PB_type = PB_type;
-        //this.else_type = else_type;
         this.USS = USS;
         this.sDES = sDES;
         this.stestBASIS = stestBASIS;
@@ -189,6 +159,7 @@ public class ApplicationModel extends BaseEntity {
         this.ENVIRONMENTE = ENVIRONMENTE;
         this.ENVIRONMENT = ENVIRONMENT;
         this.ARCHITECTURE = ARCHITECTURE;
+        this.hOPERATINGENVIRONMENT = hOPERATINGENVIRONMENT;
         this.hMEMORY = hMEMORY;
         this.hHARDDISK = hHARDDISK;
         this.hELSEDEMAND = hELSEDEMAND;
@@ -199,6 +170,7 @@ public class ApplicationModel extends BaseEntity {
         this.sDATABASE = sDATABASE;
         this.sMIDDLEWARE = sMIDDLEWARE;
         this.sELSEDEMAND = sELSEDEMAND;
+        this.sOPERATINGENVIRONMENT = sOPERATINGENVIRONMENT;
         this.MEDIUM = MEDIUM;
         this.doc_path1 = doc_path1;
         this.doc_path2 = doc_path2;
@@ -210,15 +182,12 @@ public class ApplicationModel extends BaseEntity {
         this.m_state = m_state;
         this.auditinfor = auditinfor;
         this.version_num = version_num;
-        this.hOPERATINGENVIRONMENT = hOPERATINGENVIRONMENT;
-        this.sOPERATINGENVIRONMENT = sOPERATINGENVIRONMENT;
         this.mainfunction = mainfunction;
         this.tableid = tableid;
         this.version = version;
         this.confirmopinion = confirmopinion;
         this.auditID = auditID;
     }
-
 
     public Integer getAID() {
         return AID;
@@ -244,6 +213,14 @@ public class ApplicationModel extends BaseEntity {
         this.processID = processID;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -252,14 +229,9 @@ public class ApplicationModel extends BaseEntity {
         this.phone = phone;
     }
 
-    public Date getTime() {
-        return time;
+    public String getTestTYPE() {
+        return testTYPE;
     }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-    public String getTestTYPE(){return testTYPE;}
 
     public void setTestTYPE(String testTYPE) {
         this.testTYPE = testTYPE;
@@ -268,17 +240,20 @@ public class ApplicationModel extends BaseEntity {
     public String getsNAME() {
         return sNAME;
     }
+
     public void setsNAME(String sNAME) {
         this.sNAME = sNAME;
     }
-    public String getPA(){
+
+    public String getPA() {
         return PA;
     }
 
     public void setPA(String PA) {
         this.PA = PA;
     }
-    public String getPAE(){
+
+    public String getPAE() {
         return PAE;
     }
 
@@ -301,14 +276,6 @@ public class ApplicationModel extends BaseEntity {
     public void setPB_type(String PB_type) {
         this.PB_type = PB_type;
     }
-
-    //public String getElse_type() {
-    //    return else_type;
-    //}
-
-    //public void setElse_type(String else_type) {
-    //    this.else_type = else_type;
-    //}
 
     public String getUSS() {
         return USS;
@@ -438,6 +405,14 @@ public class ApplicationModel extends BaseEntity {
         this.ARCHITECTURE = ARCHITECTURE;
     }
 
+    public String gethOPERATINGENVIRONMENT() {
+        return hOPERATINGENVIRONMENT;
+    }
+
+    public void sethOPERATINGENVIRONMENT(String hOPERATINGENVIRONMENT) {
+        this.hOPERATINGENVIRONMENT = hOPERATINGENVIRONMENT;
+    }
+
     public String gethMEMORY() {
         return hMEMORY;
     }
@@ -516,6 +491,14 @@ public class ApplicationModel extends BaseEntity {
 
     public void setsELSEDEMAND(String sELSEDEMAND) {
         this.sELSEDEMAND = sELSEDEMAND;
+    }
+
+    public String getsOPERATINGENVIRONMENT() {
+        return sOPERATINGENVIRONMENT;
+    }
+
+    public void setsOPERATINGENVIRONMENT(String sOPERATINGENVIRONMENT) {
+        this.sOPERATINGENVIRONMENT = sOPERATINGENVIRONMENT;
     }
 
     public String getMEDIUM() {
@@ -598,6 +581,14 @@ public class ApplicationModel extends BaseEntity {
         this.auditinfor = auditinfor;
     }
 
+    public String getVersion_num() {
+        return version_num;
+    }
+
+    public void setVersion_num(String version_num) {
+        this.version_num = version_num;
+    }
+
     public String getMainfunction() {
         return mainfunction;
     }
@@ -638,5 +629,3 @@ public class ApplicationModel extends BaseEntity {
         this.auditID = auditID;
     }
 }
-
-

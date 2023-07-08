@@ -22,10 +22,11 @@
       <el-col :span="8" >
         <span class="logo-title">申请界面-申请表</span>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="12">
         <el-steps :space="200" :active="0" finish-status="success">
           <el-step title="申请表填写"></el-step>
           <el-step title="功能列表填写"></el-step>
+          <el-step title="文档与签字上传"></el-step>
           <el-step title="完成"></el-step>
         </el-steps>
       </el-col>
@@ -137,7 +138,7 @@
         <el-form-item label="服务器端硬件(运行环境):" required>
         <el-form-item prop="RuntimeEnvironment.Server.HardWare.FrameWork" style="margin-bottom: 20px;">
             <el-select placeholder="硬件架构" v-model="ruleForm.RuntimeEnvironment.Server.HardWare.FrameWork" multiple  allow-create filterable>
-        <el-option   v-for='item in HardWare.FrameWork' :key='item.id' :label="item.value" :value="item.value"></el-option>
+        <el-option   v-for='item in HardWareFrameWork' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
         </el-form-item>
         <el-row>
@@ -209,27 +210,6 @@
         <el-option   v-for='item in SoftwareMedium' :key='item.id' :label="item.value" :value="item.value"></el-option>
         </el-select>
         </el-form-item>
-        <el-form-item label="样品文档:">
-          <el-upload
-            list-type="text"
-              class="upload-demo"
-              action="http://localhost:9090/api/file/upload"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :before-upload="beforeUploadword"
-              multiple
-              :limit="3"
-              :on-exceed="handleExceed"
-              accept=".doc, .docx"
-              :data="{ PID:applicantID }"
-              :file-list="ruleForm.SamplesSubmitted">
-  <el-button size="small" type="primary">点击上传</el-button>
-  <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
-                                              2、用户文档（例如：用户手册、用户指南等）(必须)<br>
-                                              3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）
-                                            </strong></div>
-            </el-upload>
-        </el-form-item>
         <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="SamplesSubmitted">
           <el-radio-group v-model="ruleForm.SamplesSubmitted">
             <el-radio label="中心直接销毁"></el-radio>
@@ -246,19 +226,7 @@
               />
             </div>
         </el-form-item>
-        <el-form-item  label="申请人签字上传：">
-                      <el-upload
-                          class="upload-demo"
-                          drag
-                          action="http://localhost:9090/api/file/upload"
-                          multiple
-                          :before-upload="beforeUploadjpg"
-                          :data="{ PID:applicantID }">
-                          <i class="el-icon-upload"></i>
-                          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
-                      </el-upload>
-                </el-form-item>
+
     </el-form>
     </el-main>
   <template>
@@ -300,7 +268,7 @@ export default {
                 OS:{
                   Windows:'',
                   Linux:'',
-                  other:''
+                  Other:''
               },
               Mermory:'',
               Other:''
@@ -310,7 +278,7 @@ export default {
                 FrameWork:[],  
                 Mermory:'',
                 HardDisk:'',
-                OtherDisk:''
+                Other:''
               },
               SoftWare:{
                 OS:'',
@@ -329,6 +297,14 @@ export default {
             SamplesSubmitted:"",
             WantedFinishTime:'',
         },
+        process:{
+              UID:"",
+              AID:"",
+              notes:"",  
+              state:"",  
+              fileIDs:"", 
+              price:1557,   
+          },
         TypeOfTest:[
               {
                 id:1,
@@ -675,13 +651,9 @@ mounted(){
 },
 created(){
     //在页面加载时读取sessionStorage里的状态信息
-    if (sessionStorage.getItem("store") ) {
-    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
-    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
-      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-      sessionStorage.removeItem('store');
-    }
-    this.ruleForm.applicantID=this.$store.state.user.id
+    this.KeepInfor();
+    this.ruleForm.applicantID=this.$store.state.user.id;
+    this.process.UID=this.$store.state.user.id;
   },
   methods:{
     handleBeforeUnload() {
@@ -699,9 +671,20 @@ created(){
           'content-type': 'text/plain'}
       }).then(ret=>{
           console.log(ret.data.AID);
-          this.$store.state.user.process.AID=ret.data.AID
+          this.$store.state.user.process.AID=ret.data.AID;
+          this.process.AID=this.$store.state.user.process.AID;
+          Axios.post("http://localhost:9090/api/process/insert",JSON.stringify(this.process),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data)
+          this.$store.state.user.process.PID=ret.data;
           this.$message.success("提交成功！");
           setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+      }).catch(function (error)
+        {
+          console.log(error);
+        })
       }).catch(function (error)
         {
           console.log(error);
