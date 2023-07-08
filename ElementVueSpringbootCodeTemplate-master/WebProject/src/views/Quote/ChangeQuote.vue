@@ -3,8 +3,8 @@
     <el-container style="height:100%">
       <el-header style="height: 30px ">
         <el-breadcrumb separator="->">
-        <el-breadcrumb-item :to="{ path: '/Market' }">市场部主页-委托进度-生成报价</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/auditapplication">生成报价</a></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/Market' }">市场部主页-委托进度-修改报价</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="">修改报价</a></el-breadcrumb-item>
       </el-breadcrumb>
       <br>
         <el-row  type="flex" justify="center" align="middle">
@@ -14,7 +14,7 @@
             </router-link>
           </el-col>
           <el-col :span="22"><div class="grid-content bg-purple">
-            <span class="logo-title">委托进度-生成报价单</span>
+            <span class="logo-title">委托进度-修改报价单</span>
             </div></el-col>
             <el-col :span="2">
             <el-button  @click="submitForm('ruleForm')" type="success" style="margin: 14px">完成</el-button>
@@ -117,8 +117,11 @@
     export default {
         data(){
            return{
-            userid:{
+            useruid:{
               UID:"",
+            },
+            userpid:{
+              PID:"",
             },
             ruleForm:{
                   PID:"",
@@ -191,14 +194,24 @@
     },
     created(){
       this.KeepInfor();
-      this.userid.UID=this.$store.state.user.process.UID;
-      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+      this.useruid.UID=this.$store.state.user.process.UID;
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
-                console.log(ret.data);
-                this.ruleForm.PID=ret.data.PID;
+                
+                this.userpid.PID=ret.data.PID;
               })
+          this.userpid.PID=1;
+      Axios.post("http://localhost:9090/api/quote/find",JSON.stringify(this.userpid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                    console.log(ret.data[0]);
+                    this.ruleForm=ret.data[0];
+                    console.log(this.ruleForm.Time);
+              })
+              
     },
     mounted() {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
@@ -234,16 +247,19 @@
             )
         },
         submitForm(formName) {
+          
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              this.$message.success("提交成功，正在返回市场部界面！");
+              
               Axios.post("http://localhost:9090/api/quote/insert",JSON.stringify(this.ruleForm),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
                 console.log(ret.data)
+                this.$message.success("提交成功，正在返回市场部界面！");
+                 //setTimeout(()) => {this.$router.push({path: "./market", replace:true});}, 2000);
               })
-              //setTimeout(()) => {this.$router.push({path: "./market", replace:true});}, 2000);
+             
             } else {
               return false;
             }
