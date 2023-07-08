@@ -190,6 +190,9 @@ export default {
 
       this.selectTabName = commentName;
     },
+    handleStart() {
+      this.$router.push('Personal');
+    },
     removeTab(targetName) {
       this.$delete(this.tabs, targetName);
 

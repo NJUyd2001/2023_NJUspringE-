@@ -110,7 +110,7 @@ export default {
       }).then(ret=>{
         console.log(ret)
         this.info("提交成功，正在返回登录界面！");
-        setTimeout(() => {this.$router.push({path: "../clientlogin", replace:true});}, 2000);
+        setTimeout(() => {this.$router.push({path: "../home", replace:true});}, 2000);
       })
     },
     handleClose() {
