@@ -222,13 +222,13 @@ export default {
         console.log(ret.data)
         this.$message.success("提交成功，正在返回测试部界面！");
         this.StepNumber+=2;
-        //setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
       })
       Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.Pid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
           console.log(this.Pid.state)
+          setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
       }).catch(function (error)
         {
           console.log(error);

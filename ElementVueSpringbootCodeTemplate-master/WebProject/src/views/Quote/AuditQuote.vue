@@ -120,22 +120,22 @@
         <el-row type="flex" justify="center">
              <el-col :span="20">
                 <el-form-item  label="如果接受报价，请上传签字：">
-                      <el-upload
+                  <el-upload
                           class="upload-demo"
                           drag
-                          action="https://jsonplaceholder.typicode.com/posts/"
+                          action="http://localhost:9090/api/file/upload"
                           multiple
-                          >
+                          :before-upload="beforeUploadjpg"
+                          :data="{ PID:this.ruleForm.PID }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
                       </el-upload>
                 </el-form-item>
             </el-col>
         </el-row>
         </el-form>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
     <el-backtop :right="50" :bottom="50" />
@@ -143,7 +143,13 @@
     import Axios from 'axios'
     export default {
         data(){
-           return{
+           return{ 
+                useruid:{
+                            UID:"",
+                    },
+                userpid:{
+                            PID:"",
+                    },
                 ruleForm:{
                 },
                 Pid:{
@@ -190,21 +196,21 @@
     },
     created(){
       this.KeepInfor();
-      this.userid.UID=this.$store.state.user.process.UID;
-
-      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+      this.useruid.UID=this.$store.state.user.process.UID;
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
                 console.log(ret.data);
-                this.ruleForm.PID=ret.data.PID;
+                this.userpid.PID=ret.data.PID;
               })
-      Axios.post("http://localhost:9090/api/quote/find",JSON.stringify(this.ruleForm.PID),{
+      this.userpid.PID=1;
+      Axios.post("http://localhost:9090/api/quote/find",JSON.stringify(this.userpid),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
-                      console.log(ret.data);
-                      this.ruleForm=ret.data;
+                      console.log(ret.data[0]);
+                      this.ruleForm=ret.data[0];
               })
     },
     mounted() {
@@ -262,8 +268,29 @@
          })
           this.$message.success("提交成功，正在返回用户界面！");
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
-
+        },
+        handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+    handlePreview(file) {
+        console.log(file);
+      },
+    handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+        beforeUploadjpg(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isPNG = file.type === 'image/png';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        console.log(file.type)
+        if (!isJPG && !isPNG) {
+          this.$message.error('上传头像图片只能是 jpg/png 格式!');
         }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG || isPNG;
+      }
       },
     
     }

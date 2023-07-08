@@ -150,7 +150,7 @@ export default {
               UID:"",
             },
             ruleForm:{
-              PID:"",
+              PID:"1",
               ItemName:'',
               Client:'',
               Trustee:'',
@@ -160,9 +160,13 @@ export default {
               ddl:0,
               ChangeNumber:0,
               ChangeDay:0,
-              money:200,
+              //money:200,
             },
             Quote:0,
+            MarCon:{
+              PID:"1",  //this.$store.state.user.process.PID,
+              state:"30",
+            },
             rules:{
               ItemName:[
                       { required: true, message: "不能为空！", trigger: "blur" },
@@ -217,6 +221,11 @@ created(){
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.MarCon),{
+              headers:{
+                'content-type': 'text/plain'}
+              }).then(ret=>{
+             })
           Axios.post("http://localhost:9090/api/contract/insert",JSON.stringify(this.ruleForm),{
                 headers:{
                   'content-type': 'text/plain'}

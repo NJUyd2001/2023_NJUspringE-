@@ -4,7 +4,8 @@
   title="修改个人信息"
   :visible.sync="dialogVisible"
   width="60%"
-  :before-close="handleClose">
+  :before-close="handleClose"
+  append-to-body>
   <el-form :model="user" :rules="rules" ref="form" label-width="150px">
       <div class="updateinfo">
   <div class="left">

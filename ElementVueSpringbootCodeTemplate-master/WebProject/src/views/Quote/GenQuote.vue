@@ -238,13 +238,13 @@
             )
         },
         submitForm(formName) {
+          console.log(this.ruleForm.Time);
           this.$refs[formName].validate((valid) => {
             if (valid) {
                Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.GenQ),{
               headers:{
                 'content-type': 'text/plain'}
               }).then(ret=>{
-                  console.log(this.Pid.state)
              })
               this.$message.success("提交成功，正在返回市场部界面！");
               Axios.post("http://localhost:9090/api/quote/insert",JSON.stringify(this.ruleForm),{
@@ -252,10 +252,11 @@
                   'content-type': 'text/plain'}
               }).then(ret=>{
                 console.log(ret.data)
+                this.$message.success("提交成功，正在返回市场部界面！");
+                 setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
               })
-              setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
-            } 
-            else {
+             
+            } else {
               return false;
             }
           });
