@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px " >
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
@@ -65,7 +65,6 @@
         </el-form-item>
       </el-form>
     </el-main>
-  <LoginDialog :show='showLogin'/>
 </el-container>
 </template>
 <el-backtop :right="50" :bottom="50" />

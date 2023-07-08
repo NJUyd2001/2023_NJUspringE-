@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
 import com.selab.demo.dao.QuoteDao;
-import com.selab.demo.dao.ProcessDao;
-import com.selab.demo.model.ProcessModel;
 import com.selab.demo.model.QuoteModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,14 +12,6 @@ import org.springframework.stereotype.Service;
 public class QuoteService {
     @Autowired
     QuoteDao quoteDao;
-
-    @Autowired
-    ProcessDao processDao;
-
-    private Integer findQID(Integer PID){
-        ProcessModel processModel = processDao.findByPID(PID);
-        return processModel.getQID();
-    }
 
     public String JSONrepack(String postJson){
         //System.out.print(postJson);
@@ -53,10 +43,6 @@ public class QuoteService {
 
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
-            return "the process does not exist";
-        }
         String time = jsonObject.getString("Time");
         String softwarename = jsonObject.getString("SoftwareName");
         String item = jsonObject.getString("item");
@@ -72,22 +58,19 @@ public class QuoteService {
 
         quoteDao.insert(quoteModel);
         JSONObject res = new JSONObject();
-        Integer QID =quoteModel.getQID();
-        res.put("QID",QID);
-        processDao.setQID(PID,QID);
-        res.put("PID",PID);
+        res.put("QID",quoteModel.getQID());
         return JSON.toJSONString(res);
     }
 
-    public String findbyPID(String postJson){
+    public String findbyQID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         //System.out.print(JSON.toJSONString( quoteDao.findbyQID(10)));
-        return JSONrepack(JSON.toJSONString(quoteDao.findbyQID(findQID(jsonObject.getInteger("PID")))));
+        return JSONrepack(JSON.toJSONString(quoteDao.findbyQID(jsonObject.getInteger("QID"))));
     }
 
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        Integer QID = findQID(jsonObject.getInteger("PID")) ;
+        Integer QID = jsonObject.getInteger("QID");
         if(quoteDao.select2(QID) == null){
             return ("the quote does not exist");
         }
@@ -141,76 +124,6 @@ public class QuoteService {
 
     }
     public String delete(String postJson){
-        JSONObject jsonObject = JSONObject.parseObject(postJson);
-        Integer QID = findQID(jsonObject.getInteger("PID"));
-        if(quoteDao.select2(QID) == null){
-            return ("the quote does not exist");
-        }
-        quoteDao.delete(QID);
-        return ("quote delete complete");
-    }
-
-    public String findbyQID(String postJson){
-        JSONObject jsonObject = JSONObject.parseObject(postJson);
-        return JSONrepack(JSON.toJSONString(quoteDao.findbyQID(jsonObject.getInteger("QID"))));
-    }
-
-    public String update_(String postJson){
-        JSONObject jsonObject = JSONObject.parseObject(postJson);
-        Integer QID =jsonObject.getInteger("QID") ;
-        if(quoteDao.select2(QID) == null){
-            return ("the quote does not exist");
-        }
-        String time = jsonObject.getString("Time");
-        String softwarename = jsonObject.getString("SoftwareName");
-        String item = jsonObject.getString("item");
-        String description = jsonObject.getString("description");
-        String unitprice = jsonObject.getString("UnitPrice");
-        String ps = jsonObject.getString("PS");
-        String subtotalprice = jsonObject.getString("SubTotalPrice");
-        String tax = jsonObject.getString("Tax");
-        String totalprice = jsonObject.getString("TotalPrice");
-        String provider = jsonObject.getString("Provider");
-
-
-        JSONObject oldjsonObject =  JSONObject.parseObject(JSON.toJSONString(quoteDao.findbyQID(QID).get(0)));
-        if(time == null)
-        {
-            time = oldjsonObject.getString("time");
-        }
-        if(softwarename == null){
-            softwarename = oldjsonObject.getString("softwarename");
-        }
-        if(item == null){
-            item = oldjsonObject.getString("item");
-        }
-        if(description == null){
-            description = oldjsonObject.getString("description");
-        }
-        if(unitprice == null){
-            unitprice = oldjsonObject.getString("unitprice");
-        }
-        if (ps == null){
-            ps = oldjsonObject.getString("ps");
-        }
-        if(subtotalprice == null){
-            subtotalprice = oldjsonObject.getString("subtotalprice");
-        }
-        if(tax == null){
-            tax = oldjsonObject.getString("tax");
-        }
-        if(totalprice == null){
-            totalprice = oldjsonObject.getString("totalprice");
-        }
-        if(provider == null){
-            provider = oldjsonObject.getString("provider");
-        }
-
-        QuoteModel quoteModel = new QuoteModel(0,time,softwarename,item,description,unitprice,ps,subtotalprice,tax,totalprice,provider);
-        return("quote update complete");
-
-    }
-    public String delete_(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer QID = jsonObject.getInteger("QID");
         if(quoteDao.select2(QID) == null){

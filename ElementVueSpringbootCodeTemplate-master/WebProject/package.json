@@ -8,8 +8,8 @@
     "dev": "vue-cli-service serve"
   },
   "dependencies": {
+    "@vue/cli": "^5.0.8",
     "axios": "^0.18.0",
-    "core-js": "^3.8.3",
     "dayjs": "^1.11.7",
     "echarts": "^4.1.0",
     "element-ui": "^2.15.13",
@@ -17,18 +17,16 @@
     "vue": "^2.5.17",
     "vue-bus": "^1.1.0",
     "vue-i18n": "^8.0.0",
+    "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-eslint": "~5.0.8",
-    "@vue/cli-service": "~5.0.8",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
+    "@vue/cli-plugin-babel": "^3.0.1",
+    "@vue/cli-plugin-eslint": "^3.0.1",
+    "@vue/cli-service": "^3.0.1",
     "stylus": "^0.59.0",
     "stylus-loader": "^3.0.2",
-    "vue-cli-plugin-element": "~1.0.1",
+    "vue-cli-plugin-element": "^1.0.0",
     "vue-loader": "^17.2.2",
     "vue-template-compiler": "^2.7.14"
   },
@@ -43,7 +41,7 @@
     ],
     "rules": {},
     "parserOptions": {
-      "parser": "@babel/eslint-parser"
+      "parser": "babel-eslint"
     }
   },
   "postcss": {

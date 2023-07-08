@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px ">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/test' }">市场部主页</el-breadcrumb-item>
     <el-breadcrumb-item><a href="">合同草稿填写</a></el-breadcrumb-item>
@@ -24,10 +24,10 @@
     <br><br>
     <el-main>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item  label="项目名称:" label-width="550px">
+        <el-form-item  label="项目名称:" label-width="550px" prop="ItemName">
           <el-input v-model="ruleForm.ItemName" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="委托方（甲方）:" label-width="550px">
+        <el-form-item label="委托方（甲方）:" label-width="550px" prop="ItemName">
           <el-input v-model="ruleForm.Client" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item  label="受托方（乙方）:" label-width="550px">

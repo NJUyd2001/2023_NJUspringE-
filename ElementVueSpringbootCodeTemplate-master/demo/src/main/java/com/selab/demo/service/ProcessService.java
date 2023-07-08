@@ -21,30 +21,23 @@ public class ProcessService {
     public Integer insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
-        int UID = -1;
-        try {
-            UID = jsonObject.getInteger("UID");
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return -1;
-        }
+
+        int UID = jsonObject.getInteger("UID");
         String notes = jsonObject.getString("notes");
+        double price = jsonObject.getDouble("price");
+        int AID = jsonObject.getInteger("AID");
         String state = jsonObject.getString("state");
 
-        System.out.println("收到内容："+ postJson);
 
-        ProcessModel processModel = new ProcessModel();
-        processModel.setState(state);
-        processModel.setNotes(notes);
-        processModel.setUID(UID);
+        ProcessModel processmodel = new ProcessModel(notes, UID, AID, state, price);
+        System.out.println("收到内容："+ processmodel.toString());
         try {
-            processDao.insert(processModel);
-            return processModel.getPID();
+            processDao.insert(processmodel);
+            return processmodel.getPID();
         }catch(Exception e){
             System.out.println(e.getCause().getMessage());
             return -1;
         }
-
     }
     public List<ProcessModel> findByUID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
@@ -93,22 +86,13 @@ public class ProcessService {
         }
         return "状态更新成功";
     }
-    public String clearFiles(Integer PID){
-        ProcessModel processModel = processDao.findByPID(PID);
-        if (processModel == null) return "不存在PID = "+ PID + "的进程";
-        try{
-            processDao.clearFiles(PID);
-        }catch (Exception e){
-            return e.getMessage();
-        }
-        return "进程相关文件已删除";
-    }
 
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
 
         String notes = jsonObject.getString("notes");
+        // double price = jsonObject.getDouble("price");
         String state = jsonObject.getString("state");
         ProcessModel checker = processDao.findByPID(PID);
 
@@ -117,8 +101,16 @@ public class ProcessService {
         }
         else{
             if(notes != null) checker.setNotes(notes);
+            try{
+                double price = jsonObject.getDouble("price");
+                checker.setPrice(price);
+            } catch (NullPointerException e){
+                return "价格不能为空！";
+            }
+
             if(state != null) checker.setState(state);
-            System.out.println(checker);
+            // TODO: 实现update
+            System.out.println(checker.toString());
             processDao.update(checker);
 
             return ("进程信息已更新");
@@ -133,12 +125,11 @@ public class ProcessService {
         Integer checker = processDao.findByPID2(PID);
 
         if(checker == null){
-            return ("不存在PID = "+ PID + "的进程");
+            return ("the process does not exist");
         }
         else{
-            processDao.clearFiles(PID);
             processDao.delete(PID);
-            return ("进程已成功删除");
+            return ("process delete successfully");
         }
     }
 

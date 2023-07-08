@@ -142,21 +142,11 @@
     </template>
     <el-backtop :right="50" :bottom="50" />
     <script>
-
+    import Axios from 'axios'
     export default {
         data(){
            return{
                 ruleForm:{
-                  Time:'',
-                  SoftwareName:"",
-                  item:"",
-                  description:"",
-                  UnitPrice:0,
-                  PS:"",
-                  SubTotalPrice:0,
-                  Tax:0,
-                  TotalPrice:0,
-                  Provider:"",
                 },
                 Suggestion:{
                   Pass:"false",
@@ -195,10 +185,36 @@
                   ],
                   }
         }
-    }, 
-      methods:{
-        goback(){
-        },
+    },
+    created(){
+      this.KeepInfor();
+      this.userid.UID=this.$store.state.user.process.UID;
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data);
+                this.ruleForm.PID=ret.data.PID;
+              })
+      Axios.post("http://localhost:9090/api/quote/find",JSON.stringify(this.ruleForm.PID),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                      console.log(ret.data);
+                      this.ruleForm=ret.data;
+              })
+    },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
+    methods:{
+      handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
         addfatherItem(){
           this.ruleForm.TableData.push({
             id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
