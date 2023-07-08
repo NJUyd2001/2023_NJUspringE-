@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
 import com.selab.demo.dao.ApplicationDao;
 import com.selab.demo.dao.AuditinformationDao;
+import com.selab.demo.dao.ProcessDao;
 import com.selab.demo.model.ApplicationModel;
 import com.selab.demo.dao.TabledataDao;
 import com.selab.demo.model.AuditinformationModel;
@@ -24,6 +25,8 @@ public class ApplicationService {
     TabledataDao tabledataDao;
     @Autowired
     AuditinformationDao auditinformationDao;
+    @Autowired
+    ProcessDao processDao;
     private JSONArray StringtoArray(String words, JSONArray array){
         if(words == null) return array;
         Integer i = words.length();
@@ -180,7 +183,7 @@ public class ApplicationService {
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer applicantID = jsonObject.getInteger("applicantID");
-        Integer processID = jsonObject.getInteger("processID");
+        Integer processID = jsonObject.getInteger("PID");
         String time = jsonObject.getString("time");
         String phone = jsonObject.getString("phone");
         String testTYPE  = new String();
@@ -430,6 +433,7 @@ public class ApplicationService {
         Integer AID = applicationModel.getAID();
         JSONObject jsonObjectAID = new JSONObject();
         jsonObjectAID.put("AID",AID);
+        processDao.setAID(processID,AID);
         return JSON.toJSONString(jsonObjectAID);
     }
 
@@ -443,7 +447,7 @@ public class ApplicationService {
 
     public String checkbyprocess(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        Integer username = jsonObject.getInteger("processID");
+        Integer username = jsonObject.getInteger("PID");
         JSONArray res = new JSONArray();
         res.add(JSON.toJSONString(applicationDao.findbyprocess(username)));
         return JSONrepack(JSON.toJSONString(applicationDao.findbyprocess(username)));
