@@ -6,7 +6,8 @@ author：李晨博
 
 输入示例：
 ```
-{               
+{
+    "PID":"1",               
     "Time":"1",
     "SoftwareName":"2",
     "item":"q",
@@ -20,9 +21,13 @@ author：李晨博
 }
 ```
 
-输出示例：
+输出示例1：
 ```
-{"QID":"1"}
+the process does not exist
+```
+输出示例2：
+```
+{"QID":"1","PID","1"}
 ```
 
 ## /quote/find
@@ -31,7 +36,7 @@ author：李晨博
 输入示例：
 ```
 {
-    "QID":"1"
+    "PID":"1"
 }
 ```
 输出示例：
@@ -45,7 +50,7 @@ author：李晨博
 输入示例:
 ```
 {               
-    "QID":"3",
+    "PID":"3",
     "Time":"1",
     "SoftwareName":"2",
     "item":"q",
@@ -74,7 +79,7 @@ quote update complete
 输入示例：
 ```
 {
-    "QID":"1"
+    "PID":"1"
 }
 ```
 输出示例1：

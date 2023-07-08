@@ -54,6 +54,9 @@ public class QuoteService {
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
+        if(processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
         String time = jsonObject.getString("Time");
         String softwarename = jsonObject.getString("SoftwareName");
         String item = jsonObject.getString("item");
@@ -72,6 +75,7 @@ public class QuoteService {
         Integer QID =quoteModel.getQID();
         res.put("QID",QID);
         processDao.setQID(PID,QID);
+        res.put("PID",PID);
         return JSON.toJSONString(res);
     }
 

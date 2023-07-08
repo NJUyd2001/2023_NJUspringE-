@@ -9,6 +9,7 @@ import com.selab.demo.dao.ProcessDao;
 import com.selab.demo.model.ApplicationModel;
 import com.selab.demo.dao.TabledataDao;
 import com.selab.demo.model.AuditinformationModel;
+import com.selab.demo.model.ProcessModel;
 import com.selab.demo.model.TabledataModel;
 import com.selab.demo.model.enums.ARCHITECTURE;
 import com.selab.demo.model.enums.state;
@@ -184,6 +185,9 @@ public class ApplicationService {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer applicantID = jsonObject.getInteger("applicantID");
         Integer processID = jsonObject.getInteger("PID");
+        if(processDao.findByPID(processID) == null){
+            return "the process does not exist";
+        }
         String time = jsonObject.getString("time");
         String phone = jsonObject.getString("phone");
         String testTYPE  = new String();
@@ -434,6 +438,7 @@ public class ApplicationService {
         JSONObject jsonObjectAID = new JSONObject();
         jsonObjectAID.put("AID",AID);
         processDao.setAID(processID,AID);
+        jsonObjectAID.put("PID",processID);
         return JSON.toJSONString(jsonObjectAID);
     }
 

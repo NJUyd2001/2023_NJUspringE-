@@ -52,6 +52,9 @@ public class ContractService {
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
+        if(processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
         String itemname =  jsonObject.getString("ItemName");
         String client = jsonObject.getString("Client");
         String trustee = jsonObject.getString("Trustee");
@@ -67,6 +70,7 @@ public class ContractService {
         processDao.setCID(PID,CID);
         JSONObject res = new JSONObject();
         res.put("CID",CID);
+        res.put("PID",PID);
         return JSON.toJSONString(res);
     }
 
