@@ -14,15 +14,15 @@
   </el-col>
       </el-row>
       <el-row  type="flex" justify="center" align="middle">
-        <el-col :span="9">
+        <el-col :span="6">
           <router-link to="/testaudituser">
           <el-button  size="middle" type="danger">上一步</el-button>
           </router-link>
         </el-col>
-        <el-col :span="3" ><div class="grid-content bg-purple">
+        <el-col :span="6" ><div class="grid-content bg-purple">
           <span class="logo-title">申请表查看</span> 
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="14">
         <el-steps :space="200" :active="1" finish-status="success">
           <el-step title="客户信息查看"></el-step>
           <el-step title="申请表查看"></el-step>
@@ -32,7 +32,7 @@
           <el-step title="完成"></el-step>
         </el-steps>
         </el-col>
-        <el-col :span="1">
+        <el-col :span="2">
           <el-button  @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
         </el-col>
       </el-row>
@@ -198,29 +198,25 @@
   </el-container>
   </template>
   <script>
+  import Axios from 'axios'
   export default {
       data(){
          return{
           percentage:0,
+          Aid:{
+            applicantID:"",
+          },
+          Pid:{
+            PID:"",
+          },
+          tempForm:{},
           ruleForm:{
-            user:{
-                  name:'风车村',
-                  password:'shazihuang',
-                  telephone:'',
-                  fax:'',
-                  address:'',
-                  postcode:'',
-                  contacts:'',
-                  mobilephone:'',
-                  email:'',
-                  URL:'',
-              },
-              TypeTest:[],
+              TypeTest:{},
               SoftWareName:'',
               ClientChinese:'',
               ClientEnglish:'',
               DevelopmentCompany:'',
-              AttributeOfCompany:[],
+              AttributeOfCompany:{},
               SoftwareUserObjectDescription:'',
               MainFunction:'',
               NeededStandard:[],
@@ -236,7 +232,7 @@
                   OS:{
                     Windows:'',
                     Linux:'',
-                    other:''
+                    Other:''
                 },
                 Mermory:'',
                 Other:''
@@ -264,250 +260,110 @@
               Document:'',
               SamplesSubmitted:[],
               WantedFinishTime:'',
-          },
-          TypeOfTest:[
-                {
-                  id:1,
-                  value:'软件确认测试',
-                },
-                {
-                  id:2,
-                  value:'成果/技术鉴定测试',
-                },
-                {
-                  id:3,
-                  value:'专项资金验收测试',
-                },
-              ],
-          Standard:[
-                  {
-                    id:1,
-                    value:'GB/T 25000.51-2016',
-                  },
-                  {
-                    id:2,
-                    value:'GB/T 25000.10-2016',
-                  },
-                  {
-                    id:3,
-                    value:'GB/T 28452-2012',
-                  },
-                  {
-                    id:4,
-                    value:'GB/T 30961-2014',
-                  },
-                  {
-                    id:5,
-                    value:'NST-03-WI12-2011',
-                  },
-                  {
-                    id:6,
-                    value:'NST-03-WI13-2011',
-                  },
-                  {
-                    id:7,
-                    value:'NST-03-WI22-2014',
-                  }
-              ],
-          TechnicalIndex:[{
-                    id:1,
-                    value:'功能性',
-                  },
-                  {
-                    id:2,
-                    value:'可靠性',
-                  },
-                  {
-                    id:3,
-                    value:'易用性',
-                  },
-                  {
-                    id:4,
-                    value:'效率',
-                  },
-                  {
-                    id:5,
-                    value:'可维护性',
-                  },
-                  {
-                    id:6,
-                    value:'可移植性',
-                  },
-                  {
-                    id:7,
-                    value:'代码覆盖度',
-                  },
-                  {
-                    id:8,
-                    value:'缺陷检测率',
-                  },
-                  {
-                    id:9,
-                    value:'代码风格符合度',
-                  },
-                  {
-                    id:10,
-                    value:'代码不符合项检测率',
-                  },
-                  {
-                    id:11,
-                    value:'产品说明要求',
-                  },
-                  {
-                    id:12,
-                    value:'用户文档集要求',
-                  },
-                  {
-                    id:13,
-                    value:'可移植性',
-                  },
-                  {
-                    id:14,
-                    value:'代码覆盖度',
-                  }],
-          TypeOfSoftWare:[
-      {
-        label:'系统软件',
-        options:[{
-                                      name:'操纵系统',
-                                      id:1,
-                                    },
-                                    {
-                                      name:'中文处理系统',
-                                      id:2,
-                                    },
-                                    {
-                                      name:'网络系统',
-                                      id:3,
-                                    },
-                                    {
-                                      name:'嵌入式操作系统',
-                                      id:4,
-                                    },
-                                    {
-                                      name:'其他(系统软件)',
-                                      id:5,
-                                    }],
-                                    },
-                                    {
-                                      label:'支持软件',
-                                      options:[{            
-                                    name:'程序设计语言',
-                                      id:6,
-                                    },
-                                    {
-                                      name:'数据库系统设计',
-                                      id:7,
-                                    },
-                                    {
-                                      name:'工具软件',
-                                      id:8,
-                                    },
-                                    {
-                                      name:'网络通信软件',
-                                      id:9,
-                                    },
-                                    {
-                                      name:'中间件',
-                                      id:10,
-                                    },
-                                    {
-                                      name:'其他(支持软件)',
-                                      id:11,
-                                    }
-                                    ],
-                                    },
-                                    {
-                                      label:'应用软件',
-                                      options:[
-                                    {            
-                                      name:'行业管理软件',
-                                      id:12,
-                                    },
-                                    {
-                                      name:'办公软件',
-                                      id:13,
-                                    },
-                                    {
-                                      name:'模式识别软件',
-                                      id:14,
-                                    },
-                                    {
-                                      name:'图形图像软件',
-                                      id:15,
-                                    },
-                                    {
-                                      name:'控制软件',
-                                      id:16,
-                                    },
-                                    {            
-                                      name:'网络应用软件',
-                                      id:17,
-                                    },
-                                    {
-                                      name:'信息管理软件',
-                                      id:18,
-                                    },
-                                    {
-                                      name:'数据库管理应用软件',
-                                      id:19,
-                                    },
-                                    {
-                                      name:'安全与保密软件',
-                                      id:20,
-                                    },
-                                    {
-                                      name:'嵌入式应用软件',
-                                      id:21,
-                                    },
-                                    {
-                                      name:'教育软件',
-                                      id:22,
-                                    },
-                                    {
-                                      name:'游戏软件',
-                                      id:23,
-                                    },
-                                    {
-                                      name:'其他(应用软件)',
-                                      id:24,
-                                    }
-                                  ],
-                                    },
-                                    {
-                                      label:'其他',
-                                      options:[
-                                      {
-                                      name:'其他',
-                                      id:25,
-                                      }
-                                      ]
-                                    },
-                    ],
-          HardWareFrameWork:[
-                  {
-                    id:1,
-                    value:'PC服务器',
-                  },
-                  {
-                    id:2,
-                    value:'UNIX/Linux服务器',
-                  }
-          ],
-          SoftwareMedium:[
-                  {
-                    id:1,
-                    value:'光盘',
-                  },
-                  {
-                    id:2,
-                    value:'U盘',
-                  }
-          ],
 
-      }
-  }, 
+          }
+        }
+  },
+  created(){
+      // console.log(this.$store.state.user.id)
+      this.KeepInfor();
+      this.Aid.applicantID=this.$store.state.user.process.UID
+      this.Pid.PID=this.$store.state.user.process.UID
+      Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.Pid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          //console.log(ret.data)
+          this.Fid.FID1=ret.data.fileIDs;
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
+      Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.Aid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          this.ruleForm=ret.data[0];
+          //this.$store.state.user.process.AID=ret.data[0].AID;
+          console.log(this.$store.state.user.process.AID)
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
+    },
     methods:{
+      download1(){
+        var formdata=new FormData()
+        formdata.append('FID' ,'23')
+        //formdata.append('FID' ,this.Fid.FID1)
+        //console.log(formdata.get('FID'))
+        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
+      download2(){
+        var formdata=new FormData()
+        
+        formdata.append('FID' ,this.Fid.FID4)
+        //console.log(formdata.get('FID'))
+        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {

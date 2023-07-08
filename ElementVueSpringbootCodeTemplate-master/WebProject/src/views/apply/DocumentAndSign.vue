@@ -8,6 +8,7 @@
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
     <el-breadcrumb-item><a href="/#/application">申请表填写</a></el-breadcrumb-item>
     <el-breadcrumb-item><a href="/#/functionlist">委托功能列表填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/DocumentAndSign">文档与签字上传</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
   <el-col :span="2">
@@ -15,13 +16,13 @@
   </el-col>
     </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="5">
+      <el-col :span="2">
         <router-link to="/application">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="10" ><div class="grid-content bg-purple">
-        <span class="logo-title">申请界面-功能列表</span>
+      <el-col :span="12" ><div class="grid-content bg-purple">
+        <span class="logo-title">申请界面-文档与签字上传</span>
         </div></el-col>
         <el-col :span="12">
         <el-steps :space="200" :active="StepNumber" finish-status="success">
@@ -39,30 +40,41 @@
     <br><br><br>
     <el-main style="border-radius: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
       <br>
-      <el-form label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item label="软件名称:" prop="SoftwareName">
-          <el-input v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
+      <el-form label-width="550px" :model="ruleForm"  ref="ruleForm">
+        <el-form-item label="样品文档:">
+          <el-upload
+            list-type="text"
+              class="upload-demo"
+              action="http://localhost:9090/api/file/upload"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-upload="beforeUploadword"
+              multiple
+              :limit="3"
+              :on-exceed="handleExceed"
+              accept=".doc, .docx"
+              :data="{ PID:this.process.PID }"
+              >
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
+                                              2、用户文档（例如：用户手册、用户指南等）(必须)<br>
+                                              3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）
+                                            </strong></div>
+            </el-upload>
         </el-form-item>
-        <el-form-item label="版本号:" prop="Versions">
-          <el-input v-model="ruleForm.Versions" style="width: 200px;"></el-input>
-        </el-form-item>
-        <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-        required: true,
-        message: '功能项目不能为空！',
-        trigger: 'blur',
-      }" :label='"功能项目"+index+":"' :key="index" >
-          <el-input placeholder="功能项目" style="width: 100px;padding-right:20px;" v-model="Table.name"></el-input>
-          <el-input placeholder="功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.function"></el-input>
-          <!-- <el-form-item v-for="(ChildTable,ChildIndex) in Table.children" :key="ChildTable.id"
-          :label='"子功能项目"+ChildIndex+":"' >
-          <el-input placeholder="子功能项目" style="width: 100px;padding-right:20px;" v-model="ChildTable.name"></el-input>
-          <el-input placeholder="子功能说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="ChildTable.function"></el-input>
-        </el-form-item> -->
-          <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
-        </el-form-item>
-        <el-form-item> 
-          <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
-        </el-form-item>
+        <el-form-item  label="申请人签字上传：">
+                      <el-upload
+                          class="upload-demo"
+                          drag
+                          action="http://localhost:9090/api/file/upload"
+                          multiple
+                          :before-upload="beforeUploadjpg"
+                          :data="{ PID:this.process.PID }">
+                          <i class="el-icon-upload"></i>
+                          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
+                      </el-upload>
+                </el-form-item>
       </el-form>
     </el-main>
   <LoginDialog :show='showLogin'/>
@@ -75,6 +87,10 @@ import Axios from 'axios';
 export default {
     data(){
        return{
+            process:{
+              PID:"",
+            },
+            StepNumber:3,
             ruleForm:{
               AID:"",
               SoftwareName:'',
@@ -87,15 +103,6 @@ export default {
             },
           ],
             },
-            StepNumber:1,
-            rules:{
-              SoftwareName:[
-                      { required: true, message: "不能为空！", trigger: "blur" },
-                    ],
-              Versions:[
-                { required: true, message: "不能为空！", trigger: "blur"  },
-              ],
-              }
     }
 },
 mounted(){
@@ -106,7 +113,8 @@ created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.ruleForm.AID=this.$store.state.user.process.AID
-    console.log(this.$store.state.user.process.AID)
+    this.process.PID=this.$store.state.user.process.PID
+    console.log(this.$store.state.user.process.PID)
   },
   methods:{
     handleBeforeUnload() {
@@ -124,29 +132,6 @@ created(){
           this.$store.state.user.password=-1;
           this.$store.state.user.Permissions="null";
       this.$router.push({path: "./home", replace:true});
-    },
-    addfatherItem(){
-      this.ruleForm.TableData.push({
-        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-        name:'',
-        function:'',
-        children:[],
-      })
-    },
-    removefatherItem(Table){
-      const index = this.ruleForm.TableData.indexOf(Table)
-      if (index !== -1&&index!=0) {
-        //alert(index)
-      this.ruleForm.TableData.splice(index, 1);
-  }
-    },
-    addchildrenItem(Node){
-        Node.children.push(
-          {
-            id:'',
-            
-          }
-        )
     },
     submitForm(formName) {
       console.log(this.ruleForm)
@@ -178,7 +163,43 @@ created(){
       .catch(function (err) {
         //捕获异常
       });
-    }
+    },
+    handleRemove(file, fileList) {
+        console.log(file, fileList);
+    },
+    handlePreview(file) {
+        console.log(file);
+      },
+    handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+    beforeUploadword(file) {
+        const isWord1 = file.type === 'application/msword';
+        const isWord2 = file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        const isPDF = file.type === 'application/pdf';
+        // const isLt2M = file.size / 1024 / 1024 < 2;
+        console.log(file.type)
+        if (!isWord1 && !isWord2 && !isPDF) {
+          this.$message.error('上传文件只能是 Word/PDF 格式!');
+        }
+        // if (!isLt2M) {
+        //   this.$message.error('上传头像图片大小不能超过 2MB!');
+        // }
+        return isWord1 || isWord2 || isPDF;
+      },
+    beforeUploadjpg(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isPNG = file.type === 'image/png';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        console.log(file.type)
+        if (!isJPG && !isPNG) {
+          this.$message.error('上传头像图片只能是 jpg/png 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG || isPNG;
+      }
   },
 
 }

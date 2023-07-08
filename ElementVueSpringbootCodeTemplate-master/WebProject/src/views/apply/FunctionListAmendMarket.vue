@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px ">
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
@@ -16,7 +16,7 @@
   </el-col>
     </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="6">
+      <el-col :span="4">
         <router-link to="/applicationamendmarket">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
@@ -76,6 +76,9 @@ import Axios from 'axios';
 export default {
     data(){
        return{
+        userid:{
+          AID:"",
+        },
             ruleForm:{
               AID:"",
               SoftwareName:'',
@@ -105,14 +108,17 @@ mounted(){
 },
 created(){
     //在页面加载时读取sessionStorage里的状态信息
-    if (sessionStorage.getItem("store") ) {
-    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
-    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
-      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-      sessionStorage.removeItem('store');
-    }
-    this.ruleForm.AID=this.$store.state.user.process.AID
+    this.KeepInfor()
+    this.userid.AID=this.$store.state.user.process.AID;
+    // this.ruleForm.applicantID=this.$store.state.user.id;
     console.log(this.$store.state.user.process.AID)
+    Axios.post("http://localhost:9090/api/application/gettabledata",JSON.stringify(this.userid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.ruleForm=ret.data;
+      })
   },
   methods:{
     handleBeforeUnload() {
@@ -165,10 +171,12 @@ created(){
       }).then(() => {
         this.$refs[formName].validate((valid) => {
         if (valid) {
-        Axios.post("http://localhost:9090/api/application/inserttabledata",JSON.stringify(this.ruleForm),{
+        console.log(this.ruleForm);
+        Axios.post("http://localhost:9090/api/application/updatetabledata",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
+        console.log(ret.data)
         this.StepNumber+=2;
         this.$message.success("提交成功，正在返回用户界面！");
         setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);

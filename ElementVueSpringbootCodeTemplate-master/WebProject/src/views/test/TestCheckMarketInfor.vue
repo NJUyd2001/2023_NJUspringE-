@@ -1,16 +1,15 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px ">
     <el-row>
     <el-col :span="23">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/test' }">测试部主页-审核委托</el-breadcrumb-item>
     <el-breadcrumb-item :to="{ path: '/testaudituser' }">客户信息查看</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/testauditapplication">申请表查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/testauditfunctionlist">功能列表查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/testauditapplication">申请表查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/#/testauditfunctionlist">功能列表查看</a></el-breadcrumb-item>
     <el-breadcrumb-item><a href="/testapplication">审核意见查看(市场部)</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/testapplication">审核信息填写</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
 <el-col :span="1">
@@ -18,15 +17,15 @@
   </el-col> 
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="9">
+      <el-col :span="6">
         <router-link to="/testauditfunctionlist">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="3" ><div class="grid-content bg-purple">
+      <el-col :span="6" ><div class="grid-content bg-purple">
         <span class="logo-title">审核意见查看</span>
         </div></el-col>
-        <el-col :span="10">
+        <el-col :span="14">
         <el-steps :space="200" :active="StepNumber" finish-status="success" >
           <el-step title="客户信息查看"></el-step>
           <el-step title="申请表查看"></el-step>
@@ -44,7 +43,7 @@
     <br><br><br>
     <el-main>
       <br>
-      <el-form :label-position="top" disabled label-width="550px">
+      <el-form label-position="top" disabled label-width="550px">
         <el-form-item label="审核意见：">
           <el-input style="width:700px;" :rows="5" v-model="ruleform.Views" type="textarea" ></el-input>
         </el-form-item>
@@ -64,12 +63,31 @@
 </el-container>
 </template>
 <script>
+import Axios from 'axios'
 export default {
+    created()
+    {
+      this.KeepInfor();
+      this.user.AID=this.$store.state.user.process.AID;
+      console.log(this.$store.state.user.process.AID)
+      Axios.post("http://localhost:9090/api/application/findopinion",JSON.stringify(this.user),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data)
+           //this.ruleForm=ret.data;
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
+    },
     data(){
        return{
+        user:{
+          AID:"",
+        },
         ruleform:{
-          Views:"",
-          ConfirmOpinion:"",
         },
         StepNumber:3,
         }

@@ -65,13 +65,7 @@
 import Axios from 'axios'
 export default {
   created(){
-    //在页面加载时读取sessionStorage里的状态信息
-    if (sessionStorage.getItem("store") ) {
-    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
-    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
-      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-      sessionStorage.removeItem('store');
-    }
+    this.KeepInfor();
     this.ruleForm.AID=this.$store.state.user.process.AID
     this.fpid.AID=this.$store.state.user.process.AID
     Axios.post("http://localhost:9090/api/process/findByAID",JSON.stringify(this.fpid),{

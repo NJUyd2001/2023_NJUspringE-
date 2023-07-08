@@ -113,6 +113,7 @@ export default {
       sessionStorage.removeItem('store');
     }
     this.userid.UID=this.$store.state.user.id;
+    console.log(this.userid)
     this.appID.applicantID=this.$store.state.user.id;
 
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
@@ -149,7 +150,7 @@ export default {
       // console.log(row);
       //sessionStorage.setItem
         this.$store.state.user.process.PID=row.processID;
-        console.log(this.$store.state.user.process.PID);
+        console.log(row.processID);
         this.$router.push({path: "./ProQurey", replace:true})
     },
     handleClick(row) {

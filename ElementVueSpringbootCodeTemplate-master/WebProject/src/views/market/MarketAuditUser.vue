@@ -91,7 +91,7 @@ export default {
   },
   created(){
     //在页面加载时读取sessionStorage里的状态信息
-    
+    this.KeepInfor();
     //console.log(this.$store.state.user.process.UID)
      Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.SelectForm),{
         headers:{

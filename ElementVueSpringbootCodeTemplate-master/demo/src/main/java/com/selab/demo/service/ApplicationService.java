@@ -95,9 +95,9 @@ public class ApplicationService {
             newjsonObject.put("AID",jsonObject.getString("aID"));
             newjsonObject.put("applicantID",jsonObject.getString("applicantID"));
             newjsonObject.put("processID",jsonObject.getString("processID"));
-            Date t =  jsonObject.getDate("time");
+            String t =  jsonObject.getString("time");
             if(t!=null)
-                newjsonObject.put("time",t.toString());
+                newjsonObject.put("time",t);
             else
                 newjsonObject.put("time",null);
             newjsonObject.put("phone",jsonObject.getString("phone"));
@@ -181,7 +181,7 @@ public class ApplicationService {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer applicantID = jsonObject.getInteger("applicantID");
         Integer processID = jsonObject.getInteger("processID");
-        Date time = jsonObject.getDate("time");
+        String time = jsonObject.getString("time");
         String phone = jsonObject.getString("phone");
         String testTYPE  = new String();
         JSONArray typetest = jsonObject.getJSONArray("TypeTest");
@@ -310,7 +310,7 @@ public class ApplicationService {
                 }else {
                     ENVIRONMENTW = os.getString("Windows");
                     ENVIRONMENTL = os.getString("Linux");
-                    ENVIRONMENTE = os.getString("other");
+                    ENVIRONMENTE = os.getString("Other");
                 }
                 ENVIRONMENTN = client.getString("Mermory");
                 ENVIRONMENT = client.getString("Other");
@@ -354,7 +354,7 @@ public class ApplicationService {
                     }
                     hMEMORY = hardware.getString("Mermory");
                     hHARDDISK = hardware.getString("HardDisk");
-                    hELSEDEMAND = hardware.getString("OtherDisk");
+                    hELSEDEMAND = hardware.getString("Other");
                 }
                 JSONObject software = server.getJSONObject("SoftWare");
                 if(software == null){
@@ -425,7 +425,7 @@ public class ApplicationService {
         state m_state  = jsonObject.getObject("m_state",state.class);
         String auditinfor = jsonObject.getString("auditinfor");
 
-        ApplicationModel applicationModel = new ApplicationModel(0,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null,null,0);
+        ApplicationModel applicationModel = new ApplicationModel(0,applicantID,processID,time,phone,testTYPE,sNAME,PA,PAE,PB,PB_type,USS,sDES,stestBASIS,elsestestBASIS,elseINDEX,TESTINDEX,scale_num,scale_score,scale_num,sTYPE,ENVIRONMENTW,ENVIRONMENTL,ENVIRONMENTN,ENVIRONMENTE,ENVIRONMENT,ARCHITECTURE,hOPERATINGENVIRONMENT,hMEMORY,hHARDDISK,hELSEDEMAND,sOS,sVERSION,sLANGUAGE,sARCHITECTURE,sDATABASE,sMIDDLEWARE,sELSEDEMAND,sOPERATINGENVIRONMENT,MEDIUM,doc_path1,doc_path2,doc_path3,doc_path4,SAMPLEDELETE,EXDATE,t_state,m_state,auditinfor,version_num,mainfunction,null,null,null,null);
         applicationDao.insertApp(applicationModel);
         Integer AID = applicationModel.getAID();
         JSONObject jsonObjectAID = new JSONObject();
@@ -472,7 +472,7 @@ public class ApplicationService {
         Integer AID = jsonObject.getInteger("AID");
         Integer applicantID = jsonObject.getInteger("applicantID");
         Integer processID = jsonObject.getInteger("processID");
-        Date time = jsonObject.getDate("time");
+        String time = jsonObject.getString("time");
         String phone = jsonObject.getString("phone");
         String testTYPE  = null;
         JSONArray typetest = jsonObject.getJSONArray("TypeTest");
@@ -602,7 +602,7 @@ public class ApplicationService {
                 }else {
                     ENVIRONMENTW = os.getString("Windows");
                     ENVIRONMENTL = os.getString("Linux");
-                    ENVIRONMENTE = os.getString("other");
+                    ENVIRONMENTE = os.getString("Other");
                 }
                 ENVIRONMENTN = client.getString("Mermory");
                 ENVIRONMENT = client.getString("Other");
@@ -647,7 +647,7 @@ public class ApplicationService {
                     }
                     hMEMORY = hardware.getString("Mermory");
                     hHARDDISK = hardware.getString("HardDisk");
-                    hELSEDEMAND = hardware.getString("OtherDisk");
+                    hELSEDEMAND = hardware.getString("Other");
                 }
                 JSONObject software = server.getJSONObject("SoftWare");
                 if(software == null){
@@ -733,7 +733,7 @@ public class ApplicationService {
         if(processID == null)
             processID = oldjsonObject.getInteger("processID");
         if(time == null)
-            time = oldjsonObject.getDate("time");
+            time = oldjsonObject.getString("time");
         if(phone == null)
             phone = oldjsonObject.getString("phone");
         if(testTYPE == null)
@@ -829,7 +829,7 @@ public class ApplicationService {
         if(sOPERATINGENVIRONMENT == null)   sOPERATINGENVIRONMENT = oldjsonObject.getString("sOPERATINGENVIRONMENT");
 
 
-        ApplicationModel applicationModel = new ApplicationModel(AID,applicantID, processID, time, phone, testTYPE, sNAME, PA, PAE, PB, PB_type, USS, sDES, stestBASIS, elsestestBASIS, TESTINDEX, elseINDEX, scale_num, scale_score, scale_lines, sTYPE, ENVIRONMENTW, ENVIRONMENTL, ENVIRONMENTN, ENVIRONMENTE, ENVIRONMENT, ARCHITECTURE, hMEMORY, hHARDDISK, hELSEDEMAND, sOS, sVERSION, sLANGUAGE, sARCHITECTURE, sDATABASE, sMIDDLEWARE, sELSEDEMAND, MEDIUM, doc_path1, doc_path2, doc_path3, doc_path4, SAMPLEDELETE, EXDATE, t_state, m_state, auditinfor,version_num,hOPERATINGENVIRONMENT,sOPERATINGENVIRONMENT,mainfunction,null,null,null,0);
+        ApplicationModel applicationModel = new ApplicationModel(0,applicantID,processID,time,phone,testTYPE,sNAME,PA,PAE,PB,PB_type,USS,sDES,stestBASIS,elsestestBASIS,elseINDEX,TESTINDEX,scale_num,scale_score,scale_num,sTYPE,ENVIRONMENTW,ENVIRONMENTL,ENVIRONMENTN,ENVIRONMENTE,ENVIRONMENT,ARCHITECTURE,hOPERATINGENVIRONMENT,hMEMORY,hHARDDISK,hELSEDEMAND,sOS,sVERSION,sLANGUAGE,sARCHITECTURE,sDATABASE,sMIDDLEWARE,sELSEDEMAND,sOPERATINGENVIRONMENT,MEDIUM,doc_path1,doc_path2,doc_path3,doc_path4,SAMPLEDELETE,EXDATE,t_state,m_state,auditinfor,version_num,mainfunction,null,null,null,null);
 
 
         applicationDao.updateapplication(applicationModel);
@@ -951,12 +951,12 @@ public class ApplicationService {
             versions = oldjsonObject.getString("Versions");
         }
         applicationDao.updateruleform(USS,versions,tableid,AID);
-        if(failedTID == new String())
+        if(failedTID == new String() || failedTID.length() == 0)
         {
             return("tabledata update complete");
         }
         else {
-            failedTID = failedTID.substring(0,failedTID.length()-1);
+            //failedTID = failedTID.substring(0,failedTID.length()-1);
             return ("TID:"+failedTID+ " failed, but other tabledata update complete");
         }
     }
@@ -995,7 +995,7 @@ public class ApplicationService {
             }
         }
 
-
+        a.put("AID",AID);
         a.put("SoftwareName",oldjsonObject.getString("uSS"));
         a.put("Versions",oldjsonObject.getString("version"));
         a.put("TableData",res);
@@ -1020,7 +1020,7 @@ public class ApplicationService {
                 failedTID += ',';
                 ++i;
             }
-            failedTID = failedTID.substring(0,failedTID.length()-1);
+            //failedTID = failedTID.substring(0,failedTID.length()-1);
             return ("TID:" + failedTID + " failed, no delete complete");
         }
         JSONArray realtableid = new JSONArray();
@@ -1084,7 +1084,7 @@ public class ApplicationService {
             return("tabledata delete complete");
         }
         else{
-            failedTID = failedTID.substring(0,newtableid.length()-1);
+            //failedTID = failedTID.substring(0,newtableid.length()-1);
             return ("TID:" + failedTID +" failed, but other tabledata delete complete");
         }
 
@@ -1266,7 +1266,3 @@ public class ApplicationService {
     }
 
 }
-
-
-
-

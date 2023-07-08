@@ -14,41 +14,41 @@
              <div class="step-row">
                <table width="90%" border="0" cellspacing="0" cellpadding="0" class="processing_content" >
                          <tr v-if="item.id=='1'">
-                            <td v-if="pstate=='10'" style="color:#98A6BE" >
+                            <td style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >人员分配中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
-                            <td v-if="pstate=='11'" style="color:#98A6BE" >
+                            <td style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
-                            <td v-if="pstate=='12'" style="color:#98A6BE" >
+                            <td style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >测试部审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
                           </tr>
                           <tr v-if="item.id=='2'">
-                            <td v-if="pstate=='21'" style="color:#98A6BE" >
+                            <td style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部生成合同中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
                           </tr>
                           <tr v-if="item.id=='3'">
-                            <td v-if="pstate=='31'" style="color:#98A6BE" >
+                            <td style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部审核合同中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
-                            <td v-if="pstate=='40'" style="color:#98A6BE" >
+                            <td style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >样品审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
-                            <td v-if="pstate=='41'" style="color:#98A6BE" >
+                            <td style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >测试报告制作中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
                           </tr>
                           <tr v-if="item.id=='4'">
-                            <td v-if="pstate=='71'" style="color:#98A6BE" >
+                            <td style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >授权签字人审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
@@ -70,13 +70,12 @@
          <el-button v-if="active=='6'" style="margin-top: 12px;" @click="next">6</el-button>  
          </div>
   </div>
- <LoginDialog :show='showLogin'/>
+ 
 </div>
 </template>
 
 <script>
 import Vue from "vue";
-import Axios from "axios";
 
 export default {
    components: {
@@ -90,25 +89,22 @@ export default {
   //},
   created(){
     //在页面加载时读取sessionStorage里的状态信息
-    if (sessionStorage.getItem("store") ) {
-    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
-    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
-      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-      sessionStorage.removeItem('store');
-    }
-      Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.SelectForm),{
+    
+      this.userid.UID=this.$store.state.user.id;
+
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        //console.log(ret.data.state)
-        this.pstate=ret.data.state;
-        console.log(this.pstate)
+        console.log(ret.data)
+        this.process=ret.data;
       })
+    
   },
   props: ['data', 'defaultActive'],
   data() {
     return {
-       active: 0,
+       active: 3,
        approvalProcessProject:[
           {id:'0',label: "您尚未发起委托"},
           {id:'1',label: "委托已发起，等待审核"},
@@ -120,10 +116,7 @@ export default {
        userid:{
         UID:"",
       },
-      pstate: '',
-      SelectForm:{
-              "PID":this.$store.state.user.app.PID
-            },
+      process:[],
     };
   },
   //Tabs
@@ -253,7 +246,7 @@ export default {
             this.userInfo=true
         },
     next() {
-        this.active=this.pstate/10;
+        if (this.active++ > 5) this.active = 0;
       },
   }
 };

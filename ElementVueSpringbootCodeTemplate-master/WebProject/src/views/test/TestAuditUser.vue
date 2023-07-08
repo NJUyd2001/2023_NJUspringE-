@@ -14,15 +14,15 @@
   </el-col>
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="5">
+      <el-col :span="3">
         <router-link to="/test">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="7" ><div class="grid-content bg-purple">
-        <span class="logo-title">客户信息审核</span>
+      <el-col :span="8" ><div class="grid-content bg-purple">
+        <span class="logo-title">客户信息查看</span>
         </div></el-col>
-        <el-col :span="12">
+        <el-col :span="14">
         <el-steps :space="200" :active="0" finish-status="success" >
           <el-step title="客户信息审核"></el-step>
           <el-step title="申请表审核"></el-step>
@@ -73,7 +73,7 @@
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
-import Axios from "axios"
+import Axios from 'axios'
 export default {
   
    data(){
@@ -112,6 +112,28 @@ mounted() {
   handleUnload() {
     sessionStorage.setItem("store",JSON.stringify(this.$store.state))
   },
+    addfatherItem(){
+      this.ruleForm.TableData.push({
+        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
+        name:'',
+        function:'',
+        children:[],
+      })
+    },
+    removefatherItem(Table){
+      const index = this.ruleForm.TableData.indexOf(Table)
+      if (index !== -1) {
+      this.ruleForm.TableData.splice(index, 1);
+  }
+    },
+    addchildrenItem(Node){
+        Node.children.push(
+          {
+            id:'',
+            
+          }
+        )
+    },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {
         if (valid) {

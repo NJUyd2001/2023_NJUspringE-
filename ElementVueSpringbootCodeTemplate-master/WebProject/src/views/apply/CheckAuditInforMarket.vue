@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px ">
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
@@ -38,7 +38,7 @@
     <br><br><br>
     <el-main>
       <br>
-      <el-form label-position="middle" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" disabled>
+      <el-form label-position="middle" label-width="550px" :model="ruleForm" ref="ruleForm" disabled>
         <el-form-item label="审核意见：">
           <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" ></el-input>
         </el-form-item>
@@ -58,21 +58,58 @@
 </el-container>
 </template>
 <script>
+import Axios from 'axios'
 export default {
     data(){
        return{
-        ruleForm:{
-          AID:"",
-          Views:"",
-          ConfirmOpinion:"",
+        userUid:{
+          UID:"",
         },
+        userAid:{
+          AID:"",
+        },
+        ruleForm:{
+        },
+        stepNumber:1,
         }
         },
+    created(){
+      this.KeepInfor();
+      this.userUid.UID=this.$store.state.user.id;
+      console.log(this.$store.state.user.id);
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userUid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.$store.state.user.AID=ret.data[0].aid;
+      })
+      this.userAid.AID=this.$store.state.user.AID;
+      console.log(this.$store.state.user.AID);
+      Axios.post("http://localhost:9090/api/application/findopinion",JSON.stringify(this.userAid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.ruleForm=ret.data;
+      })
+    },
+    mounted(){
+  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('unload', this.handleUnload);
+  },
     methods:{
+      handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+      },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+        },
       submitForm(formName) {
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {
           this.$router.push({path: "./applicationamendmarket", replace:true});
+          stepNumber+=1;
       //   } else {
       //     return false;
       //   }

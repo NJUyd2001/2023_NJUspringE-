@@ -6,7 +6,7 @@
     <el-col :span="22">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页-委托修改</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/auditapplication">审核意见查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/auditapplicationtest">审核意见查看</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
 <el-col :span="2">
@@ -20,7 +20,7 @@
         </router-link>
       </el-col>
       <el-col :span="4" ><div class="grid-content bg-purple">
-        <span class="logo-title">审核-审核信息填写</span>
+        <span class="logo-title">审核信息</span>
         </div></el-col>
         <el-col :span="8">
         <el-steps :space="200" :active="0" finish-status="success" >
@@ -37,7 +37,7 @@
   </el-header>
     <br><br><br>
     <el-main>
-      <el-form :label-position="top" label-width="550px" disabled>
+      <el-form label-position="top" label-width="550px" disabled>
         <el-form-item label="密级：">
           <el-radio-group v-model="ruleForm.Security">
             <el-radio label="无密级"></el-radio>
@@ -115,6 +115,7 @@
 </el-container>
 </template>
 <script>
+import Axios from 'axios'
 export default {
     data(){
        return{
@@ -138,7 +139,37 @@ export default {
         },
         }
         },
+    created(){
+        this.KeepInfor();
+        this.userUid.UID=this.$store.state.user.id;
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userUid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.$store.state.user.AID=ret.data[0].aid;
+      })
+      this.userAid.AID=this.$store.state.user.AID;
+      console.log(this.$store.state.user.AID);
+      Axios.post("http://localhost:9090/api/application/findauditinformation",JSON.stringify(this.userAid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.ruleForm=ret.data;
+      })
+    },
+    mounted(){
+      window.addEventListener('beforeunload', this.handleBeforeUnload);
+      window.addEventListener('unload', this.handleUnload);
+  },
     methods:{
+      handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+      },
+      handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+        },
       submitForm(formName) {
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {

@@ -139,7 +139,7 @@
 
 - 根据UID查找
 
-端口：`/process/findByPID`
+端口：`/process/findByUID`
 
 参数：
 ``` js

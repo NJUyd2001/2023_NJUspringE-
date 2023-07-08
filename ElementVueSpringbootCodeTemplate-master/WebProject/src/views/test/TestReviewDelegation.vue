@@ -479,7 +479,7 @@
                     OS:{
                       Windows:'',
                       Linux:'',
-                      other:''
+                      Other:''
                   },
                   Mermory:'',
                   Other:''
@@ -489,7 +489,7 @@
                     FrameWork:[],  
                     Mermory:'',
                     HardDisk:'',
-                    OtherDisk:''
+                    Other:''
                   },
                   SoftWare:{
                     OS:'',

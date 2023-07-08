@@ -280,60 +280,6 @@ export default {
         userid:{
           applicantID:this.$store.state.user.id,
         },
-        // ruleForm:{
-        //   applicantID:this.$store.state.user.id,
-        //   processID:'1',
-        //     TypeTest:[],
-        //     SoftWareName:'',
-        //     VersionNumber:'',
-        //     ClientChinese:'',
-        //     ClientEnglish:'',
-        //     DevelopmentCompany:'',
-        //     AttributeOfCompany:"",
-        //     SoftwareUserObjectDescription:'',
-        //     MainFunction:'',
-        //     NeededStandard:[],
-        //     NeededTechnicalIndex:[],
-        //     SoftWareSize:{
-        //       Number:0,
-        //       Point:0,
-        //       RowNumber:0,
-        //     },
-        //     SoftWareType:"",
-        //     RuntimeEnvironment:{
-        //         Client:{
-        //         OS:{
-        //           Windows:'',
-        //           Linux:'',
-        //           other:''
-        //       },
-        //       Mermory:'',
-        //       Other:''
-        //       },
-        //       Server:{
-        //         HardWare:{
-        //         FrameWork:[],  
-        //         Mermory:'',
-        //         HardDisk:'',
-        //         OtherDisk:''
-        //       },
-        //       SoftWare:{
-        //         OS:'',
-        //         Versions:'',
-        //         PL:'',
-        //         FrameWork:[],
-        //         DataBase:'',
-        //         MiddleWare:'',
-        //         Other:''
-        //       },
-        //       },
-        //       NetWork:'',  
-        //        },
-        //     SoftwareMedium:[],
-        //     Document:'',
-        //     SamplesSubmitted:[],
-        //     WantedFinishTime:'',
-        // },
         ruleForm:{},
         TypeOfTest:[
               {
@@ -681,21 +627,18 @@ mounted(){
 },
 created(){
     //在页面加载时读取sessionStorage里的状态信息
-    if (sessionStorage.getItem("store") ) {
-    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
-    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
-      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-      sessionStorage.removeItem('store');
-    }
+    this.KeepInfor();
     this.userid.applicantID=this.$store.state.user.id;
     // this.ruleForm.applicantID=this.$store.state.user.id;
-    console.log(this.$store.state.user.id)
+    //console.log(this.$store.state.user.id)
     Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.userid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
         console.log(ret.data)
         this.ruleForm=ret.data[0];
+        this.$store.state.user.process.AID=ret.data[0].AID;
+        //console.log(this.$store.state.user.process.AID)
       })
   },
   methods:{
@@ -708,15 +651,13 @@ created(){
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-        console.log(this.ruleForm)
+        //console.log(this.ruleForm)
         Axios.post("http://localhost:9090/api/application/updateapplication",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-          console.log(ret.data);
-          this.$store.state.user.process.AID=ret.data.AID
           this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./functionlistamendmarket", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./functionlistamendmarket", replace:true});}, 2000);
       }).catch(function (error)
         {
           console.log(error);

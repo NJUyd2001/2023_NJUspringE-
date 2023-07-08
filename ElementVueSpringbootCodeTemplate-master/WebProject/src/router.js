@@ -56,6 +56,7 @@ import TestEnvironment from './views/report/TestEnvironment'
 import SoftwareProjectTestChecklist from './views/test/SoftwareProjectTestChecklist'
 import DataSubmit from './views/client/DataSubmit'
 import ConfidentialityAgreement from './views/client/ConfidentialityAgreement'
+import DocumentandSign from './views/apply/DocumentAndSign'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -129,6 +130,10 @@ export default new VueRouter({
         {
             path: '/functionlist',       // 路径
             component: FunctionList      // 跳转到的组件 
+        },
+        {
+            path: '/documentandsign',       // 路径
+            component: DocumentandSign      // 跳转到的组件 
         },
         {
             path: '/functionlistamendmarket',       // 路径
