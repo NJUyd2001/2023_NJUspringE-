@@ -61,13 +61,11 @@
         </el-steps>
         <div>
          <el-button style="margin-top: 12px;" @click="next">查看保密协议</el-button>
-         <el-button v-if="active=='0'" style="margin-top: 12px;" @click="next">发起委托</el-button>
-         <el-button v-if="active=='1'" style="margin-top: 12px;" @click="next">1</el-button>
-         <el-button v-if="active=='2'" style="margin-top: 12px;" @click="next">2</el-button>
-         <el-button v-if="active=='3'" style="margin-top: 12px;" @click="next">查看报价</el-button>
-         <el-button v-if="active=='4'" style="margin-top: 12px;" @click="next">完成合同及样品</el-button>
-         <el-button v-if="active=='5'" style="margin-top: 12px;" @click="next">查看测试报告</el-button>
-         <el-button v-if="active=='6'" style="margin-top: 12px;" @click="next">6</el-button>  
+         <el-button v-if="pstate=='20'" style="margin-top: 12px;" @click="next">查看报价</el-button>
+         <el-button v-else-if="pstate=='30'" style="margin-top: 12px;" @click="next">填写合同</el-button>
+         <el-button v-else-if="pstate=='32'" style="margin-top: 12px;" @click="next">发送样品</el-button>
+         <el-button v-else-if="pstate=='71'" style="margin-top: 12px;" @click="next">查看测试报告</el-button>
+         <el-button v-else-if="pstate=='80'" style="margin-top: 12px;" @click="next">确认接收</el-button>
          </div>
   </div>
  <LoginDialog :show='showLogin'/>
@@ -90,13 +88,13 @@ export default {
   //},
   created(){
     //在页面加载时读取sessionStorage里的状态信息
-    console.log(this.SelectForm)
+    console.log(this.SelectForm.PID)
       Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.SelectForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
         //console.log(ret.data.state)
-        this.pstate=ret.data[0].state;
+        this.pstate=ret.data.state;
         console.log(this.pstate)
       })
     
@@ -250,7 +248,7 @@ export default {
         },
     next() {
         this.active=this.pstate/10;
-        console.log(this.active)
+        console.log(this.pstate)
       },
   }
 };
