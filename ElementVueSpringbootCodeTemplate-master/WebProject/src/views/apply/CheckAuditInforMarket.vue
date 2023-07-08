@@ -70,7 +70,6 @@ export default {
         },
         ruleForm:{
         },
-        stepNumber:1,
         }
         },
     created(){
@@ -109,7 +108,6 @@ export default {
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {
           this.$router.push({path: "./applicationamendmarket", replace:true});
-          stepNumber+=1;
       //   } else {
       //     return false;
       //   }

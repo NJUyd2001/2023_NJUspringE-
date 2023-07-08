@@ -17,9 +17,7 @@
             <span class="logo-title">委托进度-审核报价单</span>
             </el-col>
             <el-col :span="2">
-             <router-link to="/Test">
-                  <el-button type="success" style="margin: 14px">完成</el-button>
-            </router-link>
+              <el-button @click="submitForm('ruleForm')" type="success" style="margin: 14px">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
@@ -142,21 +140,15 @@
     </template>
     <el-backtop :right="50" :bottom="50" />
     <script>
-
+    import Axios from 'axios'
     export default {
         data(){
            return{
                 ruleForm:{
-                  Time:'',
-                  SoftwareName:"",
-                  item:"",
-                  description:"",
-                  UnitPrice:0,
-                  PS:"",
-                  SubTotalPrice:0,
-                  Tax:0,
-                  TotalPrice:0,
-                  Provider:"",
+                },
+                Pid:{
+                  PID:this.$store.state.user.process.PID,
+                  state:"",
                 },
                 Suggestion:{
                   Pass:"false",
@@ -195,10 +187,37 @@
                   ],
                   }
         }
-    }, 
-      methods:{
-        goback(){
-        },
+    },
+    created(){
+      this.KeepInfor();
+      this.userid.UID=this.$store.state.user.process.UID;
+
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data);
+                this.ruleForm.PID=ret.data.PID;
+              })
+      Axios.post("http://localhost:9090/api/quote/find",JSON.stringify(this.ruleForm.PID),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                      console.log(ret.data);
+                      this.ruleForm=ret.data;
+              })
+    },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
+    methods:{
+      handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
         addfatherItem(){
           this.ruleForm.TableData.push({
             id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
@@ -230,8 +249,20 @@
               return false;
             }
           });*/
+          if(this.Suggestion.Pass == "true")
+            this.Pid.state="21";
+          else if(this.Suggestion.Pass == "false")
+            this.Pid.state="25";
+          console.log(this.Pid.state)
+          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.Pid),{
+          headers:{
+            'content-type': 'text/plain'}
+          }).then(ret=>{
+              console.log(this.Pid.state)
+         })
           this.$message.success("提交成功，正在返回用户界面！");
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+
         }
       },
     

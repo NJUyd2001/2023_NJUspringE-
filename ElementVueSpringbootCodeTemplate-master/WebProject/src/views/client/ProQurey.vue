@@ -60,12 +60,12 @@
            </el-step>
         </el-steps>
         <div>
-         <el-button style="margin-top: 12px;" @click="next">查看保密协议</el-button>
-         <el-button v-if="pstate=='20'" style="margin-top: 12px;" @click="next">查看报价</el-button>
+         <el-button v-if="pstate=='10'" style="margin-top: 12px;" @click="jump2application()">发起委托</el-button>
+         <el-button v-else-if="pstate=='20'" style="margin-top: 12px;" @click="J2Auditquote()">查看报价</el-button>
          <el-button v-else-if="pstate=='30'" style="margin-top: 12px;" @click="next">填写合同</el-button>
          <el-button v-else-if="pstate=='32'" style="margin-top: 12px;" @click="next">发送样品</el-button>
-         <el-button v-else-if="pstate=='71'" style="margin-top: 12px;" @click="next">查看测试报告</el-button>
-         <el-button v-else-if="pstate=='80'" style="margin-top: 12px;" @click="next">确认接收</el-button>
+         <el-button v-else-if="pstate=='71'" style="margin-top: 12px;" @click="J2Report()">查看测试报告</el-button>
+         <el-button v-else-if="pstate=='80'" style="margin-top: 12px;" @click="Confirmed()">确认接收</el-button>
          </div>
   </div>
  <LoginDialog :show='showLogin'/>
@@ -88,7 +88,6 @@ export default {
   //},
   created(){
     //在页面加载时读取sessionStorage里的状态信息
-    console.log(this.SelectForm.PID)
       Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.SelectForm),{
         headers:{
           'content-type': 'text/plain'}
@@ -96,13 +95,15 @@ export default {
         //console.log(ret.data.state)
         this.pstate=ret.data.state;
         console.log(this.pstate)
+        this.active=this.pstate/10;
+        console.log(this.active)
       })
-    
+        
   },
   props: ['data', 'defaultActive'],
   data() {
     return {
-       active: 0,
+       active: this.pstate/10,
        approvalProcessProject:[
           {id:'0',label: "您尚未发起委托"},
           {id:'1',label: "委托已发起，等待审核"},
@@ -113,6 +114,10 @@ export default {
        ],
        userid:{
         UID:"",
+      },
+      Conf:{
+         PID:this.$store.state.user.process.PID,
+         state:"81",
       },
       pstate: '',
       SelectForm:{
@@ -180,6 +185,17 @@ export default {
     handleStart() {
       this.$router.push('client/Personal');
     },
+    Confirmed() {
+
+       Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.Conf),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(this.Conf.state)
+      }) 
+      this.$message.success("确认成功，正在返回用户界面！");
+      setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000)
+    },
     loginOut() {
       //this.showLogin = true;
       // 移除本地用户登录信息
@@ -236,6 +252,14 @@ export default {
         this.selectTabName = key;
         break;
       }
+    },
+    J2Auditquote() {
+      //this.$router.push('/client/ConfidentialityAgreement');
+      this.$router.push('/auditquote');
+    },
+    J2Report() {
+      //this.$router.push('/client/ConfidentialityAgreement');
+      this.$router.push('/report');
     },
      hideInfo(){
             setTimeout(()=>{

@@ -14,41 +14,41 @@
              <div class="step-row">
                <table width="90%" border="0" cellspacing="0" cellpadding="0" class="processing_content" >
                          <tr v-if="item.id=='1'">
-                            <td style="color:#98A6BE" >
+                            <td v-if="pstate=='10'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >人员分配中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
-                            <td style="color:#98A6BE" >
+                            <td v-if="pstate=='11'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
-                            <td style="color:#98A6BE" >
+                            <td v-if="pstate=='12'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >测试部审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
                           </tr>
                           <tr v-if="item.id=='2'">
-                            <td style="color:#98A6BE" >
+                            <td v-if="pstate=='21'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部生成合同中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
                           </tr>
                           <tr v-if="item.id=='3'">
-                            <td style="color:#98A6BE" >
+                            <td v-if="pstate=='31'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部审核合同中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
-                            <td style="color:#98A6BE" >
+                            <td v-if="pstate=='40'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >样品审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
-                            <td style="color:#98A6BE" >
+                            <td v-if="pstate=='41'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >测试报告制作中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
                           </tr>
                           <tr v-if="item.id=='4'">
-                            <td style="color:#98A6BE" >
+                            <td v-if="pstate=='71'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >授权签字人审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
@@ -60,22 +60,21 @@
            </el-step>
         </el-steps>
         <div>
-         <el-button style="margin-top: 12px;" @click="next">查看保密协议</el-button>
-         <el-button v-if="active=='0'" style="margin-top: 12px;" @click="next">发起委托</el-button>
-         <el-button v-if="active=='1'" style="margin-top: 12px;" @click="next">1</el-button>
-         <el-button v-if="active=='2'" style="margin-top: 12px;" @click="next">2</el-button>
-         <el-button v-if="active=='3'" style="margin-top: 12px;" @click="next">查看报价</el-button>
-         <el-button v-if="active=='4'" style="margin-top: 12px;" @click="next">完成合同及样品</el-button>
-         <el-button v-if="active=='5'" style="margin-top: 12px;" @click="next">查看测试报告</el-button>
-         <el-button v-if="active=='6'" style="margin-top: 12px;" @click="next">6</el-button>  
+         <el-button v-if="pstate=='10'" style="margin-top: 12px;" @click="jump2application()">发起委托</el-button>
+         <el-button v-else-if="pstate=='20'" style="margin-top: 12px;" @click="J2Auditquote()">查看报价</el-button>
+         <el-button v-else-if="pstate=='30'" style="margin-top: 12px;" @click="next">填写合同</el-button>
+         <el-button v-else-if="pstate=='32'" style="margin-top: 12px;" @click="next">发送样品</el-button>
+         <el-button v-else-if="pstate=='71'" style="margin-top: 12px;" @click="J2Report()">查看测试报告</el-button>
+         <el-button v-else-if="pstate=='80'" style="margin-top: 12px;" @click="Confirmed()">确认接收</el-button>
          </div>
   </div>
- 
+ <LoginDialog :show='showLogin'/>
 </div>
 </template>
 
 <script>
 import Vue from "vue";
+import Axios from "axios";
 
 export default {
    components: {
@@ -89,22 +88,22 @@ export default {
   //},
   created(){
     //在页面加载时读取sessionStorage里的状态信息
-    
-      this.userid.UID=this.$store.state.user.id;
-
-      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+      Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.SelectForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        console.log(ret.data)
-        this.process=ret.data;
+        //console.log(ret.data.state)
+        this.pstate=ret.data.state;
+        console.log(this.pstate)
+        this.active=this.pstate/10;
+        console.log(this.active)
       })
-    
+        
   },
   props: ['data', 'defaultActive'],
   data() {
     return {
-       active: 3,
+       active: this.pstate/10,
        approvalProcessProject:[
           {id:'0',label: "您尚未发起委托"},
           {id:'1',label: "委托已发起，等待审核"},
@@ -116,7 +115,14 @@ export default {
        userid:{
         UID:"",
       },
-      process:[],
+      Conf:{
+         PID:this.$store.state.user.process.PID,
+         state:"81",
+      },
+      pstate: '',
+      SelectForm:{
+              PID:this.$store.state.user.process.PID
+            },
     };
   },
   //Tabs
@@ -179,6 +185,17 @@ export default {
     handleStart() {
       this.$router.push('client/Personal');
     },
+    Confirmed() {
+
+       Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.Conf),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(this.Conf.state)
+      }) 
+      this.$message.success("确认成功，正在返回用户界面！");
+      setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000)
+    },
     loginOut() {
       //this.showLogin = true;
       // 移除本地用户登录信息
@@ -236,6 +253,14 @@ export default {
         break;
       }
     },
+    J2Auditquote() {
+      //this.$router.push('/client/ConfidentialityAgreement');
+      this.$router.push('/auditquote');
+    },
+    J2Report() {
+      //this.$router.push('/client/ConfidentialityAgreement');
+      this.$router.push('/report');
+    },
      hideInfo(){
             setTimeout(()=>{
                 this.userInfo=false
@@ -246,7 +271,8 @@ export default {
             this.userInfo=true
         },
     next() {
-        if (this.active++ > 5) this.active = 0;
+        this.active=this.pstate/10;
+        console.log(this.pstate)
       },
   }
 };

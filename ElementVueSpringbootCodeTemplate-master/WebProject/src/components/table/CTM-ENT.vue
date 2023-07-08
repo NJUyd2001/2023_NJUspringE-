@@ -50,12 +50,6 @@
         width="150">
       </el-table-column>
       <el-table-column
-        sortable
-        prop="process"
-        label="当前进度"
-        width="180">
-      </el-table-column>
-      <el-table-column
         fixed="right"
         label="操作"
         width="100"
@@ -113,6 +107,7 @@ export default {
         this.$store.state.user.process.UID=row.applicantID;
         this.$store.state.user.process.AID=row.AID;
         console.log(this.$store.state.user.process.AID);
+        console.log(this.$store.state.user.process.UID);
         this.$router.push({path: "./marketaudituser", replace:true})
     },
     handleClick(row) {

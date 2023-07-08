@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px " >
     <el-row>
     <el-col :span="23">
     <el-breadcrumb separator="->">
@@ -131,7 +131,7 @@ export default {
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        this.$message.success("提交成功，正在返回测试部界面！");
+        this.$message.success("提交成功，正在返回市场部界面！");
         this.StepNumber+=2;
         setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
       })

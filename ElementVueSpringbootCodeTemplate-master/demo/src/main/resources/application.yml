@@ -14,6 +14,7 @@ server:
   tomcat:
     uri-encoding: utf-8
 
+
 spring:
   servlet:
     multipart:

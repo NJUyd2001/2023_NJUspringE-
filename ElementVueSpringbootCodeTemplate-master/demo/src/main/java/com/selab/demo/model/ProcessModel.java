@@ -12,17 +12,40 @@ public class ProcessModel {
     private int PID;
     private String notes;
 
-
-    public ProcessModel(String notes, Integer CID, Integer QID, Integer UID, Integer AID, String state) {
+    public ProcessModel(String notes, Integer UID, Integer AID, String state, double price) {
         this.notes = notes;
-        this.CID = CID;
-        this.QID = QID;
         this.UID = UID;
         this.AID = AID;
         this.state = state;
+        this.price = price;
     }
 
-    public ProcessModel() {
+    public ProcessModel(int PID, String notes, double price, Integer UID, Integer AID, String state, String fileIDs) {
+        this.PID = PID;
+        this.notes = notes;
+        this.price = price;
+        this.UID = UID;
+        this.AID = AID;
+        this.state = state;
+        this.fileIDs = fileIDs;
+    }
+
+    private double price;
+
+
+
+
+    @Override
+    public String toString() {
+        return "ProcessModel{" +
+                "PID=" + PID +
+                ", notes='" + notes + '\'' +
+                ", UID=" + UID +
+                ", AID=" + AID +
+                ", state='" + state + '\'' +
+                ", price=" + price +
+                ", fileIDs='" + fileIDs + '\'' +
+                '}';
     }
 
     public Integer getPID() {
@@ -33,18 +56,6 @@ public class ProcessModel {
         this.PID = PID;
     }
 
-    @Override
-    public String toString() {
-        return "ProcessModel{" +
-                "PID=" + PID +
-                ", notes='" + notes + '\'' +
-                ", CID=" + CID +
-                ", QID=" + QID +
-                ", UID=" + UID +
-                ", AID=" + AID +
-                ", state='" + state + '\'' +
-                '}';
-    }
 
     public String getNotes() {
         return notes;
@@ -57,26 +68,6 @@ public class ProcessModel {
 
     public Integer getUID() {
         return UID;
-    }
-
-    public void setPID(int PID) {
-        this.PID = PID;
-    }
-
-    public Integer getCID() {
-        return CID;
-    }
-
-    public void setCID(Integer CID) {
-        this.CID = CID;
-    }
-
-    public Integer getQID() {
-        return QID;
-    }
-
-    public void setQID(Integer QID) {
-        this.QID = QID;
     }
 
     public void setUID(Integer UID) {
@@ -99,9 +90,24 @@ public class ProcessModel {
         this.state = state;
     }
 
+    public double getPrice() {
 
-    private Integer CID; // 对应合同草稿的编号
-    private Integer QID; // 对应报价的编号
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getFileIDs() {
+        return fileIDs;
+    }
+
+    public void setFileIDs(String fileIDs) {
+        this.fileIDs = fileIDs;
+    }
+
+
     private Integer UID; // 对应用户的编号
     private Integer AID; // 对应委托的编号
     private String state; /*发起委托(委托修改) 1    -> 市场部 通过 11 不通过 10 -> 测试部 通过 111 不通过 110
@@ -114,6 +120,7 @@ public class ProcessModel {
      *测试部 归档 发送测试报告 8 -> 确认接受 81
      */
 
+    private String fileIDs;
 
 
 }

@@ -40,7 +40,7 @@
             <el-menu-item index="1-11" @click="addTab('委托状态', 'CTMENT')">委托状态</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
-          <el-menu-item index="1-11" @click="jump2application()">审核委托</el-menu-item>
+          <el-menu-item index="1-11" @click="addTab('生成报价', 'GQuote')">生成报价</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -170,9 +170,6 @@ export default {
           this.error(result.msg);
         }
       });
-    },
-    jump2application() {
-      this.$router.push('/marketaudituser');
     },
     jump2myinf(){
       this.$router.push('/myinf');

@@ -49,7 +49,7 @@
         </el-form-item>
         <el-form-item label="受理意见：">
           <el-radio-group v-model="ruleform.ConfirmOpinion">
-            <el-radio label="受理-进入测试部审核阶段 "></el-radio>
+            <el-radio label="受理-进入测试部审核阶段"></el-radio>
             <el-radio label="不受理"></el-radio>
             <el-radio label="进一步联系"></el-radio>
           </el-radio-group>
@@ -75,7 +75,7 @@ export default {
           'content-type': 'text/plain'}
       }).then(ret=>{
           console.log(ret.data)
-           //this.ruleForm=ret.data;
+           this.ruleform=ret.data;
       }).catch(function (error)
         {
           console.log(error);

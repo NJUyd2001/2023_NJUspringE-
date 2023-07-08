@@ -15,12 +15,12 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="6">
+          <el-col :span="4">
             <router-link to="/TestReportCover">
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="10" style="margin-left: 35%;"><div class="grid-content bg-purple">
+          <el-col :span="6" style="margin-left: 35%;"><div class="grid-content bg-purple">
           <span class="lt1">测试报告</span>
           </div></el-col>
           <el-col :span="16">
@@ -32,13 +32,13 @@
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
-            <el-col :span="6" pull="3">
+            <el-col :span="6">
             <div class="grid-content bg-purple-light text-right">
               <span v-if="user != null">
                 <span class="user">{{user.nick}}</span>
               </span>
             </div></el-col>
-          <el-col :span="6" push="1">
+          <el-col :span="6">
             <router-link to="/TestEnvironment">
             <el-button @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
             </router-link>
@@ -47,7 +47,7 @@
       </el-header>
         <el-main>
           <br><br>
-          <el-form style="margin-top: 60px; margin-left: 10%;" label-position="middle" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
+          <el-form style="margin-top: 60px; margin-left: 10%;" label-position="middle" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm" >
           <el-form-item label="委托单位" prop="Client">  
             <el-input style="width:200px;padding:10px;" v-model="ruleForm.Client"></el-input>
           </el-form-item>
@@ -62,22 +62,18 @@
           </el-form-item> 
           <el-form-item label='来样日期:'>
               <div class="demo-date-picker">
-              <div class="block">
                 <el-date-picker
-                style="margin-top: 60px; margin-left: -460px;"
                 v-model="SampleDate"
                 type="date"
                 placeholder="时间选择"
                 :size=large
                 />
                 </div>
-                </div>
             </el-form-item>
           <el-form-item label="测试类型:" prop="TypeTest">  
              <el-input style="width:200px;padding:10px;" v-model="ruleForm.TypeTest"></el-input>
           </el-form-item>
-            <div class="ack" style="margin-left: 450px;">
-                <span class="demonstration" style="font-weight: lighter;">测试时间</span>
+          <el-form-item label="测试时间:">
                 <el-date-picker
                 style="margin-left: 20px;"
                 v-model="ruleForm.TestTime"
@@ -86,7 +82,7 @@
                 start-placeholder="起始时间"
                 end-placeholder="预计完成时间"
                 />
-            </div>
+          </el-form-item>
           <el-form-item  style="margin-top: 20px;" label="测试单位:" prop="DevelopmentCompany">  
              <el-input style="width:200px;padding:10px;" v-model="ruleForm.DevelopmentCompany"></el-input>
           </el-form-item>
@@ -152,18 +148,6 @@
     export default {
         data(){
            return{
-                user:{
-                    name:'风车村',
-                    password:'shazihuang',
-                    telephone:'',
-                    fax:'',
-                    address:'',
-                    postcode:'',
-                    contacts:'',
-                    mobilephone:'',
-                    email:'',
-                    URL:'',
-                },
                 ruleForm:{
                     Client:'',
                     ProjectNum:'',
