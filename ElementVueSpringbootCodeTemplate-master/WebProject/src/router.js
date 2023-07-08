@@ -235,11 +235,11 @@ export default new VueRouter({
             component: MarketContract    // 跳转到的组件
         },
         {
-            path: '/Quote/GenQuote',     // 路径
+            path: '/GenQuote',     // 路径
             component: GenQuote    // 跳转到的组件
         },
         {
-            path: '/Quote/AuditQuote',     // 路径
+            path: '/AuditQuote',     // 路径
             component: AuditQuote    // 跳转到的组件
         },
         {
