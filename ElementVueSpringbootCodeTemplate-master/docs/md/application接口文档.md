@@ -6,7 +6,7 @@ author:李晨博
 
 ## /application/insert
 
-增加一个新的application项目,并且插入到对应Process的PID之下
+增加一个新的application项目
 
 注意！在此处定义AID没有任何意义，AID会变为sql设定的自增变量！
 
@@ -14,7 +14,7 @@ author:李晨博
 ```
 {
     "applicantID":"1",
-    "PID":"1",
+    "processID":"1",
     "time":"2017-09-02 10:29:14",
     "phone":"15968774896",
     "TypeTest":["软件确认测试"],
@@ -79,7 +79,9 @@ author:李晨博
 
 输出示例：
 ```
-{"AID"："1","PID","1"}
+{"AID"："1"}
+
+
 ```
 ## /application/checkbyapplicant
 根据applicantID项查找所有符合的aplication

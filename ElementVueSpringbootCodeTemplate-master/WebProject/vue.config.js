@@ -4,10 +4,12 @@ module.exports = {
   baseUrl: './',
   devServer: {
     host: 'localhost',
+    //host: '0.0.0.0',
     port: '9090',
     proxy: {
       '/api': { // 请求的代称，写在Axios里的BaseUrl
         target: 'http://localhost:1234', // 真实请求URl
+        //target: 'http://210.28.133.13:21603',
         ws: true,
         changeOrigin: true, // 允许跨域
         pathRewrite: { //替换，通配/api的替换成对应字符

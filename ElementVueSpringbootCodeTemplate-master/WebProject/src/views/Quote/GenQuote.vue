@@ -17,9 +17,7 @@
             <span class="logo-title">委托进度-生成报价单</span>
             </div></el-col>
             <el-col :span="2">
-             <router-link to="/Test">
-                  <el-button type="success" style="margin: 14px">完成</el-button>
-            </router-link>
+            <el-button  @click="submitForm('ruleForm')" type="success" style="margin: 14px">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
@@ -111,7 +109,6 @@
         </el-row>
           </el-form>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
     <el-backtop :right="50" :bottom="50" />
@@ -120,8 +117,16 @@
     export default {
         data(){
            return{
-                ruleForm:{
-                  Time:'',
+            userid:{
+              UID:"",
+            },
+            GenQ:{
+              PID:this.$store.state.user.process.PID,
+              state:"20",
+            },
+            ruleForm:{
+                  PID:"",
+                  Time:"",
                   SoftwareName:"",
                   item:"",
                   description:"",
@@ -190,6 +195,14 @@
     },
     created(){
       this.KeepInfor();
+      this.userid.UID=this.$store.state.user.process.UID;
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data);
+                this.ruleForm.PID=ret.data.PID;
+              })
     },
     mounted() {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
@@ -225,16 +238,28 @@
             )
         },
         submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
+          console.log(this.ruleForm.Time);
+          this.$refs[formName].validate((valid) => {
             if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
+               Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.GenQ),{
+              headers:{
+                'content-type': 'text/plain'}
+              }).then(ret=>{
+             })
+              Axios.post("http://localhost:9090/api/quote/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data)
+                this.$message.success("提交成功，正在返回市场部界面！");
+                 setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+              })
+             
             } else {
               return false;
             }
-          });*/
-          this.$message.success("提交成功，正在返回用户界面！");
-          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+          });
+          
         }
       },
     

@@ -70,12 +70,12 @@ export default {
         },
         ruleForm:{
         },
-        stepNumber:1,
         }
         },
     created(){
       this.KeepInfor();
       this.userUid.UID=this.$store.state.user.id;
+      console.log(this.$store.state.user.id);
       Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userUid),{
         headers:{
           'content-type': 'text/plain'}
@@ -108,7 +108,6 @@ export default {
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {
           this.$router.push({path: "./applicationamendmarket", replace:true});
-          stepNumber+=1;
       //   } else {
       //     return false;
       //   }

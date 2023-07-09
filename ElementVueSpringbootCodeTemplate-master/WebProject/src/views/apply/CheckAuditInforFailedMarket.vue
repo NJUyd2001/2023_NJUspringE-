@@ -82,6 +82,7 @@ export default {
         this.$store.state.user.AID=ret.data[0].aid;
       })
       this.userAid.AID=this.$store.state.user.AID;
+      console.log(this.userAid.AID)
       console.log(this.$store.state.user.AID);
       Axios.post("http://localhost:9090/api/application/findopinion",JSON.stringify(this.userAid),{
         headers:{

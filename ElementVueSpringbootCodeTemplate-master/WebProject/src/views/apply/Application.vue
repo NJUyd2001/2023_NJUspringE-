@@ -75,7 +75,7 @@
           v-model="ruleForm.SoftwareUserObjectDescription" type="textarea" />
         </el-form-item>
         <el-form-item label="主要功能及用途简介:" prop="MainFunction">
-          <el-input placeholder="限200字以内" style="width:500px;" maxlength="200" show-word-limit="true" :rows="3"
+          <el-input placeholder="限200字以内" style="width:500px;" maxlength="200" show-word-limit :rows="3"
           v-model="ruleForm.MainFunction" type="textarea" />
         </el-form-item>
         <el-form-item label="测试依据:" prop="NeededStandard">
@@ -245,7 +245,7 @@ export default {
             },
         ruleForm:{
           applicantID:this.$store.state.user.id,
-          processID:'1',
+          PID:"",
             TypeTest:[],
             SoftWareName:'',
             VersionNumber:'',
@@ -666,30 +666,30 @@ created(){
       this.$refs[formName].validate((valid) => {
         if (valid) {
         console.log(this.ruleForm)
-        Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
-        headers:{
-          'content-type': 'text/plain'}
-      }).then(ret=>{
-          console.log(ret.data.AID);
-          this.$store.state.user.process.AID=ret.data.AID;
-          this.process.AID=this.$store.state.user.process.AID;
-          Axios.post("http://localhost:9090/api/process/insert",JSON.stringify(this.process),{
+        Axios.post("http://localhost:9090/api/process/insert",JSON.stringify(this.process),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
           console.log(ret.data)
           this.$store.state.user.process.PID=ret.data;
+          this.ruleForm.PID=this.$store.state.user.process.PID;
+          Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data.AID);
+          this.$store.state.user.process.AID=ret.data.AID;
           this.$message.success("提交成功！");
           setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       }).catch(function (error)
         {
           console.log(error);
-        })
+        }
+      )
       }).catch(function (error)
         {
           console.log(error);
-        }
-      )
+        })
         } else {
           return false;
         }

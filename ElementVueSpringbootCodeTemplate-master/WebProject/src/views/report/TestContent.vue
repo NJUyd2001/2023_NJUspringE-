@@ -1,7 +1,7 @@
 <!-- 文炫添加 -->
 <template>
     <el-container style="height:100%">
-      <el-header style="height: 30px " @back="goback">
+      <el-header style="height: 30px " >
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
@@ -22,10 +22,10 @@
             <el-button style="margin-top: -25px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="4"><div class="grid-content bg-purple">
+          <el-col :span="8"><div class="grid-content bg-purple">
             <span class="logo-title">测试内容</span>
             </div></el-col>
-            <el-col :span="20">
+            <el-col :span="12">
           <el-steps :space="200" :active="3" finish-status="success">
           <el-step title="测试报告信息查看"></el-step>
           <el-step title="测试报告查看"></el-step>
@@ -34,17 +34,11 @@
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
-            <el-col :span="6" pull="3">
+            <el-col :span="6" >
             <div class="grid-content bg-purple-light text-right">
               <span v-if="user != null">
                 <span class="user">{{user.nick}}</span>
               </span>
-              <el-dropdown  @command="switchLang">
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="zh">En</el-dropdown-item>
-                  <el-dropdown-item command="en">中</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
             </div></el-col>
           <el-col :span="6" push="2">
             <el-button style="margin-top: -25px; margin-left: 20px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>

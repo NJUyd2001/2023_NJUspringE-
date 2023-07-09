@@ -27,6 +27,7 @@ import CheckAuditInforTest from './views/apply/CheckAuditInforTest'
 import CheckAuditInforFailedTest from './views/apply/CheckAuditInforFailedTest'
 import Report from './views/report/Report'
 import Personal from "./views/client/Personal";
+import ProQurey from "./views/client/ProQurey";
 import Info from "./views/client/Info";
 import MarketAuditUser from './views/market/MarketAuditUser'
 import MarketAuditApplication from './views/market/MarketAuditApplication'
@@ -45,6 +46,7 @@ import TestDocument2 from './views/report/TestDocument2'
 import TestReviewDelegation from './views/test/TestReviewDelegation'
 import MarketContract from './views/market/Contract'
 import GenQuote from './views/Quote/GenQuote'
+import ChangeQuote from './views/Quote/ChangeQuote'
 import AuditQuote from './views/Quote/AuditQuote'
 import ReportChecklist from './views/report/ReportChecklist'
 import Defectlist from './views/test/Defectlist'
@@ -223,8 +225,12 @@ export default new VueRouter({
             component: TestReviewDelegation // 跳转到的组件
         },
         {
-            path: '/client/Personal',     // 路径
+            path: '/Personal',     // 路径
             component: Personal    // 跳转到的组件
+        },
+        {
+            path: '/ProQurey',     // 路径
+            component: ProQurey    // 跳转到的组件
         },
         {
             path: '/client/Info',     // 路径
@@ -235,11 +241,15 @@ export default new VueRouter({
             component: MarketContract    // 跳转到的组件
         },
         {
-            path: '/Quote/GenQuote',     // 路径
+            path: '/GenQuote',     // 路径
             component: GenQuote    // 跳转到的组件
         },
         {
-            path: '/Quote/AuditQuote',     // 路径
+            path: '/changeQuote',     // 路径
+            component: ChangeQuote    // 跳转到的组件
+        },
+        {
+            path: '/AuditQuote',     // 路径
             component: AuditQuote    // 跳转到的组件
         },
         {

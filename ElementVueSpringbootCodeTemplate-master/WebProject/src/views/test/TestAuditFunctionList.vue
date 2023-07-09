@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px " >
     <el-row>
       <el-col :span="23">
     <el-breadcrumb separator="->">
@@ -35,7 +35,7 @@
         </el-steps>
         </el-col>
        <el-col :span="2">
-         <router-link to="/testAuditinfor">
+         <router-link to="/testcheckmarketinfor">
 	          <el-button type="success" style="margin: 14px">下一步</el-button>
         </router-link>
        </el-col>

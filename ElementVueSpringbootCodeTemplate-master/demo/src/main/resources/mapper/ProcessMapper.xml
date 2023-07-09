@@ -6,9 +6,9 @@
         <selectKey keyProperty="PID" order="AFTER" resultType="Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        INSERT INTO selabspringe.process(notes, UID, AID, state, QID)
+        INSERT INTO selabspringe.process(notes, UID, AID, state, price, fileIDs)
 
-        VALUES (#{notes}, #{UID}, #{AID}, #{state}, #{QID})
+        VALUES (#{notes}, #{UID}, #{AID}, #{state}, #{price}, #{fileIDs})
 
     </insert>
     <select id="findByUID" parameterType="int" resultType="com.selab.demo.model.ProcessModel">
@@ -30,22 +30,10 @@
         SELECT PID FROM process WHERE PID=#{PID}
     </select>
     <update id="update" parameterType="com.selab.demo.model.ProcessModel">
-        UPDATE selabspringe.process SET notes=#{notes}, state=#{state} WHERE PID=#{PID}
-    </update>
-    <update id="setAID" parameterType="int">
-        UPDATE selabspringe.process SET AID=#{AID} WHERE PID=#{PID}
-    </update>
-    <update id="setCID" parameterType="int">
-        UPDATE selabspringe.process SET CID=#{CID} WHERE PID=#{PID}
-    </update>
-    <update id="setQID" parameterType="int">
-        UPDATE selabspringe.process SET QID=#{QID} WHERE PID=#{PID}
+        UPDATE selabspringe.process SET notes=#{notes}, state=#{state}, price=#{price} WHERE PID=#{PID}
     </update>
     <delete id="delete" parameterType="int" >
         DELETE FROM process WHERE PID = #{PID}
-    </delete>
-    <delete id="clearFiles" parameterType="int" >
-        DELETE FROM selabspringe.file WHERE PID = #{PID}
     </delete>
 
 </mapper>
