@@ -42,15 +42,8 @@
           <el-menu-item-group>
           <el-menu-item index="1-11" @click="addTab('生成报价', 'GQuote')">生成报价</el-menu-item>
           </el-menu-item-group>
-        </el-submenu>
-
-        <el-submenu index="0">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span>生成报价</span>
-          </template>
           <el-menu-item-group>
-            <el-menu-item index="0-2" @click="addTab('个人信息完善', 'MyInformation')">委托审核结果</el-menu-item>
+          <el-menu-item index="1-11" @click="addTab('生成合同', 'Contr')">生成合同</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

@@ -222,7 +222,7 @@ export default {
 
 .PersonTop_img {
   background-image:url(../../assets/avatar.jpg);
-  width: 200px;
+  width: 140px;
   height: 130px;
   margin-right: 20px;
   margin-left: 20px;

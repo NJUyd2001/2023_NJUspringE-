@@ -50,6 +50,12 @@
         width="150">
       </el-table-column>
       <el-table-column
+        sortable
+        prop="processID"
+        label="PID"
+        width="150">
+      </el-table-column>
+      <el-table-column
         fixed="right"
         label="操作"
         width="100"
@@ -60,7 +66,6 @@
       </el-table-column>
     </el-table>
     
-    <Pagination ref="page1" url="http://localhost:9090/api/application/checkbyprocess" :keyword="keyword" :sort="sort" v-model="datas"/>
   </div>
 </template>
 
@@ -71,8 +76,12 @@ export default {
     return {
       keyword:"",
       datas:[],
-      ruleForm:
-      { processID:1 },
+      ruleForm:{
+        processID:"",
+      },
+      State10:{
+        state:'10',
+      },
       sort: {},
       passwordDlg:{
         row: null,
@@ -84,7 +93,17 @@ export default {
     };
   },
   created(){
-    Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.ruleForm),{
+    Axios.post("http://localhost:9090/api/process/byState/selectPID",JSON.stringify(this.State10),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data);
+          var k=0;
+    for(;k<ret.data.length;k++)
+    {
+      this.ruleForm.processID=ret.data[k];  
+      console.log(this.ruleForm.processID)
+      Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
@@ -95,10 +114,10 @@ export default {
          {
           this.datas.push(ret.data[i]);
          }  
+      }) 
+    }
       })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });
+    
   },
   methods: {
     SolvePro(row){
@@ -106,6 +125,7 @@ export default {
       //sessionStorage.setItem
         this.$store.state.user.process.UID=row.applicantID;
         this.$store.state.user.process.AID=row.AID;
+        this.$store.state.user.process.PID=row.processID;
         console.log(this.$store.state.user.process.AID);
         console.log(this.$store.state.user.process.UID);
         this.$router.push({path: "./marketaudituser", replace:true})

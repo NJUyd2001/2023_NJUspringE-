@@ -164,7 +164,7 @@ export default {
             },
             Quote:0,
             MarCon:{
-              PID:"1",  //this.$store.state.user.process.PID,
+              PID:this.$store.state.user.process.PID,
               state:"30",
             },
             rules:{

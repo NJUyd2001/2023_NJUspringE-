@@ -111,10 +111,10 @@
       <el-divider></el-divider>
       <el-form  :model="Suggestion">
         <el-row type="flex" justify="center">
-        <el-col :span="3">
+        <el-radio-group :span="3">
           <el-radio v-model="Suggestion.Pass" label="false">拒绝</el-radio>
           <el-radio v-model="Suggestion.Pass" label="true">同意</el-radio>
-        </el-col>
+        </el-radio-group>
         </el-row>
         <br>
         <el-row type="flex" justify="center">
