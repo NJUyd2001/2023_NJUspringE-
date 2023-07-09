@@ -13,8 +13,9 @@ public class ContractModel {
     private String ddl;
     private String changenumber;
     private String changeday;
+    private String money;
 
-    public ContractModel(Integer CID, String itemname, String client, String trustee, String qc, String date, String periodofvalidity, String ddl, String changenumber, String changeday) {
+    public ContractModel(Integer CID, String itemname, String client, String trustee, String qc, String date, String periodofvalidity, String ddl, String changenumber, String changeday, String money) {
         this.CID = CID;
         this.itemname = itemname;
         this.client = client;
@@ -25,6 +26,7 @@ public class ContractModel {
         this.ddl = ddl;
         this.changenumber = changenumber;
         this.changeday = changeday;
+        this.money = money;
     }
 
     public Integer getCID() {
@@ -105,5 +107,13 @@ public class ContractModel {
 
     public void setChangeday(String changeday) {
         this.changeday = changeday;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
     }
 }
