@@ -162,6 +162,7 @@ export default {
     }
   },
   mounted() {
+    /*
     this.$nextTick(function() {
       this.ajax.post("/app/user").then(result => {
         if (result.code == 0) {
@@ -169,6 +170,7 @@ export default {
         }
       });
     });
+    */
   },
   methods: {
     handleNodeClick(data) {
@@ -189,7 +191,6 @@ export default {
     },
     loginSuccess(user) {
       console.log("success", user);
-
       this.showLogin = false;
       this.user = user;
     },

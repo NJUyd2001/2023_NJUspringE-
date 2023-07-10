@@ -22,15 +22,15 @@
             <el-button style="margin-top: -25px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="8"><div class="grid-content bg-purple">
+          <el-col :span="8" push="4"><div class="grid-content bg-purple">
             <span class="logo-title">测试内容</span>
             </div></el-col>
-            <el-col :span="12">
+            <el-col :span="12" push="3">
           <el-steps :space="200" :active="3" finish-status="success">
-          <el-step title="测试报告信息查看"></el-step>
-          <el-step title="测试报告查看"></el-step>
-          <el-step title="测试环境查看"></el-step>
-          <el-step title="测试内容查看"></el-step>
+          <el-step title="测试报告信息填写"></el-step>
+          <el-step title="测试报告填写"></el-step>
+          <el-step title="测试环境填写"></el-step>
+          <el-step title="测试内容填写"></el-step>
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
@@ -47,7 +47,7 @@
       </el-header>
         <br><br>
         <el-main>
-          <el-form style="padding-top:30px; margin-top: 25px;" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form style="padding-top:30px; margin-top: 40px;" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
@@ -214,6 +214,42 @@
                   { required: true, message: "不能为空！", trigger: "blur" },
                 ],
                 TestSpecification:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestResult1:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestCharacteristic1:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestSpecification1:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestResult2:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestSpecification2:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestResult3:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestCharacteristic3:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestSpecification3:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestResult4:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestCharacteristic4:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestSpecification4:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestResult5:[
                   { required: true, message: "不能为空！", trigger: "blur" },
                 ],
                 },

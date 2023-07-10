@@ -25,14 +25,14 @@
           </div></el-col>
           <el-col :span="10">
           <el-steps :space="200" :active="1" finish-status="success">
-          <el-step title="测试报告信息查看"></el-step>
-          <el-step title="测试报告查看"></el-step>
-          <el-step title="测试环境查看"></el-step>
-          <el-step title="测试内容查看"></el-step>
+          <el-step title="测试报告信息填写"></el-step>
+          <el-step title="测试报告填写"></el-step>
+          <el-step title="测试环境填写"></el-step>
+          <el-step title="测试内容填写"></el-step>
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" push="2">
             <router-link to="/TestEnvironment">
             <el-button @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
             </router-link>
@@ -42,7 +42,7 @@
         <el-main>
           <br><br>
           <el-form style="margin-top: 60px; margin-left: 10%;" label-position="middle" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm" >
-          <el-form-item label="委托单位" prop="Client">  
+          <el-form-item label="委托单位:" prop="Client">  
             <el-input style="width:200px;padding:10px;" v-model="ruleForm.Client"></el-input>
           </el-form-item>
           <el-form-item label="项目编号:" prop="ProjectNum"> 
@@ -51,13 +51,13 @@
           <el-form-item label="样品名称:" prop="SampleName"> 
             <el-input style="width:200px;padding:10px" v-model="ruleForm.SampleName"></el-input>
           </el-form-item> 
-          <el-form-item label="版本/型号:" prop="Versioin"> 
+          <el-form-item label="版本/型号:" prop="Version"> 
             <el-input style="width:200px;padding:10px" v-model="ruleForm.Version"></el-input>
           </el-form-item> 
-          <el-form-item label='来样日期:'>
+          <el-form-item label='来样日期:' prop="SampleDate">
               <div class="demo-date-picker">
                 <el-date-picker
-                v-model="SampleDate"
+                v-model="ruleForm.SampleDate"
                 type="date"
                 placeholder="时间选择"
                 :size=large
@@ -67,7 +67,7 @@
           <el-form-item label="测试类型:" prop="TypeTest">  
              <el-input style="width:200px;padding:10px;" v-model="ruleForm.TypeTest"></el-input>
           </el-form-item>
-          <el-form-item label="测试时间:">
+          <el-form-item label="测试时间:" prop="TestTime">
                 <el-date-picker
                 style="margin-left: 20px;"
                 v-model="ruleForm.TestTime"
@@ -152,7 +152,7 @@
                     TestTime:'',
                     DevelopmentCompany:'',
                     SampleStatus:'',
-                    NeededStandard:[],
+                    NeededStandard:'',
                     SampleList:'',
                     TestConclusion:'',
                     Organizer:'',
@@ -162,36 +162,6 @@
                     Approver:'',
                     SampleDate3:'',
                 },
-                Standard:[
-                {
-                  id:1,
-                  value:'GB/T 25000.51-2016',
-                },
-                {
-                  id:2,
-                  value:'GB/T 25000.10-2016',
-                },
-                {
-                  id:3,
-                  value:'GB/T 28452-2012',
-                },
-                {
-                  id:4,
-                  value:'GB/T 30961-2014',
-                },
-                {
-                  id:5,
-                  value:'NST-03-WI12-2011',
-                },
-                {
-                  id:6,
-                  value:'NST-03-WI13-2011',
-                },
-                {
-                  id:7,
-                  value:'NST-03-WI22-2014',
-                }
-                ],
                 shortcuts:[
                 {
                   text: 'Today',
@@ -221,16 +191,19 @@
                 ProjectNum:[
                   { required: true, message: "不能为空！", trigger: "blur" },
                 ],
-                ProjectNum:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
                 SampleName:[
                   { required: true, message: "不能为空！", trigger: "blur" },
                 ],
                 Version:[
                   { required: true, message: "不能为空！", trigger: "blur" },
                 ],
+                SampleDate:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
                 TypeTest:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                TestTime:[
                   { required: true, message: "不能为空！", trigger: "blur" },
                 ],
                 DevelopmentCompany:[
@@ -251,10 +224,19 @@
                 Organizer:[
                   { required: true, message: "不能为空！", trigger: "blur" },
                 ],
+                SampleDate1:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
                 Auditor:[
                   { required: true, message: "不能为空！", trigger: "blur" },
                 ],
+                SampleDate2:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
                 Approver:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                SampleDate3:[
                   { required: true, message: "不能为空！", trigger: "blur" },
                 ],
                 }

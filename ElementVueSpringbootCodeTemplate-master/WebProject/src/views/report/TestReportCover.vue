@@ -24,10 +24,10 @@
             </div></el-col>
           <el-col :span="19">
           <el-steps :space="200" :active="0" finish-status="success">
-          <el-step title="测试报告信息查看"></el-step>
-          <el-step title="测试报告查看"></el-step>
-          <el-step title="测试环境查看"></el-step>
-          <el-step title="测试内容查看"></el-step>
+          <el-step title="测试报告信息填写"></el-step>
+          <el-step title="测试报告填写"></el-step>
+          <el-step title="测试环境填写"></el-step>
+          <el-step title="测试内容填写"></el-step>
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
@@ -42,19 +42,19 @@
         <el-main>
           <br>
           <el-form style="margin-top: 50px;" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item  label="软件名称:" label-width="650px">
+            <el-form-item  label="软件名称:" label-width="650px" prop="SoftwareName">
               <el-input v-model="ruleForm.SoftwareName" style="width: 200px;"></el-input>
             </el-form-item>
-            <el-form-item label="版 本 号:" label-width="650px">
+            <el-form-item label="版 本 号:" label-width="650px" prop="VersionNumber">
               <el-input v-model="ruleForm.VersionNumber" style="width: 200px;"></el-input>
             </el-form-item>
-            <el-form-item  label="委托单位:" label-width="650px">
+            <el-form-item  label="委托单位:" label-width="650px" prop="Client">
               <el-input v-model="ruleForm.Client" style="width: 200px;"></el-input>
             </el-form-item>
-            <el-form-item  label="测试类别:" label-width="650px">
+            <el-form-item  label="测试类别:" label-width="650px" prop="TypeTest">
               <el-input v-model="ruleForm.TypeTest" style="width: 200px;"></el-input>
             </el-form-item>
-            <el-form-item  label='报告日期:' label-width="650px">
+            <el-form-item  label='报告日期:' label-width="650px" prop="Date">
               <div class="block">
                 <el-date-picker
                 style="margin-top: 75px; margin-left: -580px;"

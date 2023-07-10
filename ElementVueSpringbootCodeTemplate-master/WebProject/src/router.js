@@ -64,6 +64,7 @@ import DataSubmit from './views/client/DataSubmit'
 import ConfidentialityAgreement from './views/client/ConfidentialityAgreement'
 import MarketConfidentialityAgreement from './views/market/ConfidentialityAgreement'
 import DocumentandSign from './views/apply/DocumentAndSign'
+import TestSchemeReviewForm from './views/test/TestSchemeReviewForm'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -317,6 +318,10 @@ export default new VueRouter({
         {
             path: '/samplerecived',       // 路径
             component: SampleRecived     // 跳转到的组件 
+        },
+        {
+            path: '/TestSchemeReviewForm',      // 路径
+            component: TestSchemeReviewForm     // 跳转到的组件
         },
     ]
 })
