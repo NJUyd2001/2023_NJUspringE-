@@ -12,6 +12,15 @@ public class ProcessModel {
     private int PID;
     private String notes;
 
+    private int AgID;
+
+    public int getAgID() {
+        return AgID;
+    }
+
+    public void setAgID(int agID) {
+        AgID = agID;
+    }
 
     public ProcessModel(String notes, Integer CID, Integer QID, Integer UID, Integer AID, String state) {
         this.notes = notes;
