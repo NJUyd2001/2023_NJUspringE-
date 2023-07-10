@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 @Mapper
 public interface ContractDao {
-    @Insert("INSERT INTO selabspringe.contract (itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday) VALUES(#{itemname},#{client},#{trustee},#{qc},#{date},#{periodofvalidity},#{ddl},#{changenumber},#{changeday})")
+    @Insert("INSERT INTO selabspringe.contract (itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday,money) VALUES(#{itemname},#{client},#{trustee},#{qc},#{date},#{periodofvalidity},#{ddl},#{changenumber},#{changeday},#{money})")
     @Options(useGeneratedKeys=true, keyProperty="CID", keyColumn="CID")
     public void insert(ContractModel contractModel);
 
@@ -15,7 +15,7 @@ public interface ContractDao {
     @Select("SELECT CID FROM selabspringe.contract WHERE CID = #{CID}")
     public Integer select2(Integer CID);
 
-    @Update("UPDATE selabspringe.contract SET itemname = #{itemname},client = #{client},trustee = #{trustee},qc = #{qc},date = #{date},periodofvalidity = #{periodofvalidity},ddl = #{ddl},changenumber = #{changenumber},changeday = #{changeday} WHERE CID = #{CID}")
+    @Update("UPDATE selabspringe.contract SET itemname = #{itemname},client = #{client},trustee = #{trustee},qc = #{qc},date = #{date},periodofvalidity = #{periodofvalidity},ddl = #{ddl},changenumber = #{changenumber},changeday = #{changeday},money=#{money} WHERE CID = #{CID}")
     public void update(ContractModel contractModel);
 
     @Delete("DELETE FROM selabspringe.contract WHERE CID = #{CID}")

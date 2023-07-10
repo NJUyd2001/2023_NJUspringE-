@@ -14,31 +14,22 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="6">
+          <el-col :span="2">
             <router-link to="/Test">
             <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="8" push="1"><div class="grid-content bg-purple">
+          <el-col :span="20" ><div class="grid-content bg-purple">
             <span class="logo-title">测试部-测试方案</span>
             </div></el-col>
-            <el-col :span="6" pull="3">
-            <div class="grid-content bg-purple-light text-right">
-              <el-dropdown  @command="switchLang">
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="zh">En</el-dropdown-item>
-                  <el-dropdown-item command="en">中</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </div></el-col>
-          <el-col :span="6" push="4">
+          <el-col :span="2">
             <el-button style="margin-top: 10px; margin-left: 30px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
         <br><br>
         <el-main>
-          <el-form style="margin-left: 200px; margin-top: 30px;" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form style="margin-left: 200px; margin-top: 30px;"  :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item label="1 引言" prop="Introduction" style="font-weight: bold; font-size: 15px; ">
             </el-form-item>
             <el-form-item label="1.1标识:" prop="Mark">
@@ -72,61 +63,6 @@
             </el-form-item>
             <el-form-item label="3.5人员:" prop="Personnel" style="font-weight: normal; font-size: 15px; ">
             </el-form-item>
-            <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"测试工程师"' :key="index" >
-              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.EvaluationOpinion1"></el-input>
-              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.Sign1"></el-input>
-              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.Date1"></el-input>
-            </el-form-item>
-          </el-form>
-          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"测试室负责人"' :key="index" >
-              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.EvaluationOpinion2"></el-input>
-              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.Sign2"></el-input>
-              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.Date2"></el-input>
-            </el-form-item>
-          </el-form>
-          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"质量负责人"' :key="index" >
-              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.EvaluationOpinion3"></el-input>
-              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.Sign3"></el-input>
-              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.Date3"></el-input>
-            </el-form-item>
-          </el-form>
-          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"技术负责人"' :key="index" >
-              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.EvaluationOpinion4"></el-input>
-              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.Sign4"></el-input>
-              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.Date4"></el-input>
-            </el-form-item>
-          </el-form>
-          <el-form label-width="400px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"监督人"' :key="index" >
-              <el-input placeholder="评审意见" style="width: 100px;padding-right:20px;" v-model="Table.EvaluationOpinion5"></el-input>
-              <el-input placeholder="签  字" style="width: 100px;padding-right:20px;" v-model="Table.Sign5"></el-input>
-              <el-input placeholder="日期" style="width: 100px;padding-right:20px;" v-model="Table.Date5"></el-input>
-            </el-form-item>
-          </el-form>
             <el-form-item label="4 计划" prop="Plan" style="font-weight: bold; font-size: 15px; ">
             </el-form-item>
             <el-form-item label="4.1总体设计:" prop="OverallDesign" style="font-weight: normal; font-size: 15px; ">

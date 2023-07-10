@@ -44,6 +44,7 @@ public class ContractService {
             result.put("ddl", jsonObject.getString("ddl"));
             result.put("ChangeNumber", jsonObject.getString("changenumber"));
             result.put("ChangeDay", jsonObject.getString("changeday"));
+            result.put("money",jsonObject.getString("money"));
             result2.add(result);
             ++i;
         }
@@ -64,7 +65,8 @@ public class ContractService {
         String ddl = jsonObject.getString("ddl");
         String changenumber = jsonObject.getString("ChangeNumber");
         String changeday = jsonObject.getString("ChangeDay");
-        ContractModel contractModel = new ContractModel(0,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday);
+        String money = jsonObject.getString("money");
+        ContractModel contractModel = new ContractModel(0,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday,money);
         contractDao.insert(contractModel);
         Integer CID = contractModel.getCID();
         processDao.setCID(PID,CID);
@@ -93,6 +95,7 @@ public class ContractService {
         String ddl = jsonObject.getString("ddl");
         String changenumber = jsonObject.getString("ChangeNumber");
         String changeday = jsonObject.getString("ChangeDay");
+        String money = jsonObject.getString("money");
         if(contractDao.select2(CID)  == null){
             return ("the contract does not exist");
         }
@@ -125,8 +128,10 @@ public class ContractService {
         if(changeday == null){
             changeday = oldjsonObject.getString("changeday");
         }
-
-        ContractModel contractModel = new ContractModel(CID,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday);
+        if(money == null){
+            money = oldjsonObject.getString("money");
+        }
+        ContractModel contractModel = new ContractModel(CID,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday,money);
         contractDao.update(contractModel);
         return ("contract update complete");
     }
@@ -160,6 +165,7 @@ public class ContractService {
         String ddl = jsonObject.getString("ddl");
         String changenumber = jsonObject.getString("ChangeNumber");
         String changeday = jsonObject.getString("ChangeDay");
+        String money = jsonObject.getString("money");
         if(contractDao.select2(CID)  == null){
             return ("the contract does not exist");
         }
@@ -192,8 +198,11 @@ public class ContractService {
         if(changeday == null){
             changeday = oldjsonObject.getString("changeday");
         }
+        if(money == null){
+            money = oldjsonObject.getString("money");
+        }
 
-        ContractModel contractModel = new ContractModel(CID,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday);
+        ContractModel contractModel = new ContractModel(CID,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday,money);
         contractDao.update(contractModel);
         return ("contract update complete");
     }

@@ -188,7 +188,7 @@
           'content-type': 'text/plain'}
       }).then(ret=>{
           //console.log(ret.data)
-          this.Fid.FID1=ret.data.fileIDs;
+          this.Fid.FID=ret.data.fileIDs;
       }).catch(function (error)
         {
           console.log(error);

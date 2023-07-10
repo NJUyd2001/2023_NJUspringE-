@@ -45,6 +45,7 @@ import TestDocument1 from './views/report/TestDocument1'
 import TestDocument2 from './views/report/TestDocument2'
 import TestReviewDelegation from './views/test/TestReviewDelegation'
 import MarketContract from './views/market/Contract'
+import ClientContract from './views/client/Contract'
 import GenQuote from './views/Quote/GenQuote'
 import ChangeQuote from './views/Quote/ChangeQuote'
 import AuditQuote from './views/Quote/AuditQuote'
@@ -57,6 +58,7 @@ import TestEnvironment from './views/report/TestEnvironment'
 import SoftwareProjectTestChecklist from './views/test/SoftwareProjectTestChecklist'
 import DataSubmit from './views/client/DataSubmit'
 import ConfidentialityAgreement from './views/client/ConfidentialityAgreement'
+import MarketConfidentialityAgreement from './views/market/ConfidentialityAgreement'
 import DocumentandSign from './views/apply/DocumentAndSign'
 
 // 创建并暴露一个路由器
@@ -241,6 +243,10 @@ export default new VueRouter({
             component: MarketContract    // 跳转到的组件
         },
         {
+            path: '/ClientContract',     // 路径
+            component: ClientContract    // 跳转到的组件
+        },
+        {
             path: '/GenQuote',     // 路径
             component: GenQuote    // 跳转到的组件
         },
@@ -287,6 +293,10 @@ export default new VueRouter({
         {
             path: '/client/ConfidentialityAgreement',   // 路径
             component: ConfidentialityAgreement         // 跳转到的组件
+        },
+        {
+            path: '/market/ConfidentialityAgreement',   // 路径
+            component: MarketConfidentialityAgreement         // 跳转到的组件
         },
     ]
 })
