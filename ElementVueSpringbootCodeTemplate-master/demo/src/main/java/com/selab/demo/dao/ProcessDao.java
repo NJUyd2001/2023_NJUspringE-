@@ -30,10 +30,11 @@ public interface ProcessDao {
     // 更新notes和state
     @Update("UPDATE selabspringe.process SET notes=#{notes}, state=#{state} WHERE PID=#{PID}")
     void update(ProcessModel processModel);
-    // 只更新state
+    // 只更新state   (merge)
     @Update("UPDATE selabspringe.process SET state=#{state} WHERE PID=#{PID}")
     void updateState(int PID, String state);
 
+    // merge
     @Update("UPDATE selabspringe.process SET AID=#{AID} WHERE PID=#{PID}")
     void setAID(int PID, int AID);
     @Update("UPDATE selabspringe.process SET QID=#{QID} WHERE PID=#{PID}")
