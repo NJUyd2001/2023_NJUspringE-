@@ -66,6 +66,7 @@ public class UserService {
         return userDao.staffLogin(nickname, password);
     }
     public List<User> selectAll(){
+        System.out.println("正在返回信息");
         return userDao.selectAll();
     }
     public User selectByUID(String postJson){
