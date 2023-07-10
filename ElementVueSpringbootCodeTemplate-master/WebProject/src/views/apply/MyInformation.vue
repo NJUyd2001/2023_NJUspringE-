@@ -1,6 +1,6 @@
 <template>
 <el-container class="logo">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px " >
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
     <el-breadcrumb-item><a/>个人信息完善</el-breadcrumb-item>

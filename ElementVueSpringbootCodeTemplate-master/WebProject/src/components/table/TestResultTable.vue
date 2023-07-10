@@ -56,11 +56,13 @@
         </template>
       </el-table-column>
     </el-table>
-    <Pagination url="/config/list" v-model="configs"/>
+    <Pagination ref="page1" url="http://localhost:9090/api/application/checkbyprocess" :keyword="keyword" :sort="sort" v-model="datas"/>
   </div>
 </template>
 
 <script>
+
+import Axios from "axios"
 export default {
   methods:{
     Pass(row){
@@ -72,6 +74,9 @@ export default {
   },
   data() {
     return {
+      ruleForm:
+      { processID:1 },
+      datas:[],
       keyword: '',
       infors: [{
         aid:'0001',
@@ -97,13 +102,39 @@ export default {
     ]
     };
   },
+  created(){
+    Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.ruleForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data);
+        //console.log(this.datas);
+      var i=0;
+      for(;i<ret.data.length;i++)
+         {
+          this.datas.push(ret.data[i]);
+         }  
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+  },
   computed:{
     filterinfors(){
-      return this.infors.filter((i)=>{
+      return this.datas.filter((i)=>{
+        var uid=i.uid+"";
+        return uid.indexOf(this.keyword)!==-1||i.regTime.indexOf(this.keyword)!==-1||i.nickname.indexOf(this.keyword)!==-1
+                ||i.emailAddr.indexOf(this.keyword)!==-1||i.phone.indexOf(this.keyword)!==-1
+      })
+    }
+    /*
+    filterinfors(){
+      return this.datas.filter((i)=>{
         return i.aid.indexOf(this.keyword)!==-1||i.applicantID.indexOf(this.keyword)!==-1||i.time.indexOf(this.keyword)!==-1
                 ||i.doc.indexOf(this.keyword)!==-1
       })
     }
+    */
   }
 };
 </script>

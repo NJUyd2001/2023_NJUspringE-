@@ -221,19 +221,16 @@ export default {
 }
 
 .PersonTop_img {
-  width: 150px;
-  height: 120px;
-  margin-right: 24px;
+  background-image:url(../../assets/avatar.jpg);
+  width: 140px;
+  height: 130px;
+  margin-right: 20px;
   margin-left: 20px;
   overflow: hidden;
   border-radius: 20px;
 }
 
-.PersonTop_img img {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-}
+
 
 .PersonTop_text {
   height: 120px;

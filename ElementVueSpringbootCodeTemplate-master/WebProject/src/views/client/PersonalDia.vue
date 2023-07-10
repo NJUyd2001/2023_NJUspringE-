@@ -4,7 +4,8 @@
   title="修改个人信息"
   :visible.sync="dialogVisible"
   width="60%"
-  :before-close="handleClose">
+  :before-close="handleClose"
+  append-to-body>
   <el-form :model="user" :rules="rules" ref="form" label-width="150px">
       <div class="updateinfo">
   <div class="left">
@@ -109,7 +110,7 @@ export default {
       }).then(ret=>{
         console.log(ret)
         this.info("提交成功，正在返回登录界面！");
-        setTimeout(() => {this.$router.push({path: "../clientlogin", replace:true});}, 2000);
+        setTimeout(() => {this.$router.push({path: "../home", replace:true});}, 2000);
       })
     },
     handleClose() {

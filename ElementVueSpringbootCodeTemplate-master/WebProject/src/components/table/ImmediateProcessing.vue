@@ -9,40 +9,40 @@
     <el-col :span="12">
     <div class="Progress">
   <el-timeline>
-    <el-timeline-item timestamp="2018/4/2" color="#0bbd87" placement="top">
+    <el-timeline-item class="timeline1" timestamp={{ responsedata1.date1 }} color="#0bbd87" placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">报价处理</h4>
-        <p> 处理时间 2023/4/2 20:46</p>
+        <p> 处理时间 {{ responsedata1.date1 }}</p>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="2018/4/3" placement="top">
+    <el-timeline-item class="timeline2" timestamp={{ responsedata1.date2 }} placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">报价接受</h4>
-        <p> 处理时间 2023/4/3 20:46</p>
+        <p> 处理时间 {{ responsedata1.date2 }}</p>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="2018/4/4" placement="top">
+    <el-timeline-item class="timeline3" timestamp={{ responsedata1.date3 }} placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">检查合同草稿中</h4>
-        <p> 处理时间 2023/4/4 20:46</p>
+        <p> 处理时间 {{ responsedata1.date3 }}</p>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="2018/4/5" placement="top">
+    <el-timeline-item class="timeline4" timestamp={{ responsedata1.date4 }} placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">样品发送</h4>
-        <p> 处理时间 2023/4/5 20:46</p>
+        <p> 处理时间 {{ responsedata1.date4 }}</p>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="2018/4/6" placement="top">
+    <el-timeline-item class="timeline5" timestamp={{ responsedata1.date5 }} placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">审核测试报告</h4>
-        <p> 处理时间 2023/4/6 20:46</p>
+        <p> 处理时间 {{ responsedata1.date5 }}</p>
       </el-card>
     </el-timeline-item>
-    <el-timeline-item timestamp="2018/4/7" placement="top">
+    <el-timeline-item class="timeline6" timestamp={{ responsedata1.date6 }} placement="top">
       <el-card>
         <h4 style="margin-top: -10px;">确认接受测试报告</h4>
-        <p> 处理时间 2023/4/7 20:46</p>
+        <p> 处理时间 {{ responsedata1.date6 }}</p>
       </el-card>
     </el-timeline-item>
     </el-timeline>
@@ -78,22 +78,15 @@
   import Vue from "vue";
 
   export default {
-  created() {
-    // 载入config数据
-    //this.$store.dispatch("config/reload");
-    this.$bus.on("login-open", this.loginOut);
-    this.$bus.on("login-success", this.loginSuccess);
-    this.$bus.on("login-cancel", this.loginCancel);
-  },
-  data() {
-    return {  
-      formLabelAlign: {
+    data() {
+      return {  
+        formLabelAlign: {
           name: '',
           region: '',
           type: ''
         },
 
-      data: [{
+        data: [{
           label: '报价处理',
           children: [{
             label: '客户处理的报价',
@@ -115,20 +108,71 @@
           children: 'children',
           label: 'label'
         }
-    ,
-      menus: [{}],
-      
-      //Tabs
-      selectTabName: "ConfigAdd",
-      tabs: {
-        ConfigAdd: {
-          title: "新建页面",
-          name: "ConfigAdd",
-          currentView: "ConfigAdd"
-        }
-      }
-    };
-  },
+        ,
+        menus: [{}],
+        
+        //Tabs
+        selectTabName: "ConfigAdd",
+        tabs: {
+          ConfigAdd: {
+            title: "新建页面",
+            name: "ConfigAdd",
+            currentView: "ConfigAdd"
+          }
+        },
+        responsedata1:[],
+        requestdata1:
+        { processID:1 },
+        
+        responsedata2:[],
+        requestdata2:
+        { processID:1 }  
+      };
+    },
+    created() {
+      Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.requestdata1),{
+          headers:{
+            'content-type': 'text/plain'}
+        }).then(ret=>{
+          //console.log(ret.data);
+          //console.log(this.datas);
+        var i=0;
+        for(;i<ret.data.length;i++)
+           {
+            this.responsedata1.push(ret.data[i]);
+           }  
+
+          if(responsedata1.status == 1)
+          {
+            timeline1.color = "#0bbd87";
+          }
+          else if(this.responsedata1.status == 2)
+          {
+            timeline2.color = "#0bbd87";
+          }
+        })
+        .catch(function (error) { // 请求失败处理
+          console.log(error);
+        });
+        
+
+        Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.requestdata2),{
+          headers:{
+            'content-type': 'text/plain'}
+        }).then(ret=>{
+          //console.log(ret.data);
+          //console.log(this.datas);
+        var i=0;
+        for(;i<ret.data.length;i++)
+           {
+            this.responsedata2.push(ret.data[i]);
+           }  
+        })
+        .catch(function (error) { // 请求失败处理
+          console.log(error);
+        });
+    
+    },
   computed: {
     // 动态给步骤加样式
     stepClassObj(val) {
@@ -167,7 +211,7 @@
       this.lang = command;
     },
     handleStart() {
-      this.$router.push('client/Personal');
+      this.$router.push('Personal');
     },
     loginOut() {
       //this.showLogin = true;

@@ -1,7 +1,7 @@
 <!-- 文炫添加 -->
 <template>
     <el-container style="height:100%">
-      <el-header style="height: 30px " @back="goback">
+      <el-header style="height: 30px " >
       <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">

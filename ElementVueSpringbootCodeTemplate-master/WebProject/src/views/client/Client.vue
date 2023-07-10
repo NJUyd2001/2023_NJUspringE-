@@ -9,7 +9,7 @@
           <img src="../../assets/l3.png" style="height:80px"/>
         </el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
-        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.isLogin}}</el-button>
+        <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
         <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
       </el-col>
     </el-row>
@@ -30,8 +30,9 @@
             <el-menu-item index="1-11" @click="jump2application()" style="font-size:18px">发起委托</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="委托处理">
-            <el-menu-item index="1-21" @click="addTab('进度查询', 'ProgressQuery')" style="font-size:18px">进度查询</el-menu-item>
+            <el-menu-item index="1-21" @click="addTab('进度查询', 'MyApp')" style="font-size:18px">进度查询</el-menu-item>
           </el-menu-item-group>
+          
         </el-submenu>
         <el-submenu index="0">
           <template slot="title" collapse=false>
@@ -164,7 +165,7 @@ export default {
       this.lang = command;
     },
     handleStart() {
-      this.$router.push('client/Personal');
+      this.$router.push('/Personal');
       //console.log(Object.prototype.toString.call(user.utype));
     },
     loginOut() {
@@ -203,19 +204,11 @@ export default {
       this.$router.push('/myinf');
     },
     addTab(targetName, commentName) {
-      // 如果已经存在
-      if (this.tabs[commentName]) {
-        this.selectTabName = commentName;
-        return;
-      }
-
-      // add table
       this.$set(this.tabs, commentName, {
         title: targetName,
         name: commentName,
         currentView: commentName
       });
-
       this.selectTabName = commentName;
     },
     removeTab(targetName) {

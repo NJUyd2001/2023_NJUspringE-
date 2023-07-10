@@ -1,10 +1,10 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px ">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/test' }">市场部主页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="">合同草稿修改</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="">在线合同草稿</a></el-breadcrumb-item>
   </el-breadcrumb>
   <br>
     <el-row  type="flex" justify="center" align="middle">
@@ -13,59 +13,78 @@
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="12" ><div class="grid-content bg-purple">
-        <span>软件委托测试合同</span>
+      <el-col :span="6" ><div class="grid-content bg-purple">
+        <h1>软件委托测试合同</h1>
         </div></el-col>
+        <el-col :span="10">
+        <el-steps :space="200" :active="stepNumber" finish-status="success">
+          <el-step title="合同草稿生成"></el-step>
+          <el-step title="保密协议生成"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+      </el-col>  
       <el-col :span="2">
-        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">提交</el-button>
+        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">下一步</el-button>
       </el-col>
     </el-row>
   </el-header>
-    <br><br>
+    <br><br><br>
     <el-main>
       <br>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item  label="项目名称:" label-width="650px">
+        <el-form-item  label="项目名称:" label-width="650px" prop="ItemName">
           <el-input v-model="ruleForm.ItemName" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="委托方（甲方）:" label-width="650px">
+        <el-form-item label="委托方（甲方）:" label-width="650px" prop="Client">
           <el-input v-model="ruleForm.Client" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item  label="受托方（乙方）:" label-width="650px">
+        <el-form-item  label="受托方（乙方）:" label-width="650px" prop="Trustee">
           <el-input v-model="ruleForm.Trustee" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item  label="质量特性:" label-width="650px">
+        <el-form-item  label="质量特性:" label-width="650px" prop="QC">
           <el-input v-model="ruleForm.QC" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item  label='签订日期:' label-width="650px">
-          
-          <div class="block">
+        <el-form-item  label='签订日期:' label-width="650px" prop="date">
             <el-date-picker
             v-model="ruleForm.date"
             type="date"
             placeholder="完成时间选择"
-            :size=large
+            size=large
               />
-            </div>
-            
         </el-form-item>
-        <el-form-item  label='有效期至:' label-width="650px"> 
-          <div class="block">
+        <el-form-item  label='有效期至:' label-width="650px" prop="PeriodOfValidity"> 
             <el-date-picker
             v-model="ruleForm.PeriodOfValidity"
             type="date"
             placeholder="完成时间选择"
-            :size=large
+            size=large
               />
-            </div>
+        </el-form-item>
+        <el-form-item label="合同草稿(扫描件/word):" label-width="650px">
+          <el-upload
+            list-type="text"
+              class="upload-demo"
+              action="http://localhost:9090/api/file/upload"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-upload="beforeUploadword"
+              multiple
+              :limit="1"
+              :on-exceed="handleExceed"
+              accept=".doc, .docx"
+              :data="{ PID:this.ruleForm.PID }"
+              >
+  <el-button size="small" type="primary">点击上传</el-button>
+            </el-upload>
         </el-form-item>
       </el-form>
+      <span >
         <h1>合同内容:</h1>
-          <p id="ContractText">本合同由作为委托方的<strong>{{ruleForm.Client}}</strong>(以下简称“甲方”)与作为受托方的<strong>南京大学</strong>(以下简称“乙方”)在平等自愿的基础上，
+          <p id="ContractText">本合同由作为委托方的<strong>{{ruleForm.Client}}</strong>(以下简称“甲方”)与作为受托方的<strong>{{ruleForm.Trustee}}</strong>(以下简称“乙方”)在平等自愿的基础上，
             依据《中华人民共和国合同法》有关规定就项目的执行，经友好协商后订立。</p>
         <h3>一、任务表述</h3>
         <p id="ContractText">乙方按照国家软件质量测试标准和测试规范，完成甲方委托的软件<strong>{{ruleForm.SoftwareName}}</strong>(下称受测软件)的质量特性
-          <strong>{{ruleForm.PeriodOfValidity}}</strong>，进行测试，并出具相应的测试报告。</p>
+          <strong>{{ruleForm.QC}}</strong>，进行测试，并出具相应的测试报告。</p>
         <h3>二、双方的主要义务</h3>
         <p id="ContractText">1. 甲方的主要义务:<br>
 （1）按照合同约定支付所有费用。<br>
@@ -87,7 +106,7 @@
   需要在甲方所在地进行测试时，甲方应负担乙方现场测试人员的差旅和食宿费用。</p>
 <h3>四、合同价款</h3>
 <p id="ContractText">
-  本合同软件测试费用为人民币<strong>{{money}}</strong>(¥元)。</p>
+  本合同软件测试费用为人民币<strong><input v-model="ruleForm.money" style="width: 50px;padding:10px;"></strong>(¥元)。</p>
   <h3>五、测试费用支付方式</h3>
 <p id="ContractText">
   本合同签定后，十个工作日内甲方合同价款至乙方帐户。</p>
@@ -122,26 +141,26 @@
   本合同自双方授权代表签字盖章之日起生效，自受托方的主要义务履行完毕之日起终止。           
   本合同未尽事宜由双方协商解决。
   本合同的正本一式肆份，双方各执两份，具有同等法律效力。
-</p>  
-</el-main>
+</p> 
+</span>
 
-  <LoginDialog :show='showLogin'/>
+</el-main>
 </el-container>
 </template>
 <el-backtop :right="50" :bottom="50" />
 <script>
 import Axios from 'axios';
-
 export default {
     data(){
        return{
-            user:{
-                name:'风车村',
-                password:'shazihuang',
+            userid:{
+              PID:"",
             },
+            stepNumber:0,
             ruleForm:{
+              PID:"",
               ItemName:'',
-              Client:'豪大大鸡排',
+              Client:'',
               Trustee:'',
               QC:'',
               date:'',
@@ -149,41 +168,109 @@ export default {
               ddl:0,
               ChangeNumber:0,
               ChangeDay:0,
+              //money:200,
             },
-            money:200,
             Quote:0,
+            MarCon:{
+              PID:this.$store.state.user.process.PID,
+              state:"30",
+            },
             rules:{
-              SoftwareName:[
+              ItemName:[
                       { required: true, message: "不能为空！", trigger: "blur" },
                     ],
-              Versions:[
+              Client:[
                 { required: true, message: "不能为空！", trigger: "blur"  },
               ],
+              Trustee:[
+                      { required: true, message: "不能为空！", trigger: "blur" },
+                    ],
+              QC:[
+                { required: true, message: "不能为空！", trigger: "blur"  },
+              ],
+              PeriodOfValidity:[
+                { required: true, message: "不能为空！", trigger: "blur"  },
+              ],
+              date:[
+                  { required: true, message: "请选择日期！", trigger: "change" },
+              ],
+              PeriodOfValidity:[
+                  { required: true, message: "请选择日期！", trigger: "change" },
+                ],
               }
     }
-}, 
+},    
+created(){
+      this.KeepInfor();
+      this.userid.UID=this.$store.state.user.process.UID;
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data);
+                this.ruleForm.PID=ret.data.PID;
+              })
+      
+    },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
   methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            }, 
     TestInfor(){
       //alert(JSON.stringify(this.ruleForm));
     },
     submitForm(formName) {
-      /*this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
-          this.$router.push({path: "./client", replace:true});
+          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.MarCon),{
+              headers:{
+                'content-type': 'text/plain'}
+              }).then(ret=>{
+             })
+          Axios.post("http://localhost:9090/api/contract/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data)
+                this.stepNumber+=1;
+                this.$message.success("提交成功，正在返回市场部界面！");
+                 setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+              })
         } else {
           return false;
         }
-      });*/
-      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-        console.log(ret.data)
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
       });
-      // this.info("提交成功，正在返回用户界面！");
-      // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
-    }
+    },
+    handleRemove(file, fileList) {
+        console.log(file, fileList);
+    },
+    handlePreview(file) {
+        console.log(file);
+      },
+    handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+    beforeUploadword(file) {
+        const isWord1 = file.type === 'application/msword';
+        const isWord2 = file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        const isPDF = file.type === 'application/pdf';
+        // const isLt2M = file.size / 1024 / 1024 < 2;
+        console.log(file.type)
+        if (!isWord1 && !isWord2 && !isPDF) {
+          this.$message.error('上传文件只能是 Word/PDF 格式!');
+        }
+        // if (!isLt2M) {
+        //   this.$message.error('上传头像图片大小不能超过 2MB!');
+        // }
+        return isWord1 || isWord2 || isPDF;
+      },
   },
 
 }

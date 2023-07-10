@@ -70,13 +70,13 @@ public class MessageService {
             if(sender_id == null)
                 sender_id = oldjsonObject.getInteger("sender_id");
             if(receiver_id == null)
-                receiver_id = jsonObject.getInteger("receiver_id");
+                receiver_id = oldjsonObject.getInteger("receiver_id");
             if(regTime == null)
-                regTime = jsonObject.getDate("regTime");
+                regTime = oldjsonObject.getDate("regTime");
             if(message == null)
-                message = jsonObject.getString("message");
+                message = oldjsonObject.getString("message");
             if(doc_ex_path == null)
-                doc_ex_path = jsonObject.getString("doc_ex_path");
+                doc_ex_path = oldjsonObject.getString("doc_ex_path");
 
             MessageModel  messageModel = new MessageModel(MID,sender_id,receiver_id,regTime,message,doc_ex_path);
             messageDao.update(messageModel);

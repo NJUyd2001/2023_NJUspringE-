@@ -16,6 +16,7 @@ server:
     uri-encoding: utf-8
   #port: 21603
 
+
 spring:
   servlet:
     multipart:

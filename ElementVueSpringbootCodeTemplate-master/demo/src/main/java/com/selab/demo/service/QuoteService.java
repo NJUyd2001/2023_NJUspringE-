@@ -26,7 +26,8 @@ public class QuoteService {
             JSONObject result = new JSONObject();
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
             result.put("QID", jsonObject.getInteger("qID"));
-            result.put("Time", jsonObject.getString("time"));
+            result.put("Time", jsonObject.getJSONArray("time"));
+            result.put("SoftwareName",jsonObject.getString("softwarename"));
             result.put("item", jsonObject.getString("item"));
             result.put("description", jsonObject.getString("description"));
             result.put("UnitPrice", jsonObject.getString("unitprice"));
@@ -43,7 +44,6 @@ public class QuoteService {
 
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        String PID = jsonObject.getString("PID");
         String time = jsonObject.getString("Time");
         String softwarename = jsonObject.getString("SoftwareName");
         String item = jsonObject.getString("item");
@@ -60,7 +60,6 @@ public class QuoteService {
         quoteDao.insert(quoteModel);
         JSONObject res = new JSONObject();
         res.put("QID",quoteModel.getQID());
-        //TODO:INSERT INTO PROCESS
         return JSON.toJSONString(res);
     }
 

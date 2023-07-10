@@ -1,7 +1,7 @@
 <!--文炫-->
 <template>
     <el-container style="height:100%">
-      <el-header style="height: 30px " @back="goback">
+      <el-header style="height: 30px " >
         <el-breadcrumb separator="->">
             <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
             <el-breadcrumb-item><a href="/testscheme">测试部人员审核委托</a></el-breadcrumb-item>
@@ -73,7 +73,7 @@
               v-model="ruleForm.SoftwareUserObjectDescription" type="textarea" />
             </el-form-item>
             <el-form-item label="主要功能及用途简介:" prop="MainFunction">
-              <el-input readonly placeholder="限200字以内" style="width:500px;" maxlength="200" show-word-limit="true" :rows="3"
+              <el-input readonly placeholder="限200字以内" style="width:500px;" maxlength="200" show-word-limit :rows="3"
               v-model="ruleForm.MainFunction" type="textarea" />
             </el-form-item>
             <el-form-item label="测试依据:" prop="NeededStandard">

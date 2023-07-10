@@ -17,9 +17,7 @@
             <span class="logo-title">委托进度-审核报价单</span>
             </el-col>
             <el-col :span="2">
-             <router-link to="/Test">
-                  <el-button type="success" style="margin: 14px">完成</el-button>
-            </router-link>
+              <el-button @click="submitForm('ruleForm')" type="success" style="margin: 14px">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
@@ -110,53 +108,56 @@
             </el-col>
         </el-row>
       </el-form>
+      
       <el-divider></el-divider>
-      <el-form  :model="Suggestion">
+      
+      <el-form  :model="Suggestion" ref="Suggestion">
         <el-row type="flex" justify="center">
-        <el-col :span="3">
-          <el-radio v-model="Suggestion.Pass" label="false">拒绝</el-radio>
-          <el-radio v-model="Suggestion.Pass" label="true">同意</el-radio>
-        </el-col>
+        <el-radio-group v-model="Suggestion.Pass" :span="3">
+          <el-radio  label="false">拒绝</el-radio>
+          <el-radio  label="true">同意</el-radio>
+        </el-radio-group>
         </el-row>
         <br>
         <el-row type="flex" justify="center">
              <el-col :span="20">
                 <el-form-item  label="如果接受报价，请上传签字：">
-                      <el-upload
+                  <el-upload
                           class="upload-demo"
                           drag
-                          action="https://jsonplaceholder.typicode.com/posts/"
+                          action="http://localhost:9090/api/file/upload"
                           multiple
-                          >
+                          :before-upload="beforeUploadjpg"
+                          :data="{ PID:this.ruleForm.PID }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
                       </el-upload>
                 </el-form-item>
             </el-col>
         </el-row>
         </el-form>
+        {{Suggestion.Pass}}
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
     <el-backtop :right="50" :bottom="50" />
     <script>
-
+    import Axios from 'axios'
     export default {
         data(){
-           return{
+           return{ 
+                useruid:{
+                            UID:"",
+                    },
+                userpid:{
+                            PID:"",
+                    },
                 ruleForm:{
-                  Time:'',
-                  SoftwareName:"",
-                  item:"",
-                  description:"",
-                  UnitPrice:0,
-                  PS:"",
-                  SubTotalPrice:0,
-                  Tax:0,
-                  TotalPrice:0,
-                  Provider:"",
+                },
+                Pid:{
+                  PID:this.$store.state.user.process.PID,
+                  state:"",
                 },
                 Suggestion:{
                   Pass:"false",
@@ -195,10 +196,37 @@
                   ],
                   }
         }
-    }, 
-      methods:{
-        goback(){
-        },
+    },
+    created(){
+      this.KeepInfor();
+      this.useruid.UID=this.$store.state.user.process.UID;
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data);
+                this.userpid.PID=ret.data.PID;
+              })
+      this.userpid.PID=1;
+      Axios.post("http://localhost:9090/api/quote/find",JSON.stringify(this.userpid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                      console.log(ret.data[0]);
+                      this.ruleForm=ret.data[0];
+              })
+    },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
+    methods:{
+      handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
         addfatherItem(){
           this.ruleForm.TableData.push({
             id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
@@ -230,9 +258,42 @@
               return false;
             }
           });*/
+          if(this.Suggestion.Pass == "true")
+            this.Pid.state="21";
+          else if(this.Suggestion.Pass == "false")
+            this.Pid.state="25";
+          console.log(this.Pid.state)
+          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.Pid),{
+          headers:{
+            'content-type': 'text/plain'}
+          }).then(ret=>{
+              console.log(this.Pid.state)
+         })
           this.$message.success("提交成功，正在返回用户界面！");
           setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+        },
+        handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+    handlePreview(file) {
+        console.log(file);
+      },
+    handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+        beforeUploadjpg(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isPNG = file.type === 'image/png';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        console.log(file.type)
+        if (!isJPG && !isPNG) {
+          this.$message.error('上传头像图片只能是 jpg/png 格式!');
         }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG || isPNG;
+      }
       },
     
     }

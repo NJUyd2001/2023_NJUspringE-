@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px " >
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
@@ -37,7 +37,7 @@
   </el-header>
     <br><br><br>
     <el-main>
-      <el-form label-position="top" label-width="550px" disabled>
+      <el-form label-position="center" label-width="550px" disabled>
         <el-form-item label="密级：">
           <el-radio-group v-model="ruleForm.Security">
             <el-radio label="无密级"></el-radio>
@@ -173,7 +173,7 @@ export default {
       submitForm(formName) {
       // this.$refs[formName].validate((valid) => {
       //   if (valid) {
-          this.$router.push({path: "./applicationamend", replace:true});
+          this.$router.push({path: "./applicationamendtest", replace:true});
       //   } else {
       //     return false;
       //   }
