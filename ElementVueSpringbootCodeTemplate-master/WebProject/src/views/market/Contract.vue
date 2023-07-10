@@ -154,11 +154,11 @@ export default {
     data(){
        return{
             userid:{
-              UID:"",
+              PID:"",
             },
             stepNumber:0,
             ruleForm:{
-              PID:"1",
+              PID:"",
               ItemName:'',
               Client:'',
               Trustee:'',
@@ -203,13 +203,13 @@ export default {
 created(){
       this.KeepInfor();
       this.userid.UID=this.$store.state.user.process.UID;
-      // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
-      //           headers:{
-      //             'content-type': 'text/plain'}
-      //         }).then(ret=>{
-      //           console.log(ret.data);
-      //           this.ruleForm.PID=ret.data.PID;
-      //         })
+      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data);
+                this.ruleForm.PID=ret.data.PID;
+              })
       
     },
     mounted() {

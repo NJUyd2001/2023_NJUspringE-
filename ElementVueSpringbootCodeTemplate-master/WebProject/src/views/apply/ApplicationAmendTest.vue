@@ -39,7 +39,7 @@
     <br><br><br>
     <el-main style="border-radius: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
       <br>
-      <el-form label-position="middle" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
+      <el-form label-position="Center" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
         <el-form-item label="测试类型:" prop="TypeTest"> 
         <el-select v-model="ruleForm.TypeTest" multiple allow-create filterable>
         <el-option   v-for='item in TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
@@ -223,7 +223,7 @@
               :limit="3"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:applicantID }"
+              :data="{ PID:this.ruleForm.PID }"
               :file-list="ruleForm.SamplesSubmitted">
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
@@ -255,7 +255,7 @@
                           action="http://localhost:9090/api/file/upload"
                           multiple
                           :before-upload="beforeUploadjpg"
-                          :data="{ PID:applicantID }">
+                          :data="{ PID:this.ruleForm.PID }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                           <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
@@ -277,6 +277,12 @@ export default {
         user:{
                 name:this.$store.state.user.name,
             },
+        process:{
+          PID:this.$store.state.user.process.PID,
+        },
+        userid:{
+          applicantID:this.$store.state.user.id,
+        },
         ruleForm:{
           applicantID:this.$store.state.user.id,
           processID:'1',
@@ -678,6 +684,16 @@ mounted(){
 created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
+    this.userid.applicantID=this.$store.state.user.id;
+    Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.userid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.ruleForm=ret.data[0];
+        this.$store.state.user.process.AID=ret.data[0].AID;
+        //console.log(this.$store.state.user.process.AID)
+      })
   },
   methods:{
     handleBeforeUnload() {
@@ -690,14 +706,13 @@ created(){
       this.$refs[formName].validate((valid) => {
         if (valid) {
         console.log(this.ruleForm)
-        Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
+        Axios.post("http://localhost:9090/api/application/updateapplication",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-          console.log(ret.data.AID);
-          this.$store.state.user.process.AID=ret.data.AID
+          //console.log(this.$store.state.user.process.AID);
           this.$message.success("提交成功！");
-          setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./functionlistamendtest", replace:true});}, 2000);
       }).catch(function (error)
         {
           console.log(error);
