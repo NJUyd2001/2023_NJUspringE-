@@ -13,15 +13,22 @@
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="12" ><div class="grid-content bg-purple">
-        <span>软件委托测试合同</span>
+      <el-col :span="6" ><div class="grid-content bg-purple">
+        <h1>软件委托测试合同</h1>
         </div></el-col>
+        <el-col :span="10">
+        <el-steps :space="200" :active="stepNumber" finish-status="success">
+          <el-step title="合同草稿生成"></el-step>
+          <el-step title="保密协议生成"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+      </el-col>  
       <el-col :span="2">
-        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">提交</el-button>
+        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">下一步</el-button>
       </el-col>
     </el-row>
   </el-header>
-    <br><br>
+    <br><br><br>
     <el-main>
       <br>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
@@ -73,7 +80,7 @@
       </el-form>
       <span >
         <h1>合同内容:</h1>
-          <p id="ContractText">本合同由作为委托方的<strong>{{ruleForm.Client}}</strong>(以下简称“甲方”)与作为受托方的<strong>南京大学</strong>(以下简称“乙方”)在平等自愿的基础上，
+          <p id="ContractText">本合同由作为委托方的<strong>{{ruleForm.Client}}</strong>(以下简称“甲方”)与作为受托方的<strong>{{ruleForm.Trustee}}</strong>(以下简称“乙方”)在平等自愿的基础上，
             依据《中华人民共和国合同法》有关规定就项目的执行，经友好协商后订立。</p>
         <h3>一、任务表述</h3>
         <p id="ContractText">乙方按照国家软件质量测试标准和测试规范，完成甲方委托的软件<strong>{{ruleForm.SoftwareName}}</strong>(下称受测软件)的质量特性
@@ -149,6 +156,7 @@ export default {
             userid:{
               UID:"",
             },
+            stepNumber:0,
             ruleForm:{
               PID:"1",
               ItemName:'',
@@ -164,7 +172,7 @@ export default {
             },
             Quote:0,
             MarCon:{
-              PID:"1",  //this.$store.state.user.process.PID,
+              PID:this.$store.state.user.process.PID,
               state:"30",
             },
             rules:{
@@ -231,6 +239,7 @@ created(){
                   'content-type': 'text/plain'}
               }).then(ret=>{
                 console.log(ret.data)
+                this.stepNumber+=1;
                 this.$message.success("提交成功，正在返回市场部界面！");
                  setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
               })

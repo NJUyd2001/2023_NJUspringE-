@@ -50,6 +50,12 @@
         width="150">
       </el-table-column>
       <el-table-column
+        sortable
+        prop="processID"
+        label="PID"
+        width="150">
+      </el-table-column>
+      <el-table-column
         fixed="right"
         label="操作"
         width="100"
@@ -71,6 +77,9 @@ export default {
     return {
       keyword:"",
       datas:[],
+      State12:{
+        state:'12',
+      },
       ruleForm:
       { processID:1 },
       sort: {},
@@ -84,7 +93,17 @@ export default {
     };
   },
   created(){
-    Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.ruleForm),{
+    Axios.post("http://localhost:9090/api/process/byState/selectPID",JSON.stringify(this.State12),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data);
+          var k=0;
+    for(;k<ret.data.length;k++)
+    {
+      this.ruleForm.processID=ret.data[k];  
+      console.log(this.ruleForm.processID)
+      Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
@@ -95,17 +114,17 @@ export default {
          {
           this.datas.push(ret.data[i]);
          }  
+      }) 
+    }
       })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });
   },
   methods: {
     SolvePro(row){
       // console.log(row);
       //sessionStorage.setItem
         this.$store.state.user.process.UID=row.applicantID;
-        this.$store.state.user.process.PID=row.PID;
+        this.$store.state.user.process.AID=row.AID;
+        this.$store.state.user.process.PID=row.processID;
         console.log(this.$store.state.user.process.AID);
         console.log(this.$store.state.user.process.PID);
         this.$router.push({path: "./GenQuote", replace:true})

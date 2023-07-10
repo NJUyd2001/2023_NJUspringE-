@@ -77,8 +77,12 @@ export default {
     return {
       keyword:"",
       datas:[],
-      ruleForm:
-      { processID:1 },
+      ruleForm:{
+        processID:"",
+      },
+      State11:{
+        state:'11',
+      },
       sort: {},
       passwordDlg:{
         row: null,
@@ -89,8 +93,18 @@ export default {
       }
     };
   },
-  created(){
-    Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.ruleForm),{
+created(){
+    Axios.post("http://localhost:9090/api/process/byState/selectPID",JSON.stringify(this.State11),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(ret.data);
+          var k=0;
+    for(;k<ret.data.length;k++)
+    {
+      this.ruleForm.processID=ret.data[k];  
+      console.log(this.ruleForm.processID)
+      Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
@@ -101,10 +115,10 @@ export default {
          {
           this.datas.push(ret.data[i]);
          }  
+      }) 
+    }
       })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });
+    
   },
   methods: {
     SolvePro(row){

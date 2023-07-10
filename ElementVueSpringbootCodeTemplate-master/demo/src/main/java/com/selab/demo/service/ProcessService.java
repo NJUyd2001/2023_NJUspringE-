@@ -7,6 +7,7 @@ import com.selab.demo.dao.ProcessDao;
 import com.selab.demo.model.ProcessModel;
 import com.selab.demo.model.enums.curr_state;
 import com.selab.demo.model.enums.open_to_curr;
+import com.selab.demo.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ import java.util.List;
 public class ProcessService {
     @Autowired
     ProcessDao processDao;
+    @Autowired
+    FileUtil fileUtil;
     public Integer insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
@@ -40,6 +43,7 @@ public class ProcessService {
         }
     }
     public List<ProcessModel> findByUID(String postJson){
+        System.out.println(postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
         int UID= jsonObject.getInteger("UID");
@@ -48,6 +52,7 @@ public class ProcessService {
 
     }
     public ProcessModel findByPID(String postJson){
+        System.out.println(postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
         int PID = jsonObject.getInteger("PID");
@@ -55,6 +60,7 @@ public class ProcessService {
     }
     // 返回AID
     public List<Integer> selectAIDsByState(String postJson){
+        System.out.println(postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
         String state = jsonObject.getString("state");
@@ -129,7 +135,9 @@ public class ProcessService {
         }
         else{
             processDao.delete(PID);
-            return ("process delete successfully");
+            fileUtil.killProcess(PID);
+            return ("进程已成功删除");
+
         }
     }
 

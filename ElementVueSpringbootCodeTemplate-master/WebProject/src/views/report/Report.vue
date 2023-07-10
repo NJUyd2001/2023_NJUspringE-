@@ -23,7 +23,7 @@
           <el-col :span="6" style="margin-left: 35%;"><div class="grid-content bg-purple">
           <span class="lt1">测试报告</span>
           </div></el-col>
-          <el-col :span="16">
+          <el-col :span="10">
           <el-steps :space="200" :active="1" finish-status="success">
           <el-step title="测试报告信息查看"></el-step>
           <el-step title="测试报告查看"></el-step>
@@ -32,12 +32,6 @@
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
-            <el-col :span="6">
-            <div class="grid-content bg-purple-light text-right">
-              <span v-if="user != null">
-                <span class="user">{{user.nick}}</span>
-              </span>
-            </div></el-col>
           <el-col :span="6">
             <router-link to="/TestEnvironment">
             <el-button @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>

@@ -32,6 +32,15 @@ public interface ProcessDao {
     @Update("UPDATE selabspringe.process SET notes=#{notes}, state=#{state}, price=#{price} WHERE PID=#{PID}")
     void update(ProcessModel processModel);
 
+    // merge
+    @Update("UPDATE selabspringe.process SET AID=#{AID} WHERE PID=#{PID}")
+    void setAID(int PID, int AID);
+    @Update("UPDATE selabspringe.process SET QID=#{QID} WHERE PID=#{PID}")
+    void setQID(int PID, int QID);
+    @Update("UPDATE selabspringe.process SET CID=#{CID} WHERE PID=#{PID}")
+    void setCID(int PID, int CID);
+
+
     @Delete("DELETE FROM selabspringe.process WHERE PID = #{PID}")
     void delete(int PID);
 

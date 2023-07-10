@@ -12,7 +12,9 @@ server:
       charset: UTF-8
       force: true
   tomcat:
+
     uri-encoding: utf-8
+  #port: 21603
 
 
 spring:

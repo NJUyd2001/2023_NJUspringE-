@@ -14,7 +14,7 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="6">
+          <el-col :span="2">
             <router-link to="/Test">
             <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
             </router-link>
