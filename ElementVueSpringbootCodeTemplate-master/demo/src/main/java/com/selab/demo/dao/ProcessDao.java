@@ -33,7 +33,7 @@ public interface ProcessDao {
     // 只更新state
     @Update("UPDATE selabspringe.process SET state=#{state} WHERE PID=#{PID}")
     void updateState(int PID, String state);
-    @Update("UPDATE selabspringe.process SET AgID=#{AhID} WHERE PID=#{PID}")
+    @Update("UPDATE selabspringe.process SET AgID=#{AgID} WHERE PID=#{PID}")
     void setAgID(int PID, int AgID);
     @Update("UPDATE selabspringe.process SET AID=#{AID} WHERE PID=#{PID}")
     void setAID(int PID, int AID);
