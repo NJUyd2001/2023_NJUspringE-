@@ -66,7 +66,6 @@
       </el-table-column>
     </el-table>
     
-    <Pagination ref="page1" url="http://localhost:9090/api/application/checkbyprocess" :keyword="keyword" :sort="sort" v-model="datas"/>
   </div>
 </template>
 
@@ -77,11 +76,12 @@ export default {
     return {
       keyword:"",
       datas:[],
-      State12:{
-        state:'12',
+      ruleForm:{
+        processID:"",
       },
-      ruleForm:
-      { processID:1 },
+      State21:{
+        state:'21',
+      },
       sort: {},
       passwordDlg:{
         row: null,
@@ -93,7 +93,7 @@ export default {
     };
   },
   created(){
-    Axios.post("http://localhost:9090/api/process/byState/selectPID",JSON.stringify(this.State12),{
+    Axios.post("http://localhost:9090/api/process/byState/selectPID",JSON.stringify(this.State21),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
@@ -117,6 +117,7 @@ export default {
       }) 
     }
       })
+    
   },
   methods: {
     SolvePro(row){
@@ -126,8 +127,8 @@ export default {
         this.$store.state.user.process.AID=row.AID;
         this.$store.state.user.process.PID=row.processID;
         console.log(this.$store.state.user.process.AID);
-        console.log(this.$store.state.user.process.PID);
-        this.$router.push({path: "./GenQuote", replace:true})
+        console.log(this.$store.state.user.process.UID);
+        this.$router.push({path: "./marketcontract", replace:true})
     },
     handleClick(row) {
      

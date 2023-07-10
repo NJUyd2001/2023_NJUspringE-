@@ -45,6 +45,7 @@ import TestDocument1 from './views/report/TestDocument1'
 import TestDocument2 from './views/report/TestDocument2'
 import TestReviewDelegation from './views/test/TestReviewDelegation'
 import MarketContract from './views/market/Contract'
+import ClientContract from './views/client/Contract'
 import GenQuote from './views/Quote/GenQuote'
 import ChangeQuote from './views/Quote/ChangeQuote'
 import AuditQuote from './views/Quote/AuditQuote'
@@ -240,6 +241,10 @@ export default new VueRouter({
         {
             path: '/MarketContract',     // 路径
             component: MarketContract    // 跳转到的组件
+        },
+        {
+            path: '/ClientContract',     // 路径
+            component: ClientContract    // 跳转到的组件
         },
         {
             path: '/GenQuote',     // 路径

@@ -301,9 +301,9 @@ export default {
               UID:"",
               AID:"",
               notes:"",  
-              state:"",  
+              state:"10",  
               fileIDs:"", 
-              price:1557,   
+              price:"",   
           },
         TypeOfTest:[
               {
@@ -679,8 +679,15 @@ created(){
       }).then(ret=>{
           console.log(ret.data.AID);
           this.$store.state.user.process.AID=ret.data.AID;
-          this.$message.success("提交成功！");
-          setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+          this.process.AID=ret.data.AID;
+          Axios.post("http://localhost:9090/api/process/update",JSON.stringify(this.process),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        this.$message.success("提交成功！");
+          //setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+      })
+          
       }).catch(function (error)
         {
           console.log(error);
@@ -732,7 +739,7 @@ created(){
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
-        console.log(file.type)
+        // console.log(file.type)
         if (!isJPG && !isPNG) {
           this.$message.error('上传头像图片只能是 jpg/png 格式!');
         }

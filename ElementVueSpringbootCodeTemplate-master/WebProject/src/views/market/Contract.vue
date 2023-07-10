@@ -80,7 +80,7 @@
       </el-form>
       <span >
         <h1>合同内容:</h1>
-          <p id="ContractText">本合同由作为委托方的<strong>{{ruleForm.Client}}</strong>(以下简称“甲方”)与作为受托方的<strong>南京大学</strong>(以下简称“乙方”)在平等自愿的基础上，
+          <p id="ContractText">本合同由作为委托方的<strong>{{ruleForm.Client}}</strong>(以下简称“甲方”)与作为受托方的<strong>{{ruleForm.Trustee}}</strong>(以下简称“乙方”)在平等自愿的基础上，
             依据《中华人民共和国合同法》有关规定就项目的执行，经友好协商后订立。</p>
         <h3>一、任务表述</h3>
         <p id="ContractText">乙方按照国家软件质量测试标准和测试规范，完成甲方委托的软件<strong>{{ruleForm.SoftwareName}}</strong>(下称受测软件)的质量特性
@@ -172,7 +172,7 @@ export default {
             },
             Quote:0,
             MarCon:{
-              PID:"1",  //this.$store.state.user.process.PID,
+              PID:this.$store.state.user.process.PID,
               state:"30",
             },
             rules:{

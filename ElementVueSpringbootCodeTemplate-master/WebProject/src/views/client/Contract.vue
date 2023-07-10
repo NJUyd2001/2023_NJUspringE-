@@ -4,16 +4,16 @@
   <el-header style="height: 30px ">
     <el-breadcrumb separator="->">
     <el-breadcrumb-item :to="{ path: '/test' }">市场部主页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="">合同草稿填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item><a href="">合同草稿审核</a></el-breadcrumb-item>
   </el-breadcrumb>
   <br>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="10">
+      <el-col :span="8">
         <router-link to="/test">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="8">
         <h1 style="margin-left: 30%;">软件委托测试合同</h1>
         </el-col>
         <el-col :span="10">
@@ -28,43 +28,40 @@
       </el-col>
     </el-row>
   </el-header>
-    <br><br>
+    <br><br><br>
     <el-main>
+      <br>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item  label="项目名称:" label-width="550px" prop="ItemName">
-          <el-input v-model="ruleForm.ItemName" style="width: 200px;"></el-input>
+        <el-form-item  label="项目名称:" label-width="550px" prop="ItemName" >
+          <el-input v-model="ruleForm.ItemName" style="width: 200px;" disabled></el-input>
         </el-form-item>
         <el-form-item label="委托方（甲方）:" label-width="550px" prop="ItemName">
-          <el-input v-model="ruleForm.Client" style="width: 200px;"></el-input>
+          <el-input v-model="ruleForm.Client" style="width: 200px;" disabled></el-input>
         </el-form-item>
         <el-form-item  label="受托方（乙方）:" label-width="550px">
-          <el-input v-model="ruleForm.Trustee" style="width: 200px;"></el-input>
+          <el-input v-model="ruleForm.Trustee" style="width: 200px;" disabled></el-input>
         </el-form-item>
         <el-form-item  label="质量特性:" label-width="550px">
-          <el-input v-model="ruleForm.QC" style="width: 200px;"></el-input>
+          <el-input v-model="ruleForm.QC" style="width: 200px;" disabled></el-input>
         </el-form-item>
         <el-form-item  label='签订日期:' label-width="550px">
           <div class="demo-date-picker">
-          <div class="block">
             <el-date-picker
             v-model="ruleForm.date"
             type="date"
             placeholder="完成时间选择"
-            :size=large
-              />
-            </div>
+            size=large
+            disabled/>
             </div>
         </el-form-item>
         <el-form-item  label='有效期至:' label-width="550px">
           <div class="demo-date-picker">
-          <div class="block">
             <el-date-picker
             v-model="ruleForm.PeriodOfValidity"
             type="date"
             placeholder="完成时间选择"
-            :size=large
-              />
-            </div>
+            size=large
+            disabled/>
             </div>
         </el-form-item>
       </el-form>
@@ -95,16 +92,16 @@
   需要在甲方所在地进行测试时，甲方应负担乙方现场测试人员的差旅和食宿费用。</p>
 <h3>四、合同价款</h3>
 <p id="ContractText">
-  本合同软件测试费用为人民币<strong>{{money}}</strong>(¥元)。</p>
+  本合同软件测试费用为人民币<strong>{{ruleForm.money}}</strong>(¥元)。</p>
   <h3>五、测试费用支付方式</h3>
 <p id="ContractText">
   本合同签定后，十个工作日内甲方合同价款至乙方帐户。</p>
   <h3>六、履行的期限</h3>
 <p id="ContractText">
-  1.本次测试的履行期限为合同生效之日起<input v-model="ruleForm.ddl" style="width: 50px;padding:10px;">个自然日内完成。<br>
+  1.本次测试的履行期限为合同生效之日起<strong>{{ruleForm.ddl}}</strong>个自然日内完成。<br>
   2.经甲乙双方同意，可对测试进度作适当修改，并以修改后的测试进度作为本合同执行的期限。<br>
-  3.如受测软件在测试过程中出现的问题，导致继续进行测试会影响整体测试进度，则乙方暂停测试并以书面形式通知甲方进行整改。在整个测试过程中，整改次数限于<input v-model="ruleForm.ChangeNumber" style="width: 50px;padding:10px;">次，
-  每次不超过<input v-model="ruleForm.ChangeDay" style="width: 50px;padding:10px;">天。<br>
+  3.如受测软件在测试过程中出现的问题，导致继续进行测试会影响整体测试进度，则乙方暂停测试并以书面形式通知甲方进行整改。在整个测试过程中,整改次数限于<strong>{{ruleForm.ChangeNumber}}</strong>次，
+  每次不超过<strong>{{ruleForm.ChangeDay}}</strong>天。<br>
   4.如因甲方原因，导致测试进度延迟、应由甲方负责,乙方不承担责任。<br>
   5.如因乙方原因，导致测试进度延迟，则甲方可酌情提出赔偿要求，赔偿金额不超过甲方已付金额的50%。双方经协商一致后另行签订书面协议，作为本合同的补充。</p>
   <h3>七、资料的保密</h3>
@@ -130,10 +127,22 @@
   本合同自双方授权代表签字盖章之日起生效，自受托方的主要义务履行完毕之日起终止。           
   本合同未尽事宜由双方协商解决。
   本合同的正本一式肆份，双方各执两份，具有同等法律效力。
-</p>  
+</p>
+<el-form  :model="Suggestion" ref="Suggestion">
+        <el-row type="flex" justify="center">
+        <el-radio-group :span="3">
+          <el-radio v-model="Suggestion.Pass" label="false">拒绝</el-radio>
+          <el-radio v-model="Suggestion.Pass" label="true">同意</el-radio>
+        </el-radio-group>
+        </el-row>
+<el-row>
+  <el-form-item label="审核意见：">
+          <el-input style="width:700px;" :rows="5" v-model="Suggestion.Views" type="textarea" ></el-input>
+        </el-form-item>
+</el-row>
+</el-form>
 </el-main>
 
-  <LoginDialog :show='showLogin'/>
 </el-container>
 </template>
 <el-backtop :right="50" :bottom="50" />
@@ -141,25 +150,19 @@
 import Axios from 'axios';
 
 export default {
+
     data(){
        return{
-            user:{
-                name:'风车村',
-                password:'shazihuang',
+            userid:{
+              PID:"",
             },
             ruleForm:{
-              ItemName:'',
-              Client:'豪大大鸡排',
-              Trustee:'',
-              QC:'',
-              date:'',
-              PeriodOfValidity:'',
-              ddl:0,
-              ChangeNumber:0,
-              ChangeDay:0,
+            },
+            Suggestion:{
+              Pass:"false",
+              Views:"",
             },
             stepNumber:0,
-            money:200,
             Quote:0,
             rules:{
               SoftwareName:[
@@ -170,8 +173,29 @@ export default {
               ],
               }
     }
-}, 
+},created(){
+      this.KeepInfor();
+      this.userid.PID=this.$store.state.user.process.PID;
+      // Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
+      //           headers:{
+      //             'content-type': 'text/plain'}
+      //         }).then(ret=>{
+      //           console.log(ret.data);
+      //           this.ruleForm=ret.data;
+      //         })
+      
+    },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
   methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            }, 
     TestInfor(){
       //alert(JSON.stringify(this.ruleForm));
     },
@@ -193,7 +217,42 @@ export default {
       this.stepNumber+=1;
       // this.info("提交成功，正在返回用户界面！");
       // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
-    }
+    },
+    download1(){
+        var formdata=new FormData()
+        formdata.append('FID' ,'23')
+        //formdata.append('FID' ,this.Fid.FID1)
+        //console.log(formdata.get('FID'))
+        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
   },
 
 }

@@ -26,7 +26,8 @@ public class QuoteService {
             JSONObject result = new JSONObject();
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
             result.put("QID", jsonObject.getInteger("qID"));
-            result.put("Time", jsonObject.getString("time"));
+            result.put("Time", jsonObject.getJSONArray("time"));
+            result.put("SoftwareName",jsonObject.getString("softwarename"));
             result.put("item", jsonObject.getString("item"));
             result.put("description", jsonObject.getString("description"));
             result.put("UnitPrice", jsonObject.getString("unitprice"));

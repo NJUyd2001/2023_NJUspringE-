@@ -16,7 +16,8 @@ author：李晨博
     "PeriodOfValidity":"''",
     "ddl":"0",
     "ChangeNumber":"0",
-    "ChangeDay":"0"
+    "ChangeDay":"0",
+    "money":"1"
 }
 
 输出示例1：

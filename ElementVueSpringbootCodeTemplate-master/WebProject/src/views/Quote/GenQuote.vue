@@ -121,7 +121,7 @@
               UID:"",
             },
             GenQ:{
-              PID:"1",  //this.$store.state.user.process.PID,
+              PID:this.$store.state.user.process.PID,
               state:"20",
             },
             ruleForm:{
@@ -246,7 +246,6 @@
                 'content-type': 'text/plain'}
               }).then(ret=>{
              })
-              this.$message.success("提交成功，正在返回市场部界面！");
               Axios.post("http://localhost:9090/api/quote/insert",JSON.stringify(this.ruleForm),{
                 headers:{
                   'content-type': 'text/plain'}
