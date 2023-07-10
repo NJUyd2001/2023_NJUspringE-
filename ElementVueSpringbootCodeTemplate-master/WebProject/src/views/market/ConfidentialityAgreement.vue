@@ -5,8 +5,8 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-        <el-breadcrumb-item :to="{ path: '/client' }">用户主页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/client/ConfidentialityAgreement">软件项目委托测试保密协议</a></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/market' }">市场部主页</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="">软件项目委托测试保密协议</a></el-breadcrumb-item>
       </el-breadcrumb>
       </el-col>
         <el-col :span="2">
@@ -23,9 +23,9 @@
             <h1 style="margin-left: 30%;">软件项目委托测试保密协议</h1>
             </div></el-col>
             <el-col :span="10">
-        <el-steps :space="200" :active="1" finish-status="success">
-          <el-step title="合同草稿审核"></el-step>
-          <el-step title="保密协议填写"></el-step>
+        <el-steps :space="200" :active="stepNumber" finish-status="success">
+          <el-step title="合同草稿生成"></el-step>
+          <el-step title="保密协议生成"></el-step>
           <el-step title="完成"></el-step>
         </el-steps>
       </el-col>  
@@ -56,15 +56,15 @@
           <br>
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" >
               <el-form-item style="font-weight: bold;" label="甲方 :" label-width="400px" prop="Client"> 
-            <el-input v-model="ruleForm.Client" style="width: 200px;" ></el-input>
+            <el-input v-model="ruleForm.Client" style="width: 200px;" disabled></el-input>
             <el-form-item label="乙方 :" label-width="550px" style="margin-top: -40px;" >
-              <el-input v-model="ruleForm.Trustee" style="width: 200px;" disabled></el-input>
+              <el-input v-model="ruleForm.Trustee" style="width: 200px;" ></el-input>
             </el-form-item>
             </el-form-item>
             <el-form-item  style="font-weight: bold;" label="法人代表：" label-width="400px" prop="LegalRepresentative1">
-              <el-input v-model="ruleForm.LegalRepresentative1" style="width: 200px;"></el-input>
+              <el-input v-model="ruleForm.LegalRepresentative1" style="width: 200px;" disabled></el-input>
             <el-form-item  label="法人代表：" label-width="550px" style="margin-top: -40px;" >
-              <el-input v-model="ruleForm.LegalRepresentative2" style="width: 200px;" disabled></el-input>
+              <el-input v-model="ruleForm.LegalRepresentative2" style="width: 200px;" ></el-input>
             </el-form-item>
             </el-form-item>
             <el-row >
@@ -73,7 +73,7 @@
                 <el-date-picker
                 v-model="ruleForm.Date1"
                 type="date"
-                placeholder="Pick a day">
+                placeholder="Pick a day" disabled>
             </el-date-picker>
           </el-form-item>
         </el-col>
@@ -82,7 +82,7 @@
                 <el-date-picker
                 v-model="ruleForm.Date2"
                 type="date"
-                placeholder="Pick a day" disabled>
+                placeholder="Pick a day" >
             </el-date-picker>
           </el-form-item>
         </el-col>
@@ -147,6 +147,7 @@
                       picker.$emit('pick', date);
                     }
                   }],
+                  stepNumber:1,
 
         }
     },

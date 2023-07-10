@@ -60,7 +60,7 @@
       </el-table-column>
     </el-table>
     
-    <Pagination ref="page1" url="http://localhost:9090/api/application/checkbyprocess" :keyword="keyword" :sort="sort" v-model="datas"/>
+   <!-- <Pagination ref="page1" url="http://localhost:9090/api/application/checkbyprocess" :keyword="keyword" :sort="sort" v-model="datas"/> -->
   </div>
 </template>
 
@@ -72,7 +72,7 @@ export default {
       keyword:"",
       datas:[],
       ruleForm:
-      { processID:1 },
+      { processID:"1" },
       sort: {},
       passwordDlg:{
         row: null,
@@ -84,6 +84,7 @@ export default {
     };
   },
   created(){
+    console.log(this.ruleForm);
     Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}

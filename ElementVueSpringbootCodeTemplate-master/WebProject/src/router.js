@@ -57,6 +57,7 @@ import TestEnvironment from './views/report/TestEnvironment'
 import SoftwareProjectTestChecklist from './views/test/SoftwareProjectTestChecklist'
 import DataSubmit from './views/client/DataSubmit'
 import ConfidentialityAgreement from './views/client/ConfidentialityAgreement'
+import MarketConfidentialityAgreement from './views/market/ConfidentialityAgreement'
 import DocumentandSign from './views/apply/DocumentAndSign'
 
 // 创建并暴露一个路由器
@@ -287,6 +288,10 @@ export default new VueRouter({
         {
             path: '/client/ConfidentialityAgreement',   // 路径
             component: ConfidentialityAgreement         // 跳转到的组件
+        },
+        {
+            path: '/market/ConfidentialityAgreement',   // 路径
+            component: MarketConfidentialityAgreement         // 跳转到的组件
         },
     ]
 })

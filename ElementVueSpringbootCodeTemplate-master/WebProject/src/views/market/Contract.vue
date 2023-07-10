@@ -13,15 +13,22 @@
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="12" ><div class="grid-content bg-purple">
-        <span>软件委托测试合同</span>
+      <el-col :span="6" ><div class="grid-content bg-purple">
+        <h1>软件委托测试合同</h1>
         </div></el-col>
+        <el-col :span="10">
+        <el-steps :space="200" :active="stepNumber" finish-status="success">
+          <el-step title="合同草稿生成"></el-step>
+          <el-step title="保密协议生成"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+      </el-col>  
       <el-col :span="2">
-        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">提交</el-button>
+        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">下一步</el-button>
       </el-col>
     </el-row>
   </el-header>
-    <br><br>
+    <br><br><br>
     <el-main>
       <br>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
@@ -149,6 +156,7 @@ export default {
             userid:{
               UID:"",
             },
+            stepNumber:0,
             ruleForm:{
               PID:"1",
               ItemName:'',
@@ -231,6 +239,7 @@ created(){
                   'content-type': 'text/plain'}
               }).then(ret=>{
                 console.log(ret.data)
+                this.stepNumber+=1;
                 this.$message.success("提交成功，正在返回市场部界面！");
                  setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
               })

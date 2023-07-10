@@ -14,8 +14,15 @@
         </router-link>
       </el-col>
       <el-col :span="12">
-        <span>软件委托测试合同</span>
+        <h1 style="margin-left: 30%;">软件委托测试合同</h1>
         </el-col>
+        <el-col :span="10">
+        <el-steps :space="200" :active="stepNumber" finish-status="success">
+          <el-step title="合同草稿审核"></el-step>
+          <el-step title="保密协议填写"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+      </el-col>  
       <el-col :span="2">
         <el-button  size="middle" @click="submitForm('ruleForm')" type="success">提交</el-button>
       </el-col>
@@ -151,6 +158,7 @@ export default {
               ChangeNumber:0,
               ChangeDay:0,
             },
+            stepNumber:0,
             money:200,
             Quote:0,
             rules:{
@@ -182,6 +190,7 @@ export default {
       .catch(function (error) { // 请求失败处理
         console.log(error);
       });
+      this.stepNumber+=1;
       // this.info("提交成功，正在返回用户界面！");
       // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
     }
