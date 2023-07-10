@@ -641,7 +641,7 @@ created(){
         console.log(ret.data)
         this.ruleForm=ret.data[0];
         this.$store.state.user.process.AID=ret.data[0].AID;
-        //console.log(this.$store.state.user.process.AID)
+        console.log(this.ruleForm)
       })
   },
   methods:{

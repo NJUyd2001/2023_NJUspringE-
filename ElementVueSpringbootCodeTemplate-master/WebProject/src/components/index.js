@@ -5,6 +5,7 @@ import ConfigTableQ from './table/ConfigTableQ';
 
 import CTMENT from './table/CTM-ENT';
 import GQuote from './table/GQuote';
+import CQuote from './table/CQuote';
 import Contr from './table/Contr';
 import TestList from './table/TestList';
 import MyApp from './table/MyApp';
@@ -43,6 +44,7 @@ function registerComponents(){
     Vue.component('CTMENT', CTMENT);
     Vue.component('Contr', Contr);
     Vue.component('GQuote', GQuote);
+    Vue.component('CQuote', CQuote);
     Vue.component('TestList', TestList);
     Vue.component('MyApp', MyApp);
     Vue.component('ProgressQuery', ProgressQuery); 

@@ -33,17 +33,27 @@
         >
         <el-submenu index="1">
           <template slot="title" collapse=false>
-            <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
+            <i class="el-icon-edit" @click="isCollapse = !isCollapse"></i>
             <span> 委托状态</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-11" @click="addTab('委托状态', 'CTMENT')">委托状态</el-menu-item>
+          <el-menu-item index="1-11" @click="addTab('委托状态', 'CTMENT')">委托状态</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
           <el-menu-item index="1-11" @click="addTab('生成报价', 'GQuote')">生成报价</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
           <el-menu-item index="1-11" @click="addTab('生成合同', 'Contr')">生成合同</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+
+        <el-submenu index="9">
+          <template slot="title" collapse=false>
+            <i class="el-icon-edit"></i>
+            <span>修改文件</span>
+          </template>
+          <el-menu-item-group>
+          <el-menu-item index="1-11" @click="addTab('修改合同', 'CQuote')">修改合同</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
