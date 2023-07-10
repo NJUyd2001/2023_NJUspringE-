@@ -44,6 +44,18 @@
     <update id="setAgID" parameterType="int">
         UPDATE selabspringe.process SET AgID=#{AgID} WHERE PID=#{PID}
     </update>
+    <update id="setRID" parameterType="int">
+        UPDATE selabspringe.process SET RID=#{RID} WHERE PID=#{PID}
+    </update>
+    <update id="setRCID" parameterType="int">
+        UPDATE selabspringe.process SET RCID=#{RCID} WHERE PID=#{PID}
+    </update>
+    <update id="setSID" parameterType="int">
+        UPDATE selabspringe.process SET SID=#{SID} WHERE PID=#{PID}
+    </update>
+    <update id="setRTID" parameterType="int">
+        UPDATE selabspringe.process SET RTID=#{RTID} WHERE PID=#{PID}
+    </update>
     <delete id="delete" parameterType="int" >
         DELETE FROM process WHERE PID = #{PID}
     </delete>

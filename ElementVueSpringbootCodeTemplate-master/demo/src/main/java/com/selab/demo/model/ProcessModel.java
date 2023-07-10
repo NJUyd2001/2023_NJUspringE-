@@ -11,6 +11,60 @@ import javax.persistence.Table;
 public class ProcessModel {
     private int PID;
     private String notes;
+    private int RID;
+    private int RCID;
+    private int SID;
+    private int RTID;
+
+    @Override
+    public String toString() {
+        return "ProcessModel{" +
+                "PID=" + PID +
+                ", notes='" + notes + '\'' +
+                ", RID=" + RID +
+                ", RCID=" + RCID +
+                ", SID=" + SID +
+                ", RTID=" + RTID +
+                ", AgID=" + AgID +
+                ", CID=" + CID +
+                ", QID=" + QID +
+                ", UID=" + UID +
+                ", AID=" + AID +
+                ", state='" + state + '\'' +
+                '}';
+    }
+
+    public int getRID() {
+        return RID;
+    }
+
+    public void setRID(int RID) {
+        this.RID = RID;
+    }
+
+    public int getRCID() {
+        return RCID;
+    }
+
+    public void setRCID(int RCID) {
+        this.RCID = RCID;
+    }
+
+    public int getSID() {
+        return SID;
+    }
+
+    public void setSID(int SID) {
+        this.SID = SID;
+    }
+
+    public int getRTID() {
+        return RTID;
+    }
+
+    public void setRTID(int RTID) {
+        this.RTID = RTID;
+    }
 
     private int AgID;
 
@@ -42,18 +96,6 @@ public class ProcessModel {
         this.PID = PID;
     }
 
-    @Override
-    public String toString() {
-        return "ProcessModel{" +
-                "PID=" + PID +
-                ", notes='" + notes + '\'' +
-                ", CID=" + CID +
-                ", QID=" + QID +
-                ", UID=" + UID +
-                ", AID=" + AID +
-                ", state='" + state + '\'' +
-                '}';
-    }
 
     public String getNotes() {
         return notes;

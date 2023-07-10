@@ -283,7 +283,8 @@ export default {
         userid:{
           applicantID:this.$store.state.user.id,
         },
-        ruleForm:{},
+        ruleForm:{
+        },
         TypeOfTest:[
               {
                 id:1,
@@ -632,15 +633,15 @@ created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.userid.applicantID=this.$store.state.user.id;
-    // this.ruleForm.applicantID=this.$store.state.user.id;
-    //console.log(this.$store.state.user.id)
+    this.userid.applicantID=37;
+    console.log(this.$store.state.user.id)
     Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.userid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
         console.log(ret.data)
         this.ruleForm=ret.data[0];
-        this.$store.state.user.process.AID=ret.data[0].AID;
+        //this.$store.state.user.process.AID=ret.data[0].AID;
         //console.log(this.$store.state.user.process.AID)
       })
   },

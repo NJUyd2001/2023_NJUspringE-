@@ -48,6 +48,7 @@ import MarketContract from './views/market/Contract'
 import ChangeContract from './views/market/ContractChange'
 import ClientContract from './views/client/Contract'
 import SampleSend from './views/client/SampleSend'
+import SampleChange from './views/client/SampleChange'
 import SampleRecived from './views/test/SampleRecived'
 import GenQuote from './views/Quote/GenQuote'
 import ChangeQuote from './views/Quote/ChangeQuote'
@@ -309,6 +310,10 @@ export default new VueRouter({
         {
             path: '/samplesend',       // 路径
             component: SampleSend      // 跳转到的组件 
+        },
+        {
+            path: '/samplechange',       // 路径
+            component: SampleChange      // 跳转到的组件 
         },
         {
             path: '/samplerecived',       // 路径
