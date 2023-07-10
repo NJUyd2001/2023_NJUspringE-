@@ -26,10 +26,10 @@
             </div></el-col>
             <el-col :span="20">
           <el-steps :space="200" :active="2" finish-status="success">
-          <el-step title="测试报告信息查看"></el-step>
-          <el-step title="测试报告查看"></el-step>
-          <el-step title="测试环境查看"></el-step>
-          <el-step title="测试内容查看"></el-step>
+          <el-step title="测试报告信息填写"></el-step>
+          <el-step title="测试报告填写"></el-step>
+          <el-step title="测试环境填写"></el-step>
+          <el-step title="测试内容填写"></el-step>
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
