@@ -252,7 +252,7 @@
               }).then(ret=>{
                 console.log(ret.data)
                 this.$message.success("提交成功，正在返回市场部界面！");
-                 setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+                 //setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
               })
              
             } else {

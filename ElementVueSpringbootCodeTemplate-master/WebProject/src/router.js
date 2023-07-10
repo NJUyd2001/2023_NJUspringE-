@@ -45,7 +45,10 @@ import TestDocument1 from './views/report/TestDocument1'
 import TestDocument2 from './views/report/TestDocument2'
 import TestReviewDelegation from './views/test/TestReviewDelegation'
 import MarketContract from './views/market/Contract'
+import ChangeContract from './views/market/ContractChange'
 import ClientContract from './views/client/Contract'
+import SampleSend from './views/client/SampleSend'
+import SampleRecived from './views/test/SampleRecived'
 import GenQuote from './views/Quote/GenQuote'
 import ChangeQuote from './views/Quote/ChangeQuote'
 import AuditQuote from './views/Quote/AuditQuote'
@@ -247,6 +250,10 @@ export default new VueRouter({
             component: ClientContract    // 跳转到的组件
         },
         {
+            path: '/changeContract',     // 路径
+            component: ChangeContract    // 跳转到的组件
+        },
+        {
             path: '/GenQuote',     // 路径
             component: GenQuote    // 跳转到的组件
         },
@@ -297,6 +304,14 @@ export default new VueRouter({
         {
             path: '/market/ConfidentialityAgreement',   // 路径
             component: MarketConfidentialityAgreement         // 跳转到的组件
+        },
+        {
+            path: '/samplesend',       // 路径
+            component: SampleSend      // 跳转到的组件 
+        },
+        {
+            path: '/samplerecived',       // 路径
+            component: SampleRecived     // 跳转到的组件 
         },
     ]
 })

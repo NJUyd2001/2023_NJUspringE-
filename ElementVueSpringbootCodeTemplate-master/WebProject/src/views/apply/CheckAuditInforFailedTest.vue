@@ -14,12 +14,12 @@
   </el-col> 
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="10">
+      <el-col :span="2">
         <router-link to="/Client">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="4" ><div class="grid-content bg-purple">
+      <el-col :span="10" ><div class="grid-content bg-purple">
         <span class="logo-title">审核-审核信息填写</span>
         </div></el-col>
         <el-col :span="8">
@@ -35,7 +35,7 @@
   </el-header>
     <br><br><br>
     <el-main>
-      <el-form label-position="top" label-width="550px" disabled>
+      <el-form label-position="center" label-width="550px" disabled>
         <el-form-item label="密级：">
           <el-radio-group v-model="ruleForm.Security">
             <el-radio label="无密级"></el-radio>
