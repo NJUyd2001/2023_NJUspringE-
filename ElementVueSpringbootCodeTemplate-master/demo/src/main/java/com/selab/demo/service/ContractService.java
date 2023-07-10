@@ -45,6 +45,9 @@ public class ContractService {
             result.put("ChangeNumber", jsonObject.getString("changenumber"));
             result.put("ChangeDay", jsonObject.getString("changeday"));
             result.put("money",jsonObject.getString("money"));
+            result.put("Pass",jsonObject.getString("pass"));
+            result.put("Views",jsonObject.getString("views"));
+
             result2.add(result);
             ++i;
         }
@@ -66,7 +69,9 @@ public class ContractService {
         String changenumber = jsonObject.getString("ChangeNumber");
         String changeday = jsonObject.getString("ChangeDay");
         String money = jsonObject.getString("money");
-        ContractModel contractModel = new ContractModel(0,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday,money);
+        String pass = jsonObject.getString("Pass");
+        String views = jsonObject.getString("Views");
+        ContractModel contractModel = new ContractModel(0,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday,money,pass,views);
         contractDao.insert(contractModel);
         Integer CID = contractModel.getCID();
         processDao.setCID(PID,CID);
@@ -96,6 +101,8 @@ public class ContractService {
         String changenumber = jsonObject.getString("ChangeNumber");
         String changeday = jsonObject.getString("ChangeDay");
         String money = jsonObject.getString("money");
+        String pass = jsonObject.getString("Pass");
+        String views = jsonObject.getString("Views");
         if(contractDao.select2(CID)  == null){
             return ("the contract does not exist");
         }
@@ -131,7 +138,13 @@ public class ContractService {
         if(money == null){
             money = oldjsonObject.getString("money");
         }
-        ContractModel contractModel = new ContractModel(CID,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday,money);
+        if(pass == null){
+            pass = oldjsonObject.getString("pass");
+        }
+        if(views == null){
+            views = oldjsonObject.getString("views");
+        }
+        ContractModel contractModel = new ContractModel(CID,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday,money,pass,views);
         contractDao.update(contractModel);
         return ("contract update complete");
     }
@@ -166,6 +179,8 @@ public class ContractService {
         String changenumber = jsonObject.getString("ChangeNumber");
         String changeday = jsonObject.getString("ChangeDay");
         String money = jsonObject.getString("money");
+        String pass = jsonObject.getString("Pass");
+        String views = jsonObject.getString("Views");
         if(contractDao.select2(CID)  == null){
             return ("the contract does not exist");
         }
@@ -202,7 +217,13 @@ public class ContractService {
             money = oldjsonObject.getString("money");
         }
 
-        ContractModel contractModel = new ContractModel(CID,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday,money);
+        if(pass == null){
+            pass = oldjsonObject.getString("pass");
+        }
+        if(views == null){
+            views = oldjsonObject.getString("views");
+        }
+        ContractModel contractModel = new ContractModel(CID,itemname,client,trustee,qc,date,periodofvalidity,ddl,changenumber,changeday,money,pass,views);
         contractDao.update(contractModel);
         return ("contract update complete");
     }
