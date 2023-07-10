@@ -108,9 +108,7 @@
             </el-col>
         </el-row>
       </el-form>
-      
       <el-divider></el-divider>
-      
       <el-form  :model="Suggestion" ref="Suggestion">
         <el-row type="flex" justify="center">
         <el-radio-group v-model="Suggestion.Pass" :span="3">
@@ -137,7 +135,6 @@
             </el-col>
         </el-row>
         </el-form>
-        {{Suggestion.Pass}}
         </el-main>
     </el-container>
     </template>

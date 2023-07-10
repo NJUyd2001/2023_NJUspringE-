@@ -168,7 +168,9 @@ export default {
               ddl:0,
               ChangeNumber:0,
               ChangeDay:0,
-              //money:200,
+              money:200,
+              Pass:"",
+              Views:"",
             },
             Quote:0,
             MarCon:{
