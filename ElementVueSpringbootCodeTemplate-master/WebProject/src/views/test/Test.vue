@@ -33,6 +33,19 @@
         <el-submenu index="1">
           <template slot="title" collapse=false>
             <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
+            <span> 委托状态</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="1-11" @click="addTab('委托状态', 'TestList')">委托状态</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+          <el-menu-item index="1-11" @click="jump2application()">审核委托</el-menu-item>
+          </el-menu-item-group>
+          </el-submenu>
+        <el-submenu index="1">
+          <template slot="title" collapse=false>
+            <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
+            <span> 审核/提交</span>
             <span> 生产测试报告</span>
           </template>
           <el-menu-item-group>
@@ -165,7 +178,7 @@ export default {
       this.lang = command;
     },
     handleStart() {
-      this.$router.push('client/Personal');
+      this.$router.push('/Personal');
     },
     loginOut() {
       //this.showLogin = true;
@@ -179,6 +192,9 @@ export default {
 
       this.showLogin = false;
       this.user = user;
+    },
+    jump2application() {
+      this.$router.push('/testaudituser');
     },
     jump2report() {
       this.$router.push('/report');

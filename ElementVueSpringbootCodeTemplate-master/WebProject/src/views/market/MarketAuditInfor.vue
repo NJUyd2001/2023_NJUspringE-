@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px " >
     <el-row>
     <el-col :span="23">
     <el-breadcrumb separator="->">
@@ -46,11 +46,11 @@
         <el-form-item label="审核意见：">
           <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" ></el-input>
         </el-form-item>
-        <el-form-item label="受理意见：" prop="ConfirmOpinion" required>
+        <el-form-item label="受理意见：" prop="ConfirmOpinion"  required>
           <el-radio-group v-model="ruleForm.ConfirmOpinion">
-            <el-radio label="受理-进入测试部审核阶段 "></el-radio>
-            <el-radio label="不受理"></el-radio>
-            <el-radio label="进一步联系"></el-radio>
+            <el-radio label="受理-进入测试部审核阶段" value="11"></el-radio>
+            <el-radio label="不受理" value="15"></el-radio>
+            <el-radio label="进一步联系" value="15"></el-radio>
           </el-radio-group>
         </el-form-item>
     </el-form>
@@ -67,6 +67,15 @@ export default {
   created(){
     this.KeepInfor();
     this.ruleForm.AID=this.$store.state.user.process.AID
+    this.fpid.AID=this.$store.state.user.process.AID
+    Axios.post("http://localhost:9090/api/process/findByAID",JSON.stringify(this.fpid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          this.Pid.PID=ret.data[0].pid;
+          console.log(this.Pid.PID)
+          console.log(this.$store.state.user.process.AID)
+      })
   },
     data(){
        return{
@@ -74,6 +83,14 @@ export default {
           AID:"",
           Views:"",
           ConfirmOpinion:"",
+        },
+        fpid:{
+          AID:"",
+        },
+        mystate:'',
+        Pid:{
+          PID:"",
+          state:"",
         },
         StepNumber:3,
         rules:{
@@ -104,13 +121,26 @@ export default {
       }).then(() => {
         this.$refs[formName].validate((valid) => {
         if (valid) {
+          if(this.ruleForm.ConfirmOpinion == "受理-进入测试部审核阶段")
+            this.Pid.state="11";
+          else if(this.ruleForm.ConfirmOpinion == "不受理")
+            this.Pid.state="15";
+          else if(this.ruleForm.ConfirmOpinion == "进一步联系")
+            this.Pid.state="15";
       Axios.post("http://localhost:9090/api/application/insertopinion",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        this.$message.success("提交成功，正在返回测试部界面！");
+        this.$message.success("提交成功，正在返回市场部界面！");
         this.StepNumber+=2;
         setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+      })
+      
+      Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.Pid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          console.log(this.Pid.state)
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);

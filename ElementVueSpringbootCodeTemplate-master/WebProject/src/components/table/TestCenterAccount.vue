@@ -121,7 +121,7 @@ export default {
     filterinfors(){
       return this.infors.filter((i)=>{
         return i.uid.indexOf(this.keyword)!==-1|| i.name.indexOf(this.keyword)!==-1||i.password.indexOf(this.keyword)!==-1
-                ||i.jobtype.indexOf(this.keyword)!==-1|| i.username.indexOf(this.keyword)!==-1
+                ||i.jobtype.indexOf(this.keyword)!==-1|| i.indexOf(this.keyword)!==-1
       })
     }
   }

@@ -1,12 +1,12 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px " >
     <el-row>
       <el-col :span="23">
     <el-breadcrumb separator="->">
-    <el-breadcrumb-item :to="{ path: '/Test' }">测试部主页-审核委托</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/testaudituser">用户信息查看</a></el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/Test' }">市场部主页-审核委托</el-breadcrumb-item>
+    <el-breadcrumb-item><a href="/testaudituser">用户信息审核</a></el-breadcrumb-item>
   </el-breadcrumb>
   </el-col>
   <el-col :span="1">
@@ -24,10 +24,9 @@
         </div></el-col>
         <el-col :span="14">
         <el-steps :space="200" :active="0" finish-status="success" >
-          <el-step title="客户信息查看"></el-step>
-          <el-step title="申请表查看"></el-step>
-          <el-step title="功能列表查看"></el-step>
-          <el-step title="审核意见查看"></el-step>
+          <el-step title="客户信息审核"></el-step>
+          <el-step title="申请表审核"></el-step>
+          <el-step title="功能列表审核"></el-step>
           <el-step title="审核信息填写"></el-step>
           <el-step title="完成"></el-step>
         </el-steps>
@@ -41,31 +40,31 @@
   </el-header>
     <br><br><br>
     <el-main >
-      <br>
-      <el-form label-width="550px" disabled :model="ruleForm" ref="ruleForm">
+      <el-form label-width="550px" disabled :model="user" ref="user">
+        <br>
         <el-form-item label="电话：">
-          <el-input v-model="telephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.phone" prop="telephone" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="传真：">
-          <el-input v-model="fax" style="width: 200px;"></el-input>
+          <el-input v-model="user.userfax" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="地址：">
-          <el-input v-model="address" style="width: 200px;"></el-input>
+          <el-input v-model="user.address" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="邮编：">
-          <el-input v-model="postcode" style="width: 200px;"></el-input>
+          <el-input v-model="user.zipcode" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="联系人：">
-          <el-input v-model="contacts" style="width: 200px;"></el-input>
+          <el-input v-model="user.contact" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="手机：">
-          <el-input v-model="mobilephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.contactTel" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="E-mail：">
-          <el-input v-model="email" style="width: 200px;"></el-input>
+          <el-input v-model="user.emailAddr" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="网址：">
-          <el-input v-model="URL" style="width: 200px;"></el-input>
+          <el-input v-model="user.ip" style="width: 200px;"></el-input>
         </el-form-item>
       </el-form>
     </el-main>
@@ -76,13 +75,43 @@
 <script>
 import Axios from 'axios'
 export default {
-    data(){
+  
+   data(){
        return{
-            user:{
+            user:{},
+            SelectForm:{
+              "UID":this.$store.state.user.process.UID
+            },
+
+            ruleForm:{
+              SoftwareName:'',
+              Versions:'',
             },
     }
+  },
+  created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    
+    //console.log(this.$store.state.user.process.UID)
+     Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.SelectForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        this.user=ret.data;
+     })
 }, 
+mounted() {
+    //this.$forceUpdate();
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
   methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     addfatherItem(){
       this.ruleForm.TableData.push({
         id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,

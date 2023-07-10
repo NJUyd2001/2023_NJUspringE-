@@ -14,7 +14,6 @@ import java.rmi.server.UID;
 @Component
 public class FileUtil {
     public static final String UPLOAD_FILEPATH = "D:\\selab\\file\\";
-    // public static final String UPLOAD_FILEPATH = "/home/selab/file";
     @ResponseBody
     public String getUpload(@RequestPart(value = "file") MultipartFile mf,
     @RequestParam(value = "PID") Integer PID) throws IOException {

@@ -6,7 +6,7 @@
 #        username: neoabridges
 #        password: 86bc514d3780ac7e
 server:
-  #port: 1234
+  port: 1234
   servlet:
     encoding:
       charset: UTF-8
@@ -14,7 +14,8 @@ server:
   tomcat:
 
     uri-encoding: utf-8
-  port: 21603
+  #port: 21603
+
 
 spring:
   servlet:

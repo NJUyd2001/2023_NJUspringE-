@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px " >
     <el-row>
       <el-col :span="23">
     <el-breadcrumb separator="->">
@@ -43,28 +43,28 @@
       <el-form label-width="550px" disabled :model="user" ref="user">
         <br>
         <el-form-item label="电话：">
-          <el-input v-model="user.telephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.phone" prop="telephone" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="传真：">
-          <el-input v-model="user.fax" style="width: 200px;"></el-input>
+          <el-input v-model="user.userfax" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="地址：">
           <el-input v-model="user.address" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="邮编：">
-          <el-input v-model="user.postcode" style="width: 200px;"></el-input>
+          <el-input v-model="user.zipcode" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="联系人：">
-          <el-input v-model="user.contacts" style="width: 200px;"></el-input>
+          <el-input v-model="user.contact" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="手机：">
-          <el-input v-model="user.mobilephone" style="width: 200px;"></el-input>
+          <el-input v-model="user.contactTel" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="E-mail：">
-          <el-input v-model="user.email" style="width: 200px;"></el-input>
+          <el-input v-model="user.emailAddr" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="网址：">
-          <el-input v-model="user.URL" style="width: 200px;"></el-input>
+          <el-input v-model="user.ip" style="width: 200px;"></el-input>
         </el-form-item>
       </el-form>
     </el-main>
@@ -75,26 +75,33 @@
 <script>
 import Axios from "axios"
 export default {
-  created(){
-    //在页面加载时读取sessionStorage里的状态信息
-    this.KeepInfor();
-    console.log(this.$store.state.user.process.UID)
-    // Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.$store.state.user.process.UID)).then(ret=>{
-    //   console.log(ret.data)
-    //   this.user=ret.data[0]
-    // })
-  },
-    data(){
+  
+   data(){
        return{
-            user:{
+            user:{},
+            SelectForm:{
+              "UID":this.$store.state.user.process.UID
             },
+
             ruleForm:{
               SoftwareName:'',
               Versions:'',
             },
     }
+  },
+  created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    //console.log(this.$store.state.user.process.UID)
+     Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.SelectForm),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        this.user=ret.data;
+     })
 }, 
 mounted() {
+    //this.$forceUpdate();
     window.addEventListener('beforeunload', this.handleBeforeUnload);
     window.addEventListener('unload', this.handleUnload);
   },

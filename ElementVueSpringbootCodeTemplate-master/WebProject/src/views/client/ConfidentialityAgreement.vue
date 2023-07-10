@@ -1,7 +1,7 @@
 <!-- 文炫添加 -->
 <template>
     <el-container style="height:100%">
-      <el-header style="height: 30px " @back="goback">
+      <el-header style="height: 30px " >
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
@@ -19,15 +19,22 @@
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="12" ><div class="grid-content bg-purple">
+          <el-col :span="10" ><div class="grid-content bg-purple">
             <h1 style="margin-left: 30%;">软件项目委托测试保密协议</h1>
             </div></el-col>
-          <el-col :span="6" push="4">
+            <el-col :span="10">
+        <el-steps :space="200" :active="1" finish-status="success">
+          <el-step title="合同草稿审核"></el-step>
+          <el-step title="保密协议填写"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+      </el-col>  
+          <el-col :span="2">
             <el-button style="margin-top: -25px; margin-left: 70px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
-        <br><br>
+        <br><br><br>
         <el-main>
           <br>
           <h1 style="margin-top: 40px; margin-left: 5%;">保密内容:</h1>
@@ -47,40 +54,41 @@
                 8、本协议作为委托测试合同的附件，一式两份，双方各执一份，与合同具有同等法律效力。<br>
                  本协议自双方授权代表签字盖章之日起生效，但有效期不限于合同有效期。</p>
           <br>
-          <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-              <el-form-item style="font-weight: bold;" label="甲方 :" label-width="550px">
-            <el-input v-model="ruleForm.Client" style="width: 200px;"></el-input>
-            <el-form-item label="乙方 :" label-width="550px" style="margin-top: -40px;">
-              <el-input v-model="ruleForm.Trustee" style="width: 200px;"></el-input>
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" >
+              <el-form-item style="font-weight: bold;" label="甲方 :" label-width="400px" prop="Client"> 
+            <el-input v-model="ruleForm.Client" style="width: 200px;" ></el-input>
+            <el-form-item label="乙方 :" label-width="550px" style="margin-top: -40px;" >
+              <el-input v-model="ruleForm.Trustee" style="width: 200px;" disabled></el-input>
             </el-form-item>
             </el-form-item>
-            <el-form-item  style="font-weight: bold;" label="法人代表：" label-width="550px">
+            <el-form-item  style="font-weight: bold;" label="法人代表：" label-width="400px" prop="LegalRepresentative1">
               <el-input v-model="ruleForm.LegalRepresentative1" style="width: 200px;"></el-input>
-            <el-form-item  label="法人代表：" label-width="550px" style="margin-top: -40px;">
-              <el-input v-model="ruleForm.LegalRepresentative2" style="width: 200px;"></el-input>
+            <el-form-item  label="法人代表：" label-width="550px" style="margin-top: -40px;" >
+              <el-input v-model="ruleForm.LegalRepresentative2" style="width: 200px;" disabled></el-input>
             </el-form-item>
             </el-form-item>
-            <div class="Date1" style="margin-left: 500px;">
-                <span class="demonstration">日期:</span>
+            <el-row >
+            <el-col :span="6">
+            <el-form-item label="日期 :" style="font-weight: bold;" label-width="400px" prop="Date1">
                 <el-date-picker
-                style="margin-left: 10px;"
-                v-model="value1"
+                v-model="ruleForm.Date1"
                 type="date"
                 placeholder="Pick a day">
             </el-date-picker>
-            </div>
-            <div class="Date2" style="margin-left: 62%; margin-top: -35px;">
-                <span class="demonstration">日期:</span>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="日期 :" style="font-weight: bold;" label-width="550px">
                 <el-date-picker
-                style="margin-left: 10px;"
-                v-model="value2"
+                v-model="ruleForm.Date2"
                 type="date"
-                placeholder="Pick a day">
+                placeholder="Pick a day" disabled>
             </el-date-picker>
-            </div>
+          </el-form-item>
+        </el-col>
+        </el-row>
           </el-form>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
     <el-backtop :right="50" :bottom="50" />
@@ -88,7 +96,7 @@
     import Axios from 'axios';
     
     export default {
-        data(){
+    data(){
            return{
                 ruleForm:{
                     Client:'',
@@ -96,6 +104,8 @@
                     LegalRepresentative1:'',
                     LegalRepresentative2:'',
                     Name:'',
+                    Date1:'',
+                    Date2:'',
                 },
                 rules:{
                   Client:[
@@ -113,6 +123,9 @@
                   Name:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
+                  Date1:[
+                  { required: true, message: "请选择日期！", trigger: "change" },
+                  ]
                   },
                   shortcuts: [{
                     text: 'Today',
@@ -134,11 +147,24 @@
                       picker.$emit('pick', date);
                     }
                   }],
-                  value1:'',
-                  value2:'',
+
         }
-    }, 
-      methods:{
+    },
+  mounted(){
+  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('unload', this.handleUnload);
+      },
+created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+  },
+  methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+      },
+    handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+    },
         TestInfor(){
           //alert(JSON.stringify(this.ruleForm));
         },
@@ -156,7 +182,9 @@
           })
           .catch(function (error) { // 请求失败处理
             console.log(error);
+            
           });
+          stepNumber+=2;
           // this.info("提交成功，正在返回用户界面！");
           // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
         }

@@ -167,7 +167,7 @@
       this.lang = command;
     },
     handleStart() {
-      this.$router.push('client/Personal');
+      this.$router.push('Personal');
     },
     loginOut() {
       //this.showLogin = true;

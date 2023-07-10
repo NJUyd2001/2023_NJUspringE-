@@ -1,7 +1,7 @@
 <!-- 黄大伟添加 -->
 <template>
 <el-container style="height:100%">
-  <el-header style="height: 30px " @back="goback">
+  <el-header style="height: 30px " >
     <el-row>
     <el-col :span="22">
     <el-breadcrumb separator="->">
@@ -76,7 +76,7 @@
           v-model="ruleForm.SoftwareUserObjectDescription" type="textarea" />
         </el-form-item>
         <el-form-item label="主要功能及用途简介:" prop="MainFunction">
-          <el-input placeholder="限200字以内" style="width:500px;" maxlength="200" show-word-limit="true" :rows="3"
+          <el-input placeholder="限200字以内" style="width:500px;" maxlength="200" show-word-limit :rows="3"
           v-model="ruleForm.MainFunction" type="textarea" />
         </el-form-item>
         <el-form-item label="测试依据:" prop="NeededStandard">
@@ -223,7 +223,7 @@
               :limit="3"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:applicantID }"
+              :data="{ PID:this.process.PID }"
               :file-list="ruleForm.SamplesSubmitted">
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
@@ -255,7 +255,7 @@
                           action="http://localhost:9090/api/file/upload"
                           multiple
                           :before-upload="beforeUploadjpg"
-                          :data="{ PID:applicantID }">
+                          :data="{ PID:this.process.PID }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                           <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
@@ -277,6 +277,9 @@ export default {
         user:{
                 name:this.$store.state.user.name,
             },
+        process:{
+          PID:this.$store.state.user.process.PID,
+        },
         userid:{
           applicantID:this.$store.state.user.id,
         },
