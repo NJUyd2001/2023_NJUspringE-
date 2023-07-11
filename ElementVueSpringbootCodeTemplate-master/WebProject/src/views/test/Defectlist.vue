@@ -14,15 +14,15 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="16">
+          <el-col :span="2">
             <router-link to="/report">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="24">
             <span class="logo-title">问题（缺陷）清单</span>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <el-button  size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
@@ -80,22 +80,18 @@
                     URL:'',
                 },
                 ruleForm:{
-                    Num:'',
-                    DefectDescription:'',
-                    RequirementItems:'',
-                    DefectdetectionInitialcondition:'',
-                    DefectdetectionSpecificpath:'',
-                    Usecase:'',
-                    DiscoveryTime:'',
-                    PersonResponsible:'',
-                    Suggestion:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
-                },
+                  TableData:[
+                    {
+                      Num:'',
+                      DefectDescription:'',
+                      RequirementItems:'',
+                      DefectdetectionInitialcondition:'',
+                      DefectdetectionSpecificpath:'',
+                      Usecase:'',
+                      DiscoveryTime:'',
+                      PersonResponsible:'',
+                      Suggestion:'',
+                  },
               ],
                 },
                 rules:{
