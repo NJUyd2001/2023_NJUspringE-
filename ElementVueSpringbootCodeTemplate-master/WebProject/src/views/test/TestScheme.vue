@@ -149,6 +149,7 @@
     </template>
     <el-backtop :right="50" :bottom="50" />
     <script>
+import Axios from 'axios';
     export default {
         data(){
           return{
@@ -291,7 +292,7 @@
           });*/
           console.log(this.ruleForm);
           this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         }
       },
     

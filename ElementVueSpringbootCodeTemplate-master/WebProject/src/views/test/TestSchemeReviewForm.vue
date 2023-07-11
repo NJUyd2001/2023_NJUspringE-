@@ -37,16 +37,16 @@
       </el-header>
         <br><br>
         <el-main>
-          <el-form label-position="middle" label-width="40%" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form label-position="middle" label-width="45%" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item style="margin-top: 80px; margin-right: 220px;" label="软件名称:" prop="SoftWareName"> 
                 <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
-                <el-form-item style="margin-top: -60px; margin-right: 120px;" label="版本号:" prop="VersionNumber"> 
+                <el-form-item style="margin-top: -60px; margin-right: 10px;" label="版本号:" prop="VersionNumber"> 
                     <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
                 </el-form-item>
             </el-form-item> 
             <el-form-item style="margin-top: -15px; margin-right: 220px;" label="项目编号:" prop="ProjectNum"> 
                 <el-input style="width:200px; padding:10px;" v-model="ruleForm.ProjectNum"></el-input>
-                <el-form-item style="margin-top: -60px; margin-right: 110px;" label="测试类别:" prop="TestCategory"> 
+                <el-form-item style="margin-top: -60px; margin-right: 10px;" label="测试类别:" prop="TestCategory"> 
                     <el-input style="width:200px; padding:10px;" v-model="ruleForm.TestCategory"></el-input>
                 </el-form-item>
             </el-form-item>
@@ -124,10 +124,15 @@
     </template>
 
     <script>
+import Axios from 'axios';
     export default {
         data(){
            return{
              input_type:'text',
+             TSRF:{
+              PID:this.$store.state.user.process.PID,
+              state:"50",
+            },
              ruleForm:{
                 SoftWareName:'',
                 VersionNumber:'',
@@ -233,9 +238,15 @@
               return false;
             }
           });*/
+          
+          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TSRF),{
+            headers:{
+              'content-type': 'text/plain'}
+            }).then(ret=>{
+          })
           console.log(this.ruleForm);
           this.$message.success("提交成功,！");
-          //setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
         }
     }
     }
