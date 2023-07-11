@@ -100,7 +100,7 @@
                 <el-radio label="不通过"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-table :data="tableData"  style="width: 50%; margin-left: 25%;">
+            <el-table :data="ruleForm.tableData"  style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="Duty" label="职责" width="110"></el-table-column>
             <el-table-column prop="EvalutionOpinion" label="评审意见" width="400">
               <template slot-scope="scope">
@@ -146,7 +146,32 @@ import Axios from 'axios';
                 InputOutputData:'',
                 Timing:'',
                 HumanResourcesArrangement:'',
-                tableData:[],
+                tableData: [{
+                  Duty: '测试工程师',
+                  EvalutionOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '测试室负责人',
+                  EvalutionOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '质量负责人',
+                  EvalutionOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '技术负责人',
+                  EvalutionOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '监督人',
+                  EvalutionOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }],
               },
           tableData: [{
             Duty: '测试工程师',
