@@ -92,54 +92,24 @@
             </el-form-item>
             <el-form-item label="5 测试进度表" prop="TestingSchedule" style="font-weight: bold; font-size: 15px; ">
             </el-form-item>
-            <el-form-item label="制定测试计划:" prop="DevelopTestingPlan" > 
-              <el-input style="width:200px;padding:10px" v-model="ruleForm.DevelopTestingPlan" placeholder="工作量"></el-input>
-            </el-form-item>
-            <el-form-item label="开始时间至结束时间" prop="DevelopTestingPlanDateRange">
-                <el-date-picker
-                v-model="ruleForm.DevelopTestingPlanDateRange"
-                type="daterange"
-                range-separator="To"
-                start-placeholder="开始时间"
-                end-placeholder="结束时间"
-                />
-            </el-form-item>
-            <el-form-item label="设计测试:" prop="DesignTesting" > 
-              <el-input style="width:200px;padding:10px" v-model="ruleForm.DesignTesting " placeholder="工作量"></el-input>
-            </el-form-item>
-            <el-form-item label="开始时间至结束时间" prop="DesignTestingDateRange">
-                <el-date-picker
-                v-model="ruleForm.DesignTestingDateRange"
-                type="daterange"
-                range-separator="To"
-                start-placeholder="开始时间"
-                end-placeholder="结束时间"
-                />
-            </el-form-item>
-            <el-form-item label="执行测试:" prop="PerformTesting" > 
-              <el-input style="width:200px;padding:10px" v-model="ruleForm.PerformTesting" placeholder="工作量"></el-input>
-            </el-form-item>
-            <el-form-item  label="开始时间至结束时间" prop="PerformTestingDateRange">
-                <el-date-picker
-                v-model="ruleForm.PerformTestingDateRange"
-                type="daterange"
-                range-separator="To"
-                start-placeholder="开始时间"
-                end-placeholder="结束时间"
-                />
-            </el-form-item>
-            <el-form-item label="评估测试:" prop="AssessmentTesting" > 
-              <el-input style="width:200px;padding:10px" v-model="ruleForm.AssessmentTesting" placeholder="工作量"></el-input>
-            </el-form-item>
-            <el-form-item label="开始时间至结束时间" prop="AssessmentTestingDateRange">
-                <el-date-picker
-                v-model="ruleForm.AssessmentTestingDateRange"
-                type="daterange"
-                range-separator="To"
-                start-placeholder="开始时间"
-                end-placeholder="结束时间"
-                />
-            </el-form-item>
+            <el-table :data="ruleForm.tableData"  style="width: 50%; margin-left: 25%;">
+            <el-table-column fixed prop="MilestonesTasks" label="里程碑任务" width="110"></el-table-column>
+            <el-table-column prop="Workload" label="工作量" width="400">
+              <template slot-scope="scope">
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.Workload" :rows="2"  placeholder="工作量"/>
+              </template>
+            </el-table-column>
+            <el-table-column prop="Start" label="开始时间" width="110">
+              <template slot-scope="scope">
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.Start" :rows="2"  placeholder="开始时间"/>
+              </template>
+            </el-table-column>
+            <el-table-column prop="End" label="结束时间" width="110">
+              <template slot-scope="scope">
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.End" :rows="2"  placeholder="结束时间"/>
+              </template>
+            </el-table-column>
+            </el-table>
             <el-form-item label="6 需求的可追踪性" prop="TraceabilityOfRequirement" style="font-weight: bold; font-size: 15px; margin-top: 20px;">
               <el-input v-model="ruleForm.TraceabilityOfRequirement" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
             </el-form-item>
@@ -168,17 +138,52 @@
                GeneralTestCondtion:'',
                PlannedExecutionTest:'',
                TestCase:'',
-               DevelopTestingPlan:'',
-               DevelopTestingPlanDateRange:'',
-               DesignTesting:'',
-               DesignTestingDateRange:'',
-               PerformTesting:'',
-               PerformTestingDateRange:'',
-               AssessmentTesting:'',
-               AssessmentTestingDateRange:'',
                TraceabilityOfRequirement:'',
-
+               tableData: [{
+                MilestonesTasks:'制定测试计划',
+                Workload:'',
+                Start:'',
+                End:'',
+             },{
+                MilestonesTasks:'设计测试',
+                Workload:'',
+                Start:'',
+                End:'',
+             },{
+                MilestonesTasks:'执行测试',
+                Workload:'',
+                Start:'',
+                End:'',
+             },{
+                MilestonesTasks:'评估测试',
+                Workload:'',
+                Start:'',
+                End:'',
+             }
+            ],
              },
+             tableData: [{
+                MilestonesTasks:'制定测试计划',
+                Workload:'',
+                Start:'',
+                End:'',
+             },{
+                MilestonesTasks:'设计测试',
+                Workload:'',
+                Start:'',
+                End:'',
+             },{
+                MilestonesTasks:'执行测试',
+                Workload:'',
+                Start:'',
+                End:'',
+             },{
+                MilestonesTasks:'评估测试',
+                Workload:'',
+                Start:'',
+                End:'',
+             }
+            ],
                 rules:{
                   Mark:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
@@ -228,25 +233,13 @@
                   DevelopTestingPlan:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
-                  DevelopTestingPlanDateRange:[
-                    { required: true, message: "不能为空！", trigger: "blur"  },
-                  ],
                   DesignTesting:[
-                    { required: true, message: "不能为空！", trigger: "blur"  },
-                  ],
-                  DesignTestingDateRange:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   PerformTesting:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
-                  PerformTestingDateRange:[
-                    { required: true, message: "不能为空！", trigger: "blur"  },
-                  ],
                   AssessmentTesting:[
-                    { required: true, message: "不能为空！", trigger: "blur"  },
-                  ],
-                  AssessmentTestingDateRange:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   TraceabilityOfRequirement:[
