@@ -22,6 +22,9 @@ public class ReportMainService {
 
     public Integer findRID(Integer PID) {
         ProcessModel processModel = processDao.findByPID(PID);
+        if(processModel == null){
+            return null;
+        }
         return processModel.getRID();
     }
 

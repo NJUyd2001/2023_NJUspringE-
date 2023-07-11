@@ -16,7 +16,10 @@
     <select id="selectByPID" parameterType="integer" resultType="com.selab.demo.model.FileModel">
         SELECT * FROM file WHERE PID=#{PID}
     </select>
-    <select id="selectByFID" parameterType="integer" resultType="com.selab.demo.model.FileModel">
+    <select id="selectByFID" parameterType="integer"  resultType="com.selab.demo.model.FileModel">
         SELECT * FROM file WHERE FID=#{FID}
+    </select>
+    <select id="selectByState" parameterType="com.selab.demo.model.FileModel" resultType="com.selab.demo.model.FileModel">
+        SELECT * FROM file WHERE PID=#{PID} AND state=#{state} AND fileType=#{fileType}
     </select>
 </mapper>

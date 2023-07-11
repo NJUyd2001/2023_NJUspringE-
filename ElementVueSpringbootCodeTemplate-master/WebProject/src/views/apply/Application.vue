@@ -687,7 +687,7 @@ created(){
           'content-type': 'text/plain'}
       }).then(ret=>{
         this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       })
           
       }).catch(function (error)

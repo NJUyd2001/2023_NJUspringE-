@@ -10,7 +10,25 @@ public class FileModel {
     private Integer FID;           // 文件ID
     private String filePath;        // 文件在服务器中的存储路径
     private Integer PID;    // 上传用户ID
+    private String state;
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    private String fileType;
     private String fileName;
 
     public String getFileName() {

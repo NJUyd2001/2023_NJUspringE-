@@ -61,6 +61,8 @@
         </el-steps>
         <div>
          <el-button v-if="pstate=='10'" style="margin-top: 12px;" @click="jump2application()">发起委托</el-button>
+         <el-button v-else-if="pstate=='15'" style="margin-top: 12px;" @click="J2AppMenMar()">修改委托(市场部驳回)</el-button>
+         <el-button v-else-if="pstate=='16'" style="margin-top: 12px;" @click="J2AppMenTest()">修改委托(测试部驳回)</el-button>
          <el-button v-else-if="pstate=='20'" style="margin-top: 12px;" @click="J2Auditquote()">查看报价</el-button>
          <el-button v-else-if="pstate=='30'" style="margin-top: 12px;" @click="next">填写合同</el-button>
          <el-button v-else-if="pstate=='32'" style="margin-top: 12px;" @click="next">发送样品</el-button>
@@ -216,6 +218,12 @@ export default {
     },
     jump2myinf(){
       this.$router.push('/myinf');
+    },
+    J2AppMenMar(){
+      this.$router.push('/applicationamendmarket');
+    },
+    J2AppMenTest(){
+      this.$router.push('/applicationamendtest');
     },
     addTab(targetName, commentName) {
       // 如果已经存在

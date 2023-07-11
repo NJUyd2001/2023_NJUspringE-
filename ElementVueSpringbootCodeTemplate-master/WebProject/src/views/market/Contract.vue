@@ -72,7 +72,7 @@
               :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:this.ruleForm.PID }"
+              :data="{ PID:this.process.PID, state:'30', fileType:'contract' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
