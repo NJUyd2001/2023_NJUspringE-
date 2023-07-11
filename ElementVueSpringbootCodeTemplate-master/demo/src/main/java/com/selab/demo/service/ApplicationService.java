@@ -425,7 +425,7 @@ public class ApplicationService {
         state m_state  = jsonObject.getObject("m_state",state.class);
         String auditinfor = jsonObject.getString("auditinfor");
 
-        ApplicationModel applicationModel = new ApplicationModel(0,applicantID,processID,time,phone,testTYPE,sNAME,PA,PAE,PB,PB_type,USS,sDES,stestBASIS,elsestestBASIS,elseINDEX,TESTINDEX,scale_num,scale_score,scale_num,sTYPE,ENVIRONMENTW,ENVIRONMENTL,ENVIRONMENTN,ENVIRONMENTE,ENVIRONMENT,ARCHITECTURE,hOPERATINGENVIRONMENT,hMEMORY,hHARDDISK,hELSEDEMAND,sOS,sVERSION,sLANGUAGE,sARCHITECTURE,sDATABASE,sMIDDLEWARE,sELSEDEMAND,sOPERATINGENVIRONMENT,MEDIUM,doc_path1,doc_path2,doc_path3,doc_path4,SAMPLEDELETE,EXDATE,t_state,m_state,auditinfor,version_num,mainfunction,null,null,null,null);
+        ApplicationModel applicationModel = new ApplicationModel(0,applicantID,processID,time,phone,testTYPE,sNAME,PA,PAE,PB,PB_type,USS,sDES,stestBASIS,elsestestBASIS,elseINDEX,TESTINDEX,scale_lines,scale_score,scale_num,sTYPE,ENVIRONMENTW,ENVIRONMENTL,ENVIRONMENTN,ENVIRONMENTE,ENVIRONMENT,ARCHITECTURE,hOPERATINGENVIRONMENT,hMEMORY,hHARDDISK,hELSEDEMAND,sOS,sVERSION,sLANGUAGE,sARCHITECTURE,sDATABASE,sMIDDLEWARE,sELSEDEMAND,sOPERATINGENVIRONMENT,MEDIUM,doc_path1,doc_path2,doc_path3,doc_path4,SAMPLEDELETE,EXDATE,auditinfor,version_num,mainfunction,null,null,null,null);
         applicationDao.insertApp(applicationModel);
         Integer AID = applicationModel.getAID();
         JSONObject jsonObjectAID = new JSONObject();
@@ -436,23 +436,17 @@ public class ApplicationService {
    public String checkbyuserA(String postJson){
        JSONObject jsonObject = JSONObject.parseObject(postJson);
        Integer username = jsonObject.getInteger("applicantID");
-        JSONArray res = new JSONArray();
-        res.add(JSON.toJSONString(applicationDao.findbyuserA(username)));
-        return JSONrepack(JSON.toJSONString(applicationDao.findbyuserA(username)));
+       return JSONrepack(JSON.toJSONString(applicationDao.findbyuserA(username)));
     }
 
     public String checkbyprocess(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer username = jsonObject.getInteger("processID");
-        JSONArray res = new JSONArray();
-        res.add(JSON.toJSONString(applicationDao.findbyprocess(username)));
         return JSONrepack(JSON.toJSONString(applicationDao.findbyprocess(username)));
     }
     public String checkbyAID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer AID = jsonObject.getInteger("AID");
-        JSONArray res = new JSONArray();
-        res.add(JSON.toJSONString(applicationDao.findbyAID(AID)));
         return JSONrepack(JSON.toJSONString(applicationDao.findbyAID(AID)));
     }
     public String findAID(String postJson){
@@ -829,7 +823,7 @@ public class ApplicationService {
         if(sOPERATINGENVIRONMENT == null)   sOPERATINGENVIRONMENT = oldjsonObject.getString("sOPERATINGENVIRONMENT");
 
 
-        ApplicationModel applicationModel = new ApplicationModel(0,applicantID,processID,time,phone,testTYPE,sNAME,PA,PAE,PB,PB_type,USS,sDES,stestBASIS,elsestestBASIS,elseINDEX,TESTINDEX,scale_num,scale_score,scale_num,sTYPE,ENVIRONMENTW,ENVIRONMENTL,ENVIRONMENTN,ENVIRONMENTE,ENVIRONMENT,ARCHITECTURE,hOPERATINGENVIRONMENT,hMEMORY,hHARDDISK,hELSEDEMAND,sOS,sVERSION,sLANGUAGE,sARCHITECTURE,sDATABASE,sMIDDLEWARE,sELSEDEMAND,sOPERATINGENVIRONMENT,MEDIUM,doc_path1,doc_path2,doc_path3,doc_path4,SAMPLEDELETE,EXDATE,t_state,m_state,auditinfor,version_num,mainfunction,null,null,null,null);
+        ApplicationModel applicationModel = new ApplicationModel(0,applicantID,processID,time,phone,testTYPE,sNAME,PA,PAE,PB,PB_type,USS,sDES,stestBASIS,elsestestBASIS,elseINDEX,TESTINDEX,scale_lines,scale_score,scale_num,sTYPE,ENVIRONMENTW,ENVIRONMENTL,ENVIRONMENTN,ENVIRONMENTE,ENVIRONMENT,ARCHITECTURE,hOPERATINGENVIRONMENT,hMEMORY,hHARDDISK,hELSEDEMAND,sOS,sVERSION,sLANGUAGE,sARCHITECTURE,sDATABASE,sMIDDLEWARE,sELSEDEMAND,sOPERATINGENVIRONMENT,MEDIUM,doc_path1,doc_path2,doc_path3,doc_path4,SAMPLEDELETE,EXDATE,auditinfor,version_num,mainfunction,null,null,null,null);
 
 
         applicationDao.updateapplication(applicationModel);

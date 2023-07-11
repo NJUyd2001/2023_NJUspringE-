@@ -14,8 +14,10 @@ public class ContractModel {
     private String changenumber;
     private String changeday;
     private String money;
+    private String pass;
+    private String views;
 
-    public ContractModel(Integer CID, String itemname, String client, String trustee, String qc, String date, String periodofvalidity, String ddl, String changenumber, String changeday, String money) {
+    public ContractModel(Integer CID, String itemname, String client, String trustee, String qc, String date, String periodofvalidity, String ddl, String changenumber, String changeday, String money, String pass, String views) {
         this.CID = CID;
         this.itemname = itemname;
         this.client = client;
@@ -27,6 +29,8 @@ public class ContractModel {
         this.changenumber = changenumber;
         this.changeday = changeday;
         this.money = money;
+        this.pass = pass;
+        this.views = views;
     }
 
     public Integer getCID() {
@@ -115,5 +119,21 @@ public class ContractModel {
 
     public void setMoney(String money) {
         this.money = money;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getViews() {
+        return views;
+    }
+
+    public void setViews(String views) {
+        this.views = views;
     }
 }

@@ -30,7 +30,7 @@
     <br><br><br>
     <el-main style="border-radius: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
       <br>
-      <el-form label-width="550px" :model="ruleForm"  ref="ruleForm">
+      <el-form label-width="550px">
         <el-form-item label="软件样品一套:" label-width="550px" >
             <el-button size="small" type="primary" @click="download1">点击下载</el-button>
           </el-form-item>
@@ -38,6 +38,19 @@
             <el-button size="small" type="primary" @click="download1">点击下载</el-button>
           </el-form-item>
       </el-form>
+      <el-form  :model="ruleForm" ref="ruleForm">
+        <el-row type="flex" justify="center">
+        <el-radio-group v-model="ruleForm.Pass" :span="3">      
+          <el-radio  label="false">拒绝</el-radio>
+          <el-radio  label="true">同意</el-radio>
+        </el-radio-group>
+        </el-row>
+<el-row type="flex" justify="center">
+  <el-form-item label="意见：">
+          <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" ></el-input>
+        </el-form-item>
+</el-row>
+</el-form>
     </el-main>
   <LoginDialog :show='showLogin'/>
 </el-container>
@@ -54,20 +67,12 @@ export default {
             },
             SamRc:{
               PID:this.$store.state.user.process.PID,
-              state:"41",
+              state:"",
             },
             StepNumber:2,
             ruleForm:{
-              AID:"",
-              SoftwareName:'',
-              Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-            },
-          ],
+              Views:"",
+              Pass:"",
             },
     }
 },
@@ -100,6 +105,10 @@ created(){
       this.$router.push({path: "./home", replace:true});
     },
     submitForm(formName) {
+      if(this.ruleForm.Pass == "true")
+        this.SamRc.state="41";
+      else if(this.ruleForm.Pass == "false")
+        this.SamRc.state="45";
       Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.SamRc),{
         headers:{
           'content-type': 'text/plain'}

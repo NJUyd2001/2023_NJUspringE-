@@ -117,9 +117,8 @@ export default {
   created() {
     // 载入config数据
     //this.$store.dispatch("config/reload");
-    this.$bus.on("login-open", this.loginOut);
-    this.$bus.on("login-success", this.loginSuccess);
-    this.$bus.on("login-cancel", this.loginCancel);
+    this.KeepInfor();
+
   },
   data() {
     return {
@@ -130,13 +129,11 @@ export default {
       },
       keyword: "",
       isCollapse: false,
-
       menus: [{}],
       user:{
         uname:this.$store.state.user.name,
         utype:this.$store.state.user.Permissions,
       },
-      
       data: [{}],
       //Tabs
       selectTabName: "ConfigAdd",
@@ -162,15 +159,16 @@ export default {
     }
   },
   mounted() {
-    this.$nextTick(function() {
-      this.ajax.post("/app/user").then(result => {
-        if (result.code == 0) {
-          this.user = result.data;
-        }
-      });
-    });
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
   },
   methods: {
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     handleNodeClick(data) {
         console.log(data);
       },
@@ -189,7 +187,6 @@ export default {
     },
     loginSuccess(user) {
       console.log("success", user);
-
       this.showLogin = false;
       this.user = user;
     },

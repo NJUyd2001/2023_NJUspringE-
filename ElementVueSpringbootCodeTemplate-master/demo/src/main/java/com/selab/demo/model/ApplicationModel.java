@@ -66,8 +66,6 @@ public class ApplicationModel extends BaseEntity {
     private String doc_path4;
     private String SAMPLEDELETE;
     private String EXDATE;
-    private state t_state;
-    private state m_state;
     private String auditinfor;
     private String version_num;
     private String mainfunction;
@@ -131,7 +129,7 @@ public class ApplicationModel extends BaseEntity {
      *
      * }
      * **/
-    public ApplicationModel(Integer AID, Integer applicantID, Integer processID, String time, String phone, String testTYPE, String sNAME, String PA, String PAE, String PB, String PB_type, String USS, String sDES, String stestBASIS, String elsestestBASIS, String elseINDEX, String TESTINDEX, Integer scale_num, Integer scale_score, Integer scale_lines, String sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, com.selab.demo.model.enums.ARCHITECTURE ARCHITECTURE, String hOPERATINGENVIRONMENT, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, String sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, String sOPERATINGENVIRONMENT, String MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, String SAMPLEDELETE, String EXDATE, state t_state, state m_state, String auditinfor, String version_num, String mainfunction, String tableid, String version, String confirmopinion, Integer auditID) {
+    public ApplicationModel(Integer AID, Integer applicantID, Integer processID, String time, String phone, String testTYPE, String sNAME, String PA, String PAE, String PB, String PB_type, String USS, String sDES, String stestBASIS, String elsestestBASIS, String elseINDEX, String TESTINDEX, Integer scale_num, Integer scale_score, Integer scale_lines, String sTYPE, String ENVIRONMENTW, String ENVIRONMENTL, String ENVIRONMENTN, String ENVIRONMENTE, String ENVIRONMENT, com.selab.demo.model.enums.ARCHITECTURE ARCHITECTURE, String hOPERATINGENVIRONMENT, String hMEMORY, String hHARDDISK, String hELSEDEMAND, String sOS, String sVERSION, String sLANGUAGE, String sARCHITECTURE, String sDATABASE, String sMIDDLEWARE, String sELSEDEMAND, String sOPERATINGENVIRONMENT, String MEDIUM, String doc_path1, String doc_path2, String doc_path3, String doc_path4, String SAMPLEDELETE, String EXDATE, String auditinfor, String version_num, String mainfunction, String tableid, String version, String confirmopinion, Integer auditID) {
         this.AID = AID;
         this.applicantID = applicantID;
         this.processID = processID;
@@ -178,8 +176,6 @@ public class ApplicationModel extends BaseEntity {
         this.doc_path4 = doc_path4;
         this.SAMPLEDELETE = SAMPLEDELETE;
         this.EXDATE = EXDATE;
-        this.t_state = t_state;
-        this.m_state = m_state;
         this.auditinfor = auditinfor;
         this.version_num = version_num;
         this.mainfunction = mainfunction;
@@ -555,22 +551,6 @@ public class ApplicationModel extends BaseEntity {
 
     public void setEXDATE(String EXDATE) {
         this.EXDATE = EXDATE;
-    }
-
-    public state getT_state() {
-        return t_state;
-    }
-
-    public void setT_state(state t_state) {
-        this.t_state = t_state;
-    }
-
-    public state getM_state() {
-        return m_state;
-    }
-
-    public void setM_state(state m_state) {
-        this.m_state = m_state;
     }
 
     public String getAuditinfor() {

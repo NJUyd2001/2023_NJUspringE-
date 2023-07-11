@@ -43,12 +43,12 @@ import TestContent from './views/report/TestContent'
 import TestScheme from './views/test/TestScheme'
 import TestDocument1 from './views/report/TestDocument1'
 import TestDocument2 from './views/report/TestDocument2'
-import TestReviewDelegation from './views/test/TestReviewDelegation'
 import MarketContract from './views/market/Contract'
 import ChangeContract from './views/market/ContractChange'
 import ClientContract from './views/client/Contract'
 import CheckCont from './views/market/CheckCont'
 import SampleSend from './views/client/SampleSend'
+import SampleChange from './views/client/SampleChange'
 import SampleRecived from './views/test/SampleRecived'
 import GenQuote from './views/Quote/GenQuote'
 import ChangeQuote from './views/Quote/ChangeQuote'
@@ -64,6 +64,7 @@ import DataSubmit from './views/client/DataSubmit'
 import ConfidentialityAgreement from './views/client/ConfidentialityAgreement'
 import MarketConfidentialityAgreement from './views/market/ConfidentialityAgreement'
 import DocumentandSign from './views/apply/DocumentAndSign'
+import TestSchemeReviewForm from './views/test/TestSchemeReviewForm'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -227,10 +228,6 @@ export default new VueRouter({
             component: TestDocument2  // 跳转到的组件
         },
         {
-            path: '/testreviewdelegation',  // 路径
-            component: TestReviewDelegation // 跳转到的组件
-        },
-        {
             path: '/Personal',     // 路径
             component: Personal    // 跳转到的组件
         },
@@ -315,8 +312,16 @@ export default new VueRouter({
             component: SampleSend      // 跳转到的组件 
         },
         {
+            path: '/samplechange',       // 路径
+            component: SampleChange      // 跳转到的组件 
+        },
+        {
             path: '/samplerecived',       // 路径
             component: SampleRecived     // 跳转到的组件 
+        },
+        {
+            path: '/TestSchemeReviewForm',      // 路径
+            component: TestSchemeReviewForm     // 跳转到的组件
         },
     ]
 })
