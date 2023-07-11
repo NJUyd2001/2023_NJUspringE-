@@ -37,7 +37,7 @@
             <span> 委托状态</span>
           </template>
           <el-menu-item-group>
-          <el-menu-item index="1-10" @click="addTab('委托状态', 'CTMENT')">委托状态</el-menu-item>
+          <el-menu-item index="1-10" @click="addTab('审核委托', 'CTMENT')">审核委托</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
           <el-menu-item index="1-11" @click="addTab('生成报价', 'GQuote')">生成报价</el-menu-item>

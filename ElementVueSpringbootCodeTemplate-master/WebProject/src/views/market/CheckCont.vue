@@ -241,8 +241,9 @@ export default {
     },
     download1(){
         var formdata=new FormData()
-        formdata.append('FID' ,'23')
-        //formdata.append('FID' ,this.Fid.FID1)
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'30')
+        formdata.append('fileType' ,'contract')
         //console.log(formdata.get('FID'))
         Axios.post("http://localhost:9090/api/file/download",formdata,{
         headers:{

@@ -35,7 +35,7 @@
             <el-button size="small" type="primary" @click="download1">点击下载</el-button>
           </el-form-item>
           <el-form-item label="支持性数据及相应平台信息:" label-width="550px" >
-            <el-button size="small" type="primary" @click="download1">点击下载</el-button>
+            <el-button size="small" type="primary" @click="download2">点击下载</el-button>
           </el-form-item>
       </el-form>
       <el-form  :model="ruleForm" ref="ruleForm">
@@ -157,10 +157,45 @@ created(){
       },
       download1(){
         var formdata=new FormData()
-        formdata.append('FID' ,'23')
-        //formdata.append('FID' ,this.Fid.FID1)
-        //console.log(formdata.get('FID'))
-        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'40')
+        formdata.append('fileType' ,'sample')
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
+      download2(){
+        var formdata=new FormData()
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'40')
+        formdata.append('fileType' ,'samenv')
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
         headers:{
           'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
         },

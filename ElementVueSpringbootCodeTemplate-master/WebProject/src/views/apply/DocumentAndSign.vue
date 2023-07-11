@@ -91,7 +91,7 @@
               :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:this.process.PID, state:"10", fileType:"operation" }"
+              :data="{ PID:this.process.PID, state:'10', fileType:'operation' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>
