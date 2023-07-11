@@ -41,12 +41,14 @@
           <el-menu-item-group>
             <el-menu-item index="1-11" @click="addTab('验收样品', 'RecSam')">验收样品</el-menu-item>
           </el-menu-item-group>
+          <el-menu-item-group>
+            <el-menu-item index="1-11" @click="addTab('编写测试方案', 'TestSch')">编写测试方案</el-menu-item>
+          </el-menu-item-group>
           </el-submenu>
         <el-submenu index="1">
           <template slot="title" collapse=false>
             <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
             <span> 审核/提交</span>
-            <span> 生产测试报告</span>
           </template>
           <el-menu-item-group>
             <el-menu-item index="1-13" @click="addTab('样品验收', 'TestResultTable')"> 审核测试报告</el-menu-item>

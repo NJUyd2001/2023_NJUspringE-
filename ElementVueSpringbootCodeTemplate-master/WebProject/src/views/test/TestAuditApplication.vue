@@ -191,7 +191,7 @@
          return{
           percentage:0,
           Aid:{
-            applicantID:"",
+            AID:"",
           },
           Pid:{
             PID:"",
@@ -254,8 +254,8 @@
   created(){
       // console.log(this.$store.state.user.id)
       this.KeepInfor();
-      this.Aid.applicantID=this.$store.state.user.process.UID
-      this.Pid.PID=this.$store.state.user.process.UID
+      this.Aid.AID=this.$store.state.user.process.AID
+      this.Pid.PID=this.$store.state.user.process.PID
       Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.Pid),{
         headers:{
           'content-type': 'text/plain'}
@@ -267,7 +267,7 @@
           console.log(error);
         }
       )
-      Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.Aid),{
+      Axios.post("http://localhost:9090/api/application/checkbyAID",JSON.stringify(this.Aid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
@@ -296,6 +296,7 @@
       if (!data) {
             return
        }
+       console.log(ret.headers)
        let url = window.URL.createObjectURL(new Blob([data]))
       console.log(ret.headers['content-disposition'])
       let str = typeof ret.headers['content-disposition'] === 'undefined'
