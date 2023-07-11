@@ -46,6 +46,7 @@ import TestDocument2 from './views/report/TestDocument2'
 import MarketContract from './views/market/Contract'
 import ChangeContract from './views/market/ContractChange'
 import ClientContract from './views/client/Contract'
+import CheckCont from './views/market/CheckCont'
 import SampleSend from './views/client/SampleSend'
 import SampleChange from './views/client/SampleChange'
 import SampleRecived from './views/test/SampleRecived'
@@ -249,6 +250,10 @@ export default new VueRouter({
         {
             path: '/changeContract',     // 路径
             component: ChangeContract    // 跳转到的组件
+        },
+        {
+            path: '/CheckCont',     // 路径
+            component: CheckCont    // 跳转到的组件
         },
         {
             path: '/GenQuote',     // 路径

@@ -156,6 +156,14 @@ export default {
             userid:{
               PID:"",
             },
+            Suggestion:{
+              Pass:"false",
+              Views:"",
+            },
+            Pid:{
+                  PID:this.$store.state.user.process.PID,
+                  state:"",
+                },
             ruleForm:{
               PID:"1",
               ItemName:'',
@@ -209,14 +217,20 @@ export default {
       //alert(JSON.stringify(this.ruleForm));
     },
     submitForm(formName) {
-      /*this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert("submit!");
-          this.$router.push({path: "./client", replace:true});
-        } else {
-          return false;
-        }
-      });*/
+      if(this.Suggestion.Pass == "true")
+            this.Pid.state="31";
+          else if(this.Suggestion.Pass == "false")
+            this.Pid.state="35";
+          console.log(this.Pid.state)
+          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.Pid),{
+          headers:{
+            'content-type': 'text/plain'}
+          }).then(ret=>{
+              console.log(this.Pid.state)
+         })
+          this.$message.success("提交成功，正在返回用户界面！");
+          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+        
       Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
         
         console.log(ret.data)

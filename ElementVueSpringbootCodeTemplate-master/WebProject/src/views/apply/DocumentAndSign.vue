@@ -53,13 +53,11 @@
               :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:this.process.PID }"
+              :data="{ PID:this.process.PID, state:'10', fileType:'demand'}"
               >
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
-                                             
-                                              
-                                            </strong></div>
+  </strong></div>
             </el-upload>
         </el-form-item>
         <el-form-item label="样品文档(用户文档):">
@@ -74,7 +72,7 @@
               :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:this.process.PID }"
+              :data="{PID:this.process.PID, state:'10', fileType:'user' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：2、用户文档（例如：用户手册、用户指南等）(必须)
@@ -93,7 +91,7 @@
               :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:this.process.PID }"
+              :data="{ PID:this.process.PID, state:"10", fileType:"operation" }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>
@@ -108,7 +106,7 @@
                           action="http://localhost:9090/api/file/upload"
                           multiple
                           :before-upload="beforeUploadjpg"
-                          :data="{ PID:this.process.PID }">
+                          :data="{ PID:this.process.PID, state:'10', fileType:'sign' }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                           <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
