@@ -20,7 +20,7 @@
         <el-form-item label="密码" prop="pass">
           <el-input
             type="password"
-            v-model="ruleForm.pass"
+            v-model="pass"
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -52,7 +52,7 @@
       </el-form>
       <el-button type="primary" @click="submitForm('ruleForm')" style = "margin: 18px"
           >提交</el-button>
-        <el-button @click="resetForm('ruleForm')" style = "margin: 18px">重置</el-button>
+        <el-button @click="resetForm('ruleForm', 'pass')" style = "margin: 18px">重置</el-button>
         <el-button @click="goBack">返回</el-button>
     </el-card>
   </div>
@@ -75,17 +75,17 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.pass) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
     };
     return {
+      pass: "",
       ruleForm: {
         type:"",
         uname: "",
-        pass: "",
         password: "",
         emailAddr:"",
         phone:"",

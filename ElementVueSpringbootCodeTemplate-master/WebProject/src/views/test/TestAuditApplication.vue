@@ -142,24 +142,17 @@
           <el-option   v-for='item in SoftwareMedium' :key='item.id' :label="item.value" :value="item.value"></el-option>
           </el-select>
           </el-form-item>
-          <el-form-item label="样品文档:">
-            <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                :before-remove="beforeRemove"
-                multiple
-                :limit="3"
-                :on-exceed="handleExceed"
-                :file-list="ruleForm.SamplesSubmitted">
-    <el-button size="small" type="primary">点击下载</el-button>
-    <div slot="tip" class="el-upload__tip">注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
-                                                2、用户文档（例如：用户手册、用户指南等）（必须）<br>
-                                                3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）
-                                              </div>
-              </el-upload>
+          <el-form>
+          <el-form-item label="需求文档:" label-width="550px" >
+            <el-button size="small" type="primary" @click="download1">点击下载</el-button>
           </el-form-item>
+          <el-form-item label="用户文档:" label-width="550px" >
+            <el-button size="small" type="primary" @click="download3">点击下载</el-button>
+          </el-form-item>
+          <el-form-item label="操作文档:" label-width="550px" >
+            <el-button size="small" type="primary" @click="download4">点击下载</el-button>
+          </el-form-item>
+          </el-form>
           <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="SamplesSubmitted">
             <el-radio-group v-model="ruleForm.SamplesSubmitted">
               <el-radio label="中心直接销毁"></el-radio>
@@ -178,17 +171,11 @@
               </div>
               </div>
           </el-form-item>
-          <el-form-item  label="申请人签字下载：">
-                        <el-upload
-                            class="upload-demo"
-                            drag
-                            action="https://jsonplaceholder.typicode.com/posts/"
-                            multiple>
-                            <i class="el-icon-upload"></i>
-                            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-                        </el-upload>
-                  </el-form-item>
+          <el-form>
+          <el-form-item label="申请人签字下载:" label-width="550px" >
+            <el-button size="small" type="primary" @click="download2">点击下载</el-button>
+          </el-form-item>
+          </el-form>
       </el-form>
       </el-main>
     <LoginDialog :show='showLogin'/>
@@ -296,10 +283,80 @@
     methods:{
       download1(){
         var formdata=new FormData()
-        formdata.append('FID' ,'23')
-        //formdata.append('FID' ,this.Fid.FID1)
-        //console.log(formdata.get('FID'))
-        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'10')
+        formdata.append('fileType' ,'demand')
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
+      download3(){
+        var formdata=new FormData()
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'10')
+        formdata.append('fileType' ,'user')
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
+      download4(){
+        var formdata=new FormData()
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'10')
+        formdata.append('fileType' ,'operation')
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
         headers:{
           'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
         },
@@ -331,10 +388,10 @@
       },
       download2(){
         var formdata=new FormData()
-        
-        formdata.append('FID' ,this.Fid.FID4)
-        //console.log(formdata.get('FID'))
-        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'10')
+        formdata.append('fileType' ,'sign')
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
         headers:{
           'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
         },

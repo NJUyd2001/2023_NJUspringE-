@@ -35,7 +35,7 @@
             <el-button size="small" type="primary" @click="download1">点击下载</el-button>
           </el-form-item>
           <el-form-item label="支持性数据及相应平台信息:" label-width="550px" >
-            <el-button size="small" type="primary" @click="download1">点击下载</el-button>
+            <el-button size="small" type="primary" @click="download2">点击下载</el-button>
           </el-form-item>
       </el-form>
       <el-form  :model="ruleForm" ref="ruleForm">
@@ -64,6 +64,10 @@ export default {
        return{
             process:{
               PID:"",
+            },
+            SamRc:{
+              PID:this.$store.state.user.process.PID,
+              state:"",
             },
             StepNumber:2,
             ruleForm:{
@@ -101,7 +105,18 @@ created(){
       this.$router.push({path: "./home", replace:true});
     },
     submitForm(formName) {
-      console.log(this.ruleForm)
+      if(this.ruleForm.Pass == "true")
+        this.SamRc.state="41";
+      else if(this.ruleForm.Pass == "false")
+        this.SamRc.state="45";
+      Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.SamRc),{
+        headers:{
+          'content-type': 'text/plain'}
+        }).then(ret=>{
+      })
+      this.$message.success("提交成功，正在返回测试部界面！");
+      setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
+      /*console.log(this.ruleForm)
       this.$confirm("是否确认该操作","提示",{
         iconClass: "el-icon-question",//自定义图标样式
           confirmButtonText: "确认",//确认按钮文字更换
@@ -116,8 +131,8 @@ created(){
           'content-type': 'text/plain'}
       }).then(ret=>{
         this.StepNumber+=2;
-        this.$message.success("提交成功，正在返回用户界面！");
-        setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+        this.$message.success("提交成功，正在返回测试部界面！");
+        setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);
@@ -129,7 +144,7 @@ created(){
       })
       .catch(function (err) {
         //捕获异常
-      });
+      });*/
     },
     handleRemove(file, fileList) {
         console.log(file, fileList);
@@ -142,10 +157,45 @@ created(){
       },
       download1(){
         var formdata=new FormData()
-        formdata.append('FID' ,'23')
-        //formdata.append('FID' ,this.Fid.FID1)
-        //console.log(formdata.get('FID'))
-        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'40')
+        formdata.append('fileType' ,'sample')
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
+      download2(){
+        var formdata=new FormData()
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'40')
+        formdata.append('fileType' ,'samenv')
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
         headers:{
           'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
         },

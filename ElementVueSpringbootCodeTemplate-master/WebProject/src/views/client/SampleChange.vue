@@ -32,14 +32,14 @@
       <br>
       <el-form  :model="ruleForm"  ref="ruleForm">
         <el-row type="flex" justify="center">
-        <el-radio-group v-model="ruleForm.Pass" :span="3">      
+        <el-radio-group v-model="ruleForm.Pass" :span="3" disabled>      
           <el-radio  label="false">拒绝</el-radio>
           <el-radio  label="true">同意</el-radio>
         </el-radio-group>
         </el-row>
         <el-row type="flex" justify="center">
-  <el-form-item label="意见：">
-          <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" ></el-input>
+  <el-form-item label="意见：" >
+          <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" disabled></el-input>
         </el-form-item>
       </el-row >
       <el-row type="flex" justify="center">
@@ -54,7 +54,7 @@
               multiple
               :limit="1"
               :on-exceed="handleExceed"
-              :data="{ PID:this.process.PID }"
+              :data="{ PID:this.process.PID, state:'40', fileType:'sample' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：与《委托测试软件功能列表》一致。
@@ -75,7 +75,7 @@
               :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:this.process.PID }"
+              :data="{ PID:this.process.PID, state:'40', fileType:'samenv' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：包含相关平台与环境信息。
@@ -85,7 +85,6 @@
       </el-row>
       </el-form>
     </el-main>
-  <LoginDialog :show='showLogin'/>
 </el-container>
 </template>
 <el-backtop :right="50" :bottom="50" />

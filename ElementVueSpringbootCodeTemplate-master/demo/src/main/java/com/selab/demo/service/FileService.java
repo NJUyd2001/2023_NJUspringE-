@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @Service
 public class FileService {
@@ -19,11 +20,13 @@ public class FileService {
     FileDao fileDao;
     @Autowired
     FileUtil fileUtil;
-    public Integer upload(MultipartFile file, Integer PID){
+    public Integer upload(MultipartFile file, Integer PID, String state, String fileType) throws Exception{
         try {
             String fileName = file.getOriginalFilename();
-            String filePath = fileUtil.getUpload(file, PID);
+            String filePath = fileUtil.uploadWithFileInfo(file, PID, state, fileType);
             FileModel fileModel = new FileModel(filePath, PID, fileName);
+            fileModel.setState(state);
+            fileModel.setFileType(fileType);
             if(filePath.isEmpty()) return null;
             fileDao.upload(fileModel);
             return fileModel.getFID();
@@ -40,5 +43,16 @@ public class FileService {
     }
     public FileModel selectByFID(Integer FID){
         return fileDao.selectByFID(FID);
+    }
+    public FileModel selectByState(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer PID = jsonObject.getInteger("PID");
+        String state = jsonObject.getString("state");
+        String fileType = jsonObject.getString("fileType");
+        FileModel fileModel = new FileModel();
+        fileModel.setState(state);
+        fileModel.setFileType(fileType);
+        fileModel.setPID(PID);
+        return fileDao.selectByState(fileModel);
     }
 }

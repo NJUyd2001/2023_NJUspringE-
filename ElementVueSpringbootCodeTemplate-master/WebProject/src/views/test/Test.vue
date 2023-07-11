@@ -36,10 +36,10 @@
             <span> 委托状态</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-11" @click="addTab('委托状态', 'TestList')">委托状态</el-menu-item>
+            <el-menu-item index="1-10" @click="addTab('委托状态', 'TestList')">委托状态</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
-          <el-menu-item index="1-11" @click="jump2application()">审核委托</el-menu-item>
+            <el-menu-item index="1-11" @click="addTab('验收样品', 'RecSam')">验收样品</el-menu-item>
           </el-menu-item-group>
           </el-submenu>
         <el-submenu index="1">
@@ -49,7 +49,7 @@
             <span> 生产测试报告</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-11" @click="addTab('样品验收', 'TestResultTable')"> 审核测试报告</el-menu-item>
+            <el-menu-item index="1-13" @click="addTab('样品验收', 'TestResultTable')"> 审核测试报告</el-menu-item>
             <!--<el-menu-item index="1-12" @click="addTab('发送测试报告','TestReportTable')">发送测试报告</el-menu-item>-->
           </el-menu-item-group>
         </el-submenu>
@@ -117,9 +117,8 @@ export default {
   created() {
     // 载入config数据
     //this.$store.dispatch("config/reload");
-    this.$bus.on("login-open", this.loginOut);
-    this.$bus.on("login-success", this.loginSuccess);
-    this.$bus.on("login-cancel", this.loginCancel);
+    this.KeepInfor();
+
   },
   data() {
     return {
@@ -130,13 +129,11 @@ export default {
       },
       keyword: "",
       isCollapse: false,
-
       menus: [{}],
       user:{
         uname:this.$store.state.user.name,
         utype:this.$store.state.user.Permissions,
       },
-      
       data: [{}],
       //Tabs
       selectTabName: "ConfigAdd",
@@ -162,17 +159,16 @@ export default {
     }
   },
   mounted() {
-    /*
-    this.$nextTick(function() {
-      this.ajax.post("/app/user").then(result => {
-        if (result.code == 0) {
-          this.user = result.data;
-        }
-      });
-    });
-    */
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
   },
   methods: {
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     handleNodeClick(data) {
         console.log(data);
       },

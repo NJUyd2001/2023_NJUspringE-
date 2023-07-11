@@ -5,7 +5,7 @@
 ### 上传文件
 端口：`/file/upload`
 
-参数：文件传输流和PID
+参数：文件传输流、PID、state和fileType
 
 返回值：文件存储成功后获得的FID，不成功则为空
 
@@ -17,6 +17,8 @@ const fs = require('fs');
 let data = new FormData();
 data.append('file', fs.createReadStream('文件上传路径'));   // 文件流参数
 data.append('PID', '5');                                   // PID参数
+data.append('state', '1376666');                           // state参数
+data.append('fileType', 'test');
 
 let config = {
   method: 'post',
@@ -87,6 +89,17 @@ axios.request(config)
 
 参数： `data.append('PID', '');` ，与[上传文件的传参方法](#上传文件)类似
 
+- 通过PID、state和fileType搜索
+  
+端口：`/file/select/byState`
+
+参数：
+``` js
+  "PID":"",
+  "state":"",
+  "fileType":""
+```
+
 - 根据FID搜索
 
 端口：`/file/select/byFID`
@@ -95,9 +108,25 @@ axios.request(config)
 
 ### 下载
 
+- 通过FID下载
+
 端口：`/file/download`
 
 参数：`data.append('FID', '');` ，与[上传文件的传参方法](#上传文件)类似
 
 浏览器会收到下载文件
 
+- 通过PID、state、fileType下载
+
+端口：`/file/downloadWithState`
+
+参数：
+``` js
+data.append('PID', '');                             // PID参数
+data.append('state', '');                           // state参数
+data.append('fileType', '');
+
+``` 
+与[上传文件的传参方法](#上传文件)类似
+
+浏览器会收到下载文件
