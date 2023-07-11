@@ -55,15 +55,12 @@
               <el-input v-model="ruleForm.TypeTest" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item  label='报告日期:' label-width="650px" prop="Date">
-              <div class="block">
                 <el-date-picker
-                style="margin-top: 75px; margin-left: -580px;"
                 v-model="ruleForm.Date"
                 type="date"
                 placeholder="完成时间选择"
                 :size=large
                   />
-                </div>
             </el-form-item>
           </el-form>
             <h2>南京大学软件测试中心</h2>
@@ -88,8 +85,6 @@
         data(){
            return{
                 user:{
-                    name:'风车村',
-                    password:'shazihuang',
                 },
                 ruleForm:{
                   SoftwareName:'',

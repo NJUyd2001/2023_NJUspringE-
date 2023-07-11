@@ -139,9 +139,17 @@
     </el-container>
     </template>
     <script>
+import Axios from 'axios'
+
     export default {
         data(){
            return{
+              useruid:{
+                UID:"",
+              },
+              userpid:{
+                PID:"",
+              },
                 ruleForm:{
                     Client:'',
                     ProjectNum:'',
@@ -241,11 +249,40 @@
                 ],
                 }
         }
-    }, 
-      methods:{
-        goback(){
-        },
-        remove(obj){
+    },
+    mounted(){
+  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('unload', this.handleUnload);
+},
+created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data)
+                this.userpid.PID=ret.data.PID;
+              })
+  },
+  methods:{
+    submitForm(formName) {
+      
+      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
+        console.log(ret.data)
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+    },
+  handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  remove(obj){
           var tr = $j(obj).parent ().parent()
           tr.prev().remove();
           tr.prev().remove();

@@ -92,10 +92,10 @@ export default {
           { required: true, validator: validatePass2, trigger: "blur" },
           {min: 6, max: 10, message: '名称长度在6到10个字符', trigger: 'blur'},
         ],
-        emailAddr: [
-          { required: true, message: "邮箱不能为空！", trigger: "blur" },
-          {pattern: /(^[a-zA-Z]\w{5,17}@((126|163)\.com|yeah\.net)$)|(^[1-9]\d{4,10}@qq\.com$)/, message:"邮箱格式不符合规则"}
-        ],
+        // emailAddr: [
+        //   { required: true, message: "邮箱不能为空！", trigger: "blur" },
+        //   {pattern: /(^[a-zA-Z]\w{5,17}@((126|163)\.com|yeah\.net)$)|(^[1-9]\d{4,10}@qq\.com$)/, message:"邮箱格式不符合规则"}
+        // ],
         phone: [
           { required: true, message: "电话号码不能为空", trigger: "blur" },
           {pattern: /^[1]+[3,5,8]+\d{9}$/, message: "请输入正确的电话号码"}
