@@ -8,7 +8,7 @@
 
     </insert>
 
-    <resultMap id="appilicationMap" type="com.selab.demo.model.ApplicationModel">
+    <resultMap id="applicationMap" type="com.selab.demo.model.ApplicationModel">
         <id property="AID" column="AID"/>
         <result property="applicayionID" column="applicayionID"/>
         <result property="processID" column="processID"/>

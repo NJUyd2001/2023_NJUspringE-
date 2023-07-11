@@ -21,6 +21,9 @@ public class SampleCheckService {
     ProcessDao processDao;
     public Integer findSID(Integer PID){
         ProcessModel processModel = processDao.findByPID(PID);
+        if(processModel == null){
+            return null;
+        }
         return processModel.getSID();
     }
 

@@ -19,6 +19,9 @@ public class ContractService {
 
     public Integer findCID(Integer PID){
         ProcessModel processModel = processDao.findByPID(PID);
+        if(processModel == null){
+            return null;
+        }
         return processModel.getCID();
     }
 
