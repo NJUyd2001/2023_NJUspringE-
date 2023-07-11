@@ -14,12 +14,12 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="18">
+          <el-col :span="1">
             <router-link to="/test">
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="16">
+          <el-col :span="24">
             <span class="logo-title">软件项目委托测试工作检查表</span>
           </el-col>
           <el-col :span="1">
@@ -31,41 +31,54 @@
         <el-main>
           <el-form label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item label="软件名称:" prop="SoftWareName"> 
-            <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
-          </el-form-item>
-            <el-form-item label="版本号:" prop="VersionNumber"> 
-            <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
-          </el-form-item> 
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item prop="SoftWareName">
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item label="版本号:" prop="VersionNumber"> 
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form-item>
+             
           <el-form-item label="委托单位:" prop="Client"> 
             <el-input style="width:200px; padding:10px;" v-model="ruleForm.Client"></el-input>
           </el-form-item>
-        <el-form-item style="margin-left: -220px;">
-            <div class="block1">
-                <span class="demonstration" style="font-weight: lighter;" prop="DateRange">起始时间至预计完成时间</span>
+          <el-form-item label="起始时间至预计完成时间:" prop="DateRange">
                 <el-date-picker
-                style="margin-left: 20px;"
                 v-model="ruleForm.DateRange"
                 type="daterange"
                 range-separator="To"
                 start-placeholder="起始时间"
                 end-placeholder="预计完成时间"
                 />
-            </div>
-        </el-form-item>
-          <el-form-item label="主测人:" prop="Tester"> 
-            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Tester"></el-input>
           </el-form-item>
-          <el-form-item label='实际完成时间:' prop="ActualFinishDate">
-              <div class="demo-date-picker">
-                <el-date-picker
-                v-model="ruleForm.ActualFinishDate"
-                type="date"
-                placeholder="时间选择"
-                size="large"
-                />
-                </div>
-          </el-form-item>
-          <el-table :data="tableData" :span-method="objectSpanMethod"  style="width: 52%; margin-left: 25%;">
+          <el-form-item label="主测人:" prop="Tester">
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item prop="Tester">
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.Tester"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="7">
+                  <el-form-item label='实际完成时间:' prop="ActualFinishDate">
+                      <div class="demo-date-picker">
+                        <el-date-picker
+                        v-model="ruleForm.ActualFinishDate"
+                        type="date"
+                        placeholder="时间选择"
+                        size="large"
+                        />
+                        </div>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form-item>
+          <el-table :data="ruleForm.tableData" :span-method="objectSpanMethod"  style="width: 52%; margin-left: 25%;">
             <el-table-column fixed prop="Num" label="序号" width="130"></el-table-column>
             <el-table-column prop="Workflow" label="工作（项目）流程" width="140"></el-table-column>
             <el-table-column prop="IssuesAndPrecautions" label="可预见问题及注意事项" width="450"></el-table-column>
@@ -91,51 +104,12 @@
               SoftWareName:'',
               VersionNumber:'',
               Client:'',
+              DateRange:'',
               Tester:'',
               ActualFinishDate:'',
               Examiner:'',
               Confirm:'',
-            },
-            pickerOptions: {
-            shortcuts: [{
-            text: 'Last week',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-            }, {
-            text: 'Last month',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-            }, {
-            text: 'Last 3 months',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-              }]
-            },
-            user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
-            },
-            tableData: [{
+              tableData: [{
             Num: '一、前期指导工作',
             }, {
             Num: '1',
@@ -269,6 +243,35 @@
             Confirm: '',
             }
           ],
+            },
+            pickerOptions: {
+            shortcuts: [{
+            text: 'Last week',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+            }, {
+            text: 'Last month',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+            }, {
+            text: 'Last 3 months',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+              }]
+            },
+        
           rules:{
             SoftWareName:[
               { required: true, message: "不能为空！", trigger: "blur" },
@@ -277,6 +280,9 @@
               { required: true, message: "不能为空！", trigger: "blur" },
             ],
             Client:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            DateRange:[
               { required: true, message: "不能为空！", trigger: "blur" },
             ],
             Tester:[

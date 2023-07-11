@@ -168,32 +168,6 @@
                   Date: '',
                   }],
               },
-          tableData: [{
-            Duty: '测试工程师',
-            EvalutionOpinion: '',
-            Sign: '',
-            Date: '',
-            }, {
-            Duty: '测试室负责人',
-            EvalutionOpinion: '',
-            Sign: '',
-            Date: '',
-            }, {
-            Duty: '质量负责人',
-            EvalutionOpinion: '',
-            Sign: '',
-            Date: '',
-            }, {
-            Duty: '技术负责人',
-            EvalutionOpinion: '',
-            Sign: '',
-            Date: '',
-            }, {
-            Duty: '监督人',
-            EvalutionOpinion: '',
-            Sign: '',
-            Date: '',
-            }],
             rules:{
                   SoftWareName:[
                     { required: true, message: "不能为空！", trigger: "blur"  },

@@ -162,28 +162,6 @@
              }
             ],
              },
-             tableData: [{
-                MilestonesTasks:'制定测试计划',
-                Workload:'',
-                Start:'',
-                End:'',
-             },{
-                MilestonesTasks:'设计测试',
-                Workload:'',
-                Start:'',
-                End:'',
-             },{
-                MilestonesTasks:'执行测试',
-                Workload:'',
-                Start:'',
-                End:'',
-             },{
-                MilestonesTasks:'评估测试',
-                Workload:'',
-                Start:'',
-                End:'',
-             }
-            ],
                 rules:{
                   Mark:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
