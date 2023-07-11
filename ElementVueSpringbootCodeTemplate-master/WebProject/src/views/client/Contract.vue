@@ -24,7 +24,7 @@
         </el-steps>
       </el-col>  
       <el-col :span="2">
-        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">提交</el-button>
+        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">下一步</el-button>
       </el-col>
     </el-row>
   </el-header>
@@ -128,14 +128,16 @@
   本合同未尽事宜由双方协商解决。
   本合同的正本一式肆份，双方各执两份，具有同等法律效力。
 </p>
-<el-form  :model="ruleForm" ref="ruleForm">
-        <el-row type="flex" justify="center">
+<el-form  label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
+        <el-row >
+          <el-form-item label="是否通过:" prop="Pass">
         <el-radio-group v-model="ruleForm.Pass" :span="3">      
           <el-radio  label="false">拒绝</el-radio>
           <el-radio  label="true">同意</el-radio>
         </el-radio-group>
+      </el-form-item>
         </el-row>
-<el-row type="flex" justify="center">
+        <el-row>
   <el-form-item label="意见：">
           <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" ></el-input>
         </el-form-item>
@@ -157,7 +159,7 @@ export default {
               PID:"",
             },
             ruleForm:{
-              PID:"1",
+              PID:"",
               ItemName:'',
               Client:'',
               Trustee:'',
@@ -180,18 +182,21 @@ export default {
               Versions:[
                 { required: true, message: "不能为空！", trigger: "blur"  },
               ],
+              Pass:[
+                {required: true, message: "请给出一个选择！", trigger: "change"}
+              ]
               }
     }
 },created(){
       this.KeepInfor();
-      //this.userid.PID=this.$store.state.user.process.PID;
-      // Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
-      //           headers:{
-      //             'content-type': 'text/plain'}
-      //         }).then(ret=>{
-      //           console.log(ret.data);
-      //           this.ruleForm=ret.data;
-      //         })
+      this.userid.PID=this.$store.state.user.process.PID;
+      Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data);
+                this.ruleForm=ret.data;
+              })
       
     },
     mounted() {
@@ -224,7 +229,7 @@ export default {
       .catch(function (error) { // 请求失败处理
         console.log(error);
       });
-      if(this.Suggestion.Pass==="true")
+      if(this.ruleForm.Pass==="true")
       {
         this.stepNumber+=1;
       // this.info("提交成功，正在返回用户界面！");

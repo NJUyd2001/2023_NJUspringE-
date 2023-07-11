@@ -111,9 +111,17 @@ mounted(){
 created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.ruleForm.AID=this.$store.state.user.process.AID
-    this.process.PID=this.$store.state.user.process.PID
-    console.log(this.$store.state.user.process.PID)
+    this.ruleForm.AID=this.$store.state.user.process.AID;
+    this.process.PID=this.$store.state.user.process.PID;
+    console.log(this.process.PID);
+    this.process.PID=1;
+    Axios.post("http://localhost:9090/api/samplecheck/find",JSON.stringify(this.process),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data[0])
+        this.ruleForm=ret.data[0];
+      })
   },
   methods:{
   handleBeforeUnload() {

@@ -2,7 +2,7 @@
   <div class ="Person">
     <div class="PersonTop">
       <div class="PersonTop_img">
-        <img v-image-preview :src="avatar" />
+        <img  :src="avatar" />
       </div>
       <div class="PersonTop_text">
         <div class="user_text">
@@ -110,7 +110,7 @@
     </el-card>
       </div>
     </div>
-    <personal-dia ref="dia" @flesh="reload" />
+    <personal-dia ref="dia"  />
   </div>
 </template>
 
@@ -124,7 +124,6 @@ import Axios from "axios";
 export default {
   components: { PersonalDia },
   name: "Personal",
-  inject: ["reload"],
   data() {
     return {
       avatar: "",
