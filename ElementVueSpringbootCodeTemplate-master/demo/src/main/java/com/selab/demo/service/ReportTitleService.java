@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
 import com.selab.demo.dao.ReportTitleDao;
-import com.selab.demo.model.QuoteModel;
 import com.selab.demo.model.ReportTitleModel;
 import com.selab.demo.dao.ProcessDao;
 import com.selab.demo.model.ProcessModel;
@@ -18,7 +17,7 @@ public class ReportTitleService {
     @Autowired
     ProcessDao processDao;
     public Integer findRTID(Integer PID){
-        ProcessModel processModel = processDao.findByRTID(PID);
+        ProcessModel processModel = processDao.findByPID(PID);
         return processModel.getRTID();
     }
 
@@ -35,7 +34,7 @@ public class ReportTitleService {
             JSONObject result = new JSONObject();
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
             result.put("RTID", jsonObject.getInteger("rTID"));
-            result.put("SoftwareName", jsonObject.getJSONArray("softwarename"));
+            result.put("SoftwareName", jsonObject.getString("softwarename"));
             result.put("VersionNumber",jsonObject.getString("versionnumber"));
             result.put("Client", jsonObject.getString("client"));
             result.put("TypeTest", jsonObject.getString("typetest"));
@@ -118,11 +117,11 @@ public class ReportTitleService {
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        Integer QID = findRTID(PID);
-        if(reportTitleDao.select2(QID) == null){
+        Integer RTID = findRTID(PID);
+        if(reportTitleDao.select2(RTID) == null){
             return ("the ReportTitle does not exist");
         }
-        reportTitleDao.delete(QID);
+        reportTitleDao.delete(RTID);
         return ("ReportTitle delete complete");
     }
 

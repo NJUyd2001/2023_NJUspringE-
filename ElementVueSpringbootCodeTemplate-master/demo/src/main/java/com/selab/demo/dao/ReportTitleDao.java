@@ -9,13 +9,13 @@ public interface ReportTitleDao {
     @Options(useGeneratedKeys=true, keyProperty="RTID", keyColumn="RTID")
     public void insert(ReportTitleModel reportTitleModel);
 
-    @Select("SELECT * FROM selabspringe.reprottitle WHERE RTID = #{RTID}")
+    @Select("SELECT * FROM selabspringe.reporttitle WHERE RTID = #{RTID}")
     public List<ReportTitleModel> select(Integer RTID);
 
-    @Select("SELECT RTID FROM selabspringe.reprottitle WHERE RTID = #{RTID}")
+    @Select("SELECT RTID FROM selabspringe.reporttitle WHERE RTID = #{RTID}")
     public Integer select2(Integer RTID);
 
-    @Update("UPDATE selabspringe.reporttitle SET softwwarename=#{softearename},versionnumber=#{versionnumber},client=#{client},typetest=#{typetest},date=#{date} WHERE RTID = #{RTID}")
+    @Update("UPDATE selabspringe.reporttitle SET softwarename=#{softwarename},versionnumber=#{versionnumber},client=#{client},typetest=#{typetest},date=#{date} WHERE RTID = #{RTID}")
     public void update(ReportTitleModel reportTitleModel);
 
     @Delete("DELETE FROM selabspringe.reporttitle WHERE RTID = #{RTID}")
