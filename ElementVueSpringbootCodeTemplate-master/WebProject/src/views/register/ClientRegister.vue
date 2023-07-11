@@ -44,7 +44,7 @@
       <div class="btnGroup">
         <el-button type="primary" @click="submitForm('ruleForm')" style = "margin: 18px"
           >提交</el-button>
-        <el-button @click="resetForm('ruleForm')" style = "margin: 18px">重置</el-button>
+        <el-button @click="resetForm('ruleForm', 'pass')" style = "margin: 18px">重置</el-button>
         <el-button @click="goBack">登录</el-button>
       </div>
     </el-card>

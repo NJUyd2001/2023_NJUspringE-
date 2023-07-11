@@ -36,10 +36,10 @@
             <span> 委托状态</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-11" @click="addTab('委托状态', 'TestList')">委托状态</el-menu-item>
+            <el-menu-item index="1-10" @click="addTab('委托状态', 'TestList')">委托状态</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
-          <el-menu-item index="1-11" @click="jump2application()">审核委托</el-menu-item>
+            <el-menu-item index="1-11" @click="addTab('验收样品', 'RecSam')">验收样品</el-menu-item>
           </el-menu-item-group>
           </el-submenu>
         <el-submenu index="1">
@@ -49,7 +49,7 @@
             <span> 生产测试报告</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-11" @click="addTab('样品验收', 'TestResultTable')"> 审核测试报告</el-menu-item>
+            <el-menu-item index="1-13" @click="addTab('样品验收', 'TestResultTable')"> 审核测试报告</el-menu-item>
             <!--<el-menu-item index="1-12" @click="addTab('发送测试报告','TestReportTable')">发送测试报告</el-menu-item>-->
           </el-menu-item-group>
         </el-submenu>

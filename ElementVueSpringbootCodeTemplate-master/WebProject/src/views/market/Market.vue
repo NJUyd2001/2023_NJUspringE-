@@ -37,13 +37,16 @@
             <span> 委托状态</span>
           </template>
           <el-menu-item-group>
-          <el-menu-item index="1-11" @click="addTab('委托状态', 'CTMENT')">委托状态</el-menu-item>
+          <el-menu-item index="1-10" @click="addTab('委托状态', 'CTMENT')">委托状态</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
           <el-menu-item index="1-11" @click="addTab('生成报价', 'GQuote')">生成报价</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
-          <el-menu-item index="1-11" @click="addTab('生成合同', 'Contr')">生成合同</el-menu-item>
+          <el-menu-item index="1-12" @click="addTab('生成合同', 'Contr')">生成合同</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+          <el-menu-item index="1-13" @click="addTab('检查合同', 'CheckContr')">检查合同</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
@@ -53,7 +56,10 @@
             <span>修改文件</span>
           </template>
           <el-menu-item-group>
-          <el-menu-item index="1-11" @click="addTab('修改合同', 'CQuote')">修改合同</el-menu-item>
+          <el-menu-item index="2-10" @click="addTab('修改报价', 'CQuote')">修改报价</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+          <el-menu-item index="2-11" @click="addTab('修改合同', 'CContract')">修改合同</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

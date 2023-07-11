@@ -65,8 +65,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
-    <Pagination ref="page1" url="http://localhost:9090/api/application/checkbyprocess" :keyword="keyword" :sort="sort" v-model="datas"/>
+        
   </div>
 </template>
 

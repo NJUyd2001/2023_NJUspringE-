@@ -6,10 +6,13 @@ import ConfigTableQ from './table/ConfigTableQ';
 import CTMENT from './table/CTM-ENT';
 import GQuote from './table/GQuote';
 import CQuote from './table/CQuote';
+import CContract from './table/CContract';
 import Contr from './table/Contr';
+import RecSam from './table/RecSam';
 import TestList from './table/TestList';
 import MyApp from './table/MyApp';
 import ProgressQuery from './table/ProgressQuery';
+import CheckContr from './table/CheckContr';
 
 
 import LoginDialog from './LoginDialog';
@@ -43,11 +46,14 @@ function registerComponents(){
     Vue.component('ConfigTableQ', ConfigTableQ);
     Vue.component('CTMENT', CTMENT);
     Vue.component('Contr', Contr);
+    Vue.component('RecSam', RecSam);
     Vue.component('GQuote', GQuote);
     Vue.component('CQuote', CQuote);
+    Vue.component('CContract', CContract);
     Vue.component('TestList', TestList);
     Vue.component('MyApp', MyApp);
-    Vue.component('ProgressQuery', ProgressQuery); 
+    Vue.component('ProgressQuery', ProgressQuery);
+    Vue.component('CheckContr', CheckContr);
 
     Vue.component('LoginDialog', LoginDialog);
     Vue.component('ConfigTableSimple', ConfigTableSimple);
