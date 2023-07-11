@@ -14,34 +14,23 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="2">
+          <el-col :span="6">
             <router-link to="/Test">
             <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="10" push="5"><div class="grid-content bg-purple">
+          <el-col :span="8"><div class="grid-content bg-purple">
             <span class="logo-title">软件测试方案</span>
             </div></el-col>
-            <el-col :span="12" push="4" style="margin-left: 20%">
+            <el-col :span="10">
               <el-steps :space="200" :active="0" finish-status="success">
                 <el-step title="软件测试方案填写"></el-step>
                 <el-step title="测试方案评审表填写"></el-step>
                 <el-step title="完成"></el-step>
               </el-steps>
             </el-col>
-            <el-col :span="6" pull="3">
-            <div class="grid-content bg-purple-light text-right">
-              <el-dropdown  @command="switchLang">
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="zh">En</el-dropdown-item>
-                  <el-dropdown-item command="en">中</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </div></el-col>
-            <el-col :span="6" push="2">
-            <router-link to="/TestSchemeReviewForm">
-            <el-button style="margin-top: -20px; margin-left: -15px;" @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
-            </router-link>
+            <el-col :span="2">
+            <el-button style="margin-left: 40px;" @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
             </el-col>
         </el-row>
       </el-header>
@@ -106,27 +95,26 @@
             <el-table :data="tableData"  style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="MilestonesTasks" label="里程碑任务" width="110"></el-table-column>
             <el-table-column prop="Workload" label="工作量" width="400">
-              <template slot-scope="scope">
-                <el-input :type="input_type" ref="enterInput" v-model="scope.row.EvalutionOpinion" :rows="2"  placeholder="工作量"/>
+              <template slot-scope="scope" v-if="scope.row">
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.Workload" :rows="2"  placeholder="工作量"/>
               </template>
             </el-table-column>
             <el-table-column prop="Start" label="开始时间" width="110">
-              <template slot-scope="scope">
-                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Start" :rows="2"  placeholder="开始时间"/>
+              <template slot-scope="scope" v-if="scope.row">
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.Start" :rows="2"  placeholder="开始时间"/>
               </template>
             </el-table-column>
             <el-table-column prop="End" label="结束时间" width="110">
-              <template slot-scope="scope">
-                <el-input :type="input_type" ref="enterInput" v-model="scope.row.End" :rows="2"  placeholder="结束时间"/>
+              <template slot-scope="scope" v-if="scope.row">
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.End" :rows="2"  placeholder="结束时间"/>
               </template>
             </el-table-column>
             </el-table>
             <el-form-item label="6 需求的可追踪性" prop="TraceabilityOfRequirement" style="font-weight: bold; font-size: 15px; margin-top: 20px;">
-              <el-input v-model="ruleForm.TraceabilityOfRequirement" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder="需求的可追踪性"/>
+              <el-input v-model="ruleForm.TraceabilityOfRequirement" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
             </el-form-item>
           </el-form>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
     <el-backtop :right="50" :bottom="50" />
@@ -145,27 +133,13 @@
                Other:'',
                ParticipatingOrganization:'',
                Personnel:'',
-               OverallDesign:'',
                TestLevel:'',
                TestCategory:'',
                GeneralTestCondtion:'',
                PlannedExecutionTest:'',
                TestCase:'',
-               TestingSchedule:'',
                TraceabilityOfRequirement:'',
-             TableData:[
-               {
-                 MilestonesTasks:'',
-                 Workload:'',
-                 Start:'',
-                 End:'',
-             },
-           ],
-             scope:{
-                EvalutionOpinion:'',
-                Start:'',
-                End:'',
-              }
+               tableData:[],
              },
              tableData: [{
                   MilestonesTasks: '制定测试计划',
@@ -287,8 +261,9 @@
               return false;
             }
           });*/
+          console.log(this.ruleForm);
           this.$message.success("提交成功！");
-          setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         }
       },
     

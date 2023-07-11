@@ -20,36 +20,24 @@
             <el-button style="margin-top: -20px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="13" push="6"><div class="grid-content bg-purple">
+          <el-col :span="8"><div class="grid-content bg-purple">
             <span class="logo-title">测试方案评审表</span>
             </div></el-col>
-            <el-col :span="12" push="4" style="margin-left: 20%">
+            <el-col :span="10">
               <el-steps :space="200" :active="1" finish-status="success">
                 <el-step title="软件测试方案填写"></el-step>
                 <el-step title="测试方案评审表填写"></el-step>
                 <el-step title="完成"></el-step>
               </el-steps>
             </el-col>
-            <el-col :span="6" pull="3">
-            <div class="grid-content bg-purple-light text-right">
-              <span v-if="user != null">
-                <span class="user">{{user.nick}}</span>
-              </span>
-              <el-dropdown  @command="switchLang">
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="zh">En</el-dropdown-item>
-                  <el-dropdown-item command="en">中</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </div></el-col>
-            <el-col :span="6" push="2">
-            <el-button style="margin-top: -40px; margin-left: -15px;" @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
+            <el-col :span="1">
+            <el-button @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
         <br><br>
         <el-main>
-          <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form label-position="middle" label-width="40%" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item style="margin-top: 80px; margin-right: 220px;" label="软件名称:" prop="SoftWareName"> 
                 <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
                 <el-form-item style="margin-top: -60px; margin-right: 120px;" label="版本号:" prop="VersionNumber"> 
@@ -126,13 +114,12 @@
             </el-table-column>
             <el-table-column prop="Date" label="日期" width="100">
                 <template slot-scope="scope">
-                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Sign" :rows="2"  placeholder="日期"/>
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Date" :rows="2"  placeholder="日期"/>
               </template>
             </el-table-column>
             </el-table>
           </el-form>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
 
@@ -154,11 +141,7 @@
                 InputOutputData:'',
                 Timing:'',
                 HumanResourcesArrangement:'',
-              },
-              scope:{
-                EvalutionOpinion:'',
-                Sign:'',
-                Date:'',
+                tableData:[],
               },
           tableData: [{
             Duty: '测试工程师',
@@ -250,8 +233,9 @@
               return false;
             }
           });*/
+          console.log(this.ruleForm);
           this.$message.success("提交成功,！");
-          setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
+          //setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
         }
     }
     }

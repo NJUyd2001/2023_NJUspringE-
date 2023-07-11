@@ -108,9 +108,7 @@
             </el-col>
         </el-row>
       </el-form>
-      
       <el-divider></el-divider>
-      
       <el-form  :model="Suggestion" ref="Suggestion">
         <el-row type="flex" justify="center">
         <el-radio-group v-model="Suggestion.Pass" :span="3">
@@ -128,7 +126,7 @@
                           action="http://localhost:9090/api/file/upload"
                           multiple
                           :before-upload="beforeUploadjpg"
-                          :data="{ PID:this.ruleForm.PID }">
+                          :data="{ PID:this.process.PID, state:'30', fileType:'sign' }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                           <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
@@ -137,7 +135,6 @@
             </el-col>
         </el-row>
         </el-form>
-        {{Suggestion.Pass}}
         </el-main>
     </el-container>
     </template>

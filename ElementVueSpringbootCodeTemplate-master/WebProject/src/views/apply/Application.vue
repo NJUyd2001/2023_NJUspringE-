@@ -244,7 +244,6 @@ export default {
                 name:this.$store.state.user.name,
             },
         ruleForm:{
-          applicantID:this.$store.state.user.id,
           PID:"",
             TypeTest:[],
             SoftWareName:'',
@@ -304,6 +303,7 @@ export default {
               state:"10",  
               fileIDs:"", 
               price:"",   
+              PID:"",
           },
         TypeOfTest:[
               {
@@ -665,7 +665,7 @@ created(){
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-        console.log(this.ruleForm)
+        //console.log(this.ruleForm)
         Axios.post("http://localhost:9090/api/process/insert",JSON.stringify(this.process),{
         headers:{
           'content-type': 'text/plain'}
@@ -673,29 +673,31 @@ created(){
           console.log(ret.data)
           this.$store.state.user.process.PID=ret.data;
           this.ruleForm.PID=this.$store.state.user.process.PID;
+          this.process.PID=this.$store.state.user.process.PID;
           Axios.post("http://localhost:9090/api/application/insert",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-          console.log(ret.data.AID);
+          //console.log(ret.data.AID);
           this.$store.state.user.process.AID=ret.data.AID;
           this.process.AID=ret.data.AID;
+          console.log(this.process);
           Axios.post("http://localhost:9090/api/process/update",JSON.stringify(this.process),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
         this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./functionlist", replace:true});}, 2000);
       })
           
       }).catch(function (error)
         {
-          console.log(error);
+          //console.log(error);
         }
       )
       }).catch(function (error)
         {
-          console.log(error);
+          //console.log(error);
         })
         } else {
           return false;
@@ -713,10 +715,10 @@ created(){
       this.$router.push({path: "./home", replace:true});
     },
     handleRemove(file, fileList) {
-        console.log(file, fileList);
+        //console.log(file, fileList);
     },
     handlePreview(file) {
-        console.log(file);
+        //console.log(file);
       },
     handleExceed(files, fileList) {
         this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);

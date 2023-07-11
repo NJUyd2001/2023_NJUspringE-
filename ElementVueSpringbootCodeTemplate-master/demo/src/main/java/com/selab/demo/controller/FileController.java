@@ -25,8 +25,15 @@ public class FileController {
     @CrossOrigin
     @RequestMapping(value="/upload", method = RequestMethod.POST)
     public Integer upload(@RequestParam("file") MultipartFile file,
-                         @RequestParam("PID") Integer PID){
-        return fileService.upload(file, PID);
+                         @RequestParam("PID") Integer PID,
+                          @RequestParam("state") String state,
+                          @RequestParam("fileType") String fileType){
+        try {
+            return fileService.upload(file, PID, state, fileType);
+        }   catch (Exception e){
+            System.out.println(e.getMessage());
+            return -1;
+        }
     }
     @CrossOrigin
     @RequestMapping(value="/select/all", method = RequestMethod.POST)
@@ -43,7 +50,11 @@ public class FileController {
     public FileModel selectByFID(@RequestParam("FID") Integer FID){
         return fileService.selectByFID(FID);
     }
-
+    @CrossOrigin
+    @RequestMapping(value="/select/byState", method = RequestMethod.POST)
+    public FileModel selectByState(@RequestBody String postJson){
+        return fileService.selectByState(postJson);
+    }
     @CrossOrigin
     @RequestMapping(value = "/download", method = RequestMethod.POST)
     public String download(@RequestParam("FID") Integer FID, HttpServletResponse response){
@@ -75,5 +86,39 @@ public class FileController {
         }
         return "下载任务创建成功";
     }
+    @CrossOrigin
+    @RequestMapping(value = "/downloadWithState", method = RequestMethod.POST)
+    public String download(@RequestParam("PID") Integer PID, @RequestParam("state") String state,
+                           @RequestParam("fileType") String fileType, HttpServletResponse response){
+        //  新建文件流，从磁盘读取文件流
+        FileModel fileModel = selectByFID(PID);
+        if(fileModel == null) return "不存在PID为 "+PID.toString() + " 的文件";
+        try (FileInputStream fis = new FileInputStream(fileModel.getFilePath());
+             BufferedInputStream bis = new BufferedInputStream(fis);
+             OutputStream os = response.getOutputStream()) {    //  OutputStream 是文件写出流，将文件下载到浏览器客户端
+            // 新建字节数组，长度是文件的大小，比如文件 6kb, bis.available() = 1024 * 6
+            byte[] bytes = new byte[bis.available()];
+            // 从文件流读取字节到字节数组中
+            bis.read(bytes);
+            // 重置 response
+            response.reset();
+            // 设置 response 的下载响应头
+            response.setHeader("Access-Control-Allow-Origin","*");
+            response.setHeader("Access-Control-Expose-Headers", "Content-disposition");
+            response.setContentType("application/octet-stream");
+            String fileName = fileModel.getFileName();
+            int splitIndex = fileName.indexOf("_");
+            fileName = fileName.substring(splitIndex);
+            response.setHeader("Content-disposition", "attachment;filename="
+                    + URLEncoder.encode(fileName, StandardCharsets.UTF_8));
+            // 写出字节数组到输出流
+            os.write(bytes);
+            // 刷新输出流
+            os.flush();
+        } catch (Exception e) {
 
+            return e.getMessage();
+        }
+        return "下载任务创建成功";
+    }
 }
