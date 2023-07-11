@@ -95,18 +95,18 @@ public class UserService {
 
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer UID = jsonObject.getInteger("UID");
-        String new_fax = jsonObject.getString("new_fax");
-        String new_emailAddr = jsonObject.getString("new_emailAddr");
-        String new_nickname = jsonObject.getString("new_uname");
-        String new_password = jsonObject.getString("new_password");
-        String new_phone = jsonObject.getString("new_phone");
+        String new_fax = jsonObject.getString("fax");
+        String new_emailAddr = jsonObject.getString("emailAddr");
+        String new_nickname = jsonObject.getString("nickname");
+        String new_password = jsonObject.getString("password");
+        String new_phone = jsonObject.getString("phone");
 
         //TODO: ip
-        String new_ip = jsonObject.getString("new_ip");
-        String new_address = jsonObject.getString("new_address");
-        String new_contact = jsonObject.getString("new_contact");
-        String new_contactTel = jsonObject.getString("new_contactTel");
-        String new_zipcode = jsonObject.getString("new_zipcode");
+        String new_ip = jsonObject.getString("ip");
+        String new_address = jsonObject.getString("address");
+        String new_contact = jsonObject.getString("contact");
+        String new_contactTel = jsonObject.getString("contactTel");
+        String new_zipcode = jsonObject.getString("zipcode");
 
         if(userDao.findByUID(UID) == null) return "不存在 UID = "+ UID + " 的用户";
         try{
