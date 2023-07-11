@@ -17,7 +17,9 @@ author：李晨博
     "ddl":"0",
     "ChangeNumber":"0",
     "ChangeDay":"0",
-    "money":"1"
+    "money":"1",
+    "Pass":"a",
+    "Views":"q"
 }
 
 输出示例1：
@@ -41,7 +43,7 @@ the process does not exist
 输出示例：
 ```
 [{"CID":"1","ItemName":"","Client":"豪大大鸡排","Trustee":"''","QC":"''","date":"''",
-"PeriodOfValidity":"''","ddl":"0","ChangeNumber":"0","ChangeDay":"0"}]
+"PeriodOfValidity":"''","ddl":"0","ChangeNumber":"0","ChangeDay":"0","money":"1","Pass":"a","Views":"q"}]
 
 ```
 
@@ -60,7 +62,10 @@ the process does not exist
     "PeriodOfValidity":"''",
     "ddl":"0",
     "ChangeNumber":"0",
-    "ChangeDay":"0"
+    "ChangeDay":"0",
+    "money":"1",
+    "Pass":"a",
+    "Views":"q"
 }
 
 ```

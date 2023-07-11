@@ -65,6 +65,8 @@ import ConfidentialityAgreement from './views/client/ConfidentialityAgreement'
 import MarketConfidentialityAgreement from './views/market/ConfidentialityAgreement'
 import DocumentandSign from './views/apply/DocumentAndSign'
 import TestSchemeReviewForm from './views/test/TestSchemeReviewForm'
+import ClientCheckReport from './views/client/ClientCheckReport'
+import TestCheckReport from './views/test/TestCheckReport'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -322,6 +324,14 @@ export default new VueRouter({
         {
             path: '/TestSchemeReviewForm',      // 路径
             component: TestSchemeReviewForm     // 跳转到的组件
+        },
+        {
+            path: '/ClientCheckReport',      // 路径
+            component: ClientCheckReport            // 跳转到的组件
+        },
+        {
+            path: '/TestCheckReport',      // 路径
+            component: TestCheckReport            // 跳转到的组件
         },
     ]
 })
