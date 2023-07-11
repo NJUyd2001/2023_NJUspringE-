@@ -127,7 +127,7 @@ created(){
         this.$store.state.user.process.UID=row.applicantID;
         this.$store.state.user.process.AID=row.AID
         console.log(this.$store.state.user.process.UID);
-        this.$router.push({path: "./samplerecived", replace:true})
+        this.$router.push({path: "./samplereceived", replace:true})
     },
     handleClick(row) {
      

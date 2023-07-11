@@ -186,8 +186,8 @@ created(){
             
           });
           stepNumber+=2;
-          // this.info("提交成功，正在返回用户界面！");
-          // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+          this.info("提交成功，正在返回市场部界面！");
+          setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
         }
       },
     

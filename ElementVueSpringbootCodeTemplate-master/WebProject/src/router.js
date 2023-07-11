@@ -49,7 +49,7 @@ import ClientContract from './views/client/Contract'
 import CheckCont from './views/market/CheckCont'
 import SampleSend from './views/client/SampleSend'
 import SampleChange from './views/client/SampleChange'
-import SampleRecived from './views/test/SampleRecived'
+import SampleReceived from './views/test/SampleReceived'
 import GenQuote from './views/Quote/GenQuote'
 import ChangeQuote from './views/Quote/ChangeQuote'
 import AuditQuote from './views/Quote/AuditQuote'
@@ -316,8 +316,8 @@ export default new VueRouter({
             component: SampleChange      // 跳转到的组件 
         },
         {
-            path: '/samplerecived',       // 路径
-            component: SampleRecived     // 跳转到的组件 
+            path: '/samplereceived',       // 路径
+            component: SampleReceived     // 跳转到的组件 
         },
         {
             path: '/TestSchemeReviewForm',      // 路径

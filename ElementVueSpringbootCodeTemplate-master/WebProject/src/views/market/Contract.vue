@@ -72,7 +72,7 @@
               :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:this.process.PID, state:'30', fileType:'contract' }"
+              :data="{ PID:this.$store.state.user.process.PID, state:'30', fileType:'contract' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
@@ -154,11 +154,11 @@ export default {
     data(){
        return{
             userid:{
-              PID:"",
+              PID:this.$store.state.user.process.PID,
             },
             stepNumber:0,
             ruleForm:{
-              PID:"",
+              PID:this.$store.state.user.process.PID,
               ItemName:'',
               Client:'',
               Trustee:'',
@@ -205,13 +205,7 @@ export default {
 created(){
       this.KeepInfor();
       this.userid.UID=this.$store.state.user.process.UID;
-      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-                console.log(ret.data);
-                this.ruleForm.PID=ret.data.PID;
-              })
+      
       
     },
     mounted() {
@@ -242,8 +236,8 @@ created(){
               }).then(ret=>{
                 console.log(ret.data)
                 this.stepNumber+=1;
-                this.$message.success("提交成功，正在返回市场部界面！");
-                 setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+                this.$message.success("提交成功！");
+                 setTimeout(() => {this.$router.push({path: "./market/ConfidentialityAgreement", replace:true});}, 2000);
               })
         } else {
           return false;

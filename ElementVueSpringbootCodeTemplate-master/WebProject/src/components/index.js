@@ -9,6 +9,7 @@ import CQuote from './table/CQuote';
 import CContract from './table/CContract';
 import Contr from './table/Contr';
 import RecSam from './table/RecSam';
+import TestSch from './table/TestSch';
 import TestList from './table/TestList';
 import MyApp from './table/MyApp';
 import ProgressQuery from './table/ProgressQuery';
@@ -56,6 +57,7 @@ function registerComponents(){
     Vue.component('CheckContr', CheckContr);
 
     Vue.component('LoginDialog', LoginDialog);
+    Vue.component('TestSch', TestSch);
     Vue.component('ConfigTableSimple', ConfigTableSimple);
     Vue.component('ConfigTableSimpleFilter', ConfigTableSimpleFilter);
     Vue.component('DelegateRecordsTable', DelegateRecordsTable);//黄大伟添加
