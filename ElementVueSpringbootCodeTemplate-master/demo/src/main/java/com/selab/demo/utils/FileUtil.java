@@ -35,7 +35,29 @@ public class FileUtil {
 
         return ""; // 文件不存在
     }
+    @ResponseBody
+    public  String uploadWithFileInfo(@RequestPart(value = "file") MultipartFile mf,
+                                      @RequestParam(value = "PID") Integer PID,
+                                      @RequestParam(value = "state") String state,
+                                      @RequestParam(value = "fileType") String fileType) throws IOException {
 
+        System.out.println("文件上传信息: "+mf.getOriginalFilename());
+
+        //将文件上传到指定文件夹
+        if (!mf.isEmpty()){
+            String fileName=mf.getOriginalFilename();
+            //文件上传
+            String finalPath = UPLOAD_FILEPATH + PID.toString() + "\\" + state + fileType +  "_" + fileName ;
+            File finalFile = new File(finalPath);
+            if (!finalFile.exists())
+                finalFile.mkdirs();
+            mf.transferTo(new File(finalPath));
+            return finalPath;
+
+        }
+
+        return ""; // 文件不存在
+    }
     public String killProcess(Integer PID){
         String path = UPLOAD_FILEPATH + PID.toString();
         if (!path.endsWith(File.separator)) {

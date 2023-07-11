@@ -44,6 +44,7 @@ public class UserService {
         try {
             userDao.insert(user);
         }catch (DataAccessException e){
+            System.out.println(e.getMessage());
             return simplifyErrMsg(e.getCause().getMessage());
         }
         return "注册成功";
