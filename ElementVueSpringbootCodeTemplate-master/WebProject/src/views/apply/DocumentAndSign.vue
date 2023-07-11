@@ -41,7 +41,7 @@
     <el-main style="border-radius: 30px;box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);">
       <br>
       <el-form label-width="550px" :model="ruleForm"  ref="ruleForm">
-        <el-form-item label="样品文档:">
+        <el-form-item label="样品文档(需求文档):">
           <el-upload
             list-type="text"
               class="upload-demo"
@@ -50,15 +50,54 @@
               :on-remove="handleRemove"
               :before-upload="beforeUploadword"
               multiple
-              :limit="3"
+              :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
               :data="{ PID:this.process.PID }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：1、需求文档（例如：项目计划任务书、需求分析报告、合同等）（验收、鉴定测试必须）<br>
-                                              2、用户文档（例如：用户手册、用户指南等）(必须)<br>
-                                              3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）
+                                             
+                                              
+                                            </strong></div>
+            </el-upload>
+        </el-form-item>
+        <el-form-item label="样品文档(用户文档):">
+          <el-upload
+            list-type="text"
+              class="upload-demo"
+              action="http://localhost:9090/api/file/upload"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-upload="beforeUploadword"
+              multiple
+              :limit="1"
+              :on-exceed="handleExceed"
+              accept=".doc, .docx"
+              :data="{ PID:this.process.PID }"
+              >
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip"><strong>注：2、用户文档（例如：用户手册、用户指南等）(必须)
+                                            </strong></div>
+            </el-upload>
+        </el-form-item>
+        <el-form-item label="样品文档(操作文档):">
+          <el-upload
+            list-type="text"
+              class="upload-demo"
+              action="http://localhost:9090/api/file/upload"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-upload="beforeUploadword"
+              multiple
+              :limit="1"
+              :on-exceed="handleExceed"
+              accept=".doc, .docx"
+              :data="{ PID:this.process.PID }"
+              >
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip"><strong>
+                                              注： 3、操作文档（例如：操作员手册、安装手册、诊断手册、支持手册等）（验收项目必须）
                                             </strong></div>
             </el-upload>
         </el-form-item>
@@ -117,7 +156,7 @@ created(){
     console.log(this.$store.state.user.process.PID)
   },
   methods:{
-    handleBeforeUnload() {
+  handleBeforeUnload() {
       sessionStorage.setItem("store",JSON.stringify(this.$store.state))
   },
   handleUnload() {
