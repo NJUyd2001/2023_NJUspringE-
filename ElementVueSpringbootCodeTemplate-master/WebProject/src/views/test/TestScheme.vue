@@ -265,26 +265,25 @@ import Axios from 'axios';
   },
       methods:{
         submitForm(formName) {
+          console.log()
           this.$refs[formName].validate((valid) => {
             if (valid) {
               console.log(this.ruleForm);
-      //         Axios.post("http://localhost:1234/softwaretest/insert",JSON.stringify(this.ruleForm),{
-      //           headers:{
-      //             'content-type': 'text/plain'}
-      //         }).then(ret=>{
-      //               console.log(ret.data);
-      //               this.$message.success("提交成功！");
-      //               setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
-      //         })
-      // .catch(function (error) { // 请求失败处理
-      //   console.log(error);
-      // });
+              Axios.post("http://localhost:1234/softwaretest/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                    console.log(ret.data);
+                    this.$message.success("提交成功！");
+                    setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+              })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
             } else {
               return false;
             }
           });
-          console.log(this.ruleForm);
-          this.$message.success("提交成功！");
           //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         }
       },
