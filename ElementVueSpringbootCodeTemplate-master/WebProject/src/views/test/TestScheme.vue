@@ -120,10 +120,18 @@
     </template>
     <el-backtop :right="50" :bottom="50" />
     <script>
+import Axios from 'axios';
     export default {
         data(){
           return{
+            useruid:{
+              UID:"",
+            },
+            userpid:{
+              PID:"",
+            },
              ruleForm:{
+               PID:"",
                Mark:'',
                SystemOverview:'',
                DocumentationOverview:'',
@@ -231,43 +239,47 @@
                   ],
                   }
         }
-    }, 
+    },
+    created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    this.useruid.UID=54;
+    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data[0])
+                this.userpid.PID=ret.data[0].pid;
+                this.ruleForm.PID=this.userpid.PID;
+                console.log(ret.data[0].pid);
+              })
+    
+  },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
       methods:{
-        goback(){
-        },
-        addfatherItem(){
-          this.ruleForm.TableData.push({
-            id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-            name:'',
-            function:'',
-            children:[],
-          })
-        },
-        removefatherItem(Table){
-          const index = this.ruleForm.TableData.indexOf(Table)
-          if (index !== -1) {
-          this.ruleForm.TableData.splice(index, 1);
-      }
-        },
-        addchildrenItem(Node){
-            Node.children.push(
-              {
-                id:'',
-                
-              }
-            )
-        },
         submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
+          this.$refs[formName].validate((valid) => {
             if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
+              Axios.post("http://localhost:1234/softwaretest/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                    console.log(ret.data);
+                    this.$message.success("提交成功！");
+                    setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+              })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
             } else {
               return false;
             }
-          });*/
-          console.log(this.ruleForm);
-          this.$message.success("提交成功！");
+          });
+          
           //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         }
       },
