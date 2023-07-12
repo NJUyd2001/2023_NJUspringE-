@@ -49,7 +49,7 @@ import ClientContract from './views/client/Contract'
 import CheckCont from './views/market/CheckCont'
 import SampleSend from './views/client/SampleSend'
 import SampleChange from './views/client/SampleChange'
-import SampleRecived from './views/test/SampleRecived'
+import SampleReceived from './views/test/SampleReceived'
 import GenQuote from './views/Quote/GenQuote'
 import ChangeQuote from './views/Quote/ChangeQuote'
 import AuditQuote from './views/Quote/AuditQuote'
@@ -65,6 +65,8 @@ import ConfidentialityAgreement from './views/client/ConfidentialityAgreement'
 import MarketConfidentialityAgreement from './views/market/ConfidentialityAgreement'
 import DocumentandSign from './views/apply/DocumentAndSign'
 import TestSchemeReviewForm from './views/test/TestSchemeReviewForm'
+import ClientCheckReport from './views/client/ClientCheckReport'
+import TestCheckReport from './views/test/TestCheckReport'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -316,12 +318,20 @@ export default new VueRouter({
             component: SampleChange      // 跳转到的组件 
         },
         {
-            path: '/samplerecived',       // 路径
-            component: SampleRecived     // 跳转到的组件 
+            path: '/samplereceived',       // 路径
+            component: SampleReceived     // 跳转到的组件 
         },
         {
             path: '/TestSchemeReviewForm',      // 路径
             component: TestSchemeReviewForm     // 跳转到的组件
+        },
+        {
+            path: '/ClientCheckReport',      // 路径
+            component: ClientCheckReport            // 跳转到的组件
+        },
+        {
+            path: '/TestCheckReport',      // 路径
+            component: TestCheckReport            // 跳转到的组件
         },
     ]
 })

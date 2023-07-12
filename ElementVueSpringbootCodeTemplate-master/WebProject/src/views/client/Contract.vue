@@ -130,14 +130,14 @@
 </p>
 <el-form  :model="ruleForm" ref="ruleForm">
         <el-row type="flex" justify="center">
-        <el-radio-group v-model="ruleForm.Pass" :span="3">      
+        <el-radio-group v-model="Suggestion.Pass" :span="3">      
           <el-radio  label="false">拒绝</el-radio>
           <el-radio  label="true">同意</el-radio>
         </el-radio-group>
         </el-row>
 <el-row type="flex" justify="center">
   <el-form-item label="意见：">
-          <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" ></el-input>
+          <el-input style="width:700px;" :rows="5" v-model="Suggestion.Views" type="textarea" ></el-input>
         </el-form-item>
 </el-row>
 </el-form>
@@ -157,7 +157,7 @@ export default {
               PID:"",
             },
             Suggestion:{
-              Pass:"false",
+              Pass:"",
               Views:"",
             },
             Pid:{
@@ -165,19 +165,6 @@ export default {
                   state:"",
                 },
             ruleForm:{
-              PID:"1",
-              ItemName:'',
-              Client:'',
-              Trustee:'',
-              QC:'',
-              date:'',
-              PeriodOfValidity:'',
-              ddl:0,
-              ChangeNumber:0,
-              ChangeDay:0,
-              money:"",
-              Pass:"false",
-              Views:"",
             },
             stepNumber:0,
             Quote:0,
@@ -192,14 +179,13 @@ export default {
     }
 },created(){
       this.KeepInfor();
-      //this.userid.PID=this.$store.state.user.process.PID;
-      // Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
-      //           headers:{
-      //             'content-type': 'text/plain'}
-      //         }).then(ret=>{
-      //           console.log(ret.data);
-      //           this.ruleForm=ret.data;
-      //         })
+      this.userid.PID=this.$store.state.user.process.PID;
+       Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
+                 headers:{
+                   'content-type': 'text/plain'}
+               }).then(ret=>{
+                 this.ruleForm=ret.data[0];
+               })
       
     },
     mounted() {
@@ -228,8 +214,8 @@ export default {
           }).then(ret=>{
               console.log(this.Pid.state)
          })
-          this.$message.success("提交成功，正在返回用户界面！");
-          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+          this.$message.success("提交成功！");
+          setTimeout(() => {this.$router.push({path: "./client/ConfidentialityAgreement", replace:true});}, 2000);
         
       Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
         
