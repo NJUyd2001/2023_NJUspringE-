@@ -49,11 +49,10 @@
             <el-table-column prop="checkcontent" label="检查内容" width="140"></el-table-column>
             <el-table-column prop="description" label="内容描述" width="450"></el-table-column>
             <el-table-column prop="checkresult" label="检查结果" width="120">
-              <template slot-scope="scope">
-                <el-radio-group v-model="scope.row.HandleState">
-                <el-radio name="as" v-model="ruleForm.tableData.radio" value="1" label="1" >通过</el-radio>
-                <el-radio name="bs" v-model="ruleForm.tableData.radio" value="2" label="2" >不通过</el-radio>
-
+              <template slot-scope="scope" >
+                <el-radio-group v-model="scope.row.radio">
+                <el-radio value="1" label="1" >通过</el-radio>
+                <el-radio value="2" label="2" >不通过</el-radio>
                 </el-radio-group>
               </template>
             </el-table-column>

@@ -33,18 +33,16 @@
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
-          <el-col :span="6" push="3">
-            <router-link to="/TestContent">
-            <el-button style="margin-top: 5px; margin-left: -60px;" size="middle" type="success">下一步</el-button>
-            </router-link>
+          <el-col :span="4">
+            <el-button size="middle"  @click="submitForm('ruleForm')" type="success">下一步</el-button>
           </el-col>
         </el-row>
       </el-header>
         <br><br>
         <el-main>
-            <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
+            <el-form label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
             <el-label style="margin-left: 320px; margin-top: 20px;">硬件环境</el-label>
-            <el-table :data="tableData1" :span-method="objectSpanMethod" style="width: 50%; margin-left: 25%;">
+            <el-table :data="ruleForm.tableData1" :span-method="objectSpanMethod" style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="HardwareCategory" label="硬件类别" width="90">
                 <template slot-scope="scope">
                     <el-input :type="input_type" ref="enterInput" v-model="scope.row.HardwareCategory" :rows="2"  placeholder="请填写内容"/>
@@ -68,7 +66,7 @@
           </el-table>
 
             <el-label style="margin-left: 320px; margin-top: 20px;">软件环境</el-label>
-                <el-table :data="tableData2" :span-method="objectSpanMethod" style="width: 50%; margin-left: 25%;">
+                <el-table :data="ruleForm.tableData2" :span-method="objectSpanMethod" style="width: 50%; margin-left: 25%;">
                 <el-table-column fixed prop="SoftwareCategory" label="软件类别" width="90">
                 </el-table-column>
                 <el-table-column prop="SoftwareName" label="软件名称" width="490">
@@ -86,7 +84,7 @@
             <el-form-item>
               <el-label>二、测试依据和参考资料</el-label>
             </el-form-item>
-            <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
+            <el-form-item v-for="(Table,index) in ruleForm.TableData1" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
@@ -95,7 +93,7 @@
               <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
+            <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
@@ -106,7 +104,6 @@
             </el-form-item>
         </el-form>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
 
@@ -115,61 +112,51 @@
         data(){
            return{    
             input_type:'text',
-            tableData1: [{
-                HardwareCategory: '',
-                HardwareName: '',
-                Setting: '',
-                Quantity: '',
-            }],
-            tableData2: [{
-                SoftwareCategory:'操作系统',
-                SoftwareName:'',
-                Edition:'',
-            },{
-                SoftwareCategory:'软件',
-                SoftwareName:'',
-                Edition:'',
-            },{
-                SoftwareCategory:'软件',
-                SoftwareName:'',
-                Edition:'',
-            },{
-                SoftwareCategory:'软件',
-                SoftwareName:'',
-                Edition:'',
-            },{
-                SoftwareCategory:'辅助工具',
-                SoftwareName:'',
-                Edition:'',
-            },{
-                SoftwareCategory:'开发工具',
-                SoftwareName:'',
-                Edition:'',
-            },{
-                SoftwareCategory:'被测试样品',
-                SoftwareName:'',
-                Edition:'',
-            }],
             ruleForm:{
-                  NeededStandard:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
-                },
+              tableData1: [{
+                  HardwareCategory: '',
+                  HardwareName: '',
+                  Setting: '',
+                  Quantity: '',
+              }],
+              tableData2: [{
+                  SoftwareCategory:'操作系统',
+                  SoftwareName:'',
+                  Edition:'',
+              },{
+                  SoftwareCategory:'软件',
+                  SoftwareName:'',
+                  Edition:'',
+              },{
+                  SoftwareCategory:'软件',
+                  SoftwareName:'',
+                  Edition:'',
+              },{
+                  SoftwareCategory:'软件',
+                  SoftwareName:'',
+                  Edition:'',
+              },{
+                  SoftwareCategory:'辅助工具',
+                  SoftwareName:'',
+                  Edition:'',
+              },{
+                  SoftwareCategory:'开发工具',
+                  SoftwareName:'',
+                  Edition:'',
+              },{
+                  SoftwareCategory:'被测试样品',
+                  SoftwareName:'',
+                  Edition:'',
+              }],
+              TableData1:[
+                {
+                NeededStandard:'',
+                }
               ],
-            },
-            ruleForm1:{
-                  ReferenceMaterial:'',
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
-                },
+              TableData2:[
+                {
+                ReferenceMaterial:'',
+                }
               ],
             },
             rules:{
@@ -194,32 +181,45 @@
            });
         },
         addfatherItem(){
-          this.ruleForm.TableData.push({
-            id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
+          this.ruleForm.TableData1.push({
+            id:this.ruleForm.TableData1[this.ruleForm.TableData1.length-1]+1,
             name:'',
             function:'',
             children:[],
           })
         },
         removefatherItem(Table){
-          const index = this.ruleForm.TableData.indexOf(Table)
+          const index = this.ruleForm.TableData1.indexOf(Table)
           if (index !== 0) {
-          this.ruleForm.TableData.splice(index, 1);
+          this.ruleForm.TableData1.splice(index, 1);
       }
         },
         addfatherItem1(){
-          this.ruleForm1.TableData.push({
-            id:this.ruleForm1.TableData[this.ruleForm1.TableData.length-1]+1,
+          this.ruleForm.TableData2.push({
+            id:this.ruleForm.TableData2[this.ruleForm.TableData2.length-1]+1,
             name:'',
             function:'',
             children:[],
           })
         },
         removefatherItem1(Table){
-          const index = this.ruleForm1.TableData.indexOf(Table)
+          const index = this.ruleForm.TableData2.indexOf(Table)
           if (index !== 0) {
-          this.ruleForm1.TableData.splice(index, 1);
+          this.ruleForm.TableData2.splice(index, 1);
       }
+        },
+        submitForm(formName) {
+          /*this.$refs[formName].validate((valid) => {
+            if (valid) {
+              alert("submit!");
+              this.$router.push({path: "./client", replace:true});
+            } else {
+              return false;
+            }
+          });*/
+          console.log(this.ruleForm);
+          this.$message.success("提交成功！");
+          //setTimeout(() => {this.$router.push({path: "./testcontent", replace:true});}, 2000);
         },
     }
     }

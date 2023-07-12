@@ -20,36 +20,24 @@
             <el-button style="margin-top: -20px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="13" push="6"><div class="grid-content bg-purple">
+          <el-col :span="18"><div class="grid-content bg-purple">
             <span class="logo-title">软件文档评审表</span>
             </div></el-col>
-            <el-col :span="12" push="4" style="margin-left: 20%">
+            <el-col :span="14">
               <el-steps :space="200" :active="1" finish-status="success">
                 <el-step title="软件说明部分评审"></el-step>
                 <el-step title="软件文档集评审"></el-step>
                 <el-step title="完成"></el-step>
               </el-steps>
             </el-col>
-            <el-col :span="6" pull="3">
-            <div class="grid-content bg-purple-light text-right">
-              <span v-if="user != null">
-                <span class="user">{{user.nick}}</span>
-              </span>
-              <el-dropdown  @command="switchLang">
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="zh">En</el-dropdown-item>
-                  <el-dropdown-item command="en">中</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </div></el-col>
-          <el-col :span="6" push="2">
-            <el-button style="margin-top: -20px; margin-left: -20px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
+            <el-col :span="2">
+            <el-button size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
         <br><br>
         <el-main>
-          <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item style="margin-top: 80px; margin-right: 220px;" label="软件名称:" prop="SoftWareName"> 
                 <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
             <el-form-item style="margin-top: -60px; margin-right: 120px;" label="版本号:" prop="VersionNumber"> 
@@ -67,12 +55,12 @@
                     v-model="ruleForm.Value1"
                     type="date"
                     placeholder="Pick a day"
-                    :picker-options="pickerOptions">
+                    picker-options="pickerOptions">
                     </el-date-picker>
                 </div>
             </el-form-item>
           </el-form-item>
-          <el-table :data="tableData1" :span-method="objectSpanMethod" style="width: 50%; margin-left: 25%;">
+          <el-table :data="ruleForm.tableData" :span-method="objectSpanMethod" style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="ReviewCategories" label="评审类别" width="60"></el-table-column>
             <el-table-column prop="Reviewitem" label="评审项" width="100"></el-table-column>
             <el-table-column prop="ReviewContent" label="评审内容" width="140"></el-table-column>
@@ -83,9 +71,9 @@
             </el-table-column>
             <el-table-column prop="ReviewResult" label="评审结果" width="120">
               <template slot-scope="scope">
-                <el-radio-group v-model="scope.row.HandleState">
-                <el-radio  v-model="scope.radio" label="1" @change="operation(scope.row)">通过</el-radio>
-                <el-radio  v-model="scope.radio" label="2" >不通过</el-radio>
+                <el-radio-group v-model="scope.row.radio">
+                <el-radio value="1" label="1" >通过</el-radio>
+                <el-radio value="2" label="2" >不通过</el-radio>
                 </el-radio-group>
               </template>
             </el-table-column>
@@ -96,7 +84,6 @@
           </el-form>
         
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
 
@@ -113,23 +100,147 @@
             Value1:'',
             Reviewer:'',
             Examiner:'',
+            tableData: [{
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '包含所有必需信息',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '包含产品说明中所有功能以及可调用功能的说明',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '包含可靠性特征及其操作',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '包含已处理的和可造成系统失效终止的差错和失效',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '必要的数据备份与恢复指南',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '所有关键功能的完备的细则信息和参考信息',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '陈述产品说明中所有限制',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '陈述最大最小磁盘空间',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '关于应用管理职能的所有必要信息',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '让用户验证是否完成应用管理职能的信息',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '1',
+            Reviewitem: '完备性',
+            ReviewContent: '文档集分若干部分，需给出完整标识',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '2',
+            Reviewitem: '正确性',
+            ReviewContent: '文档中所有的信息都是正确的。',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '2',
+            Reviewitem: '正确性',
+            ReviewContent: '没有歧义的信息。',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '3',
+            Reviewitem: '一致性',
+            ReviewContent: '文档集中的各文档不相互矛盾, 与产品说明也不矛盾. ',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '4',
+            Reviewitem: '易理解性',
+            ReviewContent: '使用用户可理解的术语和文体。',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '4',
+            Reviewitem: '易理解性',
+            ReviewContent: '文档集为用户使用该软件提供必要的信息 ',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '5',
+            Reviewitem: '易学性',
+            ReviewContent: '为如何使用该软件提供了足够的信息 ',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '6',
+            Reviewitem: '可操作性',
+            ReviewContent: '电子文档可打印 ',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '6',
+            Reviewitem: '可操作性',
+            ReviewContent: '有目次(主题词列表)和索引',
+            ReviewResultExplanation: '',
+            radio: '',
+            }, {
+            ReviewCategories: '6',
+            Reviewitem: '可操作性',
+            ReviewContent: '不常用术语缩略语有定义',
+            ReviewResultExplanation: '',
+            radio: '',
+        }]
             },
-            scope:{
-            ReviewCompleteDate:'',
-            HandleState:'',
-            radio:'',
-            },
-            user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
+            rules:{
+                SoftWareName:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                VersionNumber:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                Client:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                Reviewer:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                ReviewCompleteDate:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
+                Examiner:[
+                  { required: true, message: "不能为空！", trigger: "blur" },
+                ],
             },
             shortcuts: [{
             text: 'Today',
@@ -151,127 +262,7 @@
               picker.$emit('pick', date);
             }
           }],
-            tableData1: [{
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '包含所有必需信息',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '包含产品说明中所有功能以及可调用功能的说明',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '包含可靠性特征及其操作',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '包含已处理的和可造成系统失效终止的差错和失效',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '必要的数据备份与恢复指南',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '所有关键功能的完备的细则信息和参考信息',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '陈述产品说明中所有限制',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '陈述最大最小磁盘空间',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '关于应用管理职能的所有必要信息',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '让用户验证是否完成应用管理职能的信息',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '1',
-            Reviewitem: '完备性',
-            ReviewContent: '文档集分若干部分，需给出完整标识',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '2',
-            Reviewitem: '正确性',
-            ReviewContent: '文档中所有的信息都是正确的。',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '2',
-            Reviewitem: '正确性',
-            ReviewContent: '没有歧义的信息。',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '3',
-            Reviewitem: '一致性',
-            ReviewContent: '文档集中的各文档不相互矛盾, 与产品说明也不矛盾. ',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '4',
-            Reviewitem: '易理解性',
-            ReviewContent: '使用用户可理解的术语和文体。',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '4',
-            Reviewitem: '易理解性',
-            ReviewContent: '文档集为用户使用该软件提供必要的信息 ',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '5',
-            Reviewitem: '易学性',
-            ReviewContent: '为如何使用该软件提供了足够的信息 ',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '6',
-            Reviewitem: '可操作性',
-            ReviewContent: '电子文档可打印 ',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '6',
-            Reviewitem: '可操作性',
-            ReviewContent: '有目次(主题词列表)和索引',
-            ReviewResultExplanation: '',
-            radio: '1',
-            }, {
-            ReviewCategories: '6',
-            Reviewitem: '可操作性',
-            ReviewContent: '不常用术语缩略语有定义',
-            ReviewResultExplanation: '',
-            radio: '1',
-        }]
+            
         }
     },
       methods: {
@@ -288,6 +279,19 @@
                this.$refs.enterInput.resizeTextarea();
                } 
            });
+        },
+        submitForm(formName) {
+          /*this.$refs[formName].validate((valid) => {
+            if (valid) {
+              alert("submit!");
+              this.$router.push({path: "./client", replace:true});
+            } else {
+              return false;
+            }
+          });*/
+          console.log(this.ruleForm);
+          this.$message.success("提交成功！");
+          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         },
         objectSpanMethod({ row, column, rowIndex, columnIndex }) {
         if (columnIndex === 0) {
