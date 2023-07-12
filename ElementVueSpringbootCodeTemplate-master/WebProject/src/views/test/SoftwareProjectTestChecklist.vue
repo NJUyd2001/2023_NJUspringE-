@@ -84,7 +84,7 @@
             <el-table-column prop="IssuesAndPrecautions" label="可预见问题及注意事项" width="450"></el-table-column>
             <el-table-column prop="Confirm" label="确 认" width="120">
               <template slot-scope="scope">
-                <el-input type="input_type" ref="enterInput" v-model="scope.row.Confirm" :rows="2"  placeholder="请填写内容"/>
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.Confirm" :rows="2"  placeholder="请填写内容" v-if="scope.$index != 0 && scope.$index != 8 && scope.$index != 10" />
               </template>
             </el-table-column>
           </el-table>

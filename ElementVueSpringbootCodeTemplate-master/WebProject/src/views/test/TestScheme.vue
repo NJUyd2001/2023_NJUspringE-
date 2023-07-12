@@ -1,23 +1,36 @@
 <!-- 文炫添加 -->
 <template>
-    <el-container style="height:100%">
-      <el-header style="height: 30px " >
-        <el-row>
-        <el-col :span="23">
-        <el-breadcrumb separator="->">
-            <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="/TestScheme">软件测试方案</a></el-breadcrumb-item>
-        </el-breadcrumb>
+  <el-container style="height:100%">
+    <el-header style="height: 30px " >
+      <el-row>
+      <el-col :span="23">
+      <el-breadcrumb separator="->">
+          <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
+          <el-breadcrumb-item><a href="/TestScheme">软件测试方案</a></el-breadcrumb-item>
+      </el-breadcrumb>
+      </el-col>
+      <el-col :span="1">
+        <el-button  size="mini" type="primary">登出</el-button>
+      </el-col>
+      </el-row>
+      <el-row  type="flex" justify="center" align="middle">
+        <el-col :span="6">
+          <router-link to="/Test">
+          <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
+          </router-link>
         </el-col>
-        <el-col :span="1">
-          <el-button  size="mini" type="primary">登出</el-button>
-        </el-col>
-        </el-row>
-        <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="6">
-            <router-link to="/Test">
-            <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
-            </router-link>
+        <el-col :span="8"><div class="grid-content bg-purple">
+          <span class="logo-title">软件测试方案</span>
+          </div></el-col>
+          <el-col :span="10">
+            <el-steps :space="200" :active="0" finish-status="success">
+              <el-step title="软件测试方案填写"></el-step>
+              <el-step title="方案评审表填写"></el-step>
+              <el-step title="完成"></el-step>
+            </el-steps>
+          </el-col>
+          <el-col :span="2">
+          <el-button style="margin-left: 40px;" @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
           </el-col>
           <el-col :span="8"><div class="grid-content bg-purple">
             <span class="logo-title">软件测试方案</span>
