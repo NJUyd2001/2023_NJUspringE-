@@ -66,7 +66,6 @@
   </el-footer>
 </el-container>
 </el-container>
-  <LoginDialog :show='showLogin'/>
 </el-container>
 </template>
 
@@ -81,7 +80,7 @@ export default {
   created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    console.log(this.$store.state.user.name);
+    console.log(this.$store.state.user.id);
     this.user.uname=this.$store.state.user.name;
     this.user.utype=this.$store.state.user.Permissions;
   },
@@ -97,7 +96,6 @@ export default {
       stepSuc: [0],
       // 步骤标题
       stepTitle: ['发起委托', '报价处理', '合同处理', '样品发送', '确认接收', '测试报告'],
-      showLogin: false,
       user:{
         uname:this.$store.state.user.name,
         utype:this.$store.state.user.Permissions,
@@ -174,18 +172,6 @@ export default {
       sessionStorage.removeItem('userInfo');
       // 跳转页面到登录页
       this.$router.push('/home');
-    },
-    loginSuccess(user) {
-      console.log("success", user);
-
-      console.log(Object.prototype.toString.call(user.utype));
-
-      this.showLogin = false;
-      this.user = user;
-    },
-    loginCancel() {
-      console.log("loginCancel");
-      this.showLogin = false;
     },
     logout() {
       this.ajax.post("/app/logout").then(result => {

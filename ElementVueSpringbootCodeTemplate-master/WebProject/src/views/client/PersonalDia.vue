@@ -9,35 +9,35 @@
   <el-form :model="user" :rules="rules" ref="form" label-width="150px">
       <div class="updateinfo">
   <div class="left">
-          <el-form-item label="用户名" prop="new_uname">
-            <el-input v-model="user.new_uname"></el-input>
+          <el-form-item label="用户名" prop="nickname">
+            <el-input v-model="user.nickname"></el-input>
           </el-form-item>
-          <el-form-item label="账号密码" prop="new_password">
-            <el-input v-model="user.new_password"></el-input>
+          <el-form-item label="账号密码" prop="password">
+            <el-input v-model="user.password"></el-input>
           </el-form-item>
-          <el-form-item label="邮箱" prop="new_email">
-            <el-input v-model="user.new_email"></el-input>
+          <el-form-item label="邮箱" prop="emailAddr">
+            <el-input v-model="user.emailAddr"></el-input>
           </el-form-item>
-          <el-form-item label="传真" prop="new_fax">
-            <el-input v-model="user.new_fax"></el-input>
+          <el-form-item label="传真" prop="userfax">
+            <el-input v-model="user.userfax"></el-input>
           </el-form-item>
-          <el-form-item label="电话号" prop="new_phone">
-            <el-input v-model="user.new_phone"></el-input>
+          <el-form-item label="电话号" prop="phone">
+            <el-input v-model="user.phone"></el-input>
           </el-form-item>
           
   </div>
   <div class="right">
-          <el-form-item label="地址" prop="new_address">
-            <el-input v-model="user.new_address"></el-input>
+          <el-form-item label="地址" prop="ip">
+            <el-input v-model="user.ip"></el-input>
           </el-form-item>
-          <el-form-item label="联系人" prop="new_contact">
-            <el-input v-model="user.new_contact"></el-input>
+          <el-form-item label="联系人" prop="contact">
+            <el-input v-model="user.contact"></el-input>
           </el-form-item>
-          <el-form-item label="联系人电话" prop="new_contactTel">
-            <el-input v-model="user.new_contactTel"></el-input>
+          <el-form-item label="联系人电话" prop="contactTel">
+            <el-input v-model="user.contactTel"></el-input>
           </el-form-item>
-            <el-form-item label="邮编" prop="new_zipcode">
-            <el-input v-model="user.new_zipcode"></el-input>
+            <el-form-item label="邮编" prop="zipcode">
+            <el-input v-model="user.zipcode"></el-input>
           </el-form-item>
   </div>
   </div>
@@ -57,49 +57,69 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      userid:{
+        UID:"",
+      },
       user:{
-        new_uname:this.$store.state.user.name,
-        new_phone:this.$store.state.user.phone,
-        new_fax:this.$store.state.user.fax,
-        new_email:this.$store.state.user.email,
-        new_address:this.$store.state.user.address,
-        new_zipcode:this.$store.state.user.zipcode,
-        new_contact:this.$store.state.user.contact,
-        new_contactTel:this.$store.state.user.contactTel,
-        new_password:this.$store.state.user.password,
-        UID:this.$store.state.user.id,
       },
       rules: {
-        new_uname: [
+        nickname: [
           { required: true, message: "昵称不能为空", trigger: "blur" },
         ],
-        new_password: [
+        password: [
           { required: true, message: "账号密码不能为空", trigger: "blur" },
         ],
-        new_phone: [
+        phone: [
           { required: true, message: "不能为空", trigger: "blur" },
         ],
-        new_fax: [
+        fax: [
           { required: true, message: "不能为空", trigger: "blur" },
         ],
-        new_email: [
+        emailAddr: [
           { required: true, message: "不能为空", trigger: "blur" },
         ],
-        new_address: [
+        address: [
           { required: true, message: "不能为空", trigger: "blur" },
         ],
-        new_contact: [
+        ip: [
           { required: true, message: "不能为空", trigger: "blur" },
         ],
-        new_contactTel: [
+        contact: [
+          { required: true, message: "不能为空", trigger: "blur" },
+        ],
+        contactTel: [
+          { required: true, message: "不能为空", trigger: "blur" },
+        ],
+        zipcode: [
           { required: true, message: "不能为空", trigger: "blur" },
         ],
       },
     };
   },
+  created(){
+    this.KeepInfor();
+    this.userid.UID=this.$store.state.user.id;
+    console.log(this.userid.UID);
+    Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.userid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.user=ret.data;
+        this.user.UID=this.userid.UID;
+      })
+  },
   mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
   },
   methods: {
+    handleBeforeUnload() {
+          sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
+      handleUnload() {
+          sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+            },
     open() {
       this.dialogVisible = true;
     },
@@ -108,8 +128,8 @@ export default {
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        console.log(ret)
-        this.info("提交成功，正在返回登录界面！");
+        console.log(ret.data)
+        this.$message.info("提交成功，正在返回登录界面！");
         setTimeout(() => {this.$router.push({path: "../home", replace:true});}, 2000);
       })
     },

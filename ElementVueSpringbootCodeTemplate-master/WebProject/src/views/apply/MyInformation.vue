@@ -7,88 +7,90 @@
   </el-breadcrumb>
   <br>
     <el-row  type="flex" justify="center" align="middle">
-      <el-col :span="6">
+      <el-col :span="2">
         <router-link to="/client">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
-      <el-col :span="6" push="4"><div class="grid-content bg-purple">
+      <el-col :span="20" ><div class="grid-content bg-purple">
         <span class="logo-title">个人信息完善</span>
         </div></el-col>
-        <el-col :span="6" pull="3">
-        <div class="grid-content bg-purple-light text-right">
-          <el-dropdown  @command="switchLang">
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="zh">En</el-dropdown-item>
-              <el-dropdown-item command="en">中</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div></el-col>
-      <el-col :span="6" push="4">
+      <el-col :span="2" >
         <el-button  size="middle" @click="submitForm('ruleForm')" >完成</el-button>
       </el-col>
     </el-row>
   </el-header>
     <br><br><br><br>
     <el-main>
+      <br>
       <el-form label-width=40% :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item label="传真:" prop="new_fax">
-          <el-input v-model="ruleForm.new_fax" style="width: 200px;"></el-input>
+        <el-form-item label="传真:" prop="fax">
+          <el-input v-model="ruleForm.userfax" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="地址:" prop="new_address">
-          <el-input v-model="ruleForm.new_address" style="width: 200px;"></el-input>
+        <el-form-item label="地址:" prop="address">
+          <el-input v-model="ruleForm.address" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="邮编:" prop="new_zipcode">
-          <el-input v-model="ruleForm.new_zipcode" style="width: 200px;"></el-input>
+        <el-form-item label="邮编:" prop="zipcode">
+          <el-input v-model="ruleForm.zipcode" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="联系人:" prop="new_contact">
-          <el-input v-model="ruleForm.new_contact" style="width: 200px;"></el-input>
+        <el-form-item label="联系人:" prop="contact">
+          <el-input v-model="ruleForm.contact" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="联系人电话:" prop="new_contactTel">
-          <el-input v-model="ruleForm.new_contactTel" style="width: 200px;"></el-input>
+        <el-form-item label="联系人电话:" prop="contactTel">
+          <el-input v-model="ruleForm.contactTel" style="width: 200px;"></el-input>
         </el-form-item>
-        <el-form-item label="网址:" prop="new_ip">
-          <el-input v-model="ruleForm.new_ip" style="width: 200px;"></el-input>
+        <el-form-item label="网址:" prop="ip">
+          <el-input v-model="ruleForm.ip" style="width: 200px;"></el-input>
         </el-form-item>
       </el-form>
     </el-main>
-  <LoginDialog :show='showLogin'/>
 </el-container>
 </template>
 <script>
 import Axios from 'axios'
 export default {
+  created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    console.log(this.$store.state.user.id);
+    this.userid.UID=this.$store.state.user.id;
+    Axios.post("http://localhost:9090/api/user/selectByUID",JSON.stringify(this.userid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+        console.log(ret.data)
+        this.ruleForm=ret.data;
+        this.ruleForm.UID=this.userid.UID;
+      })
+  },
   mounted(){
-    
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
   },
     data(){
        return{
+        userid:{
+            UID:"",
+        },
             ruleForm:{
-              new_fax:this.$store.state.user.fax,
-              new_address:this.$store.state.user.address,
-              new_zipcode:this.$store.state.user.zipcode,
-              new_contact:this.$store.state.user.contact,
-              new_contactTel:this.$store.state.user.contactTel,
-              new_ip:this.$store.state.user.ip,
-              UID:this.$store.state.user.id,
             },
             rules:{
-              new_fax:[
+              fax:[
               {  required: true, message: "不能为空！", trigger: "blur" },
               ],
-              new_address:[
+              address:[
               {  required: true, message: "不能为空！", trigger: "blur" },
               ],
-              new_zipcode:[
+              zipcode:[
               {  required: true, message: "不能为空！", trigger: "blur" },
               ],
-              new_contact:[
+              contact:[
               {  required: true, message: "不能为空！", trigger: "blur" },
               ],
-              new_contactTel:[
+              contactTel:[
               {  required: true, message: "不能为空！", trigger: "blur" },
               ],
-              new_ip:[
+              ip:[
               {  required: true, message: "不能为空！", trigger: "blur" },
               ],
               choose:[
@@ -98,6 +100,12 @@ export default {
     }
 }, 
   methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+    },
+    handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     goback(){
     },
     submitForm(formName) {
@@ -105,9 +113,9 @@ export default {
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        console.log(ret)
+        console.log(ret.data)
         this.$message.success("提交成功，正在返回用户界面！");
-        setTimeout(() => {this.$router.push({path: "../client", replace:true});}, 2000);
+       //setTimeout(() => {this.$router.push({path: "../client", replace:true});}, 2000);
       })
     },
   },

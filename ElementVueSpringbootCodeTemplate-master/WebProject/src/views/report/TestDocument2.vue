@@ -15,24 +15,15 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="6">
+          <el-col :span="2">
             <router-link to="/report">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" push="1"><div class="grid-content bg-purple">
+          <el-col :span="24">
             <span class="logo-title3">测试记录</span>
-            </div></el-col>
-            <el-col :span="6" pull="3">
-            <div class="grid-content bg-purple-light text-right">
-              <el-dropdown  @command="switchLang">
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="zh">En</el-dropdown-item>
-                  <el-dropdown-item command="en">中</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </div></el-col>
-          <el-col :span="6" push="5">
+          </el-col>
+          <el-col :span="1">
             <el-button  size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
@@ -80,7 +71,6 @@
             </el-form-item>
           </el-form>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
     <el-backtop :right="50" :bottom="50" />
@@ -89,28 +79,23 @@
         data(){
            return{
                 ruleForm:{
-                    TestClassification:'',
-                    SerialNum:'',
-                    DesignSpecification:'',
-                    Regulation:'',
-                    Precondition:'',
-                    ExecutionProcess:'',
-                    ExpectedResult:'',
-                    Designer:'',
-                    ActualResult:'',
-                    BugNum:'',
-                    UsecaseExecutor:'',
-                    TestingTime:'',
-                    ConfirmPerson:'',
-                
-                TableData:[
-                  {
-                    id:1,
-                    name:'',
-                    function:'',
-                    children:[],
-                },
-              ],
+                    TableData:[
+                      {
+                        TestClassification:'',
+                        SerialNum:'',
+                        DesignSpecification:'',
+                        Regulation:'',
+                        Precondition:'',
+                        ExecutionProcess:'',
+                        ExpectedResult:'',
+                        Designer:'',
+                        ActualResult:'',
+                        BugNum:'',
+                        UsecaseExecutor:'',
+                        TestingTime:'',
+                        ConfirmPerson:'',
+                      }
+                    ]
                 },
                 rules:{
                   TestClassification:[
@@ -189,8 +174,9 @@
               return false;
             }
           });*/
-          this.$message.success("提交成功，正在返回用户界面！");
-          setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
+          console.log(this.ruleForm);
+          this.$message.success("提交成功！");
+          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         },
         saveForm(formName) {
           /*this.$refs[formName].validate((valid) => {
