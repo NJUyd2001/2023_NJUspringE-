@@ -39,10 +39,10 @@
         <el-main>
           <el-form  label-width="50%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-row>
-              <el-col :span="12">
+            <el-col :span="12">
             <el-form-item  label="软件名称:" prop="SoftWareName"> 
                 <el-input v-model="ruleForm.SoftWareName" style="width:200px; padding:10px;"  ></el-input>
-              </el-form-item> 
+            </el-form-item> 
             </el-col>
             <el-col :span="4">
                 <el-form-item label="版本号:" prop="VersionNumber"> 

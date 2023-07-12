@@ -130,17 +130,15 @@
 </p>
 <el-form  :model="ruleForm" ref="ruleForm">
         <el-row type="flex" justify="center">
-    <el-form-item>
         <el-radio-group v-model="Suggestion.Pass" :span="3">      
           <el-radio  label="false">拒绝</el-radio>
           <el-radio  label="true">同意</el-radio>
-        </el-radio-group>
-      </el-form-item>
-        </el-row>
-        <el-row>
+    </el-radio-group>
+  </el-row>
+  <el-row>
   <el-form-item label="意见：">
-          <el-input style="width:700px;" :rows="5" v-model="Suggestion.Views" type="textarea" ></el-input>
-        </el-form-item>
+      <el-input style="width:700px;" :rows="5" v-model="Suggestion.Views" type="textarea" ></el-input>
+  </el-form-item>
 </el-row>
 </el-form>
 </el-main>
