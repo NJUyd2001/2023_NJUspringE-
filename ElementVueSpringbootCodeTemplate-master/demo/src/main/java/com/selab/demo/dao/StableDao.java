@@ -21,6 +21,6 @@ public interface StableDao {
     void update(StableModel stableModel);
 
 
-    @Delete("DELETE FROM selabspringe.stable WHERE QID = #{QID}")
+    @Delete("DELETE FROM selabspringe.stable WHERE stableid = #{stableid}")
     void delete(Integer stableid);
 }

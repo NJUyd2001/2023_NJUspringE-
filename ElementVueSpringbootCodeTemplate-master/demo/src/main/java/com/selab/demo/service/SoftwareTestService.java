@@ -85,7 +85,7 @@ public class SoftwareTestService {
         return processModel.getSTID();
     }
 
-    public String JSONrepack(String postJson){
+    public String JSONrepack(String postJson,Integer PID){
         //System.out.print(postJson);
         JSONArray jsonArray = JSONArray.parseArray(postJson);
         Integer r = jsonArray.size();
@@ -97,8 +97,9 @@ public class SoftwareTestService {
         while(i<r) {
             JSONObject result = new JSONObject();
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
+            result.put("PID",PID);
             result.put("STID", jsonObject.getInteger("sTID"));
-            result.put("Mark", jsonObject.getJSONArray("mark"));
+            result.put("Mark", jsonObject.getString("mark"));
             result.put("SystemOverview",jsonObject.getString("systemoverview"));
             result.put("DocumentationOverview", jsonObject.getString("documentationoverview"));
             result.put("BaseLine", jsonObject.getString("baseline"));
@@ -133,10 +134,10 @@ public class SoftwareTestService {
             JSONObject result = new JSONObject();
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
             result.put("stableid",jsonObject.getString("stableid"));
-            result.put("MilestonesTasks", jsonObject.getInteger("sTID"));
-            result.put("Workload", jsonObject.getJSONArray("time"));
-            result.put("Start",jsonObject.getString("softwarename"));
-            result.put("End", jsonObject.getString("item"));
+            result.put("MilestonesTasks", jsonObject.getString("milestonestasks"));
+            result.put("Workload", jsonObject.getString("workload"));
+            result.put("Start",jsonObject.getString("start"));
+            result.put("End", jsonObject.getString("end"));
             result2.add(result);
             ++i;
         }
@@ -172,10 +173,11 @@ public class SoftwareTestService {
             Integer r = tabledata.size();
             Integer i=0;
             while (i<r){
-                String milestonetasks = jsonObject.getString("MilestonesTasks");
-                String workload = jsonObject.getString("Workload");
-                String start = jsonObject.getString("Start");
-                String end = jsonObject.getString("End");
+                JSONObject table  = JSON.parseObject(JSON.toJSONString(tabledata.get(i)));
+                String milestonetasks = table.getString("MilestonesTasks");
+                String workload = table.getString("Workload");
+                String start = table.getString("Start");
+                String end = table.getString("End");
 
                 StableModel stableModel = new StableModel(0,milestonetasks,workload,start,end);
                 stableDao.insert(stableModel);
@@ -195,6 +197,7 @@ public class SoftwareTestService {
         Integer STID = softwareTestModel.getSTID();
         processDao.setSTID(PID,STID);
         res.put("PID",PID);
+        res.put("stableid",stableid);
         return JSON.toJSONString(res);
     }
 
@@ -205,7 +208,7 @@ public class SoftwareTestService {
             return "the process does not exist";
         }
         Integer STID = findSTID(PID);
-        JSONArray res = JSON.parseArray(JSONrepack(JSON.toJSONString(softwareTestDao.select(STID))));
+        JSONArray res = JSON.parseArray(JSONrepack(JSON.toJSONString(softwareTestDao.select(STID)),jsonObject.getInteger("PID")));
         JSONArray res3 = new JSONArray();
         if(res!=null){
             Integer r = res.size();
@@ -219,7 +222,8 @@ public class SoftwareTestService {
                     Integer r2 = stid.size();
                     Integer i2 = 0;
                     while(i2<r2){
-                        tabledata.add(JSON.toJSONString(JSONrepack_(JSON.toJSONString(stableDao.select((Integer) stid.get(i))))));
+                        //System.out.print(JSONrepack_(JSON.toJSONString(stableDao.select( stid.getInteger(i2)))));
+                        tabledata.add(JSON.parseArray(JSONrepack_(JSON.toJSONString(stableDao.select( stid.getInteger(i2))))).getJSONObject(0) );
                         ++i2;
                     }
 
@@ -236,4 +240,201 @@ public class SoftwareTestService {
        // JSONObject res = JSON.parseObject(JSON.toJSONString(JSON.parseArray(JSONrepack(JSON.toJSONString(softwareTestDao.select(STID)))).get(0)));
         return JSON.toJSONString(res3);
     }
+
+    public String update (String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer PID = jsonObject.getInteger("PID");
+        if(processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
+        String mark = jsonObject.getString("Mark");
+        String systemoverview = jsonObject.getString("SystemOverview");
+        String documentationoverview = jsonObject.getString("DocumentationOverview");
+        String baseline = jsonObject.getString("BaseLine");
+        String hardware = jsonObject.getString("Hardware");
+        String software = jsonObject.getString("Software");
+        String other = jsonObject.getString("Other");
+        String participatingorganization = jsonObject.getString("ParticipatingOrganization");
+        String personnel = jsonObject.getString("Personnel");
+        String testlevel = jsonObject.getString("TestLevel");
+        String testcatagory = jsonObject.getString("TestCategory");
+        String generaltestcondition = jsonObject.getString("GeneralTestCondtion");
+        String plannedexecutiontest = jsonObject.getString("PlannedExecutionTest");
+        String testcase = jsonObject.getString("TestCase");
+        String traceabilityodrequirement = jsonObject.getString("TraceabilityOfRequirement");
+
+        Integer STID = findSTID(PID);
+        if(softwareTestDao.select2(STID)==null){
+            return "the SoftwareTest does not exist";
+        }
+
+        JSONObject res = JSON.parseArray(JSONrepack(JSON.toJSONString(softwareTestDao.select(STID)),jsonObject.getInteger("PID"))).getJSONObject(0);
+        String softtableid = res.getString("softtableid");
+        JSONArray softtable = StringtoArray2(softtableid);
+        JSONArray tabledata = jsonObject.getJSONArray("tableData");
+        JSONArray failedid = new JSONArray();
+        JSONArray newid = new JSONArray();
+        //JSONArray stableid = new JSONArray();
+        if(tabledata!=null){
+            Integer r = tabledata.size();
+            Integer i=0;
+            while (i<r){
+                JSONObject table  = tabledata.getJSONObject(i);
+                Integer stableid = table.getInteger("stableid");
+                String milestonetasks = table.getString("MilestonesTasks");
+                String workload = table.getString("Workload");
+                String start = table.getString("Start");
+                String end = table.getString("End");
+
+                if(stableid == null) {
+                    StableModel stableModel = new StableModel(0, milestonetasks, workload, start, end);
+                    stableDao.insert(stableModel);
+                    softtable.add(stableModel.getStableid().toString());
+                }
+                else{
+                    if(stableDao.select2(stableid) == null){
+                        failedid.add(stableid.toString());
+                    }
+                    else{
+                        int check = 0;
+                        Integer i2 = 0;
+                        if(tabledata!=null){
+                            Integer r2 = softtable.size();
+
+                            while(i2<r2){
+
+                                String id  = softtable.getString(i2);
+                                System.out.print(Integer.parseInt(id) +"!="+stableid+'\n');
+                                if(Integer.parseInt(id) == stableid){
+                                    check = 1;
+                                    break;
+                                }
+                                ++i2;
+
+                            }
+                        }
+                        if(check == 0){
+                            failedid.add(stableid.toString());
+                        }
+                        else {
+                            JSONObject ol = JSON.parseObject(JSON.toJSONString(JSON.parseArray(JSON.toJSONString(stableDao.select(stableid))).get(0)));
+                            if(milestonetasks == null){
+                                milestonetasks = ol.getString("milestonetasks");
+                            }
+                            if(workload == null){
+                                workload = ol.getString("workload");
+                            }
+                            if(start == null){
+                                start = ol.getString("start");
+                            }
+                            if(end == null){
+                                end = ol.getString("end");
+                            }
+                            String delete = table.getString("delete");
+                            if(delete == null || !delete.equals("T")) {
+                                StableModel stableModel = new StableModel(stableid, milestonetasks, workload, start, end);
+                                stableDao.update(stableModel);
+                            }
+                            else{
+                                stableDao.delete(stableid);
+                                softtable.remove(stableid.toString());
+                            }
+                        }
+                    }
+                }
+                ++i;
+            }
+        }
+        //JSONObject old = JSON.parseObject(JSON.toJSONString(JSON.parseArray(JSON.toJSONString(softwareTestDao.select(stableid))).get(0)));
+        if(mark == null){
+            mark = res.getString("mark");
+        }
+        if(systemoverview == null){
+            systemoverview = res.getString("systemoverview");
+        }
+        if(documentationoverview == null){
+            documentationoverview = res.getString("documentationoverview");
+        }
+        if(baseline == null){
+            baseline = res.getString("baseline");
+        }
+        if(hardware == null){
+            hardware = res.getString("hardware");
+        }
+        if(software == null){
+            software = res.getString("software");
+        }
+        if(other == null){
+            other = res.getString("other");
+        }
+        if(participatingorganization == null){
+            participatingorganization = res.getString("participatingorganization");
+        }
+        if(personnel == null){
+            personnel = res.getString("personnel");
+        }
+        if(testlevel == null){
+            testlevel = res.getString("testlevel");
+        }
+        if(testcatagory == null){
+            testcatagory = res.getString("testcatagory");
+        }
+        if(generaltestcondition == null){
+            generaltestcondition = res.getString("generaltestcondition");
+        }
+        if(plannedexecutiontest == null){
+            plannedexecutiontest = res.getString("plannedexecutiontest");
+        }
+        if(testcase == null){
+            testcase = res.getString("testcase");
+        }
+        if(traceabilityodrequirement == null){
+            traceabilityodrequirement = res.getString("traceabilityodrequirement");
+        }
+        softtableid = new String();
+        softtableid = ArraytoString(softtableid,softtable);
+        SoftwareTestModel softwareTestModel = new SoftwareTestModel(STID,mark,software,documentationoverview,baseline,hardware,software,other,participatingorganization,personnel,testlevel,testcatagory,generaltestcondition,plannedexecutiontest,testcase,traceabilityodrequirement,softtableid);
+        softwareTestDao.update(softwareTestModel);
+        String failid = new String();
+        failid = ArraytoString(failid,failedid);
+        JSONObject resss = new JSONObject();
+        resss.put("words","stableid:"+failid+" failed, other table and SoftwareTest updated");
+        resss.put("stableid",softtable);
+        return(JSON.toJSONString(resss));
+
+
+
+
+    }
+
+    public String delete(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer PID = jsonObject.getInteger("PID");
+        if(processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
+
+        Integer STID = findSTID(PID);
+        if(softwareTestDao.select2(STID)==null){
+            return "the SoftwareTest does not exist";
+        }
+
+        JSONObject res = JSON.parseArray(JSONrepack(JSON.toJSONString(softwareTestDao.select(STID)),jsonObject.getInteger("PID"))).getJSONObject(0);
+        String softtableid = res.getString("softtableid");
+        JSONArray softtable = StringtoArray2(softtableid);
+        if(softtable!=new JSONArray()){
+            Integer r=softtable.size();
+            Integer i = 0;
+            while(i<r){
+                Integer id = softtable.getInteger(i);
+                stableDao.delete(id);
+                ++i;
+            }
+        }
+        softwareTestDao.delete(STID);
+        return "SoftwareTest delete completed";
+    }
+
+
+
 }
