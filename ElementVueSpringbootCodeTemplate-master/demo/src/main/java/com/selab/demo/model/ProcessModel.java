@@ -15,6 +15,45 @@ public class ProcessModel {
     private int RCID;
     private int SID;
     private int RTID;
+    private int TID;
+    private int TEID;
+
+    @Override
+    public String toString() {
+        return "ProcessModel{" +
+                "PID=" + PID +
+                ", notes='" + notes + '\'' +
+                ", RID=" + RID +
+                ", RCID=" + RCID +
+                ", SID=" + SID +
+                ", RTID=" + RTID +
+                ", TID=" + TID +
+                ", TEID=" + TEID +
+                ", STID=" + STID +
+                ", AgID=" + AgID +
+                ", CID=" + CID +
+                ", QID=" + QID +
+                ", UID=" + UID +
+                ", AID=" + AID +
+                ", state='" + state + '\'' +
+                '}';
+    }
+
+    public int getTID() {
+        return TID;
+    }
+
+    public void setTID(int TID) {
+        this.TID = TID;
+    }
+
+    public int getTEID() {
+        return TEID;
+    }
+
+    public void setTEID(int TEID) {
+        this.TEID = TEID;
+    }
 
     private int STID;
 
@@ -26,23 +65,7 @@ public class ProcessModel {
         this.STID = STID;
     }
 
-    @Override
-    public String toString() {
-        return "ProcessModel{" +
-                "PID=" + PID +
-                ", notes='" + notes + '\'' +
-                ", RID=" + RID +
-                ", RCID=" + RCID +
-                ", SID=" + SID +
-                ", RTID=" + RTID +
-                ", AgID=" + AgID +
-                ", CID=" + CID +
-                ", QID=" + QID +
-                ", UID=" + UID +
-                ", AID=" + AID +
-                ", state='" + state + '\'' +
-                '}';
-    }
+
 
     public int getRID() {
         return RID;

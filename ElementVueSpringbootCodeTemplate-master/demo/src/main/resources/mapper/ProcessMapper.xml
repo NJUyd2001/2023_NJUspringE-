@@ -59,6 +59,12 @@
     <update id="setSTID" parameterType="int">
         UPDATE selabspringe.process SET STID=#{STID} WHERE PID=#{PID}
     </update>
+    <update id="setTID" parameterType="int">
+        UPDATE selabspringe.process SET TID=#{TID} WHERE PID=#{PID}
+    </update>
+    <update id="setTEID" parameterType="int">
+        UPDATE selabspringe.process SET TEID=#{TEID} WHERE PID=#{PID}
+    </update>
     <delete id="delete" parameterType="int" >
         DELETE FROM process WHERE PID = #{PID}
     </delete>
