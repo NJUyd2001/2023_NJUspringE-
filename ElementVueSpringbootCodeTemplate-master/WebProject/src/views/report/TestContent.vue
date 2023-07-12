@@ -197,9 +197,17 @@
                 },
         }
     }, 
+    mounted(){
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
+        window.addEventListener('unload', this.handleUnload);
+      },
       methods:{
-        goback(){
-        },
+        handleBeforeUnload() {
+          sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+          },
+        handleUnload() {
+          sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+          },
         addfatherItem(){
           this.ruleForm.TableData1.push({
             id:this.ruleForm.TableData1[this.ruleForm.TableData1.length-1]+1,

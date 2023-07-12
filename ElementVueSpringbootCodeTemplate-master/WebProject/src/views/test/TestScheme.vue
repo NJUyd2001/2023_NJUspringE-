@@ -1,23 +1,36 @@
 <!-- 文炫添加 -->
 <template>
-    <el-container style="height:100%">
-      <el-header style="height: 30px " >
-        <el-row>
-        <el-col :span="23">
-        <el-breadcrumb separator="->">
-            <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="/TestScheme">软件测试方案</a></el-breadcrumb-item>
-        </el-breadcrumb>
+  <el-container style="height:100%">
+    <el-header style="height: 30px " >
+      <el-row>
+      <el-col :span="23">
+      <el-breadcrumb separator="->">
+          <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
+          <el-breadcrumb-item><a href="/TestScheme">软件测试方案</a></el-breadcrumb-item>
+      </el-breadcrumb>
+      </el-col>
+      <el-col :span="1">
+        <el-button  size="mini" type="primary">登出</el-button>
+      </el-col>
+      </el-row>
+      <el-row  type="flex" justify="center" align="middle">
+        <el-col :span="6">
+          <router-link to="/Test">
+          <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
+          </router-link>
         </el-col>
-        <el-col :span="1">
-          <el-button  size="mini" type="primary">登出</el-button>
-        </el-col>
-        </el-row>
-        <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="6">
-            <router-link to="/Test">
-            <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
-            </router-link>
+        <el-col :span="8"><div class="grid-content bg-purple">
+          <span class="logo-title">软件测试方案</span>
+          </div></el-col>
+          <el-col :span="10">
+            <el-steps :space="200" :active="0" finish-status="success">
+              <el-step title="软件测试方案填写"></el-step>
+              <el-step title="方案评审表填写"></el-step>
+              <el-step title="完成"></el-step>
+            </el-steps>
+          </el-col>
+          <el-col :span="2">
+          <el-button style="margin-left: 40px;" @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
           </el-col>
           <el-col :span="8"><div class="grid-content bg-purple">
             <span class="logo-title">软件测试方案</span>
@@ -52,7 +65,7 @@
               <el-input v-model="ruleForm.BaseLine" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="2 引用文件:" prop="ApplicationFile" style="font-weight: bold; font-size: 15px; ">
-              <el-input placeholder="《计算机软件文档编制规范》GB/T 8567－2006" v-model="ruleForm.ApplicationFile" style="width: 350px; "></el-input>
+              <el-input placeholder="" v-model="ruleForm.ApplicationFile" style="width: 350px; "></el-input>
             </el-form-item>
             <el-form-item label="3 软件测试环境" prop="SoftwareTestEnvironment" style="font-weight: bold; font-size: 15px; margin-left: 20px;">
             </el-form-item>
@@ -69,6 +82,7 @@
               <el-input v-model="ruleForm.ParticipatingOrganization" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="3.5人员:" prop="Personnel" style="font-weight: normal; font-size: 15px; ">
+              <el-input v-model="ruleForm.Personnel" style="width: 400px;" type="textarea"></el-input>
             </el-form-item>
             <el-form-item label="4 计划" prop="Plan" style="font-weight: bold; font-size: 15px; ">
             </el-form-item>
@@ -81,9 +95,7 @@
             <el-input style="width:200px;padding:10px" v-model="ruleForm.VersionNumber"></el-input>
             </el-form-item>
             <el-form-item label="测试类型:" prop="TypeTest"> 
-              <el-select v-model="ruleForm.TypeTest" multiple allow-create filterable>
-              <el-option   v-for='item in ruleForm.TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
-              </el-select>
+                <el-input style="width:200px;padding:10px" v-model="ruleForm.TypeTest"></el-input>
             </el-form-item>
             <el-form-item label="一般测试条件:" prop="GeneralTestCondition">
               <el-input v-model="ruleForm.GeneralTestCondition" style="width: 200px;"></el-input>
@@ -120,22 +132,34 @@
     </template>
     <el-backtop :right="50" :bottom="50" />
     <script>
+import Axios from 'axios';
     export default {
         data(){
           return{
+            useruid:{
+              UID:"",
+            },
+            userpid:{
+              PID:"",
+            },
              ruleForm:{
+               PID:"",
                Mark:'',
                SystemOverview:'',
                DocumentationOverview:'',
                BaseLine:'',
                Hardware:'',
                Software:'',
+               ApplicationFile:'',
                Other:'',
                ParticipatingOrganization:'',
                Personnel:'',
                TestLevel:'',
                TestCategory:'',
-               GeneralTestCondtion:'',
+               GeneralTestCondition:'',
+               VersionNumber:'',
+               TypeTest:'',
+               SoftWareName:'',
                PlannedExecutionTest:'',
                TestCase:'',
                TraceabilityOfRequirement:'',
@@ -231,43 +255,48 @@
                   ],
                   }
         }
-    }, 
+    },
+    created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    this.useruid.UID=54;
+    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data[0])
+                this.userpid.PID=ret.data[0].pid;
+                this.ruleForm.PID=this.userpid.PID;
+                console.log(ret.data[0].pid);
+              })
+    
+  },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
       methods:{
-        goback(){
-        },
-        addfatherItem(){
-          this.ruleForm.TableData.push({
-            id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-            name:'',
-            function:'',
-            children:[],
-          })
-        },
-        removefatherItem(Table){
-          const index = this.ruleForm.TableData.indexOf(Table)
-          if (index !== -1) {
-          this.ruleForm.TableData.splice(index, 1);
-      }
-        },
-        addchildrenItem(Node){
-            Node.children.push(
-              {
-                id:'',
-                
-              }
-            )
-        },
         submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
+          console.log()
+          this.$refs[formName].validate((valid) => {
             if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
+              console.log(this.ruleForm);
+              Axios.post("http://localhost:1234/softwaretest/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                    console.log(ret.data);
+                    this.$message.success("提交成功！");
+                    setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+              })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
             } else {
               return false;
             }
-          });*/
-          console.log(this.ruleForm);
-          this.$message.success("提交成功！");
+          });
           //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         }
       },

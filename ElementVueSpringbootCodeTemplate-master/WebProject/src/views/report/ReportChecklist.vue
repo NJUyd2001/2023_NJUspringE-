@@ -48,9 +48,9 @@
             <el-table-column fixed prop="num" label="序号" width="80"></el-table-column>
             <el-table-column prop="checkcontent" label="检查内容" width="140"></el-table-column>
             <el-table-column prop="description" label="内容描述" width="450"></el-table-column>
-            <el-table-column prop="checkresult" label="检查结果" width="120">
+            <el-table-column prop="checkresult" label="检查结果" width="120" >
               <template slot-scope="scope" >
-                <el-radio-group v-model="scope.row.radio">
+                <el-radio-group v-model="scope.row.radio" v-if="scope.$index !== 10">
                 <el-radio value="1" label="1" >通过</el-radio>
                 <el-radio value="2" label="2" >不通过</el-radio>
                 </el-radio-group>
@@ -66,7 +66,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label='日期:' prop="Date">
+                  <el-form-item style="margin-top: 10px;" label='日期:' prop="Date">
                       <div class="demo-date-picker">
                         <el-date-picker
                         v-model="ruleForm.Date"
@@ -88,6 +88,7 @@
     export default {
         data(){
            return{
+            number:1,
             ruleForm:{
             SoftWareName:'',
             Client:'',
