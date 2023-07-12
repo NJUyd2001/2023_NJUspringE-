@@ -52,7 +52,7 @@
               <el-input v-model="ruleForm.BaseLine" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="2 引用文件:" prop="ApplicationFile" style="font-weight: bold; font-size: 15px; ">
-              <el-input placeholder="《计算机软件文档编制规范》GB/T 8567－2006" v-model="ruleForm.ApplicationFile" style="width: 350px; "></el-input>
+              <el-input placeholder="" v-model="ruleForm.ApplicationFile" style="width: 350px; "></el-input>
             </el-form-item>
             <el-form-item label="3 软件测试环境" prop="SoftwareTestEnvironment" style="font-weight: bold; font-size: 15px; margin-left: 20px;">
             </el-form-item>
@@ -69,6 +69,7 @@
               <el-input v-model="ruleForm.ParticipatingOrganization" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="3.5人员:" prop="Personnel" style="font-weight: normal; font-size: 15px; ">
+              <el-input v-model="ruleForm.Personnel" style="width: 400px;" type="textarea"></el-input>
             </el-form-item>
             <el-form-item label="4 计划" prop="Plan" style="font-weight: bold; font-size: 15px; ">
             </el-form-item>
@@ -81,9 +82,7 @@
             <el-input style="width:200px;padding:10px" v-model="ruleForm.VersionNumber"></el-input>
             </el-form-item>
             <el-form-item label="测试类型:" prop="TypeTest"> 
-              <el-select v-model="ruleForm.TypeTest" multiple allow-create filterable>
-              <el-option   v-for='item in ruleForm.TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
-              </el-select>
+                <el-input style="width:200px;padding:10px" v-model="ruleForm.TypeTest"></el-input>
             </el-form-item>
             <el-form-item label="一般测试条件:" prop="GeneralTestCondition">
               <el-input v-model="ruleForm.GeneralTestCondition" style="width: 200px;"></el-input>
@@ -138,12 +137,16 @@ import Axios from 'axios';
                BaseLine:'',
                Hardware:'',
                Software:'',
+               ApplicationFile:'',
                Other:'',
                ParticipatingOrganization:'',
                Personnel:'',
                TestLevel:'',
                TestCategory:'',
-               GeneralTestCondtion:'',
+               GeneralTestCondition:'',
+               VersionNumber:'',
+               TypeTest:'',
+               SoftWareName:'',
                PlannedExecutionTest:'',
                TestCase:'',
                TraceabilityOfRequirement:'',
@@ -264,17 +267,18 @@ import Axios from 'axios';
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              Axios.post("http://localhost:1234/softwaretest/insert",JSON.stringify(this.ruleForm),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-                    console.log(ret.data);
-                    this.$message.success("提交成功！");
-                    setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
-              })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });
+              console.log(this.ruleForm);
+      //         Axios.post("http://localhost:1234/softwaretest/insert",JSON.stringify(this.ruleForm),{
+      //           headers:{
+      //             'content-type': 'text/plain'}
+      //         }).then(ret=>{
+      //               console.log(ret.data);
+      //               this.$message.success("提交成功！");
+      //               setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+      //         })
+      // .catch(function (error) { // 请求失败处理
+      //   console.log(error);
+      // });
             } else {
               return false;
             }
