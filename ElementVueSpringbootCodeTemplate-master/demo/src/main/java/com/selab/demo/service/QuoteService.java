@@ -27,7 +27,7 @@ public class QuoteService {
         return processModel.getQID();
     }
 
-    public String JSONrepack(String postJson){
+    public String JSONrepack(String postJson,Integer PID){
         //System.out.print(postJson);
         JSONArray jsonArray = JSONArray.parseArray(postJson);
         Integer r = jsonArray.size();
@@ -39,6 +39,7 @@ public class QuoteService {
         while(i<r) {
             JSONObject result = new JSONObject();
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
+            result.put("PID",PID);
             result.put("QID", jsonObject.getInteger("qID"));
             result.put("Time", jsonObject.getJSONArray("time"));
             result.put("SoftwareName",jsonObject.getString("softwarename"));
@@ -87,7 +88,7 @@ public class QuoteService {
     public String findbyPID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         //System.out.print(JSON.toJSONString( quoteDao.findbyQID(10)));
-        return JSONrepack(JSON.toJSONString(quoteDao.findbyQID(findQID(jsonObject.getInteger("PID")))));
+        return JSONrepack(JSON.toJSONString(quoteDao.findbyQID(findQID(jsonObject.getInteger("PID")))),jsonObject.getInteger("PID"));
     }
 
     public String update(String postJson){
@@ -163,7 +164,7 @@ public class QuoteService {
     public String findbyQID(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         //System.out.print(JSON.toJSONString( quoteDao.findbyQID(10)));
-        return JSONrepack(JSON.toJSONString(quoteDao.findbyQID(jsonObject.getInteger("QID"))));
+        return JSONrepack(JSON.toJSONString(quoteDao.findbyQID(jsonObject.getInteger("QID"))),0);
     }
 
     public String update_(String postJson){

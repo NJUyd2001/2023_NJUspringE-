@@ -11,19 +11,19 @@
         </el-breadcrumb>
         </el-col>
         <el-col :span="2">
-          <el-button style="margin-top: 5px; margin-left: 70px;" size="mini" type="primary">登出</el-button>
+          <el-button  size="mini" type="primary">登出</el-button>
         </el-col>
         </el-row>
-        <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="20">
+        <el-row>
+          <el-col :span="8">
             <router-link to="/TestReportCover">
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="2"><div class="grid-content bg-purple">
+          <el-col :span="6"><div class="grid-content bg-purple">
           <span class="lt1">测试报告</span>
           </div></el-col>
-          <el-col :span="10">
+          <el-col :span="8">
           <el-steps :space="200" :active="1" finish-status="success">
           <el-step title="测试报告信息填写"></el-step>
           <el-step title="测试报告填写"></el-step>
@@ -294,15 +294,25 @@ created(){
   methods:{
     submitForm(formName) {
       console.log(this.ruleForm);
-      Axios.post("http://localhost:1234/reportmain/insert",JSON.stringify(this.ruleForm),{
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          Axios.post("http://localhost:1234/reportmain/insert",JSON.stringify(this.ruleForm),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
         console.log(ret.data);
+        this.$message.success("提交成功！");
+          setTimeout(() => {this.$router.push({path: "./testenvironment", replace:true});}, 2000);
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);
       });
+        }
+        else{
+          return false;
+        }
+      })
+      
     },
   handleBeforeUnload() {
       sessionStorage.setItem("store",JSON.stringify(this.$store.state))

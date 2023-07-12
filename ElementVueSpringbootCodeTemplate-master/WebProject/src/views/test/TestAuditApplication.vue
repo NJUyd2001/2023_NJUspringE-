@@ -147,10 +147,10 @@
             <el-button size="small" type="primary" @click="download1">点击下载</el-button>
           </el-form-item>
           <el-form-item label="用户文档:" label-width="550px" >
-            <el-button size="small" type="primary" @click="download3">点击下载</el-button>
+            <el-button size="small" type="primary" @click="download2">点击下载</el-button>
           </el-form-item>
           <el-form-item label="操作文档:" label-width="550px" >
-            <el-button size="small" type="primary" @click="download4">点击下载</el-button>
+            <el-button size="small" type="primary" @click="download3">点击下载</el-button>
           </el-form-item>
           </el-form>
           <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="SamplesSubmitted">
@@ -173,7 +173,7 @@
           </el-form-item>
           <el-form>
           <el-form-item label="申请人签字下载:" label-width="550px" >
-            <el-button size="small" type="primary" @click="download2">点击下载</el-button>
+            <el-button size="small" type="primary" @click="download4">点击下载</el-button>
           </el-form-item>
           </el-form>
       </el-form>
@@ -195,6 +195,38 @@
           },
           Pid:{
             PID:"",
+          },
+          Fileid1:{
+            FID:"",
+          },
+          Fileid2:{
+            FID:"",
+          },
+          Fileid3:{
+            FID:"",
+          },
+          Fileid4:{
+            FID:"",
+          },
+          fileatt1:{
+            PID:"",
+            state:"",
+            fileType:"",
+          },
+          fileatt2:{
+            PID:"",
+            state:"",
+            fileType:"",
+          },
+          fileatt3:{
+            PID:"",
+            state:"",
+            fileType:"",
+          },
+          fileatt4:{
+            PID:"",
+            state:"",
+            fileType:"",
           },
           tempForm:{},
           ruleForm:{
@@ -282,105 +314,35 @@
     },
     methods:{
       download1(){
-        var formdata=new FormData()
-        formdata.append('PID' , this.$store.state.user.process.PID)
-        formdata.append('state' ,'10')
-        formdata.append('fileType' ,'demand')
-        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
+        // formdata.append('FID' ,'103');
+        Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt1),{
         headers:{
-          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
-        },
-        responseType:'blob'
+          'content-type': 'text/plain'}
+        }).then(ret=>{
+          console.log(ret.data);
+          this.Fileid1.FID=ret.data;
+        })
+        Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid1),{
+          headers:{
+          'content-type': 'text/plain'},
       }).then(ret=>{
-        let data = ret.data
-      if (!data) {
-            return
-       }
-       console.log(ret.headers)
-       let url = window.URL.createObjectURL(new Blob([data]))
-      console.log(ret.headers['content-disposition'])
-      let str = typeof ret.headers['content-disposition'] === 'undefined'
-                  ? ret.headers['Content-Disposition'].split(';')[1]
-                  : ret.headers['content-disposition'].split(';')[1]
-      
-      let filename = typeof str.split('fileName=')[1] === 'undefined'
-                      ? str.split('filename=')[1]
-                      : str.split('fileName=')[1]
-       let a = document.createElement('a')
-       a.style.display = 'none'
-       a.href = url
-       console.log(ret)
-       a.setAttribute('download',decodeURIComponent(filename))
-       document.body.appendChild(a)
-       a.click() //执行下载
-       window.URL.revokeObjectURL(a.href)
-       document.body.removeChild(a)
-      })
-      },
-      download3(){
-        var formdata=new FormData()
-        formdata.append('PID' , this.$store.state.user.process.PID)
-        formdata.append('state' ,'10')
-        formdata.append('fileType' ,'user')
-        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
-        headers:{
-          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
-        },
-        responseType:'blob'
+        console.log(ret.data);
+        this.filename=ret.data;
+      });
+        Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid1),{
+          headers:{
+          'content-type': 'text/plain'},
       }).then(ret=>{
         let data = ret.data
       if (!data) {
             return
        }
        let url = window.URL.createObjectURL(new Blob([data]))
-      console.log(ret.headers['content-disposition'])
-      let str = typeof ret.headers['content-disposition'] === 'undefined'
-                  ? ret.headers['Content-Disposition'].split(';')[1]
-                  : ret.headers['content-disposition'].split(';')[1]
-      
-      let filename = typeof str.split('fileName=')[1] === 'undefined'
-                      ? str.split('filename=')[1]
-                      : str.split('fileName=')[1]
+      console.log(ret.headers)
        let a = document.createElement('a')
        a.style.display = 'none'
        a.href = url
-       console.log(ret)
-       a.setAttribute('download',decodeURIComponent(filename))
-       document.body.appendChild(a)
-       a.click() //执行下载
-       window.URL.revokeObjectURL(a.href)
-       document.body.removeChild(a)
-      })
-      },
-      download4(){
-        var formdata=new FormData()
-        formdata.append('PID' , this.$store.state.user.process.PID)
-        formdata.append('state' ,'10')
-        formdata.append('fileType' ,'operation')
-        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
-        headers:{
-          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
-        },
-        responseType:'blob'
-      }).then(ret=>{
-        let data = ret.data
-      if (!data) {
-            return
-       }
-       let url = window.URL.createObjectURL(new Blob([data]))
-      console.log(ret.headers['content-disposition'])
-      let str = typeof ret.headers['content-disposition'] === 'undefined'
-                  ? ret.headers['Content-Disposition'].split(';')[1]
-                  : ret.headers['content-disposition'].split(';')[1]
-      
-      let filename = typeof str.split('fileName=')[1] === 'undefined'
-                      ? str.split('filename=')[1]
-                      : str.split('fileName=')[1]
-       let a = document.createElement('a')
-       a.style.display = 'none'
-       a.href = url
-       console.log(ret)
-       a.setAttribute('download',decodeURIComponent(filename))
+       a.setAttribute('download',decodeURIComponent(this.filename))
        document.body.appendChild(a)
        a.click() //执行下载
        window.URL.revokeObjectURL(a.href)
@@ -388,34 +350,107 @@
       })
       },
       download2(){
-        var formdata=new FormData()
-        formdata.append('PID' , this.$store.state.user.process.PID)
-        formdata.append('state' ,'10')
-        formdata.append('fileType' ,'sign')
-        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
+        // formdata.append('FID' ,'103');
+        Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt2),{
         headers:{
-          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
-        },
-        responseType:'blob'
+          'content-type': 'text/plain'}
+        }).then(ret=>{
+          console.log(ret.data);
+          this.Fileid2.FID=ret.data;
+        })
+        Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid2),{
+          headers:{
+          'content-type': 'text/plain'},
+      }).then(ret=>{
+        console.log(ret.data);
+        this.filename=ret.data;
+      });
+        Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid2),{
+          headers:{
+          'content-type': 'text/plain'},
       }).then(ret=>{
         let data = ret.data
       if (!data) {
             return
        }
        let url = window.URL.createObjectURL(new Blob([data]))
-      console.log(ret.headers['content-disposition'])
-      let str = typeof ret.headers['content-disposition'] === 'undefined'
-                  ? ret.headers['Content-Disposition'].split(';')[1]
-                  : ret.headers['content-disposition'].split(';')[1]
-      
-      let filename = typeof str.split('fileName=')[1] === 'undefined'
-                      ? str.split('filename=')[1]
-                      : str.split('fileName=')[1]
+      console.log(ret.headers)
        let a = document.createElement('a')
        a.style.display = 'none'
        a.href = url
-       console.log(ret)
-       a.setAttribute('download',decodeURIComponent(filename))
+       a.setAttribute('download',decodeURIComponent(this.filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
+      download3(){
+        // formdata.append('FID' ,'103');
+        Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt3),{
+        headers:{
+          'content-type': 'text/plain'}
+        }).then(ret=>{
+          console.log(ret.data);
+          this.Fileid3.FID=ret.data;
+        })
+        Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid3),{
+          headers:{
+          'content-type': 'text/plain'},
+      }).then(ret=>{
+        console.log(ret.data);
+        this.filename=ret.data;
+      });
+        Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid3),{
+          headers:{
+          'content-type': 'text/plain'},
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers)
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       a.setAttribute('download',decodeURIComponent(this.filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
+      download4(){
+        // formdata.append('FID' ,'103');
+        Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt4),{
+        headers:{
+          'content-type': 'text/plain'}
+        }).then(ret=>{
+          console.log(ret.data);
+          this.Fileid4.FID=ret.data;
+        })
+        Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid4),{
+          headers:{
+          'content-type': 'text/plain'},
+      }).then(ret=>{
+        console.log(ret.data);
+        this.filename=ret.data;
+      });
+        Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid4),{
+          headers:{
+          'content-type': 'text/plain'},
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers)
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       a.setAttribute('download',decodeURIComponent(this.filename))
        document.body.appendChild(a)
        a.click() //执行下载
        window.URL.revokeObjectURL(a.href)

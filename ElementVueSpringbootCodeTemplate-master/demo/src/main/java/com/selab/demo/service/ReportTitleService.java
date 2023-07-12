@@ -24,7 +24,7 @@ public class ReportTitleService {
         return processModel.getRTID();
     }
 
-    public String JSONrepack(String postJson){
+    public String JSONrepack(String postJson,Integer PID){
         //System.out.print(postJson);
         JSONArray jsonArray = JSONArray.parseArray(postJson);
         Integer r = jsonArray.size();
@@ -36,6 +36,7 @@ public class ReportTitleService {
         while(i<r) {
             JSONObject result = new JSONObject();
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
+            result.put("PID",PID);
             result.put("RTID", jsonObject.getInteger("rTID"));
             result.put("SoftwareName", jsonObject.getString("softwarename"));
             result.put("VersionNumber",jsonObject.getString("versionnumber"));
@@ -75,7 +76,7 @@ public class ReportTitleService {
     public String find(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         //System.out.print(JSON.toJSONString( quoteDao.findbyQID(10)));
-        return JSONrepack(JSON.toJSONString(reportTitleDao.select(findRTID(jsonObject.getInteger("PID")))));
+        return JSONrepack(JSON.toJSONString(reportTitleDao.select(findRTID(jsonObject.getInteger("PID")))),jsonObject.getInteger("PID"));
     }
 
     public String update(String postJson){
@@ -132,7 +133,7 @@ public class ReportTitleService {
     public String find_(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         //System.out.print(JSON.toJSONString( quoteDao.findbyQID(10)));
-        return JSONrepack(JSON.toJSONString(reportTitleDao.select(jsonObject.getInteger("RTID"))));
+        return JSONrepack(JSON.toJSONString(reportTitleDao.select(jsonObject.getInteger("RTID"))),0);
     }
 
     public String update_(String postJson){

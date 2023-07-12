@@ -50,6 +50,7 @@ import CheckCont from './views/market/CheckCont'
 import SampleSend from './views/client/SampleSend'
 import SampleChange from './views/client/SampleChange'
 import SampleReceived from './views/test/SampleReceived'
+import QualityAuditTestScheme from './views/merge/QualityAuditTestScheme'
 import GenQuote from './views/Quote/GenQuote'
 import ChangeQuote from './views/Quote/ChangeQuote'
 import AuditQuote from './views/Quote/AuditQuote'
@@ -320,6 +321,10 @@ export default new VueRouter({
         {
             path: '/samplereceived',       // 路径
             component: SampleReceived     // 跳转到的组件 
+        },
+        {
+            path: '/QualityAuditTestScheme',       // 路径
+            component: QualityAuditTestScheme     // 跳转到的组件 
         },
         {
             path: '/TestSchemeReviewForm',      // 路径
