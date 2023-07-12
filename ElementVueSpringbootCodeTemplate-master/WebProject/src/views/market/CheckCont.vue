@@ -157,7 +157,7 @@ export default {
               PID:"",
             },
             Suggestion:{
-              Pass:"false",
+              Pass:"",
               Views:"",
             },
             Pid:{
@@ -190,14 +190,14 @@ export default {
     }
 },created(){
       this.KeepInfor();
-      //this.userid.PID=this.$store.state.user.process.PID;
-      // Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
-      //           headers:{
-      //             'content-type': 'text/plain'}
-      //         }).then(ret=>{
-      //           console.log(ret.data);
-      //           this.ruleForm=ret.data;
-      //         })
+      this.userid.PID=this.$store.state.user.process.PID;
+       Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
+                 headers:{
+                   'content-type': 'text/plain'}
+               }).then(ret=>{
+                 console.log(ret.data);
+                 this.ruleForm=ret.data[0];
+               })
       
     },
     mounted() {
@@ -241,10 +241,11 @@ export default {
     },
     download1(){
         var formdata=new FormData()
-        formdata.append('FID' ,'23')
-        //formdata.append('FID' ,this.Fid.FID1)
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'30')
+        formdata.append('fileType' ,'contract')
         //console.log(formdata.get('FID'))
-        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
         headers:{
           'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
         },
@@ -254,6 +255,7 @@ export default {
       if (!data) {
             return
        }
+       console.log(ret.headers)
        let url = window.URL.createObjectURL(new Blob([data]))
       console.log(ret.headers['content-disposition'])
       let str = typeof ret.headers['content-disposition'] === 'undefined'

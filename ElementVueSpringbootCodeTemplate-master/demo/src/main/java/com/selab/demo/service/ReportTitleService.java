@@ -18,6 +18,9 @@ public class ReportTitleService {
     ProcessDao processDao;
     public Integer findRTID(Integer PID){
         ProcessModel processModel = processDao.findByPID(PID);
+        if(processModel == null){
+            return null;
+        }
         return processModel.getRTID();
     }
 

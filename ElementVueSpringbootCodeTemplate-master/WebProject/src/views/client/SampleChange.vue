@@ -54,7 +54,7 @@
               multiple
               :limit="1"
               :on-exceed="handleExceed"
-              :data="{ PID:this.process.PID }"
+              :data="{ PID:this.$store.state.user.process.PID, state:'40', fileType:'sample' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：与《委托测试软件功能列表》一致。
@@ -75,7 +75,7 @@
               :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:this.process.PID }"
+              :data="{ PID:this.$store.state.user.process.PID, state:'40', fileType:'samenv' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：包含相关平台与环境信息。

@@ -142,8 +142,14 @@
           </el-select>
           </el-form-item>
           <el-form>
-          <el-form-item label="样品文档:" label-width="550px" >
+          <el-form-item label="需求文档:" label-width="550px" >
             <el-button size="small" type="primary" @click="download1">点击下载</el-button>
+          </el-form-item>
+          <el-form-item label="用户文档:" label-width="550px" >
+            <el-button size="small" type="primary" @click="download3">点击下载</el-button>
+          </el-form-item>
+          <el-form-item label="操作文档:" label-width="550px" >
+            <el-button size="small" type="primary" @click="download4">点击下载</el-button>
           </el-form-item>
           </el-form>
           <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="SamplesSubmitted">
@@ -181,7 +187,7 @@
     created(){
       // console.log(this.$store.state.user.id)
       this.KeepInfor();
-      this.Aid.applicantID=this.$store.state.user.process.UID
+      this.Aid.AID=this.$store.state.user.process.AID
       this.Pid.PID=this.$store.state.user.process.UID
       Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.Pid),{
         headers:{
@@ -194,7 +200,7 @@
           console.log(error);
         }
       )
-      Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.Aid),{
+      Axios.post("http://localhost:9090/api/application/checkbyAID",JSON.stringify(this.Aid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
@@ -211,7 +217,7 @@
          return{
           percentage:0,
           Aid:{
-            applicantID:"",
+            AID:"",
           },
           Pid:{
             PID:"",
@@ -289,10 +295,83 @@
             },
       download1(){
         var formdata=new FormData()
-        formdata.append('FID' ,'23')
-        //formdata.append('FID' ,this.Fid.FID1)
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'10')
+        formdata.append('fileType' ,'demand')
         //console.log(formdata.get('FID'))
-        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
+      download3(){
+        var formdata=new FormData()
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'10')
+        formdata.append('fileType' ,'user')
+        //console.log(formdata.get('FID'))
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
+        headers:{
+          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        },
+        responseType:'blob'
+      }).then(ret=>{
+        let data = ret.data
+      if (!data) {
+            return
+       }
+       let url = window.URL.createObjectURL(new Blob([data]))
+      console.log(ret.headers['content-disposition'])
+      let str = typeof ret.headers['content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+       a.setAttribute('download',decodeURIComponent(filename))
+       document.body.appendChild(a)
+       a.click() //执行下载
+       window.URL.revokeObjectURL(a.href)
+       document.body.removeChild(a)
+      })
+      },
+      download4(){
+        var formdata=new FormData()
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'10')
+        formdata.append('fileType' ,'operation')
+        //console.log(formdata.get('FID'))
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
         headers:{
           'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
         },
@@ -324,10 +403,10 @@
       },
       download2(){
         var formdata=new FormData()
-        
-        formdata.append('FID' ,this.Fid.FID4)
-        //console.log(formdata.get('FID'))
-        Axios.post("http://localhost:9090/api/file/download",formdata,{
+        formdata.append('PID' , this.$store.state.user.process.PID)
+        formdata.append('state' ,'10')
+        formdata.append('fileType' ,'sign')
+        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
         headers:{
           'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
         },

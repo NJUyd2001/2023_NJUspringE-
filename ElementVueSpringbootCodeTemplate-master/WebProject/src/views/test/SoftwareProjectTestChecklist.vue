@@ -14,77 +14,77 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="6">
+          <el-col :span="1">
             <router-link to="/test">
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="16" push="1"><div class="grid-content bg-purple">
+          <el-col :span="24">
             <span class="logo-title">软件项目委托测试工作检查表</span>
-            </div></el-col>
-            <el-col :span="6" pull="3">
-            <div class="grid-content bg-purple-light text-right">
-              <span v-if="user != null">
-                <span class="user">{{user.nick}}</span>
-              </span>
-              <el-dropdown  @command="switchLang">
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="zh">En</el-dropdown-item>
-                  <el-dropdown-item command="en">中</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </div></el-col>
-          <el-col :span="6" push="3">
-            <el-button style="margin-top: 15px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
+          </el-col>
+          <el-col :span="1">
+            <el-button @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
         <br><br>
         <el-main>
-          <el-form :label-position="top" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item style="margin-top: 80px; margin-right: 150px;" label="软件名称:" prop="SoftWareName"> 
-            <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
-            <el-form-item style="margin-top: -60px; margin-right: 120px;" label="版本号:" prop="Client"> 
-            <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
-          </el-form-item>
-          </el-form-item> 
-          <el-form-item style="margin-top: -15px; margin-right: 150px;" label="委托单位:" prop="Client"> 
+          <el-form label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item label="软件名称:" prop="SoftWareName"> 
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item prop="SoftWareName">
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item label="版本号:" prop="VersionNumber"> 
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form-item>
+             
+          <el-form-item label="委托单位:" prop="Client"> 
             <el-input style="width:200px; padding:10px;" v-model="ruleForm.Client"></el-input>
           </el-form-item>
-        <el-form-item style="margin-left: -220px;">
-          <template>
-            <div class="block1">
-                <span class="demonstration" style="font-weight: lighter;">起始时间至预计完成时间</span>
+          <el-form-item label="起始时间至预计完成时间:" prop="DateRange">
                 <el-date-picker
-                style="margin-left: 20px;"
-                v-model="ruleForm.value1"
+                v-model="ruleForm.DateRange"
                 type="daterange"
                 range-separator="To"
                 start-placeholder="起始时间"
                 end-placeholder="预计完成时间"
                 />
-            </div>
-          </template>
-        </el-form-item>
-          <el-form-item style="margin-top: -10px; margin-right: 150px;" label="主测人:" prop="Tester"> 
-            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Reviewer"></el-input>
-            <el-form-item style="margin-top: -50px;"  label-width="330px" label="实际完成时间:" prop="ActualFinishDate"> 
-                <div class="block" style="margin-top: 0px; margin-left: 0px;">
-                    <el-date-picker
-                    v-model="ruleForm.value2"
-                    type="date"
-                    placeholder="Pick a day">
-                    </el-date-picker>
-                </div>
+          </el-form-item>
+          <el-form-item label="主测人:" prop="Tester">
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item prop="Tester">
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.Tester"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="7">
+                  <el-form-item label='实际完成时间:' prop="ActualFinishDate">
+                      <div class="demo-date-picker">
+                        <el-date-picker
+                        v-model="ruleForm.ActualFinishDate"
+                        type="date"
+                        placeholder="时间选择"
+                        size="large"
+                        />
+                        </div>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-form-item>
-          </el-form-item> 
-          <el-table :data="tableData" :span-method="objectSpanMethod"  style="width: 52%; margin-left: 25%;">
+          <el-table :data="ruleForm.tableData" :span-method="objectSpanMethod"  style="width: 52%; margin-left: 25%;">
             <el-table-column fixed prop="Num" label="序号" width="130"></el-table-column>
             <el-table-column prop="Workflow" label="工作（项目）流程" width="140"></el-table-column>
             <el-table-column prop="IssuesAndPrecautions" label="可预见问题及注意事项" width="450"></el-table-column>
             <el-table-column prop="Confirm" label="确 认" width="120">
               <template slot-scope="scope">
-                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Confirm" :rows="2"  placeholder="请填写内容"/>
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.Confirm" :rows="2"  placeholder="请填写内容"/>
               </template>
             </el-table-column>
           </el-table>
@@ -93,7 +93,6 @@
           </el-form-item>
           </el-form>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
 
@@ -105,55 +104,12 @@
               SoftWareName:'',
               VersionNumber:'',
               Client:'',
+              DateRange:'',
               Tester:'',
               ActualFinishDate:'',
               Examiner:'',
-            },
-            scope:{
               Confirm:'',
-            },
-            pickerOptions: {
-            shortcuts: [{
-            text: 'Last week',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-            }, {
-            text: 'Last month',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-            }, {
-            text: 'Last 3 months',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-              }]
-            },
-            value1: '',
-            value2: '',
-            user:{
-                name:'风车村',
-                password:'shazihuang',
-                telephone:'',
-                fax:'',
-                address:'',
-                postcode:'',
-                contacts:'',
-                mobilephone:'',
-                email:'',
-                URL:'',
-            },
-            tableData: [{
+              tableData: [{
             Num: '一、前期指导工作',
             }, {
             Num: '1',
@@ -287,6 +243,35 @@
             Confirm: '',
             }
           ],
+            },
+            pickerOptions: {
+            shortcuts: [{
+            text: 'Last week',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+            }, {
+            text: 'Last month',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+            }, {
+            text: 'Last 3 months',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+              }]
+            },
+        
           rules:{
             SoftWareName:[
               { required: true, message: "不能为空！", trigger: "blur" },
@@ -295,6 +280,9 @@
               { required: true, message: "不能为空！", trigger: "blur" },
             ],
             Client:[
+              { required: true, message: "不能为空！", trigger: "blur" },
+            ],
+            DateRange:[
               { required: true, message: "不能为空！", trigger: "blur" },
             ],
             Tester:[
@@ -320,6 +308,19 @@
                this.$refs.enterInput.resizeTextarea();
                } 
            });
+        },
+        submitForm(formName) {
+          /*this.$refs[formName].validate((valid) => {
+            if (valid) {
+              alert("submit!");
+              this.$router.push({path: "./client", replace:true});
+            } else {
+              return false;
+            }
+          });*/
+          console.log(this.ruleForm);
+          this.$message.success("提交成功！");
+          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         },
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
         if (columnIndex === 0) {
@@ -476,7 +477,7 @@
 
    <style>
    .logo-title {
-     margin-left: 40%;
+     margin-left: 55%;
    }
 
    .block {

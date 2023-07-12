@@ -21,6 +21,9 @@ public class QuoteService {
 
     public Integer findQID(Integer PID){
         ProcessModel processModel = processDao.findByPID(PID);
+        if(processModel == null){
+            return null;
+        }
         return processModel.getQID();
     }
 

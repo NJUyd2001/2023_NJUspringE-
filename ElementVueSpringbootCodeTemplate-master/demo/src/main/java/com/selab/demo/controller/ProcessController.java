@@ -17,8 +17,7 @@ public class ProcessController {
     public Integer insert(@RequestBody String postJson){
         return processService.insert(postJson);
     }
-
-
+    
     @RequestMapping("/findByUID")
     public List<ProcessModel> findByUID(@RequestBody String postJson){
         return processService.findByUID(postJson);
