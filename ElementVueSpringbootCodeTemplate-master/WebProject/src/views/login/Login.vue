@@ -2,7 +2,7 @@
     <div id="logo">
     <div class="header">
       <img src="../../assets/l3.png" style="height:80px"/>
-</div>
+    </div>
     <el-card class="box-card">
       <h2 style="text-align: center">登录</h2>
       <el-form
