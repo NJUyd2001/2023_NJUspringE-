@@ -128,16 +128,10 @@
   本合同未尽事宜由双方协商解决。
   本合同的正本一式肆份，双方各执两份，具有同等法律效力。
 </p>
-<<<<<<< HEAD
-<el-form  label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
-        <el-row >
-          <el-form-item label="是否通过:" prop="Pass">
-        <el-radio-group v-model="ruleForm.Pass" :span="3">      
-=======
 <el-form  :model="ruleForm" ref="ruleForm">
         <el-row type="flex" justify="center">
+    <el-form-item>
         <el-radio-group v-model="Suggestion.Pass" :span="3">      
->>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
           <el-radio  label="false">拒绝</el-radio>
           <el-radio  label="true">同意</el-radio>
         </el-radio-group>
@@ -173,22 +167,6 @@ export default {
                   state:"",
                 },
             ruleForm:{
-<<<<<<< HEAD
-              PID:"",
-              ItemName:'',
-              Client:'',
-              Trustee:'',
-              QC:'',
-              date:'',
-              PeriodOfValidity:'',
-              ddl:0,
-              ChangeNumber:0,
-              ChangeDay:0,
-              money:"",
-              Pass:"false",
-              Views:"",
-=======
->>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
             },
             stepNumber:0,
             Quote:0,
@@ -207,22 +185,12 @@ export default {
 },created(){
       this.KeepInfor();
       this.userid.PID=this.$store.state.user.process.PID;
-<<<<<<< HEAD
-      Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-                console.log(ret.data);
-                this.ruleForm=ret.data;
-              })
-=======
        Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
                  headers:{
                    'content-type': 'text/plain'}
                }).then(ret=>{
                  this.ruleForm=ret.data[0];
                })
->>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
       
     },
     mounted() {
