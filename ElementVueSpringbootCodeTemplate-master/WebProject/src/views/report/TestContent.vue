@@ -22,10 +22,10 @@
             <el-button style="margin-top: -25px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="8" push="4"><div class="grid-content bg-purple">
+          <el-col :span="8"><div class="grid-content bg-purple">
             <span class="logo-title">测试内容</span>
             </div></el-col>
-            <el-col :span="12" push="3">
+            <el-col :span="12">
           <el-steps :space="200" :active="3" finish-status="success">
           <el-step title="测试报告信息填写"></el-step>
           <el-step title="测试报告填写"></el-step>
@@ -34,21 +34,15 @@
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
-            <el-col :span="6" >
-            <div class="grid-content bg-purple-light text-right">
-              <span v-if="user != null">
-                <span class="user">{{user.nick}}</span>
-              </span>
-            </div></el-col>
-          <el-col :span="6" push="2">
-            <el-button style="margin-top: -25px; margin-left: 20px;" size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
+          <el-col :span="6">
+            <el-button size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
       </el-header>
         <br><br>
         <el-main>
           <el-form style="padding-top:30px; margin-top: 40px;" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+            <el-form-item v-for="(Table,index) in ruleForm.TableData1" :prop="'TableData1.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
@@ -60,8 +54,8 @@
               <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="500px" :model="ruleForm1" :rules="rules" ref="ruleForm1">
-            <el-form-item v-for="(Table,index) in ruleForm1.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+          <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData2.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
@@ -73,8 +67,8 @@
               <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="500px" :model="ruleForm2" :rules="rules" ref="ruleForm2">
-            <el-form-item v-for="(Table,index) in ruleForm2.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+          <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item v-for="(Table,index) in ruleForm.TableData3" :prop="'TableData3.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
@@ -86,8 +80,8 @@
               <el-button @click="addfatherItem2()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="500px" :model="ruleForm3" :rules="rules" ref="ruleForm3">
-            <el-form-item v-for="(Table,index) in ruleForm3.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+          <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item v-for="(Table,index) in ruleForm.TableData4" :prop="'TableData4.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
@@ -99,8 +93,8 @@
               <el-button @click="addfatherItem3()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="500px" :model="ruleForm4" :rules="rules" ref="ruleForm4">
-            <el-form-item v-for="(Table,index) in ruleForm4.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+          <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item v-for="(Table,index) in ruleForm.TableData5" :prop="'TableData5.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
@@ -112,8 +106,8 @@
               <el-button @click="addfatherItem4()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="500px" :model="ruleForm5" :rules="rules" ref="ruleForm5">
-            <el-form-item v-for="(Table,index) in ruleForm5.TableData" :prop="'TableData.' + index + '.name'" :rules="{
+          <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item v-for="(Table,index) in ruleForm.TableData6" :prop="'TableData6.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
             trigger: 'blur',
@@ -126,7 +120,6 @@
             </el-form-item>
           </el-form>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
     <el-backtop :right="50" :bottom="50" />
@@ -147,56 +140,41 @@
                     URL:'',
                 },
                 ruleForm:{
-                  TableData:[
+                  TableData1:[
                     {
                       FunctionModule:'',
                       FunctionRequirement:'',
                       TestResult:'',   
                     },
-                  ],
-                },
-                ruleForm1:{
-                  TableData:[
+                  ],TableData2:[
                     {
                       TestCharacteristic:'',
                       TestSpecification:'',
-                      TestResult1:'',
+                      TestResult:'',
                     },
-                  ],
-                },
-                ruleForm2:{
-                  TableData:[
+                  ],TableData3:[
                     {
-                    TestCharacteristic1:'',
-                    TestSpecification1:'',
-                    TestResult2:'',
+                    TestCharacteristic:'',
+                    TestSpecification:'',
+                    TestResult:'',
                 },
-              ],
-                },
-                ruleForm3:{
-                  TableData:[
+              ],TableData4:[
                     {
-                    TestCharacteristic2:'',
-                    TestSpecification2:'',
-                    TestResult3:'',
+                    TestCharacteristic:'',
+                    TestSpecification:'',
+                    TestResult:'',
                     },
-                  ],
-                },
-                ruleForm4:{
-                  TableData:[
+                  ],TableData5:[
                     {
-                    TestCharacteristic3:'',
-                    TestSpecification3:'',
-                    TestResult4:'', 
+                    TestCharacteristic:'',
+                    TestSpecification:'',
+                    TestResult:'', 
                     },
-                  ],
-                },
-                ruleForm5:{
-                  TableData:[
+                  ],TableData6:[
                     {
-                    TestCharacteristic4:'',
-                    TestSpecification4:'',
-                    TestResult5:'',
+                    TestCharacteristic:'',
+                    TestSpecification:'',
+                    TestResult:'',
                     },
                   ],
                 },
@@ -216,42 +194,6 @@
                 TestSpecification:[
                   { required: true, message: "不能为空！", trigger: "blur" },
                 ],
-                TestResult1:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestCharacteristic1:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestSpecification1:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestResult2:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestSpecification2:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestResult3:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestCharacteristic3:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestSpecification3:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestResult4:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestCharacteristic4:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestSpecification4:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
-                TestResult5:[
-                  { required: true, message: "不能为空！", trigger: "blur" },
-                ],
                 },
         }
     }, 
@@ -259,87 +201,87 @@
         goback(){
         },
         addfatherItem(){
-          this.ruleForm.TableData.push({
-            id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
+          this.ruleForm.TableData1.push({
+            id:this.ruleForm.TableData1[this.ruleForm.TableData1.length-1]+1,
             name:'',
             function:'',
             children:[],
           })
         },
         removefatherItem(Table){
-          const index = this.ruleForm.TableData.indexOf(Table)
+          const index = this.ruleForm.TableData1.indexOf(Table)
           if (index !== 0) {
-          this.ruleForm.TableData.splice(index, 1);
+          this.ruleForm.TableData1.splice(index, 1);
       }
         },
         addfatherItem1(){
-          this.ruleForm1.TableData.push({
-            id:this.ruleForm1.TableData[this.ruleForm1.TableData.length-1]+1,
+          this.ruleForm.TableData2.push({
+            id:this.ruleForm.TableData2[this.ruleForm.TableData2.length-1]+1,
             name:'',
             function:'',
             children:[],
           })
         },
         removefatherItem1(Table){
-          const index = this.ruleForm1.TableData.indexOf(Table)
+          const index = this.ruleForm.TableData2.indexOf(Table)
           if (index !== 0) {
-          this.ruleForm1.TableData.splice(index, 1);
+          this.ruleForm.TableData2.splice(index, 1);
       }
         },
         addfatherItem2(){
-          this.ruleForm2.TableData.push({
-            id:this.ruleForm2.TableData[this.ruleForm2.TableData.length-1]+1,
+          this.ruleForm.TableData3.push({
+            id:this.ruleForm.TableData3[this.ruleForm.TableData3.length-1]+1,
             name:'',
             function:'',
             children:[],
           })
         },
         removefatherItem2(Table){
-          const index = this.ruleForm2.TableData.indexOf(Table)
+          const index = this.ruleForm.TableData3.indexOf(Table)
           if (index !== 0) {
-          this.ruleForm2.TableData.splice(index, 1);
+          this.ruleForm.TableData3.splice(index, 1);
       }
         },
         addfatherItem3(){
-          this.ruleForm3.TableData.push({
-            id:this.ruleForm3.TableData[this.ruleForm3.TableData.length-1]+1,
+          this.ruleForm.TableData4.push({
+            id:this.ruleForm4.TableData[this.ruleForm.TableData4.length-1]+1,
             name:'',
             function:'',
             children:[],
           })
         },
         removefatherItem3(Table){
-          const index = this.ruleForm3.TableData.indexOf(Table)
+          const index = this.ruleForm.TableData4.indexOf(Table)
           if (index !== 0) {
-          this.ruleForm3.TableData.splice(index, 1);
+          this.ruleForm.TableData4.splice(index, 1);
       }
         },
         addfatherItem4(){
-          this.ruleForm4.TableData.push({
-            id:this.ruleForm4.TableData[this.ruleForm4.TableData.length-1]+1,
+          this.ruleForm.TableData5.push({
+            id:this.ruleForm.TableData5[this.ruleForm.TableData5.length-1]+1,
             name:'',
             function:'',
             children:[],
           })
         },
         removefatherItem4(Table){
-          const index = this.ruleForm4.TableData.indexOf(Table)
+          const index = this.ruleForm.TableData5.indexOf(Table)
           if (index !== 0) {
-          this.ruleForm4.TableData.splice(index, 1);
+          this.ruleForm.TableData5.splice(index, 1);
       }
         },
         addfatherItem5(){
-          this.ruleForm5.TableData.push({
-            id:this.ruleForm5.TableData[this.ruleForm5.TableData.length-1]+1,
+          this.ruleForm.TableData6.push({
+            id:this.ruleForm.TableData6[this.ruleForm.TableData6.length-1]+1,
             name:'',
             function:'',
             children:[],
           })
         },
         removefatherItem5(Table){
-          const index = this.ruleForm5.TableData.indexOf(Table)
+          const index = this.ruleForm.TableData6.indexOf(Table)
           if (index !== 0) {
-          this.ruleForm5.TableData.splice(index, 1);
+          this.ruleForm.TableData6.splice(index, 1);
       }
         },
         addchildrenItem(Node){
@@ -359,8 +301,9 @@
               return false;
             }
           });*/
-          this.$message.success("提交成功，正在返回测试部界面！");
-          setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
+          console.log(this.ruleForm);
+          this.$message.success("提交成功！");
+          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         }
       },
     
