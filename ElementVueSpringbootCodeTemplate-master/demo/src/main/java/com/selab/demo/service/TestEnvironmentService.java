@@ -81,6 +81,7 @@ public class TestEnvironmentService {
         JSONArray res = new JSONArray();
         if(jsonArray!=null&&jsonArray!=new JSONArray()){
             Integer r= jsonArray.size();
+            System.out.print(r+"\n");
             Integer i=0;
             while(i<r){
                 JSONObject jsonObject = new JSONObject();
@@ -183,7 +184,7 @@ public class TestEnvironmentService {
                 String quantity = jsonObject1.getString("Quantity");
                 TestHardModel testHardModel = new TestHardModel(0,hardwarecategory,hardwarename,setting,quantity);
                 testHardDao.insert(testHardModel);
-                hardid.add(testHardModel.getHardid());
+                hardid.add(testHardModel.getHardid().toString());
                 ++i;
             }
         }
@@ -199,7 +200,7 @@ public class TestEnvironmentService {
                 String edition = jsonObject1.getString("Edition");
                 TestSoftModel testSoftModel = new TestSoftModel(0,softwarecategory,softwarename,edition);
                 testSoftDao.insert(testSoftModel);
-                softid.add(testSoftModel.getSoftid());
+                softid.add(testSoftModel.getSoftid().toString());
                 ++i;
             }
         }
@@ -252,9 +253,11 @@ public class TestEnvironmentService {
         res.put("TEID",TEID);
         res.put("tableData1",tabledata1);
         res.put("tableData2",tabledata2);
-        res.put("TableData1",JSONArraytoJSONArray2(jsonObject.getJSONArray("neededstandard"),"NeededStandard"));
-        res.put("TableData2",JSONArraytoJSONArray2(jsonObject.getJSONArray("referencematerial"),"ReferenceMaterial"));
-        return JSON.toJSONString(res);
+        res.put("TableData1",JSONArraytoJSONArray2(table.getJSONArray("neededstandard"),"NeededStandard"));
+        res.put("TableData2",JSONArraytoJSONArray2(table.getJSONArray("referencematerial"),"ReferenceMaterial"));
+        JSONArray res2 = new JSONArray();
+        res2.add(res);
+        return JSON.toJSONString(res2);
     }
 
     public String update(String postJson){
@@ -287,7 +290,7 @@ public class TestEnvironmentService {
 
                 if(hardid == null){
                     testHardDao.insert(testHardModel);
-                    hardidarray.add(testHardModel.getHardid());
+                    hardidarray.add(testHardModel.getHardid().toString());
                 }
                 else{
                     if(testHardDao.select2(hardid)==null||hardidarray==null||hardidarray==new JSONArray()) {
@@ -337,7 +340,7 @@ public class TestEnvironmentService {
 
                 if(softid == null){
                     testSoftDao.insert(testSoftModel);
-                    softidarray.add(testSoftModel.getSoftid());
+                    softidarray.add(testSoftModel.getSoftid().toString());
                 }
                 else{
                     if(testSoftDao.select2(softid)==null||softidarray==null||softidarray==new JSONArray()) {
