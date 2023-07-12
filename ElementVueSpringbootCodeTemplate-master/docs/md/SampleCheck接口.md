@@ -29,7 +29,7 @@ author：李晨博
 ```
 输出示例：
 ```
-[{"SID":1,"Views":"a","Pass":"T"}]
+[{"PID":"1","SID":1,"Views":"a","Pass":"T"}]
 ```
 
 ## /samplecheck/update
