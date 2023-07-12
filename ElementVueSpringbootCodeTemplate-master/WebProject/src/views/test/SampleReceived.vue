@@ -204,11 +204,28 @@ created(){
             return
        }
        let url = window.URL.createObjectURL(new Blob([data]))
+<<<<<<< HEAD
+//      console.log(ret.headers)
+  //    let str = typeof ret.headers['Content-disposition'] === 'undefined'
+    //              ? ret.headers['Content-Disposition'].split(';')[1]
+      //            : ret.headers['content-disposition'].split(';')[1]
+      
+      //let filename = typeof str.split('fileName=')[1] === 'undefined'
+        //              ? str.split('filename=')[1]
+          //            : str.split('fileName=')[1]
+       let a = document.createElement('a')
+       a.style.display = 'none'
+       a.href = url
+       console.log(ret)
+      // a.setAttribute('download',decodeURIComponent(filename))
+      a.setAttribute('download','需求文档.doc');
+=======
       console.log(ret.headers)
        let a = document.createElement('a')
        a.style.display = 'none'
        a.href = url
        a.setAttribute('download',decodeURIComponent(this.filename))
+>>>>>>> a22b5e70a5b54d7bc6d5845b1e0c74d945bfeb8c
        document.body.appendChild(a)
        a.click() //执行下载
        window.URL.revokeObjectURL(a.href)
@@ -240,7 +257,18 @@ created(){
             return
        }
        let url = window.URL.createObjectURL(new Blob([data]))
+<<<<<<< HEAD
+      console.log(ret.headers['Content-disposition'])
+      let str = typeof ret.headers['Content-disposition'] === 'undefined'
+                  ? ret.headers['Content-Disposition'].split(';')[1]
+                  : ret.headers['Content-disposition'].split(';')[1]
+      
+      let filename = typeof str.split('fileName=')[1] === 'undefined'
+                      ? str.split('filename=')[1]
+                      : str.split('fileName=')[1]
+=======
       console.log(ret.headers)
+>>>>>>> a22b5e70a5b54d7bc6d5845b1e0c74d945bfeb8c
        let a = document.createElement('a')
        a.style.display = 'none'
        a.href = url

@@ -283,7 +283,8 @@ import Axios from 'axios';
               return false;
             }
           });
-          
+          console.log(this.ruleForm);
+          this.$message.success("提交成功！");
           //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         }
       },
