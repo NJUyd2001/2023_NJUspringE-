@@ -24,7 +24,7 @@
         </el-steps>
       </el-col>  
       <el-col :span="2">
-        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">提交</el-button>
+        <el-button  size="middle" @click="submitForm('ruleForm')" type="success">下一步</el-button>
       </el-col>
     </el-row>
   </el-header>
@@ -133,12 +133,12 @@
         <el-radio-group v-model="Suggestion.Pass" :span="3">      
           <el-radio  label="false">拒绝</el-radio>
           <el-radio  label="true">同意</el-radio>
-        </el-radio-group>
-        </el-row>
-<el-row type="flex" justify="center">
+    </el-radio-group>
+  </el-row>
+  <el-row>
   <el-form-item label="意见：">
-          <el-input style="width:700px;" :rows="5" v-model="Suggestion.Views" type="textarea" ></el-input>
-        </el-form-item>
+      <el-input style="width:700px;" :rows="5" v-model="Suggestion.Views" type="textarea" ></el-input>
+  </el-form-item>
 </el-row>
 </el-form>
 </el-main>
@@ -175,6 +175,9 @@ export default {
               Versions:[
                 { required: true, message: "不能为空！", trigger: "blur"  },
               ],
+              Pass:[
+                {required: true, message: "请给出一个选择！", trigger: "change"}
+              ]
               }
     }
 },created(){
@@ -224,7 +227,7 @@ export default {
       .catch(function (error) { // 请求失败处理
         console.log(error);
       });
-      if(this.Suggestion.Pass==="true")
+      if(this.ruleForm.Pass==="true")
       {
         this.stepNumber+=1;
       // this.info("提交成功，正在返回用户界面！");

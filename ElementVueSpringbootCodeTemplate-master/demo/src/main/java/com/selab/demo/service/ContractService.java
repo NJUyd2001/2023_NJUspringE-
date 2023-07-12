@@ -25,7 +25,7 @@ public class ContractService {
         return processModel.getCID();
     }
 
-    public String JSONrepack(String postJson){
+    public String JSONrepack(String postJson,Integer PID){
         //System.out.print(postJson);
         JSONArray jsonArray = JSONArray.parseArray(postJson);
         Integer r = jsonArray.size();
@@ -37,6 +37,7 @@ public class ContractService {
         while(i<r) {
             JSONObject result = new JSONObject();
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
+            result.put("CID", PID);
             result.put("CID", jsonObject.getInteger("cID"));
             result.put("ItemName", jsonObject.getString("itemname"));
             result.put("Client", jsonObject.getString("client"));
@@ -87,7 +88,7 @@ public class ContractService {
     public String select_(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer CID = jsonObject.getInteger("CID");
-        return JSONrepack(JSON.toJSONString(contractDao.select(CID)));
+        return JSONrepack(JSON.toJSONString(contractDao.select(CID)),0);
 
     }
 
@@ -165,7 +166,7 @@ public class ContractService {
     public String select(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer CID = findCID(jsonObject.getInteger("PID"));
-        return JSONrepack(JSON.toJSONString(contractDao.select(CID)));
+        return JSONrepack(JSON.toJSONString(contractDao.select(CID)),jsonObject.getInteger("PID"));
 
     }
 

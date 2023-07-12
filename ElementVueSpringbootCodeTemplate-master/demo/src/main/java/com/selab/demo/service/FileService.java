@@ -1,5 +1,6 @@
 package com.selab.demo.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.selab.demo.dao.FileDao;
 import com.selab.demo.dao.UserDao;
@@ -44,7 +45,13 @@ public class FileService {
     public FileModel selectByFID(Integer FID){
         return fileDao.selectByFID(FID);
     }
-    public FileModel selectByState(String postJson){
+    public String selectFileName(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer FID = jsonObject.getInteger("FID");
+        return fileDao.selectFileName(FID);
+    }
+    public Integer selectByState(String postJson){
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
         String state = jsonObject.getString("state");
@@ -53,6 +60,11 @@ public class FileService {
         fileModel.setState(state);
         fileModel.setFileType(fileType);
         fileModel.setPID(PID);
-        return fileDao.selectByState(fileModel);
+        //System.out.println("转化为：" + fileModel);
+        try{
+            return fileDao.selectByState(fileModel);
+        }catch (Exception e){
+            return -1;
+        }
     }
 }

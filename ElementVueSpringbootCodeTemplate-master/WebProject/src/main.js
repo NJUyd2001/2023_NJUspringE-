@@ -49,7 +49,7 @@ router.beforeEach((to, from, next) => {
    })
 // */
 Vue.prototype.error = function (msg) {
-    this.error("你在狗叫什么")
+    console.log(msg);
 }
 
 Vue.prototype.confirm = function () {

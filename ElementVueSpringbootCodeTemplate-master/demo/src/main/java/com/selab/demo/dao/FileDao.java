@@ -17,8 +17,10 @@ public interface FileDao {
     public FileModel[] selectAllFiles();
     @Select("SELECT * FROM file WHERE PID=#{PID}")
     public FileModel[] selectByPID(Integer PID);
-    @Select("SELECT * FROM file WHERE PID=#{PID} AND state=#{state} AND fileType=#{fileType}")
-    public FileModel selectByState(FileModel fileModel);
+    @Select("SELECT FID FROM file WHERE PID=#{PID} AND state=#{state} AND fileType=#{fileType}")
+    public Integer selectByState(FileModel fileModel);
     @Select("SELECT * FROM file WHERE FID=#{FID}")
     public FileModel selectByFID(Integer FID);
+    @Select("SELECT fileName FROM file WHERE FID=#{FID}")
+    public String selectFileName(Integer FID);
 }

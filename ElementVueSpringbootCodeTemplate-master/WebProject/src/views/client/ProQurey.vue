@@ -70,7 +70,6 @@
          <el-button v-else-if="pstate=='80'" style="margin-top: 12px;" @click="Confirmed()">确认接收</el-button>
          </div>
   </div>
- <LoginDialog :show='showLogin'/>
 </div>
 </template>
 
@@ -204,16 +203,6 @@ export default {
       sessionStorage.removeItem('userInfo');
       // 跳转页面到登录页
       this.$router.push('/login');
-    },
-    loginSuccess(user) {
-      console.log("success", user);
-
-      this.showLogin = false;
-      this.user = user;
-    },
-    loginCancel() {
-      console.log("loginCancel");
-      this.showLogin = false;
     },
     logout() {
       this.ajax.post("/app/logout").then(result => {

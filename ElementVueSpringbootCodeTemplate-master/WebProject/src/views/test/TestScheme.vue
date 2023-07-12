@@ -3,14 +3,14 @@
     <el-container style="height:100%">
       <el-header style="height: 30px " >
         <el-row>
-        <el-col :span="22">
+        <el-col :span="23">
         <el-breadcrumb separator="->">
             <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
             <el-breadcrumb-item><a href="/TestScheme">软件测试方案</a></el-breadcrumb-item>
         </el-breadcrumb>
         </el-col>
-        <el-col :span="2">
-          <el-button style="margin-bottom: 5px; margin-left: 70px;" size="mini" type="primary">登出</el-button>
+        <el-col :span="1">
+          <el-button  size="mini" type="primary">登出</el-button>
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
@@ -25,7 +25,7 @@
             <el-col :span="10">
               <el-steps :space="200" :active="0" finish-status="success">
                 <el-step title="软件测试方案填写"></el-step>
-                <el-step title="测试方案评审表填写"></el-step>
+                <el-step title="方案评审表填写"></el-step>
                 <el-step title="完成"></el-step>
               </el-steps>
             </el-col>
@@ -34,22 +34,22 @@
             </el-col>
         </el-row>
       </el-header>
-        <br><br>
+        <br><br><br>
         <el-main>
-          <el-form style="margin-left: 200px; margin-top: 70px;" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form label-width="550px"  :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item label="1 引言" prop="Introduction" style="font-weight: bold; font-size: 15px; ">
             </el-form-item>
             <el-form-item label="1.1标识:" prop="Mark">
-              <el-input v-model="ruleForm.Mark" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+              <el-input v-model="ruleForm.Mark" style="width: 200px;" ></el-input>
             </el-form-item>
             <el-form-item label="1.2系统概述:" prop="SystemOverview">
-              <el-input v-model="ruleForm.SystemOverview" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+              <el-input v-model="ruleForm.SystemOverview" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="1.3文档概述:" prop="DocumentationOverview">
-              <el-input v-model="ruleForm.DocumentationOverview" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+              <el-input v-model="ruleForm.DocumentationOverview" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="1.4基线:" prop="BaseLine">
-              <el-input v-model="ruleForm.BaseLine" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+              <el-input v-model="ruleForm.BaseLine" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="2 引用文件:" prop="ApplicationFile" style="font-weight: bold; font-size: 15px; ">
               <el-input placeholder="《计算机软件文档编制规范》GB/T 8567－2006" v-model="ruleForm.ApplicationFile" style="width: 350px; "></el-input>
@@ -57,40 +57,41 @@
             <el-form-item label="3 软件测试环境" prop="SoftwareTestEnvironment" style="font-weight: bold; font-size: 15px; margin-left: 20px;">
             </el-form-item>
             <el-form-item label="3.1硬件:" prop="Hardware">
-              <el-input v-model="ruleForm.Hardware" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+              <el-input v-model="ruleForm.Hardware" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="3.2软件:" prop="Software">
-              <el-input v-model="ruleForm.Software" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+              <el-input v-model="ruleForm.Software" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="3.3其他:" prop="Other">
-              <el-input v-model="ruleForm.Other" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+              <el-input v-model="ruleForm.Other" style="width: 200px;"></el-input>
             </el-form-item>
             <el-form-item label="3.4参与组织:" prop="ParticipatingOrganization">
-              <el-input v-model="ruleForm.ParticipatingOrganization" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+              <el-input v-model="ruleForm.ParticipatingOrganization" style="width: 200px;"></el-input>
             </el-form-item>
-            <el-form-item label="3.5人员:" prop="Personnel" style="font-weight: normal; font-size: 15px;">
-              <el-input v-model="ruleForm.Personnel" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+            <el-form-item label="3.5人员:" prop="Personnel" style="font-weight: normal; font-size: 15px; ">
             </el-form-item>
             <el-form-item label="4 计划" prop="Plan" style="font-weight: bold; font-size: 15px; ">
             </el-form-item>
-            <el-form-item label="4.1总体设计" prop="OverallDesign" style="font-weight: normal; font-size: 15px; ">
+            <el-form-item label="4.1总体设计:" prop="OverallDesign" style="font-weight: normal; font-size: 15px; ">
             </el-form-item>
-            <el-form-item label="4.1.1测试级别:" prop="TestLevel"> 
-              <el-input v-model="ruleForm.TestLevel" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+            <el-form-item label="软件名称:" prop="SoftWareName"> 
+            <el-input style="width:200px;padding:10px" v-model="ruleForm.SoftWareName"></el-input>
             </el-form-item> 
-            <el-form-item label="4.1.2测试类别:" prop="TestCategory"> 
-              <el-input v-model="ruleForm.TestCategory" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+            <el-form-item label="版本号:" prop="VersionNumber"> 
+            <el-input style="width:200px;padding:10px" v-model="ruleForm.VersionNumber"></el-input>
             </el-form-item>
-            <el-form-item label="4.1.3一般测试条件:" prop="GeneralTestCondtion"> 
-              <el-input v-model="ruleForm.GeneralTestCondtion" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+            <el-form-item label="测试类型:" prop="TypeTest"> 
+              <el-select v-model="ruleForm.TypeTest" multiple allow-create filterable>
+              <el-option   v-for='item in ruleForm.TypeOfTest' :key='item.id' :label="item.value" :value="item.value"></el-option>
+              </el-select>
             </el-form-item>
-            <el-form-item label="4.2计划执行的测试:" prop="PlannedExecutionTest">
-              <el-input v-model="ruleForm.PlannedExecutionTest" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+            <el-form-item label="一般测试条件:" prop="GeneralTestCondition">
+              <el-input v-model="ruleForm.GeneralTestCondition" style="width: 200px;"></el-input>
             </el-form-item>
-            <el-form-item label="4.3测试用例:" prop="TestCase">
-              <el-input v-model="ruleForm.TestCase" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+            <el-form-item label="计划执行的测试:" prop="PlannedExecutionTest">
+              <el-input v-model="ruleForm.PlannedExecutionTest" style="width: 200px;"></el-input>
             </el-form-item>
-            <el-form-item label="5 测试进度表" prop="TestingSchedule" style="font-weight: bold; font-size: 15px; ">
+            <el-form-item label="评审内容:" prop="OverallDesign" style="font-weight: normal; font-size: 15px; ">
             </el-form-item>
             <el-table :data="ruleForm.tableData"  style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="MilestonesTasks" label="里程碑任务" width="110"></el-table-column>
@@ -128,7 +129,6 @@ import Axios from 'axios';
                SystemOverview:'',
                DocumentationOverview:'',
                BaseLine:'',
-               ApplicationFile:'',
                Hardware:'',
                Software:'',
                Other:'',
@@ -176,9 +176,6 @@ import Axios from 'axios';
                   BaseLine:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
-                  ApplicationFile:[
-                    { required: true, message: "不能为空！", trigger: "blur"  },
-                  ],
                   Hardware:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
@@ -191,22 +188,22 @@ import Axios from 'axios';
                   ParticipatingOrganization:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
-                  Personnel:[
+                  SoftWareName:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
-                  TestLevel:[
+                  VersionNumber:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
-                  TestCategory:[
+                  TypeTest:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
-                  GeneralTestCondtion:[
+                  GeneralTestCondition:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   PlannedExecutionTest:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
-                  TestCase:[
+                  WritingNormality:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   DevelopTestingPlan:[
@@ -221,7 +218,16 @@ import Axios from 'axios';
                   AssessmentTesting:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
-                  TraceabilityOfRequirement:[
+                  InputOutputData:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Timing:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  HumanResourcesArrangement:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Testcase:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   }

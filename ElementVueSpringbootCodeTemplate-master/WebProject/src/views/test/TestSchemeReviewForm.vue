@@ -11,13 +11,13 @@
        </el-breadcrumb>
        </el-col>
        <el-col :span="2">
-          <el-button style="margin-top: 10px; margin-left: 70px;" size="mini" type="primary">登出</el-button>
+          <el-button  size="mini" type="primary">登出</el-button>
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
             <router-link to="/testscheme">
-            <el-button style="margin-top: -20px;" size="middle" type="danger">上一步</el-button>
+            <el-button size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
           <el-col :span="8"><div class="grid-content bg-purple">
@@ -35,66 +35,78 @@
           </el-col>
         </el-row>
       </el-header>
-        <br><br>
+        <br><br><br><br>
         <el-main>
-          <el-form label-position="middle" label-width="45%" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item style="margin-top: 80px; margin-right: 220px;" label="软件名称:" prop="SoftWareName"> 
-                <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
-                <el-form-item style="margin-top: -60px; margin-right: 10px;" label="版本号:" prop="VersionNumber"> 
+          <el-form  label-width="50%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-row>
+            <el-col :span="12">
+            <el-form-item  label="软件名称:" prop="SoftWareName"> 
+                <el-input v-model="ruleForm.SoftWareName" style="width:200px; padding:10px;"  ></el-input>
+            </el-form-item> 
+            </el-col>
+            <el-col :span="4">
+                <el-form-item label="版本号:" prop="VersionNumber"> 
                     <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
                 </el-form-item>
-            </el-form-item> 
-            <el-form-item style="margin-top: -15px; margin-right: 220px;" label="项目编号:" prop="ProjectNum"> 
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+            <el-form-item  label="项目编号:" prop="ProjectNum"> 
                 <el-input style="width:200px; padding:10px;" v-model="ruleForm.ProjectNum"></el-input>
-                <el-form-item style="margin-top: -60px; margin-right: 10px;" label="测试类别:" prop="TestCategory"> 
+              </el-form-item>
+            </el-col>
+            <el-col :span="4">
+                <el-form-item  label="测试类别:" prop="TestCategory"> 
                     <el-input style="width:200px; padding:10px;" v-model="ruleForm.TestCategory"></el-input>
                 </el-form-item>
+            </el-col>
+          </el-row>
+            <el-form-item label="评审内容:" prop="OverallDesign" style="font-weight: bold; font-size: 15px;">
             </el-form-item>
-            <el-form-item label="评审内容:" prop="OverallDesign" style="font-weight: bold; font-size: 15px;margin-left: 20%;">
-            </el-form-item>
-                <el-form-item style="margin-left: 15%;" label="《测试方案》书写规范性：">
+                <el-form-item label="《测试方案》书写规范性：">
                     <el-radio-group v-model="ruleForm.WritingNormality">
                         <el-radio label="通过"></el-radio>
                         <el-radio label="不通过"></el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item style="margin-left: 15%;" label="测试环境是否具有典型意义以及是否符合用户要求：">
+                <el-form-item  label="测试环境是否具有典型意义以及是否符合用户要求：">
                     <el-radio-group v-model="ruleForm.TestEnvironment">
                         <el-radio label="通过"></el-radio>
                         <el-radio label="不通过"></el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item style="margin-left: 15%;" label="测试内容的完整性，是否覆盖了整个系统：">
+                <el-form-item label="测试内容的完整性，是否覆盖了整个系统：">
                     <el-radio-group v-model="ruleForm.Completeness">
                 <el-radio label="通过"></el-radio>
                 <el-radio label="不通过"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item style="margin-left: 15%;" label="测试方法的选取是否合理：">
+            <el-form-item  label="测试方法的选取是否合理：">
               <el-radio-group v-model="ruleForm.SelectMethod">
                 <el-radio label="通过"></el-radio>
                 <el-radio label="不通过"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item style="margin-left: 15%;" label="测试用例能否覆盖问题：">
+            <el-form-item  label="测试用例能否覆盖问题：">
               <el-radio-group v-model="ruleForm.TestcaseCover">
                 <el-radio label="通过"></el-radio>
                 <el-radio label="不通过"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item style="margin-left: 15%;" label="输入、输出数据设计合理性：">
+            <el-form-item  label="输入、输出数据设计合理性：">
               <el-radio-group v-model="ruleForm.InputOutputData">
                 <el-radio label="通过"></el-radio>
                 <el-radio label="不通过"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item style="margin-left: 15%;" label="测试时间安排是否合理：">
+            <el-form-item  label="测试时间安排是否合理：">
               <el-radio-group v-model="ruleForm.Timing">
                 <el-radio label="通过"></el-radio>
                 <el-radio label="不通过"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item style="margin-left: 15%;" label="测试人力资源安排是否合理：">
+            <el-form-item  label="测试人力资源安排是否合理：">
               <el-radio-group v-model="ruleForm.HumanResourcesArrangement">
                 <el-radio label="通过"></el-radio>
                 <el-radio label="不通过"></el-radio>
@@ -107,9 +119,9 @@
                 <el-input :type="input_type" ref="enterInput" v-model="scope.row.EvalutionOpinion" :rows="2"  placeholder="评审意见"/>
               </template>
             </el-table-column>
-            <el-table-column prop="Sign" label="签  字" width="100">
+            <el-table-column prop="Sign" label="签字" width="100">
               <template slot-scope="scope">
-                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Sign" :rows="2"  placeholder="签  字"/>
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Sign" :rows="2"  placeholder="签字"/>
               </template>
             </el-table-column>
             <el-table-column prop="Date" label="日期" width="100">
@@ -118,6 +130,7 @@
               </template>
             </el-table-column>
             </el-table>
+            <br><br>
           </el-form>
         </el-main>
     </el-container>

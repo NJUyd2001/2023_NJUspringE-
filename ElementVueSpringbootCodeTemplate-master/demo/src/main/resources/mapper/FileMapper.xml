@@ -20,6 +20,9 @@
         SELECT * FROM file WHERE FID=#{FID}
     </select>
     <select id="selectByState" parameterType="com.selab.demo.model.FileModel" resultType="com.selab.demo.model.FileModel">
-        SELECT * FROM file WHERE PID=#{PID} AND state=#{state} AND fileType=#{fileType}
+        SELECT FID FROM file WHERE PID=#{PID} AND state=#{state} AND fileType=#{fileType}
+    </select>
+    <select id="selectFileName" parameterType="integer"  resultType="String">
+        SELECT fileName FROM file WHERE FID=#{FID}
     </select>
 </mapper>

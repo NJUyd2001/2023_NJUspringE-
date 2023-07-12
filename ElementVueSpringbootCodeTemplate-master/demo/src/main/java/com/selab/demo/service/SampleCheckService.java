@@ -27,7 +27,7 @@ public class SampleCheckService {
         return processModel.getSID();
     }
 
-    public String JSONrepack(String postJson){
+    public String JSONrepack(String postJson,Integer PID){
         //System.out.print(postJson);
         JSONArray jsonArray = JSONArray.parseArray(postJson);
         Integer r = jsonArray.size();
@@ -39,6 +39,7 @@ public class SampleCheckService {
         while(i<r) {
             JSONObject result = new JSONObject();
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
+            result.put("PID",PID);
             result.put("SID", jsonObject.getInteger("sID"));
             result.put("Views", jsonObject.getString("views"));
             result.put("Pass",jsonObject.getString("pass"));
@@ -72,7 +73,7 @@ public class SampleCheckService {
     public String find(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         //System.out.print(JSON.toJSONString( quoteDao.findbyQID(10)));
-        return JSONrepack(JSON.toJSONString(sampleCheckDao.select(findSID(jsonObject.getInteger("PID")))));
+        return JSONrepack(JSON.toJSONString(sampleCheckDao.select(findSID(jsonObject.getInteger("PID")))),jsonObject.getInteger("PID"));
     }
 
     public String update(String postJson){
