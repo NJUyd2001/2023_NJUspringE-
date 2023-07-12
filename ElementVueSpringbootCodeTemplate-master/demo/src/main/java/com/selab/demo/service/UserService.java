@@ -71,6 +71,7 @@ public class UserService {
         return userDao.selectAll();
     }
     public User selectByUID(String postJson){
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer UID = jsonObject.getInteger("UID");
         return userDao.selectByUID(UID);
@@ -92,10 +93,10 @@ public class UserService {
         return errList.get(errList.size()-1).replace("'", "");
     }
     public String update(String postJson){
-
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer UID = jsonObject.getInteger("UID");
-        String new_fax = jsonObject.getString("fax");
+        String new_fax = jsonObject.getString("userfax");
         String new_emailAddr = jsonObject.getString("emailAddr");
         String new_nickname = jsonObject.getString("nickname");
         String new_password = jsonObject.getString("password");
@@ -113,12 +114,13 @@ public class UserService {
             userDao.update(UID, new_nickname, new_password, new_emailAddr
                     , new_phone, new_fax, new_ip, new_address, new_contact, new_contactTel, new_zipcode);
         }catch (DataAccessException e){
-            // return e.getMessage();
+            System.out.println(e.getMessage());
             return simplifyErrMsg(e.getCause().getMessage());
         }
         return "信息已更新";
     }
     public String delete(String postJson){
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer UID = jsonObject.getInteger("UID");
 

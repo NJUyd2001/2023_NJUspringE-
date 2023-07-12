@@ -126,7 +126,7 @@
                           action="http://localhost:9090/api/file/upload"
                           multiple
                           :before-upload="beforeUploadjpg"
-                          :data="{ PID:this.process.PID, state:'30', fileType:'sign' }">
+                          :data="{ PID:this.$store.state.user.process.PID, state:'30', fileType:'sign' }">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                           <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2Mb</div>
@@ -197,20 +197,15 @@
     created(){
       this.KeepInfor();
       this.useruid.UID=this.$store.state.user.process.UID;
-      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-                console.log(ret.data);
-                this.userpid.PID=ret.data.PID;
-              })
-      this.userpid.PID=1;
+      
+      this.userpid.PID=this.$store.state.user.process.PID;
+      console.log(this.userpid)
       Axios.post("http://localhost:9090/api/quote/find",JSON.stringify(this.userpid),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
-                      console.log(ret.data[0]);
                       this.ruleForm=ret.data[0];
+                      console.log(this.ruleForm);
               })
     },
     mounted() {
@@ -259,7 +254,7 @@
             this.Pid.state="21";
           else if(this.Suggestion.Pass == "false")
             this.Pid.state="25";
-          console.log(this.Pid.state)
+          console.log(this.Pid.PID)
           Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.Pid),{
           headers:{
             'content-type': 'text/plain'}

@@ -23,20 +23,30 @@
           <el-col :span="8"><div class="grid-content bg-purple">
             <span class="logo-title">测试方案评审表</span>
             </div></el-col>
+<<<<<<< HEAD
             <el-col :span="12">
+=======
+            <el-col :span="10">
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
               <el-steps :space="200" :active="1" finish-status="success">
                 <el-step title="软件测试方案填写"></el-step>
                 <el-step title="测试方案评审表填写"></el-step>
                 <el-step title="完成"></el-step>
               </el-steps>
             </el-col>
+<<<<<<< HEAD
             <el-col :span="2" >
             <el-button style="margin-top: -40px; margin-left: -15px;" @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
+=======
+            <el-col :span="1">
+            <el-button @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
           </el-col>
         </el-row>
       </el-header>
         <br><br><br><br>
         <el-main>
+<<<<<<< HEAD
           <el-form  label-width="50%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-row>
               <el-col :span="12">
@@ -46,6 +56,12 @@
             </el-col>
             <el-col :span="4">
                 <el-form-item label="版本号:" prop="VersionNumber"> 
+=======
+          <el-form label-position="middle" label-width="40%" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item style="margin-top: 80px; margin-right: 220px;" label="软件名称:" prop="SoftWareName"> 
+                <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
+                <el-form-item style="margin-top: -60px; margin-right: 120px;" label="版本号:" prop="VersionNumber"> 
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
                     <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
                 </el-form-item>
             </el-col>
@@ -112,7 +128,7 @@
                 <el-radio label="不通过"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-table :data="tableData"  style="width: 50%; margin-left: 25%;">
+            <el-table :data="ruleForm.tableData"  style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="Duty" label="职责" width="110"></el-table-column>
             <el-table-column prop="EvalutionOpinion" label="评审意见" width="400">
               <template slot-scope="scope">
@@ -126,7 +142,7 @@
             </el-table-column>
             <el-table-column prop="Date" label="日期" width="100">
                 <template slot-scope="scope">
-                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Sign" :rows="2"  placeholder="日期"/>
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Date" :rows="2"  placeholder="日期"/>
               </template>
             </el-table-column>
             </el-table>
@@ -154,38 +170,33 @@
                 InputOutputData:'',
                 Timing:'',
                 HumanResourcesArrangement:'',
+                tableData: [{
+                  Duty: '测试工程师',
+                  EvalutionOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '测试室负责人',
+                  EvalutionOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '质量负责人',
+                  EvalutionOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '技术负责人',
+                  EvalutionOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '监督人',
+                  EvalutionOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }],
               },
-              scope:{
-                EvalutionOpinion:'',
-                Sign:'',
-                Date:'',
-              },
-          tableData: [{
-            Duty: '测试工程师',
-            EvalutionOpinion: '',
-            Sign: '',
-            Date: '',
-            }, {
-            Duty: '测试室负责人',
-            EvalutionOpinion: '',
-            Sign: '',
-            Date: '',
-            }, {
-            Duty: '质量负责人',
-            EvalutionOpinion: '',
-            Sign: '',
-            Date: '',
-            }, {
-            Duty: '技术负责人',
-            EvalutionOpinion: '',
-            Sign: '',
-            Date: '',
-            }, {
-            Duty: '监督人',
-            EvalutionOpinion: '',
-            Sign: '',
-            Date: '',
-            }],
             rules:{
                   SoftWareName:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
@@ -250,8 +261,9 @@
               return false;
             }
           });*/
+          console.log(this.ruleForm);
           this.$message.success("提交成功,！");
-          setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
+          //setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
         }
     }
     }

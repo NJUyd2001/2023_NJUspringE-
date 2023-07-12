@@ -14,15 +14,26 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
+<<<<<<< HEAD
           <el-col :span="8">
+=======
+          <el-col :span="6">
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
             <router-link to="/Test">
             <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
+<<<<<<< HEAD
           <el-col :span="6" ><div class="grid-content bg-purple">
             <span class="logo-title">软件测试方案</span>
             </div></el-col>
             <el-col :span="10"  >
+=======
+          <el-col :span="8"><div class="grid-content bg-purple">
+            <span class="logo-title">软件测试方案</span>
+            </div></el-col>
+            <el-col :span="10">
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
               <el-steps :space="200" :active="0" finish-status="success">
                 <el-step title="软件测试方案填写"></el-step>
                 <el-step title="方案评审表填写"></el-step>
@@ -30,10 +41,15 @@
               </el-steps>
             </el-col>
             <el-col :span="2">
+<<<<<<< HEAD
             <router-link to="/TestSchemeReviewForm">
             <el-button @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
             </router-link>
           </el-col>
+=======
+            <el-button style="margin-left: 40px;" @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
+            </el-col>
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
         </el-row>
       </el-header>
         <br><br><br>
@@ -95,6 +111,7 @@
             </el-form-item>
             <el-form-item label="评审内容:" prop="OverallDesign" style="font-weight: normal; font-size: 15px; ">
             </el-form-item>
+<<<<<<< HEAD
             <el-form-item label="《测试方案》书写规范性：">
               <el-radio-group v-model="ruleForm.WritingNormality">
                 <el-radio label="通过"></el-radio>
@@ -191,6 +208,28 @@
           </el-form>
             <el-form-item label="6 需求的可追踪性" prop="Testcase" style="font-weight: bold; font-size: 15px; ">
               <el-input v-model="ruleForm.Testcase" style="width: 200px;"></el-input>
+=======
+            <el-table :data="ruleForm.tableData"  style="width: 50%; margin-left: 25%;">
+            <el-table-column fixed prop="MilestonesTasks" label="里程碑任务" width="110"></el-table-column>
+            <el-table-column prop="Workload" label="工作量" width="400">
+              <template slot-scope="scope">
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.Workload" :rows="2"  placeholder="工作量"/>
+              </template>
+            </el-table-column>
+            <el-table-column prop="Start" label="开始时间" width="110">
+              <template slot-scope="scope">
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.Start" :rows="2"  placeholder="开始时间"/>
+              </template>
+            </el-table-column>
+            <el-table-column prop="End" label="结束时间" width="110">
+              <template slot-scope="scope">
+                <el-input type="input_type" ref="enterInput" v-model="scope.row.End" :rows="2"  placeholder="结束时间"/>
+              </template>
+            </el-table-column>
+            </el-table>
+            <el-form-item label="6 需求的可追踪性" prop="TraceabilityOfRequirement" style="font-weight: bold; font-size: 15px; margin-top: 20px;">
+              <el-input v-model="ruleForm.TraceabilityOfRequirement" style="width:500px;" :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" placeholder=""/>
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
             </el-form-item>
           </el-form>
         </el-main>
@@ -210,6 +249,7 @@
                Software:'',
                Other:'',
                ParticipatingOrganization:'',
+<<<<<<< HEAD
                SoftWareName:'',
                VersionNumber:'',
                TypeTest:'',
@@ -250,6 +290,38 @@
                 user:{
 
                 },
+=======
+               Personnel:'',
+               TestLevel:'',
+               TestCategory:'',
+               GeneralTestCondtion:'',
+               PlannedExecutionTest:'',
+               TestCase:'',
+               TraceabilityOfRequirement:'',
+               tableData: [{
+                MilestonesTasks:'制定测试计划',
+                Workload:'',
+                Start:'',
+                End:'',
+             },{
+                MilestonesTasks:'设计测试',
+                Workload:'',
+                Start:'',
+                End:'',
+             },{
+                MilestonesTasks:'执行测试',
+                Workload:'',
+                Start:'',
+                End:'',
+             },{
+                MilestonesTasks:'评估测试',
+                Workload:'',
+                Start:'',
+                End:'',
+             }
+            ],
+             },
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
                 rules:{
                   Mark:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
@@ -293,6 +365,7 @@
                   WritingNormality:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
+<<<<<<< HEAD
                   TestEnvironment:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
@@ -303,6 +376,18 @@
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   TestcaseCover:[
+=======
+                  DevelopTestingPlan:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  DesignTesting:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  PerformTesting:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  AssessmentTesting:[
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   InputOutputData:[
@@ -354,7 +439,13 @@
               return false;
             }
           });*/
+<<<<<<< HEAD
           setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+=======
+          console.log(this.ruleForm);
+          this.$message.success("提交成功！");
+          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
         }
       },
     

@@ -125,7 +125,7 @@
               state:"20",
             },
             ruleForm:{
-                  PID:"",
+                  PID:this.$store.state.user.process.PID,
                   Time:"",
                   SoftwareName:"",
                   item:"",
@@ -196,13 +196,6 @@
     created(){
       this.KeepInfor();
       this.userid.UID=this.$store.state.user.process.UID;
-      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-                console.log(ret.data);
-                this.ruleForm.PID=ret.data.PID;
-              })
     },
     mounted() {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
@@ -246,13 +239,14 @@
                 'content-type': 'text/plain'}
               }).then(ret=>{
              })
+             console.log(this.ruleForm)
               Axios.post("http://localhost:9090/api/quote/insert",JSON.stringify(this.ruleForm),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
                 console.log(ret.data)
                 this.$message.success("提交成功，正在返回市场部界面！");
-                 //setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+                setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
               })
              
             } else {

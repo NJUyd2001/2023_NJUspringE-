@@ -128,10 +128,16 @@
   本合同未尽事宜由双方协商解决。
   本合同的正本一式肆份，双方各执两份，具有同等法律效力。
 </p>
+<<<<<<< HEAD
 <el-form  label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
         <el-row >
           <el-form-item label="是否通过:" prop="Pass">
         <el-radio-group v-model="ruleForm.Pass" :span="3">      
+=======
+<el-form  :model="ruleForm" ref="ruleForm">
+        <el-row type="flex" justify="center">
+        <el-radio-group v-model="Suggestion.Pass" :span="3">      
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
           <el-radio  label="false">拒绝</el-radio>
           <el-radio  label="true">同意</el-radio>
         </el-radio-group>
@@ -139,7 +145,7 @@
         </el-row>
         <el-row>
   <el-form-item label="意见：">
-          <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" ></el-input>
+          <el-input style="width:700px;" :rows="5" v-model="Suggestion.Views" type="textarea" ></el-input>
         </el-form-item>
 </el-row>
 </el-form>
@@ -159,7 +165,7 @@ export default {
               PID:"",
             },
             Suggestion:{
-              Pass:"false",
+              Pass:"",
               Views:"",
             },
             Pid:{
@@ -167,6 +173,7 @@ export default {
                   state:"",
                 },
             ruleForm:{
+<<<<<<< HEAD
               PID:"",
               ItemName:'',
               Client:'',
@@ -180,6 +187,8 @@ export default {
               money:"",
               Pass:"false",
               Views:"",
+=======
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
             },
             stepNumber:0,
             Quote:0,
@@ -198,6 +207,7 @@ export default {
 },created(){
       this.KeepInfor();
       this.userid.PID=this.$store.state.user.process.PID;
+<<<<<<< HEAD
       Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
                 headers:{
                   'content-type': 'text/plain'}
@@ -205,6 +215,14 @@ export default {
                 console.log(ret.data);
                 this.ruleForm=ret.data;
               })
+=======
+       Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
+                 headers:{
+                   'content-type': 'text/plain'}
+               }).then(ret=>{
+                 this.ruleForm=ret.data[0];
+               })
+>>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
       
     },
     mounted() {
@@ -233,8 +251,8 @@ export default {
           }).then(ret=>{
               console.log(this.Pid.state)
          })
-          this.$message.success("提交成功，正在返回用户界面！");
-          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+          this.$message.success("提交成功！");
+          setTimeout(() => {this.$router.push({path: "./client/ConfidentialityAgreement", replace:true});}, 2000);
         
       Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
         
