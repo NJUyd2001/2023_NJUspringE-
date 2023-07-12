@@ -70,6 +70,15 @@ export default {
               PID:this.$store.state.user.process.PID,
               state:"",
             },
+            Fileid:{
+              FID:"",
+            },
+            Tx:{
+              PID:'20',
+              state:"40",
+              fileType:"sample"
+            },
+            filename:"",
             StepNumber:2,
             ruleForm:{
               PID:"",
@@ -163,15 +172,24 @@ created(){
         this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
       download1(){
-        var formdata=new FormData()
-        formdata.append('PID' , this.$store.state.user.process.PID)
-        formdata.append('state' ,'40')
-        formdata.append('fileType' ,'sample')
-        Axios.post("http://localhost:9090/api/file/downloadWithState",formdata,{
+        // formdata.append('FID' ,'103');
+        Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.Tx),{
         headers:{
-          'content-type': 'multipart/form-data;boundary = ' + new Date().getTime()
-        },
-        responseType:'blob'
+          'content-type': 'text/plain'}
+        }).then(ret=>{
+          console.log(ret.data);
+          this.Fileid.FID=ret.data;
+        })
+        Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid),{
+          headers:{
+          'content-type': 'text/plain'},
+      }).then(ret=>{
+        console.log(ret.data);
+        this.filename=ret.data;
+      });
+        Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid),{
+          headers:{
+          'content-type': 'text/plain'},
       }).then(ret=>{
         let data = ret.data
       if (!data) {
@@ -179,24 +197,17 @@ created(){
        }
        let url = window.URL.createObjectURL(new Blob([data]))
       console.log(ret.headers)
-      let str = typeof ret.headers['Content-disposition'] === 'undefined'
-                  ? ret.headers['Content-Disposition'].split(';')[1]
-                  : ret.headers['content-disposition'].split(';')[1]
-      
-      let filename = typeof str.split('fileName=')[1] === 'undefined'
-                      ? str.split('filename=')[1]
-                      : str.split('fileName=')[1]
        let a = document.createElement('a')
        a.style.display = 'none'
        a.href = url
-       console.log(ret)
-       a.setAttribute('download',decodeURIComponent(filename))
+       a.setAttribute('download',decodeURIComponent(this.filename))
        document.body.appendChild(a)
        a.click() //执行下载
        window.URL.revokeObjectURL(a.href)
        document.body.removeChild(a)
       })
       },
+
       download2(){
         var formdata=new FormData()
         formdata.append('PID' , this.$store.state.user.process.PID)

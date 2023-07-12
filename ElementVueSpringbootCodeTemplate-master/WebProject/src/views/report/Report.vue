@@ -58,7 +58,7 @@
                 v-model="ruleForm.SampleDate"
                 type="date"
                 placeholder="时间选择"
-                :size=large
+                size=large
                 />
                 </div>
             </el-form-item>
@@ -96,7 +96,7 @@
             </el-form-item>
             <el-form-item label="编制人:" prop="Organizer"> 
               <el-row>
-                <el-col :span="5">
+                <el-col :span="6">
                   <el-form-item prop="Organizer"> 
                     <el-input style="width:200px; padding:10px;" v-model="ruleForm.Organizer"></el-input>
                   </el-form-item>
@@ -117,7 +117,7 @@
 
             <el-form-item label="审核人:" prop="Auditor"> 
               <el-row>
-                <el-col :span="5">
+                <el-col :span="6">
                   <el-form-item prop="Auditor">  
                     <el-input style="width:200px; padding:10px;" v-model="ruleForm.Auditor"></el-input>
                   </el-form-item>
@@ -138,7 +138,7 @@
 
             <el-form-item label="批准人:" prop="Approver"> 
               <el-row>
-                <el-col :span="5">
+                <el-col :span="6">
                   <el-form-item  prop="Approver"> 
                     <el-input style="width:200px; padding:10px;" v-model="ruleForm.Approver"></el-input>
                   </el-form-item>
@@ -173,6 +173,7 @@ import Axios from 'axios'
                 PID:"",
               },
                 ruleForm:{
+                    PID:"20",
                     Client:'',
                     ProjectNum:'',
                     SampleName:'',
@@ -280,19 +281,24 @@ created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
-    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-                console.log(ret.data)
-                this.userpid.PID=ret.data.PID;
-              })
+    this.useruid.UID=17;
+    // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+    //             headers:{
+    //               'content-type': 'text/plain'}
+    //           }).then(ret=>{
+    //             console.log(ret.data)
+    //             this.userpid.PID=ret.data.PID;
+    //           })
+    this.userpid.PID=20;
   },
   methods:{
     submitForm(formName) {
-      
-      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-        console.log(ret.data)
+      console.log(this.ruleForm);
+      Axios.post("http://localhost:1234/reportmain/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+        console.log(ret.data);
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);

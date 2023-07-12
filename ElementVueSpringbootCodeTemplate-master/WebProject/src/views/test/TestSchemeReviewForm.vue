@@ -37,7 +37,7 @@
       </el-header>
         <br><br><br><br>
         <el-main>
-          <el-form label-position="middle" label-width="40%" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form  label-width="50%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-row>
             <el-col :span="12">
             <el-form-item  label="软件名称:" prop="SoftWareName"> 
@@ -45,9 +45,9 @@
             </el-form-item> 
             </el-col>
             <el-col :span="4">
-            <el-form-item label="版本号:" prop="VersionNumber">  
-                <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
-            </el-form-item>
+                <el-form-item label="版本号:" prop="VersionNumber"> 
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
+                </el-form-item>
             </el-col>
           </el-row>
           <el-row>

@@ -21,4 +21,6 @@ public interface FileDao {
     public Integer selectByState(FileModel fileModel);
     @Select("SELECT * FROM file WHERE FID=#{FID}")
     public FileModel selectByFID(Integer FID);
+    @Select("SELECT fileName FROM file WHERE FID=#{FID}")
+    public String selectFileName(Integer FID);
 }

@@ -129,8 +129,8 @@
   本合同的正本一式肆份，双方各执两份，具有同等法律效力。
 </p>
 <el-form  :model="ruleForm" ref="ruleForm">
-  <el-row type="flex" justify="center">
-    <el-radio-group v-model="Suggestion.Pass" :span="3">      
+        <el-row type="flex" justify="center">
+        <el-radio-group v-model="Suggestion.Pass" :span="3">      
           <el-radio  label="false">拒绝</el-radio>
           <el-radio  label="true">同意</el-radio>
     </el-radio-group>

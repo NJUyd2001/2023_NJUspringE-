@@ -1,5 +1,6 @@
 package com.selab.demo.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.json.UTF8JsonGenerator;
 import com.selab.demo.dao.FileDao;
 import com.selab.demo.model.FileModel;
@@ -43,15 +44,44 @@ public class FileController {
     public FileModel[] selectAllFiles(){
         return fileService.selectAllFiles();
     }
+//    @CrossOrigin
+//    @RequestMapping(value="/select/byPID", method = RequestMethod.POST)
+//    public FileModel[] selectByPID(@RequestParam("PID") Integer PID){
+//        return fileService.selectByPID(PID);
+//    }
+//    @CrossOrigin
+//    @RequestMapping(value="/select/byFID", method = RequestMethod.POST)
+//    public FileModel selectByFID(@RequestParam("FID") Integer FID){
+//        return fileService.selectByFID(FID);
+//    }
     @CrossOrigin
     @RequestMapping(value="/select/byPID", method = RequestMethod.POST)
-    public FileModel[] selectByPID(@RequestParam("PID") Integer PID){
-        return fileService.selectByPID(PID);
+    public FileModel[] selectByPID(@RequestBody String postJson) {
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        try{
+            Integer PID = jsonObject.getInteger("PID");
+            return fileService.selectByPID(PID);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    @CrossOrigin
+    @RequestMapping(value = "/select/fileName", method = RequestMethod.POST)
+    public String selectFileName(@RequestBody String postJson){
+        return fileService.selectFileName(postJson);
     }
     @CrossOrigin
     @RequestMapping(value="/select/byFID", method = RequestMethod.POST)
-    public FileModel selectByFID(@RequestParam("FID") Integer FID){
-        return fileService.selectByFID(FID);
+    public FileModel selectByFID(@RequestBody String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        try{
+            Integer FID = jsonObject.getInteger("FID");
+            return fileService.selectByFID(FID);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
     @CrossOrigin
     @RequestMapping(value="/select/byState", method = RequestMethod.POST)
@@ -60,9 +90,11 @@ public class FileController {
     }
     @CrossOrigin
     @RequestMapping(value = "/download", method = RequestMethod.POST)
-    public String download(@RequestParam("FID") Integer FID, HttpServletResponse response){
+    public String download(@RequestBody String postJson, HttpServletResponse response){
         //  新建文件流，从磁盘读取文件流
-        FileModel fileModel = selectByFID(FID);
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer FID = jsonObject.getInteger("FID");
+        FileModel fileModel = fileDao.selectByFID(FID);
         System.out.println(fileModel);
         if(fileModel == null) return "不存在FID为 "+FID.toString() + " 的文件";
         try (FileInputStream fis = new FileInputStream(fileModel.getFilePath());
@@ -90,6 +122,7 @@ public class FileController {
         }
         return "下载任务创建成功";
     }
+
 
 //    @CrossOrigin
 //    @RequestMapping(value = "/downloadWithState", method = RequestMethod.POST)

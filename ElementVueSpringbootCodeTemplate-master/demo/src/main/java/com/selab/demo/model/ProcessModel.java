@@ -16,6 +16,16 @@ public class ProcessModel {
     private int SID;
     private int RTID;
 
+    private int STID;
+
+    public int getSTID() {
+        return STID;
+    }
+
+    public void setSTID(int STID) {
+        this.STID = STID;
+    }
+
     @Override
     public String toString() {
         return "ProcessModel{" +
