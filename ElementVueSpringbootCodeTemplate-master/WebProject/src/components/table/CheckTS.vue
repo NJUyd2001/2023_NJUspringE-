@@ -127,7 +127,7 @@ export default {
         this.$store.state.user.process.PID=row.processID;
         console.log(this.$store.state.user.process.AID);
         console.log(this.$store.state.user.process.PID);
-        this.$router.push({path: "./CheckTS", replace:true})
+        this.$router.push({path: "./QualityAUditTestScheme", replace:true})
     },
     handleClick(row) {
      
