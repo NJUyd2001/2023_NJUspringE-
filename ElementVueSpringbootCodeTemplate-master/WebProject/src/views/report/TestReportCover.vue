@@ -14,15 +14,15 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="10">
+          <el-col :span="2">
             <router-link to="/test">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="12" ><div class="grid-content bg-purple">
+          <el-col :span="6" ><div class="grid-content bg-purple">
             <h1 style="margin-left: 70%;">测试报告</h1>
             </div></el-col>
-          <el-col :span="19">
+          <el-col :span="14">
           <el-steps :space="200" :active="0" finish-status="success">
           <el-step title="测试报告信息填写"></el-step>
           <el-step title="测试报告填写"></el-step>
@@ -31,10 +31,8 @@
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
-          <el-col :span="6" push="3">
-            <router-link to="/report">
-            <el-button style="margin-top: 5px; margin-left: -60px;" size="middle" type="success">下一步</el-button>
-            </router-link>
+          <el-col :span="2">
+            <el-button @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
           </el-col>
         </el-row>
       </el-header>
@@ -59,7 +57,7 @@
                 v-model="ruleForm.Date"
                 type="date"
                 placeholder="完成时间选择"
-                :size=large
+                size=large
                   />
             </el-form-item>
           </el-form>
@@ -74,7 +72,6 @@
                 7、本报告无编制人员、审核人员、批准人员（授权签字人）签字无效。<br>
                 8、本报告无本中心章、涂改均无效。</p>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
     <el-backtop :right="50" :bottom="50" />
@@ -84,9 +81,14 @@
     export default {
         data(){
            return{
-                user:{
+              useruid:{
+                UID:"",
+                },
+                userpid:{
+                  PID:"",
                 },
                 ruleForm:{
+                  PID:"17",
                   SoftwareName:'',
                   VersionNumber:'',
                   Client:'',
@@ -111,29 +113,47 @@
                   ],
                   }
         }
-    }, 
+    },
+    mounted(){
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
+        window.addEventListener('unload', this.handleUnload);
+      },
+    created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    this.useruid.UID=17;
+    // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+    //             headers:{
+    //               'content-type': 'text/plain'}
+    //           }).then(ret=>{
+    //             console.log(ret.data)
+    //             this.userpid.PID=ret.data.PID;
+    //           })
+    this.userpid.PID=20;
+  },
       methods:{
+        handleBeforeUnload() {
+          sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+          },
+        handleUnload() {
+          sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+          },
         TestInfor(){
           //alert(JSON.stringify(this.ruleForm));
         },
         submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
-            } else {
-              return false;
-            }
-          });*/
-          Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-            console.log(ret.data)
-          })
-          .catch(function (error) { // 请求失败处理
-            console.log(error);
-          });
-          // this.info("提交成功，正在返回用户界面！");
-          // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
-        }
+      console.log(this.ruleForm);
+      Axios.post("http://localhost:1234/reporttitle/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+        console.log(ret.data);
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+          },
       },
     
     }

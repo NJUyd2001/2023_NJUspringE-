@@ -23,45 +23,29 @@
           <el-col :span="8"><div class="grid-content bg-purple">
             <span class="logo-title">测试方案评审表</span>
             </div></el-col>
-<<<<<<< HEAD
-            <el-col :span="12">
-=======
             <el-col :span="10">
->>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
               <el-steps :space="200" :active="1" finish-status="success">
                 <el-step title="软件测试方案填写"></el-step>
                 <el-step title="测试方案评审表填写"></el-step>
                 <el-step title="完成"></el-step>
               </el-steps>
             </el-col>
-<<<<<<< HEAD
-            <el-col :span="2" >
-            <el-button style="margin-top: -40px; margin-left: -15px;" @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
-=======
             <el-col :span="1">
             <el-button @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
->>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
           </el-col>
         </el-row>
       </el-header>
         <br><br><br><br>
         <el-main>
-<<<<<<< HEAD
           <el-form  label-width="50%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-row>
-              <el-col :span="12">
+            <el-col :span="12">
             <el-form-item  label="软件名称:" prop="SoftWareName"> 
                 <el-input v-model="ruleForm.SoftWareName" style="width:200px; padding:10px;"  ></el-input>
-              </el-form-item> 
+            </el-form-item> 
             </el-col>
             <el-col :span="4">
                 <el-form-item label="版本号:" prop="VersionNumber"> 
-=======
-          <el-form label-position="middle" label-width="40%" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item style="margin-top: 80px; margin-right: 220px;" label="软件名称:" prop="SoftWareName"> 
-                <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
-                <el-form-item style="margin-top: -60px; margin-right: 120px;" label="版本号:" prop="VersionNumber"> 
->>>>>>> 3fa4966e0c4ffb3a4902f5b2c26ab546f3ada077
                     <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
                 </el-form-item>
             </el-col>
