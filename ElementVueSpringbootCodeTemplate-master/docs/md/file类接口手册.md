@@ -116,17 +116,4 @@ axios.request(config)
 
 浏览器会收到下载文件
 
-- 通过PID、state、fileType下载
 
-端口：`/file/downloadWithState`
-
-参数：
-``` js
-data.append('PID', '');                             // PID参数
-data.append('state', '');                           // state参数
-data.append('fileType', '');
-
-``` 
-与[上传文件的传参方法](#上传文件)类似
-
-浏览器会收到下载文件
