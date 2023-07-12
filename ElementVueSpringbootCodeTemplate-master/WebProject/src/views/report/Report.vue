@@ -15,12 +15,12 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="4">
+          <el-col :span="20">
             <router-link to="/TestReportCover">
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" style="margin-left: 35%;"><div class="grid-content bg-purple">
+          <el-col :span="2"><div class="grid-content bg-purple">
           <span class="lt1">测试报告</span>
           </div></el-col>
           <el-col :span="10">
@@ -32,10 +32,8 @@
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
-          <el-col :span="6" push="2">
-            <router-link to="/TestEnvironment">
+          <el-col :span="2">
             <el-button @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
-            </router-link>
           </el-col>
         </el-row>
       </el-header>
@@ -85,9 +83,8 @@
               v-model="ruleForm.SampleStatus" type="textarea" />
             </el-form-item>
             <el-form-item label="测试依据:" prop="NeededStandard">
-              <el-select style="margin-top: 20px;" v-model="ruleForm.NeededStandard" multiple allow-create filterable>
-            <el-option v-for='item in Standard' :key='item.id' :label="item.value" :value="item.value"></el-option>
-            </el-select>
+              <el-input style="width:500px;margin-top: 15px;" :autosize="{ minRows: 2, maxRows: 4 }" 
+              v-model="ruleForm.NeededStandard" type="textarea" />
             </el-form-item> 
             <el-form-item label="样品清单:" prop="SampleList">
               <el-input style="width:500px;margin-top: 15px;" :autosize="{ minRows: 2, maxRows: 4 }" 
@@ -97,22 +94,37 @@
               <el-input style="width:500px;margin-top: 15px;" :autosize="{ minRows: 2, maxRows: 4 }" 
               v-model="ruleForm.TestConclusion" type="textarea" />
             </el-form-item>
-            <el-form-item style="margin-top: 15px; " label="编制人:" prop="Organizer"> 
-            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Organizer"></el-input>
-            <el-form-item style="margin-top: -50px;"  label-width="330px" label="日期:" prop="SampleDate1"> 
-                <div class="block1" style="margin-top: 0px; margin-left: 0px;">
-                    <el-date-picker
-                    v-model="ruleForm.SampleDate1"
-                    type="date"
-                    placeholder="Pick a day">
-                    </el-date-picker>
-                </div>
+            <el-form-item label="编制人:" prop="Organizer"> 
+              <el-row>
+                <el-col :span="5">
+                  <el-form-item prop="Organizer"> 
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.Organizer"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item  label-width="60px" label="日期:" prop="SampleDate1"> 
+                      <div class="block1" style="margin-top: 8px; margin-left: 0px;">
+                          <el-date-picker
+                          v-model="ruleForm.SampleDate1"
+                          type="date"
+                          placeholder="Pick a day">
+                          </el-date-picker>
+                      </div>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </el-form-item>
-            </el-form-item>
-            <el-form-item style="margin-top: 15px; " label="审核人:" prop="Auditor"> 
-            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Auditor"></el-input>
-            <el-form-item style="margin-top: -50px;"  label-width="330px" label="日期:" prop="SampleDate2"> 
-                <div class="block2" style="margin-top: 0px; margin-left: 0px;">
+
+            <el-form-item label="审核人:" prop="Auditor"> 
+              <el-row>
+                <el-col :span="5">
+                  <el-form-item prop="Auditor">  
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.Auditor"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item label-width="60px" label="日期:" prop="SampleDate2"> 
+                <div class="block2" style="margin-top: 8px; margin-left: 0px;">
                     <el-date-picker
                     v-model="ruleForm.SampleDate2"
                     type="date"
@@ -120,11 +132,20 @@
                     </el-date-picker>
                 </div>
             </el-form-item>
+                </el-col>
+              </el-row>
             </el-form-item>
-            <el-form-item style="margin-top: 15px;" label="批准人:" prop="Approver"> 
-            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Approver"></el-input>
-            <el-form-item style="margin-top: -50px;"  label-width="330px" label="日期:" prop="SampleDate3"> 
-                <div class="block3" style="margin-top: 0px; margin-left: 0px;">
+
+            <el-form-item label="批准人:" prop="Approver"> 
+              <el-row>
+                <el-col :span="5">
+                  <el-form-item  prop="Approver"> 
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.Approver"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item label-width="60px" label="日期:" prop="SampleDate3"> 
+                <div class="block3" style="margin-top: 8px; margin-left: 0px;">
                     <el-date-picker
                     v-model="ruleForm.SampleDate3"
                     type="date"
@@ -132,10 +153,11 @@
                     </el-date-picker>
                 </div>
             </el-form-item>
+                </el-col>
+              </el-row>
             </el-form-item>
           </el-form>
         </el-main>
-      <LoginDialog :show='showLogin'/>
     </el-container>
     </template>
     <script>
