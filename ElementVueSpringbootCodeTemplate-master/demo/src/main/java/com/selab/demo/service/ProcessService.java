@@ -22,6 +22,7 @@ public class ProcessService {
     @Autowired
     FileUtil fileUtil;
     public Integer insert(String postJson){
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
         int UID = -1;
@@ -74,12 +75,14 @@ public class ProcessService {
         return processDao.selectAIDsByState(state);
     }
     public List<Integer> selectPIDsByState(String postJson){
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
         String state = jsonObject.getString("state");
         return processDao.selectPIDsByState(state);
     }
     public List<ProcessModel> findByAID(String postJson){
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         int AID = jsonObject.getInteger("AID");
         return processDao.findByAID(AID);
@@ -89,6 +92,7 @@ public class ProcessService {
         return processDao.findAll();
     }
     public String updateState(String postJson){
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
         String state = jsonObject.getString("state");
@@ -100,6 +104,7 @@ public class ProcessService {
         return "状态更新成功";
     }
     public String clearFiles(Integer PID){
+
         ProcessModel processModel = processDao.findByPID(PID);
         if (processModel == null) return "不存在PID = "+ PID + "的进程";
         try{
@@ -111,6 +116,7 @@ public class ProcessService {
     }
 
     public String update(String postJson){
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
 
@@ -133,6 +139,7 @@ public class ProcessService {
 
 
     public String delete(String postJson){
+        System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
         int PID = jsonObject.getInteger("PID");

@@ -20,6 +20,19 @@ public class FileModel {
         this.state = state;
     }
 
+    @Override
+    public String toString() {
+        return "FileModel{" +
+                "FID=" + FID +
+                ", filePath='" + filePath + '\'' +
+                ", PID=" + PID +
+                ", state='" + state + '\'' +
+                ", fileType='" + fileType + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", uploadTime='" + uploadTime + '\'' +
+                '}';
+    }
+
     public String getFileType() {
         return fileType;
     }

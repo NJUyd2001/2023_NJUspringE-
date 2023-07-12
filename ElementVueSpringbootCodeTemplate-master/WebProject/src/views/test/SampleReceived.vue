@@ -38,21 +38,22 @@
             <el-button size="small" type="primary" @click="download2">点击下载</el-button>
           </el-form-item>
       </el-form>
-      <el-form  :model="ruleForm" ref="ruleForm">
-        <el-row type="flex" justify="center">
+      <el-form  label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm" >
+        <el-row >
+          <el-form-item label="是否通过:" prop="Pass">
         <el-radio-group v-model="ruleForm.Pass" :span="3">      
           <el-radio  label="false">拒绝</el-radio>
           <el-radio  label="true">同意</el-radio>
         </el-radio-group>
+      </el-form-item>
         </el-row>
-<el-row type="flex" justify="center">
+        <el-row>
   <el-form-item label="意见：">
           <el-input style="width:700px;" :rows="5" v-model="ruleForm.Views" type="textarea" ></el-input>
         </el-form-item>
 </el-row>
 </el-form>
     </el-main>
-  <LoginDialog :show='showLogin'/>
 </el-container>
 </template>
 <el-backtop :right="50" :bottom="50" />
@@ -71,9 +72,15 @@ export default {
             },
             StepNumber:2,
             ruleForm:{
+              PID:"",
               Views:"",
               Pass:"",
             },
+            rules:{
+              Pass:[
+                {required: true, message: "请给出一个选择！", trigger: "change"}
+              ]
+            }
     }
 },
 mounted(){
@@ -83,8 +90,7 @@ mounted(){
 created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.ruleForm.AID=this.$store.state.user.process.AID
-    this.process.PID=this.$store.state.user.process.PID
+    this.ruleForm.PID=this.$store.state.user.process.PID
     console.log(this.$store.state.user.process.PID)
   },
   methods:{
@@ -126,13 +132,14 @@ created(){
       }).then(() => {
         this.$refs[formName].validate((valid) => {
         if (valid) {
-        Axios.post("http://localhost:9090/api/application/inserttabledata",JSON.stringify(this.ruleForm),{
+          Axios.post("http://localhost:9090/api/samplecheck/insert",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
+        console.log(ret.data)
         this.StepNumber+=2;
-        this.$message.success("提交成功，正在返回测试部界面！");
-        setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
+        this.$message.success("提交成功，正在返回用户界面！");
+        setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);
