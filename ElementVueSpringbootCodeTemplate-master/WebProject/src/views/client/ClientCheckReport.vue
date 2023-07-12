@@ -14,12 +14,12 @@
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="8">
+          <el-col :span="20">
             <router-link to="/Client">
             <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6" style="margin-left: 35%;"><div class="grid-content bg-purple">
+          <el-col :span="6"><div class="grid-content bg-purple">
           <span class="lt1">测试报告</span>
           </div></el-col>
           <el-col :span="2">
@@ -259,8 +259,9 @@
               return false;
             }
           });*/
-          this.$message.success("提交成功，正在返回用户界面！");
-          setTimeout(() => {this.$router.push({path: "./Client", replace:true});}, 2000);
+          console.log(this.ruleForm);
+          this.$message.success("提交成功！");
+          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         }
     }
     }
