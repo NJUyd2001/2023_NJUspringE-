@@ -398,7 +398,7 @@ public class SoftwareTestService {
         String failid = new String();
         failid = ArraytoString(failid,failedid);
         JSONObject resss = new JSONObject();
-        resss.put("words","stableid:"+failid+" failed, other table and SoftwareTest updated");
+        resss.put("failedid",failedid);
         resss.put("stableid",softtable);
         return(JSON.toJSONString(resss));
 
