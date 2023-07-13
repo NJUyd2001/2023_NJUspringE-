@@ -25,12 +25,13 @@
           <el-col :span="8"><div class="grid-content bg-purple">
             <span class="logo-title">测试内容</span>
             </div></el-col>
-            <el-col :span="12">
+            <el-col :span="18">
           <el-steps :space="200" :active="3" finish-status="success">
-          <el-step title="测试报告信息填写"></el-step>
-          <el-step title="测试报告填写"></el-step>
-          <el-step title="测试环境填写"></el-step>
-          <el-step title="测试内容填写"></el-step>
+          <el-step title="测试报告首页查看"></el-step>
+          <el-step title="测试报告查看"></el-step>
+          <el-step title="测试环境查看"></el-step>
+          <el-step title="测试内容查看"></el-step>
+          <el-step title="审核意见填写"></el-step>
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
@@ -41,7 +42,7 @@
       </el-header>
         <br><br>
         <el-main>
-          <el-form style="padding-top:30px; margin-top: 40px;" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form disabled style="padding-top:30px; margin-top: 40px;" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item v-for="(Table,index) in ruleForm.TableData1" :prop="'TableData1.' + index + '.name'"  :label='"功能性测试"+index+":"' :key="index" >
               <el-input placeholder="功能模块" style="width: 100px;padding-right:20px;" v-model="Table.FunctionModule"></el-input>
               <el-input placeholder="功能要求" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.FunctionRequirement"></el-input>
@@ -50,7 +51,7 @@
               <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form disabled label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData2.' + index + '.name'" :label='"效率测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
@@ -59,7 +60,7 @@
               <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form disabled label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item v-for="(Table,index) in ruleForm.TableData3" :prop="'TableData3.' + index + '.name'" :label='"可移植性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
@@ -68,7 +69,7 @@
               <el-button @click="addfatherItem2()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form disabled label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item v-for="(Table,index) in ruleForm.TableData4" :prop="'TableData4.' + index + '.name'" :label='"易用性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
@@ -77,7 +78,7 @@
               <el-button @click="addfatherItem3()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form disabled label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item v-for="(Table,index) in ruleForm.TableData5" :prop="'TableData5.' + index + '.name'" :label='"可靠性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
@@ -86,8 +87,8 @@
               <el-button @click="addfatherItem4()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
           </el-form>
-          <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData6" :prop="'TableData6.' + index + '.name'"  s:label='"可维护性测试"+index+":"' :key="index" >
+          <el-form disabled label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form-item v-for="(Table,index) in ruleForm.TableData6" :prop="'TableData6.' + index + '.name'"  :label='"可维护性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
@@ -173,16 +174,21 @@
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=17;
-    // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
-    //             headers:{
-    //               'content-type': 'text/plain'}
-    //           }).then(ret=>{
-    //             console.log(ret.data)
-    //             this.userpid.PID=ret.data.PID;
-    //           })
-    this.userpid.PID=20;
-    this.ruleForm.PID=20;
+    this.useruid.UID=29;
+    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data[0].pid);
+                this.userpid.PID=ret.data[0].pid;
+                Axios.post("http://localhost:9090/api/testcontent/find",JSON.stringify(this.userpid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data)
+                this.ruleForm=ret.data[0];
+              })
+              })
   },
     mounted(){
         window.addEventListener('beforeunload', this.handleBeforeUnload);
