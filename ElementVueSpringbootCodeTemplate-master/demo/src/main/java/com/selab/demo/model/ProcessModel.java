@@ -17,6 +17,9 @@ public class ProcessModel {
     private int RTID;
     private int TID;
     private int TEID;
+    private int TCID;
+    private int TRID;
+    private int CHID;
 
     @Override
     public String toString() {
@@ -29,6 +32,9 @@ public class ProcessModel {
                 ", RTID=" + RTID +
                 ", TID=" + TID +
                 ", TEID=" + TEID +
+                ", TCID=" + TCID +
+                ", TRID=" + TRID +
+                ", CHID=" + CHID +
                 ", STID=" + STID +
                 ", AgID=" + AgID +
                 ", CID=" + CID +
@@ -37,6 +43,30 @@ public class ProcessModel {
                 ", AID=" + AID +
                 ", state='" + state + '\'' +
                 '}';
+    }
+
+    public int getTCID() {
+        return TCID;
+    }
+
+    public void setTCID(int TCID) {
+        this.TCID = TCID;
+    }
+
+    public int getTRID() {
+        return TRID;
+    }
+
+    public void setTRID(int TRID) {
+        this.TRID = TRID;
+    }
+
+    public int getCHID() {
+        return CHID;
+    }
+
+    public void setCHID(int CHID) {
+        this.CHID = CHID;
     }
 
     public int getTID() {

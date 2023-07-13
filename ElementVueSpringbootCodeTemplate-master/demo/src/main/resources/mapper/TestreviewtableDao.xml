@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace=".dao.TestreviewtableDao">
+
+    <resultMap type=".entity.Testreviewtable" id="TestreviewtableMap">
+        <result property="trid" column="TRID" jdbcType="INTEGER"/>
+        <result property="pid" column="PID" jdbcType="INTEGER"/>
+        <result property="softwarename" column="SoftwareName" jdbcType="VARCHAR"/>
+        <result property="versionnumber" column="VersionNumber" jdbcType="VARCHAR"/>
+        <result property="projectnum" column="ProjectNum" jdbcType="VARCHAR"/>
+        <result property="testcategory" column="TestCategory" jdbcType="VARCHAR"/>
+        <result property="writingnormality" column="WritingNormality" jdbcType="VARCHAR"/>
+        <result property="testenvironment" column="TestEnvironment" jdbcType="VARCHAR"/>
+        <result property="completeness" column="Completeness" jdbcType="VARCHAR"/>
+        <result property="selectmethod" column="SelectMethod" jdbcType="VARCHAR"/>
+        <result property="testcasecover" column="TestcaseCover" jdbcType="VARCHAR"/>
+        <result property="inputoutputdata" column="InputOutputData" jdbcType="VARCHAR"/>
+        <result property="timing" column="Timing" jdbcType="VARCHAR"/>
+        <result property="humanresourcesarrangement" column="HumanResourcesArrangement" jdbcType="VARCHAR"/>
+        <result property="teOpinion" column="TE_Opinion" jdbcType="VARCHAR"/>
+        <result property="trmOpinion" column="TRM_Opinion" jdbcType="VARCHAR"/>
+        <result property="qmOpinion" column="QM_Opinion" jdbcType="VARCHAR"/>
+        <result property="tdOpinion" column="TD_Opinion" jdbcType="VARCHAR"/>
+        <result property="siOpinion" column="SI_Opinion" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TestreviewtableMap">
+        select
+          TRID, PID, SoftwareName, VersionNumber, ProjectNum, TestCategory, WritingNormality, TestEnvironment, Completeness, SelectMethod, TestcaseCover, InputOutputData, Timing, HumanResourcesArrangement, TE_Opinion, TRM_Opinion, QM_Opinion, TD_Opinion, SI_Opinion
+        from testreviewtable
+        where TRID = #{trid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TestreviewtableMap">
+        select
+          TRID, PID, SoftwareName, VersionNumber, ProjectNum, TestCategory, WritingNormality, TestEnvironment, Completeness, SelectMethod, TestcaseCover, InputOutputData, Timing, HumanResourcesArrangement, TE_Opinion, TRM_Opinion, QM_Opinion, TD_Opinion, SI_Opinion
+        from testreviewtable
+        <where>
+            <if test="trid != null">
+                and TRID = #{trid}
+            </if>
+            <if test="pid != null">
+                and PID = #{pid}
+            </if>
+            <if test="softwarename != null and softwarename != ''">
+                and SoftwareName = #{softwarename}
+            </if>
+            <if test="versionnumber != null and versionnumber != ''">
+                and VersionNumber = #{versionnumber}
+            </if>
+            <if test="projectnum != null and projectnum != ''">
+                and ProjectNum = #{projectnum}
+            </if>
+            <if test="testcategory != null and testcategory != ''">
+                and TestCategory = #{testcategory}
+            </if>
+            <if test="writingnormality != null and writingnormality != ''">
+                and WritingNormality = #{writingnormality}
+            </if>
+            <if test="testenvironment != null and testenvironment != ''">
+                and TestEnvironment = #{testenvironment}
+            </if>
+            <if test="completeness != null and completeness != ''">
+                and Completeness = #{completeness}
+            </if>
+            <if test="selectmethod != null and selectmethod != ''">
+                and SelectMethod = #{selectmethod}
+            </if>
+            <if test="testcasecover != null and testcasecover != ''">
+                and TestcaseCover = #{testcasecover}
+            </if>
+            <if test="inputoutputdata != null and inputoutputdata != ''">
+                and InputOutputData = #{inputoutputdata}
+            </if>
+            <if test="timing != null and timing != ''">
+                and Timing = #{timing}
+            </if>
+            <if test="humanresourcesarrangement != null and humanresourcesarrangement != ''">
+                and HumanResourcesArrangement = #{humanresourcesarrangement}
+            </if>
+            <if test="teOpinion != null and teOpinion != ''">
+                and TE_Opinion = #{teOpinion}
+            </if>
+            <if test="trmOpinion != null and trmOpinion != ''">
+                and TRM_Opinion = #{trmOpinion}
+            </if>
+            <if test="qmOpinion != null and qmOpinion != ''">
+                and QM_Opinion = #{qmOpinion}
+            </if>
+            <if test="tdOpinion != null and tdOpinion != ''">
+                and TD_Opinion = #{tdOpinion}
+            </if>
+            <if test="siOpinion != null and siOpinion != ''">
+                and SI_Opinion = #{siOpinion}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from testreviewtable
+        <where>
+            <if test="trid != null">
+                and TRID = #{trid}
+            </if>
+            <if test="pid != null">
+                and PID = #{pid}
+            </if>
+            <if test="softwarename != null and softwarename != ''">
+                and SoftwareName = #{softwarename}
+            </if>
+            <if test="versionnumber != null and versionnumber != ''">
+                and VersionNumber = #{versionnumber}
+            </if>
+            <if test="projectnum != null and projectnum != ''">
+                and ProjectNum = #{projectnum}
+            </if>
+            <if test="testcategory != null and testcategory != ''">
+                and TestCategory = #{testcategory}
+            </if>
+            <if test="writingnormality != null and writingnormality != ''">
+                and WritingNormality = #{writingnormality}
+            </if>
+            <if test="testenvironment != null and testenvironment != ''">
+                and TestEnvironment = #{testenvironment}
+            </if>
+            <if test="completeness != null and completeness != ''">
+                and Completeness = #{completeness}
+            </if>
+            <if test="selectmethod != null and selectmethod != ''">
+                and SelectMethod = #{selectmethod}
+            </if>
+            <if test="testcasecover != null and testcasecover != ''">
+                and TestcaseCover = #{testcasecover}
+            </if>
+            <if test="inputoutputdata != null and inputoutputdata != ''">
+                and InputOutputData = #{inputoutputdata}
+            </if>
+            <if test="timing != null and timing != ''">
+                and Timing = #{timing}
+            </if>
+            <if test="humanresourcesarrangement != null and humanresourcesarrangement != ''">
+                and HumanResourcesArrangement = #{humanresourcesarrangement}
+            </if>
+            <if test="teOpinion != null and teOpinion != ''">
+                and TE_Opinion = #{teOpinion}
+            </if>
+            <if test="trmOpinion != null and trmOpinion != ''">
+                and TRM_Opinion = #{trmOpinion}
+            </if>
+            <if test="qmOpinion != null and qmOpinion != ''">
+                and QM_Opinion = #{qmOpinion}
+            </if>
+            <if test="tdOpinion != null and tdOpinion != ''">
+                and TD_Opinion = #{tdOpinion}
+            </if>
+            <if test="siOpinion != null and siOpinion != ''">
+                and SI_Opinion = #{siOpinion}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="trid" useGeneratedKeys="true">
+        insert into testreviewtable(PID, SoftwareName, VersionNumber, ProjectNum, TestCategory, WritingNormality, TestEnvironment, Completeness, SelectMethod, TestcaseCover, InputOutputData, Timing, HumanResourcesArrangement, TE_Opinion, TRM_Opinion, QM_Opinion, TD_Opinion, SI_Opinion)
+        values (#{pid}, #{softwarename}, #{versionnumber}, #{projectnum}, #{testcategory}, #{writingnormality}, #{testenvironment}, #{completeness}, #{selectmethod}, #{testcasecover}, #{inputoutputdata}, #{timing}, #{humanresourcesarrangement}, #{teOpinion}, #{trmOpinion}, #{qmOpinion}, #{tdOpinion}, #{siOpinion})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="trid" useGeneratedKeys="true">
+        insert into testreviewtable(PID, SoftwareName, VersionNumber, ProjectNum, TestCategory, WritingNormality, TestEnvironment, Completeness, SelectMethod, TestcaseCover, InputOutputData, Timing, HumanResourcesArrangement, TE_Opinion, TRM_Opinion, QM_Opinion, TD_Opinion, SI_Opinion)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.pid}, #{entity.softwarename}, #{entity.versionnumber}, #{entity.projectnum}, #{entity.testcategory}, #{entity.writingnormality}, #{entity.testenvironment}, #{entity.completeness}, #{entity.selectmethod}, #{entity.testcasecover}, #{entity.inputoutputdata}, #{entity.timing}, #{entity.humanresourcesarrangement}, #{entity.teOpinion}, #{entity.trmOpinion}, #{entity.qmOpinion}, #{entity.tdOpinion}, #{entity.siOpinion})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="trid" useGeneratedKeys="true">
+        insert into testreviewtable(PID, SoftwareName, VersionNumber, ProjectNum, TestCategory, WritingNormality, TestEnvironment, Completeness, SelectMethod, TestcaseCover, InputOutputData, Timing, HumanResourcesArrangement, TE_Opinion, TRM_Opinion, QM_Opinion, TD_Opinion, SI_Opinion)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pid}, #{entity.softwarename}, #{entity.versionnumber}, #{entity.projectnum}, #{entity.testcategory}, #{entity.writingnormality}, #{entity.testenvironment}, #{entity.completeness}, #{entity.selectmethod}, #{entity.testcasecover}, #{entity.inputoutputdata}, #{entity.timing}, #{entity.humanresourcesarrangement}, #{entity.teOpinion}, #{entity.trmOpinion}, #{entity.qmOpinion}, #{entity.tdOpinion}, #{entity.siOpinion})
+        </foreach>
+        on duplicate key update
+        PID = values(PID),
+        SoftwareName = values(SoftwareName),
+        VersionNumber = values(VersionNumber),
+        ProjectNum = values(ProjectNum),
+        TestCategory = values(TestCategory),
+        WritingNormality = values(WritingNormality),
+        TestEnvironment = values(TestEnvironment),
+        Completeness = values(Completeness),
+        SelectMethod = values(SelectMethod),
+        TestcaseCover = values(TestcaseCover),
+        InputOutputData = values(InputOutputData),
+        Timing = values(Timing),
+        HumanResourcesArrangement = values(HumanResourcesArrangement),
+        TE_Opinion = values(TE_Opinion),
+        TRM_Opinion = values(TRM_Opinion),
+        QM_Opinion = values(QM_Opinion),
+        TD_Opinion = values(TD_Opinion),
+        SI_Opinion = values(SI_Opinion)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update testreviewtable
+        <set>
+            <if test="pid != null">
+                PID = #{pid},
+            </if>
+            <if test="softwarename != null and softwarename != ''">
+                SoftwareName = #{softwarename},
+            </if>
+            <if test="versionnumber != null and versionnumber != ''">
+                VersionNumber = #{versionnumber},
+            </if>
+            <if test="projectnum != null and projectnum != ''">
+                ProjectNum = #{projectnum},
+            </if>
+            <if test="testcategory != null and testcategory != ''">
+                TestCategory = #{testcategory},
+            </if>
+            <if test="writingnormality != null and writingnormality != ''">
+                WritingNormality = #{writingnormality},
+            </if>
+            <if test="testenvironment != null and testenvironment != ''">
+                TestEnvironment = #{testenvironment},
+            </if>
+            <if test="completeness != null and completeness != ''">
+                Completeness = #{completeness},
+            </if>
+            <if test="selectmethod != null and selectmethod != ''">
+                SelectMethod = #{selectmethod},
+            </if>
+            <if test="testcasecover != null and testcasecover != ''">
+                TestcaseCover = #{testcasecover},
+            </if>
+            <if test="inputoutputdata != null and inputoutputdata != ''">
+                InputOutputData = #{inputoutputdata},
+            </if>
+            <if test="timing != null and timing != ''">
+                Timing = #{timing},
+            </if>
+            <if test="humanresourcesarrangement != null and humanresourcesarrangement != ''">
+                HumanResourcesArrangement = #{humanresourcesarrangement},
+            </if>
+            <if test="teOpinion != null and teOpinion != ''">
+                TE_Opinion = #{teOpinion},
+            </if>
+            <if test="trmOpinion != null and trmOpinion != ''">
+                TRM_Opinion = #{trmOpinion},
+            </if>
+            <if test="qmOpinion != null and qmOpinion != ''">
+                QM_Opinion = #{qmOpinion},
+            </if>
+            <if test="tdOpinion != null and tdOpinion != ''">
+                TD_Opinion = #{tdOpinion},
+            </if>
+            <if test="siOpinion != null and siOpinion != ''">
+                SI_Opinion = #{siOpinion},
+            </if>
+        </set>
+        where TRID = #{trid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from testreviewtable where TRID = #{trid}
+    </delete>
+
+</mapper>
+
