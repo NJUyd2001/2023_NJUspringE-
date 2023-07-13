@@ -60,10 +60,15 @@
     </el-container>
     </template>
     <el-backtop :right="50" :bottom="50" />
-    <script>
+    <script>    
+    import Axios from 'axios'
     export default {
         data(){
            return{
+                TDo:{
+                  PID:this.$store.state.user.process.PID,
+                  state:"60",
+                },
                 ruleForm:{
                     TableData:[
                       {
@@ -140,9 +145,14 @@
               return false;
             }
           });*/
+          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TDo),{
+              headers:{
+                'content-type': 'text/plain'}
+              }).then(ret=>{
+             })
           console.log(this.ruleForm);
           this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./testdocument2", replace:true});}, 2000);
         }
       },
     
