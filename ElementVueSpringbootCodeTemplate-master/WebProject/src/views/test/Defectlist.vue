@@ -55,8 +55,8 @@
               <el-input placeholder="发现时间" style="width: 90px;padding-right:20px;" v-model="Table.DiscoveryTime"></el-input>
               <el-input placeholder="责任人" style="width: 80px;padding-right:20px;" v-model="Table.PersonResponsible"></el-input>
               <el-input placeholder="修改建议" style="width: 90px;padding-right:20px;" v-model="Table.Suggestion"></el-input>
-              <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
         </el-main>

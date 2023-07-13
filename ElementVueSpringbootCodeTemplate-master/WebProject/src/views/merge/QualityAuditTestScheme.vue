@@ -201,8 +201,8 @@ import Axios from 'axios';
       this.KeepInfor();
       this.Aid.AID=this.$store.state.user.process.AID;
       this.Pid.PID=this.$store.state.user.process.PID;
-      console.log(this.Aid.AID)
-      Axios.post("http://localhost:9090/api/application/checkbyAID",JSON.stringify(this.Aid),{
+      console.log(this.Pid.PID)
+      Axios.post("http://localhost:9090/api/softwaretest/find",JSON.stringify(this.Pid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
@@ -251,7 +251,7 @@ import Axios from 'axios';
           });*/
           console.log(this.ruleForm);
           this.$message.success("提交成功！");
-          setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./QualityAuditTSRF", replace:true});}, 2000);
         }
       },
     

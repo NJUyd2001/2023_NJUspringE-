@@ -125,7 +125,8 @@ created(){
       //sessionStorage.setItem
         this.$store.state.user.process.UID=row.applicantID;
         this.$store.state.user.process.AID=row.AID
-        console.log(this.$store.state.user.process.UID);
+        this.$store.state.user.process.PID=row.PID
+        console.log(row.PID);
         this.$router.push({path: "./testscheme", replace:true})
     },
     handleClick(row) {

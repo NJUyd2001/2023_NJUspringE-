@@ -52,8 +52,8 @@
               <el-input placeholder="预期的结果" style="width: 100px;padding-right:20px;" v-model="Table.ExpectedResult"></el-input>
               <el-input placeholder="测试用例设计者" style="width: 130px;padding-right:20px;" v-model="Table.Designer"></el-input>
               <el-input placeholder="测试时间" style="width: 100px;padding-right:20px;" v-model="Table.TestTime"></el-input>
-              <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
         </el-main>

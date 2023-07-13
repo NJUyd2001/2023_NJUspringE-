@@ -40,7 +40,7 @@
       </el-header>
         <br><br>
         <el-main>
-            <el-form ref="ruleForm" label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
+            <el-form lazy-validation v-model="validForm" ref="formNames" label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
             <el-label style="margin-left: 320px; margin-top: 20px;">硬件环境</el-label>
             <el-table :data="ruleForm.tableData1" style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="HardwareCategory" label="硬件类别" width="90">
@@ -84,15 +84,23 @@
             <el-form-item>
               二、测试依据和参考资料
             </el-form-item>
-            <el-form-item v-for="(Table,index) in ruleForm.TableData1"  style="margin-left:-15%;" :label='"测试依据"+index+":"' :key="index" >
-              <el-input placeholder="测试依据" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.NeededStandard"></el-input>
-              <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
+            <el-form-item v-for="(Table,index) in ruleForm.TableData1" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"测试依据"+index+":"' :key="index" >
+              <el-input  placeholder="测试依据" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.NeededStandard"></el-input>
+              <el-button @click="removefatherItem(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
-            <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :label='"参考资料"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"参考资料"+index+":"' :key="index" >
               <el-input placeholder="参考资料" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.ReferenceMaterial"></el-input>
-              <el-button @click="removefatherItem1(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem1(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem1()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
         </el-form>
         </el-main>
@@ -104,15 +112,16 @@
     export default {
         data(){
            return{    
+            validForm: true,
             input_type:'text',
             useruid:{
                 UID:"",
             },
             userpid:{
-              PID:"",
+              PID:this.$store.state.user.process.PID,
             },
             ruleForm:{
-              PID:"",
+              PID:this.$store.state.user.process.PID,
               tableData1: [{
                   HardwareCategory: '',
                   HardwareName: '',
@@ -159,13 +168,15 @@
                 }
               ],
             },
+            rulesRequired: [(v) => !!v || "Required"],
+             
         }
         },
         created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=17;
+    //this.useruid.UID=17;
     // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
     //             headers:{
     //               'content-type': 'text/plain'}
@@ -173,7 +184,7 @@
     //             console.log(ret.data)
     //             this.userpid.PID=ret.data.PID;
     //           })
-    this.userpid.PID=20;
+    //this.userpid.PID=20;
     this.ruleForm.PID=20;
   },
         mounted(){

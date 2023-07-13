@@ -35,16 +35,22 @@
           </el-col>
         </el-row>
       </el-header>
-        <br><br>
+        <br><br><br><br>
         <el-main>
           <el-form label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item style="margin-top: 80px; margin-right: 150px;" label="软件名称:" prop="SoftWareName"> 
+            <el-row>
+              <el-col  :span="12">
+            <el-form-item label="软件名称:" prop="SoftWareName"> 
             <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
-            <el-form-item style="margin-top: -60px; margin-right: 120px;" label="委托单位:" prop="Client"> 
+          </el-form-item>
+              </el-col>
+            <el-col :span="12">
+            <el-form-item  label="委托单位:" prop="Client"> 
             <el-input style="width:200px; padding:10px;" v-model="ruleForm.Client"></el-input>
           </el-form-item>
-          </el-form-item> 
-          <el-table :data="ruleForm.tableData"  style="width: 60%; margin-left: 25%;">
+        </el-col>
+        </el-row>
+          <el-table :data="ruleForm.tableData"  style="width: 60%; margin-left: 20%;">
             <el-table-column fixed prop="num" label="序号" width="80"></el-table-column>
             <el-table-column prop="checkcontent" label="检查内容" width="140"></el-table-column>
             <el-table-column prop="description" label="内容描述" width="450"></el-table-column>
@@ -57,16 +63,15 @@
               </template>
             </el-table-column>
           </el-table>
-
-          <el-form-item label="检查人：" prop="Examiner">
+          <br>
               <el-row>
-                <el-col :span="6">
-                  <el-form-item prop="Examiner">
-                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.Examiner"></el-input>
+                <el-col :span="12">
+                  <el-form-item label='检查人:' prop="Examiner">
+                    <el-input style="width:200px; " v-model="ruleForm.Examiner"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="6">
-                  <el-form-item style="margin-top: 10px;" label='日期:' prop="Date">
+                <el-col :span="12">
+                  <el-form-item  label='日期:' prop="Date">
                       <div class="demo-date-picker">
                         <el-date-picker
                         v-model="ruleForm.Date"
@@ -78,7 +83,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-            </el-form-item>
           </el-form>
         </el-main>
     </el-container>
