@@ -19,7 +19,7 @@
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
             <router-link to="/TestEnvironment">
-            <el-button style="margin-top: -25px;" size="middle" type="danger">上一步</el-button>
+            <el-button size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
           <el-col :span="8"><div class="grid-content bg-purple">
@@ -34,7 +34,7 @@
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="2">
             <el-button size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
         </el-row>
@@ -42,11 +42,7 @@
         <br><br>
         <el-main>
           <el-form style="padding-top:30px; margin-top: 40px;" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData1" :prop="'TableData1.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"功能性测试"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData1" :prop="'TableData1.' + index + '.name'"  :label='"功能性测试"+index+":"' :key="index" >
               <el-input placeholder="功能模块" style="width: 100px;padding-right:20px;" v-model="Table.FunctionModule"></el-input>
               <el-input placeholder="功能要求" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.FunctionRequirement"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
@@ -55,11 +51,7 @@
             </el-form-item>
           </el-form>
           <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData2.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"效率测试"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData2.' + index + '.name'" :label='"效率测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
@@ -68,11 +60,7 @@
             </el-form-item>
           </el-form>
           <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData3" :prop="'TableData3.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"可移植性测试"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData3" :prop="'TableData3.' + index + '.name'" :label='"可移植性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic1"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
@@ -81,11 +69,7 @@
             </el-form-item>
           </el-form>
           <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData4" :prop="'TableData4.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"易用性测试"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData4" :prop="'TableData4.' + index + '.name'" :label='"易用性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic2"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
@@ -94,11 +78,7 @@
             </el-form-item>
           </el-form>
           <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData5" :prop="'TableData5.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"可靠性测试"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData5" :prop="'TableData5.' + index + '.name'" :label='"可靠性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic3"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
@@ -107,11 +87,7 @@
             </el-form-item>
           </el-form>
           <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData6" :prop="'TableData6.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"可维护性测试"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData6" :prop="'TableData6.' + index + '.name'"  :label='"可维护性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic4"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
@@ -124,22 +100,18 @@
     </template>
     <el-backtop :right="50" :bottom="50" />
     <script>
+    import Axios from 'axios'
     export default {
         data(){
            return{
-                user:{
-                    name:'风车村',
-                    password:'shazihuang',
-                    telephone:'',
-                    fax:'',
-                    address:'',
-                    postcode:'',
-                    contacts:'',
-                    mobilephone:'',
-                    email:'',
-                    URL:'',
+                useruid:{
+                    UID:"",
+                },
+                userpid:{
+                  PID:"",
                 },
                 ruleForm:{
+                  PID:"",
                   TableData1:[
                     {
                       FunctionModule:'',
@@ -210,6 +182,7 @@
     //             this.userpid.PID=ret.data.PID;
     //           })
     this.userpid.PID=20;
+    this.ruleForm.PID=20;
   },
     mounted(){
         window.addEventListener('beforeunload', this.handleBeforeUnload);
@@ -227,7 +200,6 @@
             id:this.ruleForm.TableData1[this.ruleForm.TableData1.length-1]+1,
             name:'',
             function:'',
-            children:[],
           })
         },
         removefatherItem(Table){
@@ -241,7 +213,6 @@
             id:this.ruleForm.TableData2[this.ruleForm.TableData2.length-1]+1,
             name:'',
             function:'',
-            children:[],
           })
         },
         removefatherItem1(Table){
@@ -255,7 +226,6 @@
             id:this.ruleForm.TableData3[this.ruleForm.TableData3.length-1]+1,
             name:'',
             function:'',
-            children:[],
           })
         },
         removefatherItem2(Table){
@@ -266,10 +236,9 @@
         },
         addfatherItem3(){
           this.ruleForm.TableData4.push({
-            id:this.ruleForm4.TableData[this.ruleForm.TableData4.length-1]+1,
+            id:this.ruleForm.TableData4[this.ruleForm.TableData4.length-1]+1,
             name:'',
             function:'',
-            children:[],
           })
         },
         removefatherItem3(Table){
@@ -283,7 +252,6 @@
             id:this.ruleForm.TableData5[this.ruleForm.TableData5.length-1]+1,
             name:'',
             function:'',
-            children:[],
           })
         },
         removefatherItem4(Table){
@@ -297,7 +265,6 @@
             id:this.ruleForm.TableData6[this.ruleForm.TableData6.length-1]+1,
             name:'',
             function:'',
-            children:[],
           })
         },
         removefatherItem5(Table){
@@ -306,30 +273,22 @@
           this.ruleForm.TableData6.splice(index, 1);
       }
         },
-        addchildrenItem(Node){
-            Node.children.push(
-              {
-                id:'',
-                
-              }
-            )
-        },
         submitForm(formName) {
-          this.$refs[formName].validate((valid) => {
-            if (valid) {
-              console.log(this.ruleForm);
-              this.$message.success("提交成功！");
-            } else {
-              return false;
-            }
-          });
-          
-          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
-        }
-      },
-    
+      console.log(this.ruleForm);
+          Axios.post("http://localhost:9090/api/testcontent/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+        console.log(ret.data);
+        this.$message.success("提交成功！");
+          //setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
+      })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });   
+        },
+      }
     }
-    
     </script>
     <style>
     .text-right {
