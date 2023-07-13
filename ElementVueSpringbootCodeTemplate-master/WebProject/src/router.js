@@ -44,7 +44,11 @@ import TestAuditFunctionList from './views/test/TestAuditFunctionList'
 import TestCheckMarketInfor from './views/test/TestCheckMarketInfor'
 import MyInformation from './views/apply/MyInformation'
 import TestContent from './views/report/TestContent'
+import TDTestContentCheck from './views/merge/TDTestContentCheck'
+import STestContentCheck from './views/merge/STestContentCheck'
+import CTestContentCheck from './views/client/CTestContentCheck'
 import TestScheme from './views/test/TestScheme'
+import TestSchemeChange from './views/test/TestSchemeChange'
 import TestDocument1 from './views/report/TestDocument1'
 import TestDocument2 from './views/report/TestDocument2'
 import MarketContract from './views/market/Contract'
@@ -65,7 +69,11 @@ import SoftwareDocumentReviewForm2 from './views/report/SoftwareDocumentReviewFo
 import TestReportCover from './views/report/TestReportCover'
 import TDTestReportCoverCheck from './views/merge/TDTestReportCoverCheck'
 import STestReportCoverCheck from './views/merge/STestReportCoverCheck'
+import QualityAuditTSRF from './views/merge/QualityAuditTSRF'
 import CTestReportCoverCheck from './views/client/CTestReportCoverCheck'
+import STestEnvironmentCheck from './views/merge/STestEnvironmentCheck'
+import TDTestEnvironmentCheck from './views/merge/TDTestEnvironmentCheck'
+import CTestEnvironmentCheck from './views/client/CTestEnvironmentCheck'
 import TestEnvironment from './views/report/TestEnvironment'
 import SoftwareProjectTestChecklist from './views/test/SoftwareProjectTestChecklist'
 import DataSubmit from './views/client/DataSubmit'
@@ -116,6 +124,10 @@ export default new VueRouter({
         {
             path: '/quality',     // 路径
             component: Quality    // 跳转到的组件
+        },
+        {
+            path: '/QualityAuditTSRF',     // 路径
+            component: QualityAuditTSRF    // 跳转到的组件
         },
         {
             path: '/TestDirector',     // 路径
@@ -242,8 +254,24 @@ export default new VueRouter({
             component: TestContent  // 跳转到的组件
         },
         {
+            path: '/tdtestcontentcheck',   // 路径
+            component: TDTestContentCheck  // 跳转到的组件
+        },
+        {
+            path: '/Stestcontentcheck',   // 路径
+            component: STestContentCheck  // 跳转到的组件
+        },
+        {
+            path: '/ctestcontentcheck',   // 路径
+            component: CTestContentCheck  // 跳转到的组件
+        },
+        {
             path: '/testscheme',   // 路径
             component: TestScheme  // 跳转到的组件
+        },
+        {
+            path: '/testschemechange',   // 路径
+            component: TestSchemeChange  // 跳转到的组件
         },
         {
             path: '/testdocument1',   // 路径
@@ -328,6 +356,18 @@ export default new VueRouter({
         {
             path: '/TestEnvironment',      // 路径
             component: TestEnvironment     // 跳转到的组件
+        },
+        {
+            path: '/stestEnvironmentcheck',      // 路径
+            component: STestEnvironmentCheck     // 跳转到的组件
+        },
+        {
+            path: '/tdtestEnvironmentcheck',      // 路径
+            component: TDTestEnvironmentCheck     // 跳转到的组件
+        },
+        {
+            path: '/CtestEnvironmentcheck',      // 路径
+            component: CTestEnvironmentCheck     // 跳转到的组件
         },
         {
             path: '/SoftwareProjectTestChecklist',   // 路径

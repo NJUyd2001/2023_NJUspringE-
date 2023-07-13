@@ -173,7 +173,7 @@ import Axios from 'axios'
                 PID:"",
               },
                 ruleForm:{
-                    PID:"20",
+                    PID:this.$store.state.user.process.PID,
                     Client:'',
                     ProjectNum:'',
                     SampleName:'',
@@ -281,7 +281,7 @@ created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=17;
+    //this.useruid.UID=17;
     // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
     //             headers:{
     //               'content-type': 'text/plain'}
@@ -289,7 +289,7 @@ created(){
     //             console.log(ret.data)
     //             this.userpid.PID=ret.data.PID;
     //           })
-    this.userpid.PID=20;
+    //this.userpid.PID=20;
   },
   methods:{
     submitForm(formName) {

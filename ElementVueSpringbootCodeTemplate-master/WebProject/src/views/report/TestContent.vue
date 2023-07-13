@@ -84,12 +84,8 @@
             <el-form-item v-for="(Table,index) in ruleForm.TableData4" :prop="'TableData4.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
-            trigger: 'blur',
           }" :label='"易用性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
-              <el-button @click="removefatherItem3(Table)" type="primary" size="small" plain>删除</el-button>
               <el-button @click="addfatherItem3()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
@@ -97,12 +93,8 @@
             <el-form-item v-for="(Table,index) in ruleForm.TableData5" :prop="'TableData5.' + index + '.name'" :rules="{
             required: true,
             message: '功能项目不能为空！',
-            trigger: 'blur',
           }" :label='"可靠性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
-              <el-button @click="removefatherItem4(Table)" type="primary" size="small" plain>删除</el-button>
               <el-button @click="addfatherItem4()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
@@ -134,8 +126,12 @@
                 userpid:{
                   PID:"",
                 },
+                Rep:{
+                  PID:this.$store.state.user.process.PID,
+                  state:"70",
+                },
                 ruleForm:{
-                  PID:"",
+                  PID:this.$store.state.user.process.PID,
                   TableData1:[
                     {
                       FunctionModule:'',
@@ -197,7 +193,7 @@
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=17;
+    //this.useruid.UID=17;
     // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
     //             headers:{
     //               'content-type': 'text/plain'}
@@ -205,7 +201,7 @@
     //             console.log(ret.data)
     //             this.userpid.PID=ret.data.PID;
     //           })
-    this.userpid.PID=20;
+    //this.userpid.PID=20;
     this.ruleForm.PID=20;
   },
     mounted(){
@@ -304,6 +300,11 @@
       }
         },
         submitForm(formName) {
+          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.Rep),{
+              headers:{
+                'content-type': 'text/plain'}
+              }).then(ret=>{
+             })
       console.log(this.ruleForm);
           Axios.post("http://localhost:9090/api/testcontent/insert",JSON.stringify(this.ruleForm),{
                 headers:{
@@ -311,7 +312,7 @@
               }).then(ret=>{
         console.log(ret.data);
         this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);

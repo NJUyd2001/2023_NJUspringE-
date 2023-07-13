@@ -157,9 +157,12 @@ export default {
               PID:"",
             },
             fileatt1:{
-              state:"",
-              PID:"",
-              fileType:"",
+              state:"30",
+              PID:this.$store.state.user.process.PID,
+              fileType:"contract",
+            },
+            Fileid1:{
+              FID:"",
             },
             Suggestion:{
               Pass:"",
