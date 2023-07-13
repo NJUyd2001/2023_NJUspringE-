@@ -131,9 +131,15 @@
         addfatherItem(){
           this.ruleForm.TableData.push({
             id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-            name:'',
-            function:'',
-            children:[],
+            Num:'',
+            DefectDescription:'',
+            RequirementItems:'',
+            DefectdetectionInitialcondition:'',
+            DefectdetectionSpecificpath:'',
+            Usecase:'',
+            DiscoveryTime:'',
+            PersonResponsible:'',
+            Suggestion:'',
           })
         },
         removefatherItem(Table){
