@@ -37,7 +37,7 @@ author：李晨博
 ```
 输出示例：
 ```
-[{"item":"zIHEQdYUqD","UnitPrice":"o9GysqR729","PS":"ieb6cqzJcR","TotalPrice":"Fhs2ZIR2FI","description":"0pqI2VhxQu","Time":"13:59:16","Tax":"WBfLEGIHMS","QID":3,"SubTotalPrice":"rbUzW54KcX","Provider":"2ugF3AnQF4"}]
+[{"PID":"1","item":"zIHEQdYUqD","UnitPrice":"o9GysqR729","PS":"ieb6cqzJcR","TotalPrice":"Fhs2ZIR2FI","description":"0pqI2VhxQu","Time":"13:59:16","Tax":"WBfLEGIHMS","QID":3,"SubTotalPrice":"rbUzW54KcX","Provider":"2ugF3AnQF4"}]
 ```
 
 ## /quote/update

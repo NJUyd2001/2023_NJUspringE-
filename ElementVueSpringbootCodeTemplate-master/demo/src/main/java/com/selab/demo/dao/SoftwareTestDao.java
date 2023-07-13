@@ -6,7 +6,7 @@ import java.util.List;
 @Mapper
 public interface SoftwareTestDao {
 
-    @Insert("INSERT INTO selabspringe.softwaretest (mark,systemoverview,documentationoverview,baseline,hardware,software,participatingorganization,personnel,testlevel,testcatagory,generaltestcondition,plannedexecutiontest,testcase,traceabilityodrequirement,softtableid) VALUES (#{mark},#{systemoverview},#{documentationoverview},#{baseline},#{hardware},#{software},#{participatingorganization},#{personnel},#{testlevel},#{testcatagory},#{generaltestcondition},#{plannedexecutiontest},#{testcase},#{traceabilityodrequirement},#{softtableid})")
+    @Insert("INSERT INTO selabspringe.softwaretest (mark,systemoverview,documentationoverview,baseline,hardware,software,participatingorganization,personnel,testlevel,testcatagory,generaltestcondition,plannedexecutiontest,testcase,traceabilityodrequirement,softtableid,applicationfile,versionnumber,softwarename,other,typetest) VALUES (#{mark},#{systemoverview},#{documentationoverview},#{baseline},#{hardware},#{software},#{participatingorganization},#{personnel},#{testlevel},#{testcatagory},#{generaltestcondition},#{plannedexecutiontest},#{testcase},#{traceabilityodrequirement},#{softtableid},#{applicationfile},#{versionnumber},#{softwarename},#{other},#{typetest})")
     @Options(useGeneratedKeys=true, keyProperty="STID", keyColumn="STID")
     public void insert(SoftwareTestModel softwareTestModel);
 
@@ -16,7 +16,7 @@ public interface SoftwareTestDao {
     @Select("SELECT STID FROM selabspringe.softwaretest WHERE STID = #{STID}")
     Integer select2(Integer STID);
 
-    @Update("UPDATE selabspringe.softwaretest SET mark=#{mark},systemoverview=#{systemoverview},documentationoverview=#{documentationoverview},baseline=#{baseline},hardware=#{hardware},software=#{software},participatingorganization=#{participatingorganization},personnel=#{personnel},testlevel=#{testlevel},testcatagory=#{testcatagory},generaltestcondition=#{generaltestcondition},plannedexecutiontest=#{plannedexecutiontest},testcase=#{testcase},traceabilityodrequirement=#{traceabilityodrequirement},softtableid=#{softtableid} WHERE STID = #{STID}")
+    @Update("UPDATE selabspringe.softwaretest SET mark=#{mark},systemoverview=#{systemoverview},documentationoverview=#{documentationoverview},baseline=#{baseline},hardware=#{hardware},software=#{software},participatingorganization=#{participatingorganization},personnel=#{personnel},testlevel=#{testlevel},testcatagory=#{testcatagory},generaltestcondition=#{generaltestcondition},plannedexecutiontest=#{plannedexecutiontest},testcase=#{testcase},traceabilityodrequirement=#{traceabilityodrequirement},softtableid=#{softtableid},applicationfile=#{applicationfile},versionnumber=#{versionnumber},softwarename=#{softwarename},other=#{other},typetest=#{typetest} WHERE STID = #{STID}")
     public void update(SoftwareTestModel softwareTestModel);
 
     @Delete("DELETE FROM selabspringe.softwaretest WHERE STID = #{STID}")
