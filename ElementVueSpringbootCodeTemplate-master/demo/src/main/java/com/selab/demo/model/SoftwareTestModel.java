@@ -23,7 +23,14 @@ public class SoftwareTestModel {
     private String traceabilityodrequirement;
     private String softtableid;
 
-    public SoftwareTestModel(Integer STID, String mark, String systemoverview, String documentationoverview, String baseline, String hardware, String software, String other, String participatingorganization, String personnel, String testlevel, String testcatagory, String generaltestcondition, String plannedexecutiontest, String testcase, String traceabilityodrequirement, String softtableid) {
+    private String applicationfile;
+
+    private String versionnumber;
+    private String softwarename;
+
+    private String typetest;
+
+    public SoftwareTestModel(Integer STID, String mark, String systemoverview, String documentationoverview, String baseline, String hardware, String software, String other, String participatingorganization, String personnel, String testlevel, String testcatagory, String generaltestcondition, String plannedexecutiontest, String testcase, String traceabilityodrequirement, String softtableid, String applicationfile, String versionnumber, String softwarename, String typetest) {
         this.STID = STID;
         this.mark = mark;
         this.systemoverview = systemoverview;
@@ -41,6 +48,10 @@ public class SoftwareTestModel {
         this.testcase = testcase;
         this.traceabilityodrequirement = traceabilityodrequirement;
         this.softtableid = softtableid;
+        this.applicationfile = applicationfile;
+        this.versionnumber = versionnumber;
+        this.softwarename = softwarename;
+        this.typetest = typetest;
     }
 
     public Integer getSTID() {
@@ -177,5 +188,37 @@ public class SoftwareTestModel {
 
     public void setSofttableid(String softtableid) {
         this.softtableid = softtableid;
+    }
+
+    public String getApplicationfile() {
+        return applicationfile;
+    }
+
+    public void setApplicationfile(String applicationfile) {
+        this.applicationfile = applicationfile;
+    }
+
+    public String getVersionnumber() {
+        return versionnumber;
+    }
+
+    public void setVersionnumber(String versionnumber) {
+        this.versionnumber = versionnumber;
+    }
+
+    public String getSoftwarename() {
+        return softwarename;
+    }
+
+    public void setSoftwarename(String softwarename) {
+        this.softwarename = softwarename;
+    }
+
+    public String getTypetest() {
+        return typetest;
+    }
+
+    public void setTypetest(String typetest) {
+        this.typetest = typetest;
     }
 }

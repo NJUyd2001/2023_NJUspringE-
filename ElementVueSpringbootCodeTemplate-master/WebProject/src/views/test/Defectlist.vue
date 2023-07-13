@@ -67,18 +67,6 @@
     export default {
         data(){
            return{
-                user:{
-                    name:'风车村',
-                    password:'shazihuang',
-                    telephone:'',
-                    fax:'',
-                    address:'',
-                    postcode:'',
-                    contacts:'',
-                    mobilephone:'',
-                    email:'',
-                    URL:'',
-                },
                 ruleForm:{
                   TableData:[
                     {
