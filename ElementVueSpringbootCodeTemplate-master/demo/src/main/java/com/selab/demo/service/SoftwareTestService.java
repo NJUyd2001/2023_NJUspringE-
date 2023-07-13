@@ -151,7 +151,7 @@ public class SoftwareTestService {
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         String mark = jsonObject.getString("Mark");
@@ -213,10 +213,13 @@ public class SoftwareTestService {
     public String select(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer STID = findSTID(PID);
+        if(softwareTestDao.select2(STID) == null){
+            return new JSONArray().toString();
+        }
         JSONArray res = JSON.parseArray(JSONrepack(JSON.toJSONString(softwareTestDao.select(STID)),jsonObject.getInteger("PID")));
         JSONArray res3 = new JSONArray();
         if(res!=null){
@@ -253,7 +256,7 @@ public class SoftwareTestService {
     public String update (String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         String mark = jsonObject.getString("Mark");
@@ -435,7 +438,7 @@ public class SoftwareTestService {
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
 

@@ -69,8 +69,8 @@
               <el-input placeholder="用例执行者" style="width: 100px;padding-right:10px;" v-model="Table.UsecaseExecutor"></el-input>
               <el-input placeholder="执行测试时间" style="width: 120px;padding-right:10px;margin-top:10px;" v-model="Table.TestingTime"></el-input>
               <el-input placeholder="确认人" style="width: 75px;padding-right:10px;margin-top:10px;" v-model="Table.ConfirmPerson"></el-input>
-              <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
         </el-main>

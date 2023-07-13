@@ -52,7 +52,7 @@ public class SampleCheckService {
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         String views = jsonObject.getString("Views");
@@ -72,14 +72,18 @@ public class SampleCheckService {
 
     public String find(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer PID = jsonObject.getInteger("PID");
+        if(PID == null ||processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
         //System.out.print(JSON.toJSONString( quoteDao.findbyQID(10)));
-        return JSONrepack(JSON.toJSONString(sampleCheckDao.select(findSID(jsonObject.getInteger("PID")))),jsonObject.getInteger("PID"));
+        return JSONrepack(JSON.toJSONString(sampleCheckDao.select(findSID(PID))),jsonObject.getInteger("PID"));
     }
 
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer SID = findSID(PID);
@@ -106,6 +110,9 @@ public class SampleCheckService {
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
+        if(PID == null ||processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
         Integer SID = findSID(PID);
         if(sampleCheckDao.select2(SID) == null){
             return ("the SampleCheck does not exist");
