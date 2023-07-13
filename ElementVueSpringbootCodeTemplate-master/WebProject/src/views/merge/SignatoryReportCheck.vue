@@ -5,9 +5,8 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-          <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
-          <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
-          <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/Test' }">授权签字人主页</el-breadcrumb-item>
+          <el-breadcrumb-item><a href="/report">测试报告查看</a></el-breadcrumb-item>
         </el-breadcrumb>
         </el-col>
         <el-col :span="2">
@@ -15,20 +14,21 @@
         </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8">
+          <el-col :span="2">
             <router-link to="/TestReportCover">
-            <el-button style="margin-top: 15px;" size="middle" type="danger">上一步</el-button>
+            <el-button size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="6"><div class="grid-content bg-purple">
-          <span class="lt1">测试报告</span>
+          <el-col :span="4"><div class="grid-content bg-purple">
+          <span class="lt1">测试报告查看</span>
           </div></el-col>
-          <el-col :span="8">
+          <el-col :span="16">
           <el-steps :space="200" :active="1" finish-status="success">
-          <el-step title="测试报告信息填写"></el-step>
-          <el-step title="测试报告填写"></el-step>
-          <el-step title="测试环境填写"></el-step>
-          <el-step title="测试内容填写"></el-step>
+          <el-step title="测试报告首页查看"></el-step>
+          <el-step title="测试报告查看"></el-step>
+          <el-step title="测试环境查看"></el-step>
+          <el-step title="测试内容查看"></el-step>
+          <el-step title="审核意见填写"></el-step>
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
@@ -37,6 +37,7 @@
           </el-col>
         </el-row>
       </el-header>
+      <br><br><br>
         <el-main>
           <br><br>
           <el-form style="margin-top: 60px; margin-left: 10%;" label-position="middle" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm" >
@@ -281,20 +282,23 @@ created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
+    this.useruid.UID=29;
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
-                console.log(ret.data)
-                this.userpid.PID=ret.data.PID;
-              })
-     Axios.post("http://localhost:1234/reportmain/find",JSON.stringify(this.userpid),{
+                console.log(ret.data[0].pid);
+                this.userpid.PID=ret.data[0].pid;
+                
+                Axios.post("http://localhost:1234/reportmain/find",JSON.stringify(this.userpid),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
                 console.log(ret.data)
-                this.ruleForm=ret.data;
+                this.ruleForm=ret.data[0];
               })
+              })
+    
   },
   methods:{
     submitForm(formName) {
