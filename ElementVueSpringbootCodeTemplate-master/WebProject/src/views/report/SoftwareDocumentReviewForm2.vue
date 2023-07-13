@@ -38,29 +38,42 @@
         <br><br>
         <el-main>
           <el-form label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item style="margin-top: 80px; margin-right: 220px;" label="软件名称:" prop="SoftWareName"> 
-                <el-input style="width:200px; padding:10px;" v-model="ruleForm.SoftWareName"></el-input>
-            <el-form-item style="margin-top: -60px; margin-right: 120px;" label="版本号:" prop="VersionNumber"> 
-                <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
+            <el-row>
+              <el-col :span="12">
+            <el-form-item label="软件名称:" prop="SoftWareName"> 
+                <el-input style="width:200px;" v-model="ruleForm.SoftWareName"></el-input>
             </el-form-item>
-            </el-form-item> 
-            <el-form-item style="margin-top: -15px; margin-right: 220px;" label="委托单位:" prop="Client"> 
-                <el-input style="width:200px; padding:10px;" v-model="ruleForm.Client"></el-input>
+          </el-col>
+            <el-col :span="12">
+                <el-form-item  label="版本号:" prop="VersionNumber"> 
+                    <el-input style="width:200px;" v-model="ruleForm.VersionNumber"></el-input>
+                </el-form-item>
+          </el-col>
+          </el-row>
+          <el-row>
+            <el-form-item  label="委托单位:" prop="Client"> 
+                <el-input style="width:200px; " v-model="ruleForm.Client"></el-input>
             </el-form-item>
-          <el-form-item style="margin-top: -15px; margin-left: -150px;" label="评审人:" prop="Reviewer"> 
-            <el-input style="width:200px; padding:10px;" v-model="ruleForm.Reviewer"></el-input>
-            <el-form-item style="margin-top: -50px;"  label-width="330px" label="评审完成时间:" prop="ReviewCompleteDate"> 
-                <div class="block" style="margin-top: 0px; margin-left: 0px;">
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+          <el-form-item  label="评审人:" prop="Reviewer"> 
+            <el-input style="width:200px;" v-model="ruleForm.Reviewer"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+            <el-form-item    label="评审完成时间:" prop="ReviewCompleteDate"> 
                     <el-date-picker
-                    v-model="ruleForm.Value1"
+                    v-model="ruleForm.ReviewCompleteDate"
                     type="date"
                     placeholder="Pick a day"
                     picker-options="pickerOptions">
                     </el-date-picker>
-                </div>
             </el-form-item>
-          </el-form-item>
-          <el-table :data="ruleForm.tableData" :span-method="objectSpanMethod" style="width: 50%; margin-left: 25%;">
+          </el-col>
+          </el-row>
+          <el-form-item label-width="300px">
+            <el-table :data="ruleForm.tableData" :span-method="objectSpanMethod">
             <el-table-column fixed prop="ReviewCategories" label="评审类别" width="60"></el-table-column>
             <el-table-column prop="Reviewitem" label="评审项" width="100"></el-table-column>
             <el-table-column prop="ReviewContent" label="评审内容" width="140"></el-table-column>
@@ -78,6 +91,7 @@
               </template>
             </el-table-column>
           </el-table>
+        </el-form-item>
           <el-form-item style="margin-left: 5%; margin-top: 20px; font-weight: bold;" label="检查人：" prop="Examiner"> 
             <el-input style="width:200px; padding:10px;" v-model="ruleForm.Examiner"></el-input>
           </el-form-item>
