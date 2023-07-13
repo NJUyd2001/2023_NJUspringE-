@@ -1,4 +1,3 @@
-<!-- 文炫添加 -->
 <template>
 <div class="Person">
 <el-container style="height:880px;">

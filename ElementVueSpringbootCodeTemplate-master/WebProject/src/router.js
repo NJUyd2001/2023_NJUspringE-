@@ -69,6 +69,7 @@ import SoftwareDocumentReviewForm2 from './views/report/SoftwareDocumentReviewFo
 import TestReportCover from './views/report/TestReportCover'
 import TDTestReportCoverCheck from './views/merge/TDTestReportCoverCheck'
 import STestReportCoverCheck from './views/merge/STestReportCoverCheck'
+import QualityAuditTSRF from './views/merge/QualityAuditTSRF'
 import CTestReportCoverCheck from './views/client/CTestReportCoverCheck'
 import STestEnvironmentCheck from './views/merge/STestEnvironmentCheck'
 import TDTestEnvironmentCheck from './views/merge/TDTestEnvironmentCheck'
@@ -123,6 +124,10 @@ export default new VueRouter({
         {
             path: '/quality',     // 路径
             component: Quality    // 跳转到的组件
+        },
+        {
+            path: '/QualityAuditTSRF',     // 路径
+            component: QualityAuditTSRF    // 跳转到的组件
         },
         {
             path: '/TestDirector',     // 路径
