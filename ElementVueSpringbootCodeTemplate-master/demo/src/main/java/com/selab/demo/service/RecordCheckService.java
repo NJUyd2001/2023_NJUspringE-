@@ -91,7 +91,7 @@ public class RecordCheckService {
     public String select(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer CHID = findCHID(PID);
@@ -126,7 +126,7 @@ public class RecordCheckService {
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer CHID = findCHID(PID);
@@ -227,7 +227,7 @@ public class RecordCheckService {
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer CHID = findCHID(PID);

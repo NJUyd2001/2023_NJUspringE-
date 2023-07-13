@@ -69,7 +69,7 @@ public class ReportMainService {
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         String client = jsonObject.getString("Client");
@@ -106,14 +106,18 @@ public class ReportMainService {
 
     public String find(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer PID = jsonObject.getInteger("PID");
+        if(PID == null ||processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
         //System.out.print(JSON.toJSONString( quoteDao.findbyQID(10)));
-        return JSONrepack(JSON.toJSONString(reportMainDao.select(findRID(jsonObject.getInteger("PID")))),jsonObject.getInteger("PID"));
+        return JSONrepack(JSON.toJSONString(reportMainDao.select(findRID(PID))),jsonObject.getInteger("PID"));
     }
 
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer RID = findRID(PID);
@@ -208,6 +212,9 @@ public class ReportMainService {
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
+        if(PID == null ||processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
         Integer RID = findRID(PID);
         if(reportMainDao.select2(RID) == null){
             return ("the ReportMain does not exist");

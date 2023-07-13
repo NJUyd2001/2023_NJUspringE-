@@ -55,7 +55,7 @@ public class TestCaseService {
     public String insert(String postJson) {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if (processDao.findByPID(PID) == null) {
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         JSONArray table1 = jsonObject.getJSONArray("TableData");
@@ -94,7 +94,7 @@ public class TestCaseService {
     public String select(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer TCID = findTCID(PID);
@@ -125,7 +125,7 @@ public class TestCaseService {
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer TCID = findTCID(PID);
@@ -198,8 +198,8 @@ public class TestCaseService {
                                 if(testtime == null){
                                     testtime = oldtest.getString("testtime");
                                 }
-                                TestCaseTableModel testFuncModel = new TestCaseTableModel(tableid,testclassificaion,num,testcasedesign,stockdescription,expectedresult,designer,testtime);
-                                testCaseTableDao.update(testFuncModel);
+                                testCaseTableModel = new TestCaseTableModel(tableid,testclassificaion,num,testcasedesign,stockdescription,expectedresult,designer,testtime);
+                                testCaseTableDao.update(testCaseTableModel);
                             } else {
                                 testCaseTableDao.delete(tableid);
                                 idarray1.remove(tableid.toString());
@@ -221,7 +221,7 @@ public class TestCaseService {
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer TCID = findTCID(PID);
