@@ -114,9 +114,9 @@
             </el-form-item>
             <el-table :data="ruleForm.tableData"  style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="Duty" label="职责" width="110"></el-table-column>
-            <el-table-column prop="EvalutionOpinion" label="评审意见" width="400">
+            <el-table-column prop="EvaluationOpinion" label="评审意见" width="400">
               <template slot-scope="scope">
-                <el-input :type="input_type" ref="enterInput" v-model="scope.row.EvalutionOpinion" :rows="2"  placeholder="评审意见"/>
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.EvaluationOpinion" :rows="2"  placeholder="评审意见"/>
               </template>
             </el-table-column>
             <el-table-column prop="Sign" label="签字" width="100">
@@ -161,27 +161,27 @@ import Axios from 'axios';
                 HumanResourcesArrangement:'',
                 tableData: [{
                   Duty: '测试工程师',
-                  EvalutionOpinion: '',
+                  EvaluationOpinion: '',
                   Sign: '',
                   Date: '',
                   }, {
                   Duty: '测试室负责人',
-                  EvalutionOpinion: '',
+                  EvaluationOpinion: '',
                   Sign: '',
                   Date: '',
                   }, {
                   Duty: '质量负责人',
-                  EvalutionOpinion: '',
+                  EvaluationOpinion: '',
                   Sign: '',
                   Date: '',
                   }, {
                   Duty: '技术负责人',
-                  EvalutionOpinion: '',
+                  EvaluationOpinion: '',
                   Sign: '',
                   Date: '',
                   }, {
                   Duty: '监督人',
-                  EvalutionOpinion: '',
+                  EvaluationOpinion: '',
                   Sign: '',
                   Date: '',
                   }],

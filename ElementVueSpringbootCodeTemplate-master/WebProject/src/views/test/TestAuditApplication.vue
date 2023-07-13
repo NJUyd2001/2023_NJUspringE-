@@ -209,24 +209,24 @@
             FID:"",
           },
           fileatt1:{
-            PID:"",
-            state:"",
-            fileType:"",
+            PID:this.$store.state.user.process.PID,
+            state:"10",
+            fileType:"demand",
           },
           fileatt2:{
-            PID:"",
-            state:"",
-            fileType:"",
+            PID:this.$store.state.user.process.PID,
+            state:"10",
+            fileType:"user",
           },
           fileatt3:{
-            PID:"",
-            state:"",
-            fileType:"",
+            PID:this.$store.state.user.process.PID,
+            state:"10",
+            fileType:"operation",
           },
           fileatt4:{
-            PID:"",
-            state:"",
-            fileType:"",
+            PID:this.$store.state.user.process.PID,
+            state:"10",
+            fileType:"sign",
           },
           tempForm:{},
           ruleForm:{
@@ -355,9 +355,10 @@
         headers:{
           'content-type': 'text/plain'}
         }).then(ret=>{
-          console.log(ret.data);
+          console.log(ret.data)
           this.Fileid2.FID=ret.data;
         })
+        console.log(this.Fileid2)
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid2),{
           headers:{
           'content-type': 'text/plain'},

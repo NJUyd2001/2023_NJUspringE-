@@ -77,14 +77,14 @@ export default {
               FID:"",
             },
             fileatt1:{
-              PID:'20',
+              PID:this.$store.state.user.process.PID,
               state:"40",
               fileType:"sample"
             },
             fileatt2:{
-              PID:'20',
+              PID:this.$store.state.user.process.PID,
               state:"40",
-              fileType:"sample"
+              fileType:"samenv"
             },
             filename:"",
             StepNumber:2,
