@@ -1,7 +1,5 @@
 package com.selab.demo.model;
 
-import java.lang.reflect.Array;
-
 /**
  * @author 刘轩昂
  * @time 2023/7/12
@@ -12,6 +10,16 @@ public class TestReviewModel {
     // 签字信息
     public static class SignClass {
         private String duty;
+
+        public SignClass(String duty, String evaluationOpinion, String sign, String date) {
+            this.duty = duty;
+            this.evaluationOpinion = evaluationOpinion;
+            this.sign = sign;
+            this.date = date;
+        }
+
+        public SignClass() {
+        }
 
         @Override
         public String toString() {
@@ -61,9 +69,28 @@ public class TestReviewModel {
         private String date;
 
     }
-    private String SoftWareName;
-    private String versionNumber;
+    private String SoftwareName;
+    private String VersionNumber;
     private String ProjectNum;
+    private Integer PID;
+
+    public Integer getPID() {
+        return PID;
+    }
+
+    public void setPID(Integer PID) {
+        this.PID = PID;
+    }
+
+    public Integer getTRID() {
+        return TRID;
+    }
+
+    public void setTRID(Integer TRID) {
+        this.TRID = TRID;
+    }
+
+    private Integer TRID;
     private String TestCategory;
     private String WritingNormality;
     private String TestEnvironment;
@@ -139,14 +166,16 @@ public class TestReviewModel {
 //    public SignClass jsonToClass(String json){
 //
 //    }
-    public TestReviewModel() {}
+    public TestReviewModel() {
+        this.tableData = new SignClass[5];
+    }
 
     public String getVersionNumber() {
-        return versionNumber;
+        return VersionNumber;
     }
 
     public void setVersionNumber(String versionNumber) {
-        this.versionNumber = versionNumber;
+        this.VersionNumber = versionNumber;
     }
 
     public String getProjectNum() {
@@ -237,11 +266,11 @@ public class TestReviewModel {
         this.tableData = tableData;
     }
 
-    public String getSoftWareName() {
-        return SoftWareName;
+    public String getSoftwareName() {
+        return SoftwareName;
     }
 
-    public void setSoftWareName(String softWareName) {
-        SoftWareName = softWareName;
+    public void setSoftwareName(String softwareName) {
+        SoftwareName = softwareName;
     }
 }
