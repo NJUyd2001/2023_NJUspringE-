@@ -42,57 +42,81 @@
         <br><br>
         <el-main>
           <el-form style="padding-top:30px; margin-top: 40px;" label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData1" :prop="'TableData1.' + index + '.name'"  :label='"功能性测试"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData1" :prop="'TableData1.' + index + '.name'" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"功能性测试"+index+":"' :key="index" >
               <el-input placeholder="功能模块" style="width: 100px;padding-right:20px;" v-model="Table.FunctionModule"></el-input>
               <el-input placeholder="功能要求" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.FunctionRequirement"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
-              <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
           <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData2.' + index + '.name'" :label='"效率测试"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData2.' + index + '.name'" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"效率测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
-              <el-button @click="removefatherItem1(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem1(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem1()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
           <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData3" :prop="'TableData3.' + index + '.name'" :label='"可移植性测试"+index+":"' :key="index" >
-              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic1"></el-input>
+            <el-form-item v-for="(Table,index) in ruleForm.TableData3" :prop="'TableData3.' + index + '.name'" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"可移植性测试"+index+":"' :key="index" >
+              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
-              <el-button @click="removefatherItem2(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem2()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem2(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem2()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
           <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData4" :prop="'TableData4.' + index + '.name'" :label='"易用性测试"+index+":"' :key="index" >
-              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic2"></el-input>
+            <el-form-item v-for="(Table,index) in ruleForm.TableData4" :prop="'TableData4.' + index + '.name'" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"易用性测试"+index+":"' :key="index" >
+              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
-              <el-button @click="removefatherItem3(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem3()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem3(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem3()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
           <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData5" :prop="'TableData5.' + index + '.name'" :label='"可靠性测试"+index+":"' :key="index" >
-              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic3"></el-input>
+            <el-form-item v-for="(Table,index) in ruleForm.TableData5" :prop="'TableData5.' + index + '.name'" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"可靠性测试"+index+":"' :key="index" >
+              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
-              <el-button @click="removefatherItem4(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem4()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem4(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem4()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
           <el-form label-width="500px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item v-for="(Table,index) in ruleForm.TableData6" :prop="'TableData6.' + index + '.name'"  :label='"可维护性测试"+index+":"' :key="index" >
-              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic4"></el-input>
+            <el-form-item v-for="(Table,index) in ruleForm.TableData6" :prop="'TableData6.' + index + '.name'" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"可维护性测试"+index+":"' :key="index" >
+              <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
               <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
-              <el-button @click="removefatherItem5(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem5()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem5(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem5()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
         </el-main>
