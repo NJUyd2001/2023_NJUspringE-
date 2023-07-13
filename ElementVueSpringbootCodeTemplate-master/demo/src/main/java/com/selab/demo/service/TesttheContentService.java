@@ -331,7 +331,7 @@ public class TesttheContentService {
                             i2++;
                         }
                         if(check == 0) {
-                            idarray1.add(testid);
+                            failedid1.add(testid);
                         }
                         else {
                             if (delete == null || !delete.equals("T")) {
