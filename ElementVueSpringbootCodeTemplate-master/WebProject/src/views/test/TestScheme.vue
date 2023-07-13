@@ -32,19 +32,6 @@
           <el-col :span="2">
           <el-button style="margin-left: 40px;" @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
           </el-col>
-          <el-col :span="8"><div class="grid-content bg-purple">
-            <span class="logo-title">软件测试方案</span>
-            </div></el-col>
-            <el-col :span="10">
-              <el-steps :space="200" :active="0" finish-status="success">
-                <el-step title="软件测试方案填写"></el-step>
-                <el-step title="方案评审表填写"></el-step>
-                <el-step title="完成"></el-step>
-              </el-steps>
-            </el-col>
-            <el-col :span="2">
-            <el-button style="margin-left: 40px;" @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
-            </el-col>
         </el-row>
       </el-header>
         <br><br><br>

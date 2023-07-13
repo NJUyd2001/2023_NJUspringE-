@@ -449,6 +449,7 @@ public class ApplicationService {
     public String checkbyprocess(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer username = jsonObject.getInteger("PID");
+        username = jsonObject.getInteger("processID");
         return JSONrepack(JSON.toJSONString(applicationDao.findbyprocess(username)));
     }
     public String checkbyAID(String postJson){
