@@ -11,6 +11,7 @@ import Contr from './table/Contr';
 import RecSam from './table/RecSam';
 import TestSch from './table/TestSch';
 import TReport from './table/TReport';
+import TDocu from './table/TDocu';
 import TestList from './table/TestList';
 import MyApp from './table/MyApp';
 import ProgressQuery from './table/ProgressQuery';
@@ -48,6 +49,7 @@ function registerComponents(){
     Vue.component('ConfigTableQ', ConfigTableQ);
     Vue.component('CTMENT', CTMENT);
     Vue.component('TReport', TReport);
+    Vue.component('TDocu', TDocu);
     Vue.component('Contr', Contr);
     Vue.component('RecSam', RecSam);
     Vue.component('GQuote', GQuote);

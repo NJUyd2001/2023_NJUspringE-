@@ -79,8 +79,8 @@ export default {
       ruleForm:{
         processID:"",
       },
-      State60:{
-        state:'60',
+      State51:{
+        state:'51',
       },
       sort: {},
       passwordDlg:{
@@ -93,7 +93,7 @@ export default {
     };
   },
 created(){
-    Axios.post("http://localhost:9090/api/process/byState/selectPID",JSON.stringify(this.State60),{
+    Axios.post("http://localhost:9090/api/process/byState/selectPID",JSON.stringify(this.State51),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
@@ -127,7 +127,7 @@ created(){
         this.$store.state.user.process.AID=row.AID
         this.$store.state.user.process.PID=row.PID
         console.log(row.PID);
-        this.$router.push({path: "./TestReportCover", replace:true})
+        this.$router.push({path: "./testdocument1", replace:true})
     },
     handleClick(row) {
      
