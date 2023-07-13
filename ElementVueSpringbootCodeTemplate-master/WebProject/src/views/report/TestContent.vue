@@ -62,7 +62,7 @@
           }" :label='"效率测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic"></el-input>
               <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult1"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
               <el-button @click="removefatherItem1(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -74,8 +74,8 @@
             trigger: 'blur',
           }" :label='"可移植性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic1"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification1"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult2"></el-input>
+              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
               <el-button @click="removefatherItem2(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem2()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -87,8 +87,8 @@
             trigger: 'blur',
           }" :label='"易用性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic2"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification2"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult3"></el-input>
+              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
               <el-button @click="removefatherItem3(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem3()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -100,8 +100,8 @@
             trigger: 'blur',
           }" :label='"可靠性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic3"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification3"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult4"></el-input>
+              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
               <el-button @click="removefatherItem4(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem4()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -113,8 +113,8 @@
             trigger: 'blur',
           }" :label='"可维护性测试"+index+":"' :key="index" >
               <el-input placeholder="测试特性" style="width: 100px;padding-right:20px;" v-model="Table.TestCharacteristic4"></el-input>
-              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification4"></el-input>
-              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult5"></el-input>
+              <el-input placeholder="测试说明" style="width: 300px;padding-right:20px;" type="textarea" v-model="Table.TestSpecification"></el-input>
+              <el-input placeholder="测试结果" style="width: 100px;padding-right:20px;" v-model="Table.TestResult"></el-input>
               <el-button @click="removefatherItem5(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem5()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
@@ -197,6 +197,20 @@
                 },
         }
     }, 
+    created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    this.useruid.UID=17;
+    // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+    //             headers:{
+    //               'content-type': 'text/plain'}
+    //           }).then(ret=>{
+    //             console.log(ret.data)
+    //             this.userpid.PID=ret.data.PID;
+    //           })
+    this.userpid.PID=20;
+  },
     mounted(){
         window.addEventListener('beforeunload', this.handleBeforeUnload);
         window.addEventListener('unload', this.handleUnload);
@@ -301,16 +315,15 @@
             )
         },
         submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
+          this.$refs[formName].validate((valid) => {
             if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
+              console.log(this.ruleForm);
+              this.$message.success("提交成功！");
             } else {
               return false;
             }
-          });*/
-          console.log(this.ruleForm);
-          this.$message.success("提交成功！");
+          });
+          
           //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         }
       },
