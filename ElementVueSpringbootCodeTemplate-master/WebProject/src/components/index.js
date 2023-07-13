@@ -14,7 +14,7 @@ import TestList from './table/TestList';
 import MyApp from './table/MyApp';
 import ProgressQuery from './table/ProgressQuery';
 import CheckContr from './table/CheckContr';
-
+import CheckTS from './table/CheckTS';
 
 import LoginDialog from './LoginDialog';
 import ConfigTableSimple from './table/ConfigTableSimple';
@@ -53,6 +53,7 @@ function registerComponents(){
     Vue.component('CContract', CContract);
     Vue.component('TestList', TestList);
     Vue.component('MyApp', MyApp);
+    Vue.component('CheckTS', CheckTS);
     Vue.component('ProgressQuery', ProgressQuery);
     Vue.component('CheckContr', CheckContr);
 

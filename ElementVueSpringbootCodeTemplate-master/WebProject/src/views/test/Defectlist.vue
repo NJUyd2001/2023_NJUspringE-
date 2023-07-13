@@ -67,18 +67,6 @@
     export default {
         data(){
            return{
-                user:{
-                    name:'风车村',
-                    password:'shazihuang',
-                    telephone:'',
-                    fax:'',
-                    address:'',
-                    postcode:'',
-                    contacts:'',
-                    mobilephone:'',
-                    email:'',
-                    URL:'',
-                },
                 ruleForm:{
                   TableData:[
                     {
@@ -131,9 +119,15 @@
         addfatherItem(){
           this.ruleForm.TableData.push({
             id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-            name:'',
-            function:'',
-            children:[],
+            Num:'',
+            DefectDescription:'',
+            RequirementItems:'',
+            DefectdetectionInitialcondition:'',
+            DefectdetectionSpecificpath:'',
+            Usecase:'',
+            DiscoveryTime:'',
+            PersonResponsible:'',
+            Suggestion:'',
           })
         },
         removefatherItem(Table){

@@ -32,7 +32,7 @@ author：李晨博
 ```
 输出示例：
 ```
-[{"RTID":1,"oftwareName":"''","VersionNumber":"''","Client":"''","TypeTest":"''","Date":"''"}]
+[{"PID":"1","RTID":1,"oftwareName":"''","VersionNumber":"''","Client":"''","TypeTest":"''","Date":"''"}]
 ```
 
 ## /reporttitle/update

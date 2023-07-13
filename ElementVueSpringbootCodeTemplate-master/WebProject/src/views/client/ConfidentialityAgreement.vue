@@ -184,9 +184,9 @@ created(){
             console.log(error);
             
           });
-          stepNumber+=2;
+          this.stepNumber+=2;
           this.info("提交成功，正在返回用户界面！");
-          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "../client", replace:true});}, 2000);
         }
       },
     

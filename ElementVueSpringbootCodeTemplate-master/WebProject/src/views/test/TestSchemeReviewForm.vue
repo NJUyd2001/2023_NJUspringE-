@@ -137,10 +137,15 @@
     </template>
 
     <script>
+import Axios from 'axios';
     export default {
         data(){
            return{
              input_type:'text',
+             TSRF:{
+              PID:this.$store.state.user.process.PID,
+              state:"50",
+            },
              ruleForm:{
                 SoftWareName:'',
                 VersionNumber:'',
@@ -194,6 +199,9 @@
                   TestCategory:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
+                  OverallDesign:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
                   WritingNormality:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
@@ -245,9 +253,15 @@
               return false;
             }
           });*/
+          
+          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TSRF),{
+            headers:{
+              'content-type': 'text/plain'}
+            }).then(ret=>{
+          })
           console.log(this.ruleForm);
           this.$message.success("提交成功,！");
-          //setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
         }
     }
     }

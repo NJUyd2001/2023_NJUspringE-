@@ -110,11 +110,15 @@ public class SoftwareTestService {
             result.put("Personnel", jsonObject.getString("personnel"));
             result.put("TestLevel", jsonObject.getString("testlevel"));
             result.put("TestCategory", jsonObject.getString("testcatagory"));
-            result.put("GeneralTestCondtion", jsonObject.getString("generaltestcondition"));
+            result.put("GeneralTestCondition", jsonObject.getString("generaltestcondition"));
             result.put("PlannedExecutionTest", jsonObject.getString("plannedexecutiontest"));
             result.put("TestCase", jsonObject.getString("testcase"));
             result.put("TraceabilityOfRequirement", jsonObject.getString("traceabilityodrequirement"));
             result.put("softtableid",jsonObject.getString("softtableid"));
+            result.put("ApplicationFile",jsonObject.getString("applicationfile"));
+            result.put("VersionNumber",jsonObject.getString("versionnumber"));
+            result.put("SoftWareName",jsonObject.getString("softwarename"));
+            result.put("TypeTest",jsonObject.getString("typetest"));
             result2.add(result);
             ++i;
         }
@@ -161,12 +165,17 @@ public class SoftwareTestService {
         String personnel = jsonObject.getString("Personnel");
         String testlevel = jsonObject.getString("TestLevel");
         String testcatagory = jsonObject.getString("TestCategory");
-        String generaltestcondition = jsonObject.getString("GeneralTestCondtion");
+        String generaltestcondition = jsonObject.getString("GeneralTestCondition");
         String plannedexecutiontest = jsonObject.getString("PlannedExecutionTest");
         String testcase = jsonObject.getString("TestCase");
         String traceabilityodrequirement = jsonObject.getString("TraceabilityOfRequirement");
-
+        String applicationfile = jsonObject.getString("ApplicationFile");
+        String versionnumber = jsonObject.getString("VersionNumber");
+        String softwarename = jsonObject.getString("SoftWareName");
+        String typetest = jsonObject.getString("TypeTest");
         JSONArray tabledata = jsonObject.getJSONArray("tableData");
+
+
         JSONArray stableid = new JSONArray();
         String softtableid = new String();
         if(tabledata!=null){
@@ -189,7 +198,7 @@ public class SoftwareTestService {
             }
         }
         softtableid = ArraytoString(softtableid,stableid);
-        SoftwareTestModel softwareTestModel = new SoftwareTestModel(0,mark,software,documentationoverview,baseline,hardware,software,other,participatingorganization,personnel,testlevel,testcatagory,generaltestcondition,plannedexecutiontest,testcase,traceabilityodrequirement,softtableid);
+        SoftwareTestModel softwareTestModel = new SoftwareTestModel(0,mark,systemoverview,documentationoverview,baseline,hardware,software,other,participatingorganization,personnel,testlevel,testcatagory,generaltestcondition,plannedexecutiontest,testcase,traceabilityodrequirement,softtableid,applicationfile,versionnumber,softwarename,typetest);
         softwareTestDao.insert(softwareTestModel);
 
         JSONObject res = new JSONObject();
@@ -258,10 +267,14 @@ public class SoftwareTestService {
         String personnel = jsonObject.getString("Personnel");
         String testlevel = jsonObject.getString("TestLevel");
         String testcatagory = jsonObject.getString("TestCategory");
-        String generaltestcondition = jsonObject.getString("GeneralTestCondtion");
+        String generaltestcondition = jsonObject.getString("GeneralTestCondition");
         String plannedexecutiontest = jsonObject.getString("PlannedExecutionTest");
         String testcase = jsonObject.getString("TestCase");
         String traceabilityodrequirement = jsonObject.getString("TraceabilityOfRequirement");
+        String applicationfile = jsonObject.getString("ApplicationFile");
+        String versionnumber = jsonObject.getString("VersionNumber");
+        String softwarename = jsonObject.getString("SoftWareName");
+        String typetest = jsonObject.getString("TypeTest");
 
         Integer STID = findSTID(PID);
         if(softwareTestDao.select2(STID)==null){
@@ -292,7 +305,7 @@ public class SoftwareTestService {
                     softtable.add(stableModel.getStableid().toString());
                 }
                 else{
-                    if(stableDao.select2(stableid) == null){
+                    if(stableDao.select2(stableid) == null||softtable==null||softtable==new JSONArray()){
                         failedid.add(stableid.toString());
                     }
                     else{
@@ -304,7 +317,7 @@ public class SoftwareTestService {
                             while(i2<r2){
 
                                 String id  = softtable.getString(i2);
-                                System.out.print(Integer.parseInt(id) +"!="+stableid+'\n');
+                                //System.out.print(Integer.parseInt(id) +"!="+stableid+'\n');
                                 if(Integer.parseInt(id) == stableid){
                                     check = 1;
                                     break;
@@ -391,9 +404,21 @@ public class SoftwareTestService {
         if(traceabilityodrequirement == null){
             traceabilityodrequirement = res.getString("traceabilityodrequirement");
         }
+        if(applicationfile == null){
+            applicationfile = res.getString("applicationfile");
+        }
+        if(versionnumber == null){
+            versionnumber = res.getString("versionnumber");
+        }
+        if(softwarename == null){
+            softwarename = res.getString("softwarename");
+        }
+        if(typetest == null){
+            typetest = res.getString("typetest");
+        }
         softtableid = new String();
         softtableid = ArraytoString(softtableid,softtable);
-        SoftwareTestModel softwareTestModel = new SoftwareTestModel(STID,mark,software,documentationoverview,baseline,hardware,software,other,participatingorganization,personnel,testlevel,testcatagory,generaltestcondition,plannedexecutiontest,testcase,traceabilityodrequirement,softtableid);
+        SoftwareTestModel softwareTestModel = new SoftwareTestModel(STID,mark,systemoverview,documentationoverview,baseline,hardware,software,other,participatingorganization,personnel,testlevel,testcatagory,generaltestcondition,plannedexecutiontest,testcase,traceabilityodrequirement,softtableid,applicationfile,versionnumber,softwarename,typetest);
         softwareTestDao.update(softwareTestModel);
         String failid = new String();
         failid = ArraytoString(failid,failedid);

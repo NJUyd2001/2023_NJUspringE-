@@ -108,9 +108,13 @@
         addfatherItem(){
           this.ruleForm.TableData.push({
             id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
-            name:'',
-            function:'',
-            children:[],
+            TestClassification:'',
+            Num:'',
+            TestCaseDesign:'',
+            StockDescription:'',
+            ExpectedResult:'',
+            Designer:'',
+            TestTime:'',
           })
         },
         removefatherItem(Table){

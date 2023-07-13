@@ -48,7 +48,7 @@ public class ReportMainService {
             result.put("Version", jsonObject.getString("version"));
             result.put("SampleDate", jsonObject.getString("sampledate"));
             result.put("TypeTest", jsonObject.getString("typetest"));
-            result.put("TestTime", jsonObject.getString("testtime"));
+            result.put("TestTime", jsonObject.getJSONArray("testtime"));
             result.put("DevelopmentCompany", jsonObject.getString("developmentcompany"));
             result.put("SampleStatus", jsonObject.getString("samplestatus"));
             result.put("NeededStandard", jsonObject.getString("neededstandard"));

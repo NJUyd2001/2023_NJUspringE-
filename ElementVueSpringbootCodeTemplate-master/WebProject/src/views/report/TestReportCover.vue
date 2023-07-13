@@ -36,7 +36,7 @@
           </el-col>
         </el-row>
       </el-header>
-        <br><br>
+        <br><br><br>
         <el-main>
           <br>
           <el-form style="margin-top: 50px;" :model="ruleForm" :rules="rules" ref="ruleForm">
@@ -143,17 +143,27 @@
           //alert(JSON.stringify(this.ruleForm));
         },
         submitForm(formName) {
-      console.log(this.ruleForm);
-      Axios.post("http://localhost:1234/reporttitle/insert",JSON.stringify(this.ruleForm),{
+          console.log(this.ruleForm);
+          this.$refs[formName].validate((valid) => {
+        if (valid) {
+          Axios.post("http://localhost:1234/reporttitle/insert",JSON.stringify(this.ruleForm),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
         console.log(ret.data);
+          this.$message.success("提交成功！");
+          setTimeout(() => {this.$router.push({path: "./report", replace:true});}, 2000);
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);
       });
-          },
+        }
+        else{
+          return false;
+        }
+      })
+
+    },
       },
     
     }

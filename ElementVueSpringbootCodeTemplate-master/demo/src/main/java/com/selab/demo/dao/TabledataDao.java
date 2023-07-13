@@ -15,9 +15,9 @@ public interface TabledataDao {
     List<TabledataModel> findbyTID(int TID);
 
     @Select("SELECT TID FROM selabspringe.tabledata WHERE TID = #{TID}")
-    int findbyTID2(int TID);
+    Integer findbyTID2(int TID);
 
-    @Update("UPDATE selabspringe.tabledata SET id = #{id}, name = #{name}, functions =#{functions}")
+    @Update("UPDATE selabspringe.tabledata SET id = #{id}, name = #{name}, functions =#{functions} WHERE TID = #{TID}")
     void update(TabledataModel tabledataModel);
 
     @Delete("DELETE FROM selabspringe.tabledata WHERE TID = #{TID}")
