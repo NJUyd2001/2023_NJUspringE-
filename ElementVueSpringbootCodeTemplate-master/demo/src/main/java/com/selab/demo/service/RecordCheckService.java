@@ -3,8 +3,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
 import com.selab.demo.model.*;
-import com.selab.demo.dao.TestRecordTableDao;
-import com.selab.demo.dao.TestRecordDao;
+import com.selab.demo.dao.ReportCheckTableDao;
+import com.selab.demo.dao.ReportCheckDao;
 import com.selab.demo.dao.ProcessDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,19 +12,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 
-public class TestRecordService {
+public class RecordCheckService {
     @Autowired
-    TestRecordDao testRecordDao;
+    ReportCheckDao reportCheckDao;
     @Autowired
-    TestRecordTableDao testRecordTableDao;
+    ReportCheckTableDao reportCheckTableDao;
     @Autowired
     ProcessDao processDao;
-    public Integer findTRID(Integer PID){
+    public Integer findCHID(Integer PID){
         ProcessModel processModel = processDao.findByPID(PID);
         if(processModel == null){
             return null;
         }
-        return processModel.getTRID();
+        return processModel.getCHID();
     }
 
     public String JSONrepack1(String postJson){
@@ -71,18 +71,18 @@ public class TestRecordService {
                 String checkcontent = jsonObject1.getString("checkcontent");
                 String description = jsonObject1.getString("description");
                 String radio = jsonObject1.getString("radio");
-                TestRecordTableModel testRecordTableModel = new TestRecordTableModel(0, num,checkcontent,description,radio);
-                testRecordTableDao.insert(testRecordTableModel);
-                tableid.add(testRecordTableModel.getTableid().toString());
+                ReportCheckTableModel reportCheckTableModel = new ReportCheckTableModel(0, num,checkcontent,description,radio);
+                reportCheckTableDao.insert(reportCheckTableModel);
+                tableid.add(reportCheckTableModel.getTableid().toString());
                 ++i;
             }
         }
-        TestRecordModel testRecordModel = new TestRecordModel(0,softwarename,client,softwarename,date,tableid.toJSONString());
-        testRecordDao.insert(testRecordModel);
-        Integer TRID = testRecordModel.getTRID();
-        processDao.setTRID(PID,TRID);
+        ReportCheckModel reportCheckModel = new ReportCheckModel(0,softwarename,client,softwarename,date,tableid.toJSONString());
+        reportCheckDao.insert(reportCheckModel);
+        Integer CHID = reportCheckModel.getCHID();
+        processDao.setCHID(PID,CHID);
         JSONObject res = new JSONObject();
-        res.put("TRID",TRID);
+        res.put("CHID",CHID);
         res.put("PID",PID);
         res.put("tableid",tableid);
         return res.toJSONString();
@@ -94,11 +94,11 @@ public class TestRecordService {
         if(processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
-        Integer TRID = findTRID(PID);
-        if(testRecordDao.select2(TRID) == null){
+        Integer CHID = findCHID(PID);
+        if(reportCheckDao.select2(CHID) == null){
             return new JSONArray().toString();
         }
-        JSONObject table = JSON.parseArray(JSON.toJSONString(testRecordDao.select(TRID))).getJSONObject(0);
+        JSONObject table = JSON.parseArray(JSON.toJSONString(reportCheckDao.select(CHID))).getJSONObject(0);
         JSONArray tableid = table.getJSONArray("tableid");
         JSONArray tabledata = new JSONArray();
         if(tableid != null){
@@ -106,13 +106,13 @@ public class TestRecordService {
             Integer i = 0;
             while(i<r){
                 Integer tableid_ = tableid.getInteger(i);
-                tabledata.add(JSON.parseArray(JSONrepack1(JSON.toJSONString(testRecordTableDao.select(tableid_)))).get(0));
+                tabledata.add(JSON.parseArray(JSONrepack1(JSON.toJSONString(reportCheckTableDao.select(tableid_)))).get(0));
                 ++i;
             }
         }
         JSONObject res = new JSONObject();
         res.put("PID",PID);
-        res.put("TRID",TRID);
+        res.put("CHID",CHID);
         res.put("SoftWareName",table.getString("softwarename"));
         res.put("Client",table.getString("client"));
         res.put("Examiner",table.getString("examiner"));
@@ -129,11 +129,11 @@ public class TestRecordService {
         if(processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
-        Integer TRID = findTRID(PID);
-        if(testRecordDao.select2(TRID) == null){
-            return "the TestRecord dest not exist";
+        Integer CHID = findCHID(PID);
+        if(reportCheckDao.select2(CHID) == null){
+            return "the ReportCheck dest not exist";
         }
-        JSONObject oldjsonobject = JSON.parseArray(JSON.toJSONString(testRecordDao.select(TRID))).getJSONObject(0);
+        JSONObject oldjsonobject = JSON.parseArray(JSON.toJSONString(reportCheckDao.select(CHID))).getJSONObject(0);
         JSONArray failedid = new JSONArray();
         JSONArray idarray1 = oldjsonobject.getJSONArray("tableid");
         JSONArray tabledata1 = jsonObject.getJSONArray("tableData");
@@ -148,14 +148,14 @@ public class TestRecordService {
                 String checkcontent = res.getString("checkcontent");
                 String description = res.getString("description");
                 String radio = res.getString("radio");
-                TestRecordTableModel testRecordTableModel = new TestRecordTableModel(tableid,num,checkcontent,description,radio);
+                ReportCheckTableModel reportCheckTableModel = new ReportCheckTableModel(tableid,num,checkcontent,description,radio);
 
                 if(tableid == null){
-                    testRecordTableDao.insert(testRecordTableModel);
-                    idarray1.add(testRecordTableModel.getTableid().toString());
+                    reportCheckTableDao.insert(reportCheckTableModel);
+                    idarray1.add(reportCheckTableModel.getTableid().toString());
                 }
                 else{
-                    if(testRecordTableDao.select2(tableid)==null||idarray1==null||idarray1==new JSONArray()) {
+                    if(reportCheckTableDao.select2(tableid)==null||idarray1==null||idarray1==new JSONArray()) {
                         failedid.add(tableid);
                     }
                     else {
@@ -174,7 +174,7 @@ public class TestRecordService {
                         }
                         else {
                             if (delete == null || !delete.equals("T")) {
-                                JSONObject oldtest = JSON.parseArray(JSON.toJSONString(testRecordTableDao.select(tableid))).getJSONObject(0);
+                                JSONObject oldtest = JSON.parseArray(JSON.toJSONString(reportCheckTableDao.select(tableid))).getJSONObject(0);
                                 if(num == null){
                                     num = oldtest.getString("num");
                                 }
@@ -187,10 +187,10 @@ public class TestRecordService {
                                 if(radio == null){
                                     radio = oldtest.getString("radio");
                                 }
-                                testRecordTableModel = new TestRecordTableModel(tableid,num,checkcontent,description,radio);
-                                testRecordTableDao.update(testRecordTableModel);
+                                reportCheckTableModel = new ReportCheckTableModel(tableid,num,checkcontent,description,radio);
+                                reportCheckTableDao.update(reportCheckTableModel);
                             } else {
-                                testRecordTableDao.delete(tableid);
+                                reportCheckTableDao.delete(tableid);
                                 idarray1.remove(tableid.toString());
                             }
                         }
@@ -217,8 +217,8 @@ public class TestRecordService {
             date = oldjsonobject.getString("date");
         }
 
-        TestRecordModel testRecordModel=new TestRecordModel(TRID,softwarename,client,examiner,date,idarray1.toJSONString());
-        testRecordDao.update(testRecordModel);
+        ReportCheckModel reportCheckModel =new ReportCheckModel(CHID,softwarename,client,examiner,date,idarray1.toJSONString());
+        reportCheckDao.update(reportCheckModel);
         JSONObject jsonObject1 = new JSONObject();
         jsonObject1.put("FailedTableDataID",failedid);
         return JSON.toJSONString(jsonObject1);
@@ -230,24 +230,24 @@ public class TestRecordService {
         if(processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
-        Integer TRID = findTRID(PID);
-        if(testRecordDao.select2(TRID) == null){
-            return "the TestRecord dest not exist";
+        Integer CHID = findCHID(PID);
+        if(reportCheckDao.select2(CHID) == null){
+            return "the ReportCheck dest not exist";
         }
 
-        JSONObject oldjsonobject = JSON.parseArray(JSON.toJSONString(testRecordDao.select(TRID))).getJSONObject(0);
+        JSONObject oldjsonobject = JSON.parseArray(JSON.toJSONString(reportCheckDao.select(CHID))).getJSONObject(0);
         JSONArray idarray1 = oldjsonobject.getJSONArray("tableid");
         if(idarray1!=new JSONArray()&&idarray1!=null){
             Integer r=idarray1.size();
             Integer i = 0;
             while(i<r){
                 Integer id = idarray1.getInteger(i);
-                testRecordTableDao.delete(id);
+                reportCheckTableDao.delete(id);
                 ++i;
             }
         }
-        testRecordDao.delete(TRID);
-        return "TestRecord delete completed";
+        reportCheckDao.delete(CHID);
+        return "ReportCheck delete completed";
     }
 
 

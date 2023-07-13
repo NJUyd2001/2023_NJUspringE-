@@ -1,14 +1,14 @@
 package com.selab.demo.model;
 import javax.persistence.Table;
 @Table
-public class TestRecordTableModel {
+public class ReportCheckTableModel {
     private Integer tableid;
     private String num;
     private String checkcontent;
     private String description;
     private String radio;
 
-    public TestRecordTableModel(Integer tableid, String num, String checkcontent, String description, String radio) {
+    public ReportCheckTableModel(Integer tableid, String num, String checkcontent, String description, String radio) {
         this.tableid = tableid;
         this.num = num;
         this.checkcontent = checkcontent;

@@ -1,16 +1,16 @@
 package com.selab.demo.model;
 import javax.persistence.Table;
 @Table
-public class TestRecordModel {
-    private Integer TRID;
+public class ReportCheckModel {
+    private Integer CHID;
     private String softwarename;
     private String client;
     private String examiner;
     private String date;
     private String tableid;
 
-    public TestRecordModel(Integer TRID, String softwarename, String client, String examiner, String date, String tableid) {
-        this.TRID = TRID;
+    public ReportCheckModel(Integer CHID, String softwarename, String client, String examiner, String date, String tableid) {
+        this.CHID = CHID;
         this.softwarename = softwarename;
         this.client = client;
         this.examiner = examiner;
@@ -18,12 +18,12 @@ public class TestRecordModel {
         this.tableid = tableid;
     }
 
-    public Integer getTRID() {
-        return TRID;
+    public Integer getCHID() {
+        return CHID;
     }
 
-    public void setTRID(Integer TRID) {
-        this.TRID = TRID;
+    public void setCHID(Integer CHID) {
+        this.CHID = CHID;
     }
 
     public String getSoftwarename() {
