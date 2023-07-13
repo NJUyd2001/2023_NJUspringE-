@@ -225,7 +225,12 @@ public class TestEnvironmentService {
             return "the process does not exist";
         }
         Integer TEID = findTEID(PID);
-        JSONObject table = JSON.parseArray(JSON.toJSONString(testEnvironmentDao.select(TEID))).getJSONObject(0);
+        JSONArray ie = JSON.parseArray(JSON.toJSONString(testEnvironmentDao.select(TEID)));
+        JSONObject table = new JSONObject();
+        if(testEnvironmentDao.select2(TEID) == null){
+            return new JSONArray().toString();
+        }
+        table = ie.getJSONObject(0);
         JSONArray hardid = table.getJSONArray("hardid");
         JSONArray tabledata1 = new JSONArray();
         if(hardid != null){

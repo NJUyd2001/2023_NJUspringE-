@@ -217,6 +217,9 @@ public class SoftwareTestService {
             return "the process does not exist";
         }
         Integer STID = findSTID(PID);
+        if(softwareTestDao.select2(STID) == null){
+            return new JSONArray().toString();
+        }
         JSONArray res = JSON.parseArray(JSONrepack(JSON.toJSONString(softwareTestDao.select(STID)),jsonObject.getInteger("PID")));
         JSONArray res3 = new JSONArray();
         if(res!=null){

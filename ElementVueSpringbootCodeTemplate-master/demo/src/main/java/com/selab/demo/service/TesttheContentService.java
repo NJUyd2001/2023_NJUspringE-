@@ -197,6 +197,9 @@ public class TesttheContentService {
             return "the process does not exist";
         }
         Integer TID = findTID(PID);
+        if(testtheContentDao.select2(TID) == null){
+            return new JSONArray().toString();
+        }
         JSONObject table = JSON.parseArray(JSON.toJSONString(testtheContentDao.select(TID))).getJSONObject(0);
         JSONArray testid1 = table.getJSONArray("testid1");
         JSONArray tabledata1 = new JSONArray();
