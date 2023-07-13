@@ -159,14 +159,6 @@
                 }
               ],
             },
-            rules:{
-              NeededStandard:[
-                { required: true, message: "不能为空！", trigger: "blur" },
-              ],
-              ReferenceMaterial:[
-                { required: true, message: "不能为空！", trigger: "blur" },
-              ],
-            }
         }
         },
         created(){
@@ -206,9 +198,7 @@
         addfatherItem(){
           this.ruleForm.TableData1.push({
             id:this.ruleForm.TableData1[this.ruleForm.TableData1.length-1]+1,
-            name:'',
-            function:'',
-            children:[],
+            NeededStandard:'',
           })
         },
         removefatherItem(Table){
@@ -220,9 +210,7 @@
         addfatherItem1(){
           this.ruleForm.TableData2.push({
             id:this.ruleForm.TableData2[this.ruleForm.TableData2.length-1]+1,
-            name:'',
-            function:'',
-            children:[],
+            ReferenceMaterial:'',
           })
         },
         removefatherItem1(Table){

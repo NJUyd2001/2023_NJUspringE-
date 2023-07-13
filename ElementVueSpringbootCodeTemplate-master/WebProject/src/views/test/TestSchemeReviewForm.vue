@@ -199,6 +199,9 @@ import Axios from 'axios';
                   TestCategory:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
+                  OverallDesign:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
                   WritingNormality:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],

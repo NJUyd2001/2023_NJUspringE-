@@ -129,8 +129,8 @@
                     TestCharacteristic:'',
                     TestSpecification:'',
                     TestResult:'',
-                },
-              ],TableData4:[
+                    },
+                  ],TableData4:[
                     {
                     TestCharacteristic:'',
                     TestSpecification:'',
@@ -198,8 +198,9 @@
         addfatherItem(){
           this.ruleForm.TableData1.push({
             id:this.ruleForm.TableData1[this.ruleForm.TableData1.length-1]+1,
-            name:'',
-            function:'',
+            FunctionModule:'',
+            FunctionRequirement:'',
+            TestResult:'',
           })
         },
         removefatherItem(Table){
@@ -211,8 +212,9 @@
         addfatherItem1(){
           this.ruleForm.TableData2.push({
             id:this.ruleForm.TableData2[this.ruleForm.TableData2.length-1]+1,
-            name:'',
-            function:'',
+            TestCharacteristic:'',
+            TestSpecification:'',
+            TestResult:[],
           })
         },
         removefatherItem1(Table){
@@ -224,8 +226,9 @@
         addfatherItem2(){
           this.ruleForm.TableData3.push({
             id:this.ruleForm.TableData3[this.ruleForm.TableData3.length-1]+1,
-            name:'',
-            function:'',
+            TestCharacteristic:'',
+            TestSpecification:'',
+            TestResult:'',
           })
         },
         removefatherItem2(Table){
@@ -237,8 +240,9 @@
         addfatherItem3(){
           this.ruleForm.TableData4.push({
             id:this.ruleForm.TableData4[this.ruleForm.TableData4.length-1]+1,
-            name:'',
-            function:'',
+            TestCharacteristic:'',
+            TestSpecification:'',
+            TestResult:'',
           })
         },
         removefatherItem3(Table){
@@ -250,8 +254,9 @@
         addfatherItem4(){
           this.ruleForm.TableData5.push({
             id:this.ruleForm.TableData5[this.ruleForm.TableData5.length-1]+1,
-            name:'',
-            function:'',
+            TestCharacteristic:'',
+            TestSpecification:'',
+            TestResult:'',
           })
         },
         removefatherItem4(Table){
@@ -263,8 +268,9 @@
         addfatherItem5(){
           this.ruleForm.TableData6.push({
             id:this.ruleForm.TableData6[this.ruleForm.TableData6.length-1]+1,
-            name:'',
-            function:'',
+            TestCharacteristic:'',
+            TestSpecification:'',
+            TestResult:'',
           })
         },
         removefatherItem5(Table){

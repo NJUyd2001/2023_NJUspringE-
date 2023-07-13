@@ -55,7 +55,12 @@ public interface ProcessDao {
     void setTID(int PID, int TID);
     @Update("UPDATE selabspringe.process SET TEID=#{TEID} WHERE PID=#{PID}")
     void setTEID(int PID, int TEID);
-
+    @Update("UPDATE selabspringe.process SET TCID=#{TCID} WHERE PID=#{PID}")
+    void setTCID(int PID, int TCID);
+    @Update("UPDATE selabspringe.process SET TRID=#{TRID} WHERE PID=#{PID}")
+    void setTRID(int PID, int TRID);
+    @Update("UPDATE selabspringe.process SET CHID=#{CHID} WHERE PID=#{PID}")
+    void setCHID(int PID, int CHID);
     @Delete("DELETE FROM selabspringe.process WHERE PID = #{PID}")
     void delete(int PID);
     @Delete("DELETE FROM selabspringe.file WHERE PID = #{PID}")
