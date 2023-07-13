@@ -312,6 +312,20 @@ public class TestEnvironmentService {
                         }
                         else {
                             if (delete == null || !delete.equals("T")) {
+                                JSONObject oldtest = JSON.parseArray(JSON.toJSONString(testHardDao.select(hardid))).getJSONObject(0);
+                                if(hardwarecategory == null){
+                                    hardwarecategory = oldtest.getString("hardwarecategory");
+                                }
+                                if(hardwarename == null){
+                                    hardwarename = oldtest.getString("hardwarename");
+                                }
+                                if(setting == null){
+                                    setting = oldtest.getString("setting");
+                                }
+                                if(quantity == null){
+                                    quantity = oldtest.getString("quantity");
+                                }
+                                testHardModel = new TestHardModel(hardid,hardwarecategory,hardwarename,setting,quantity);
                                 testHardDao.update(testHardModel);
                             } else {
                                 testHardDao.delete(hardid);
@@ -362,6 +376,17 @@ public class TestEnvironmentService {
                         }
                         else {
                             if (delete == null || !delete.equals("T")) {
+                                JSONObject oldtest = JSONObject.parseArray(JSON.toJSONString(testSoftDao.select(softid))).getJSONObject(0);
+                                if(softwarecategory==null){
+                                    softwarecategory = oldtest.getString("softwarecategory");
+                                }
+                                if(softwarename == null){
+                                    softwarename = oldtest.getString("softwarename");
+                                }
+                                if(edition == null){
+                                    edition = oldtest.getString("edition");
+                                }
+                                testSoftModel = new TestSoftModel(softid,softwarecategory,softwarename,edition);
                                 testSoftDao.update(testSoftModel);
                             } else {
                                 testSoftDao.delete(softid);
