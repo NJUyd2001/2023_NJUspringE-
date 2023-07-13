@@ -40,7 +40,7 @@
       </el-header>
         <br><br>
         <el-main>
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
+            <el-form lazy-validation v-model="validForm" ref="formNames" label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
             <el-label style="margin-left: 320px; margin-top: 20px;">硬件环境</el-label>
             <el-table :data="ruleForm.tableData1" style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="HardwareCategory" label="硬件类别" width="90">
@@ -84,8 +84,12 @@
             <el-form-item>
               二、测试依据和参考资料
             </el-form-item>
-            <el-form-item  v-for="(Table,index) in ruleForm.TableData1" prop="Hardware" style="margin-left:-15%;" :label='"测试依据"+index+":"' :key="index" >
-              <el-input placeholder="测试依据" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.NeededStandard"></el-input>
+            <el-form-item v-for="(Table,index) in ruleForm.TableData1" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :rules="{
+            required: true,
+            message: '功能项目不能为空！',
+            trigger: 'blur',
+          }" :label='"测试依据"+index+":"' :key="index" >
+              <el-input  placeholder="测试依据" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.NeededStandard"></el-input>
               <el-button @click="removefatherItem(Table)" type="primary" size="small" plain>删除</el-button>
               <el-button @click="addfatherItem()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
@@ -108,6 +112,7 @@
     export default {
         data(){
            return{    
+            validForm: true,
             input_type:'text',
             useruid:{
                 UID:"",
@@ -163,11 +168,8 @@
                 }
               ],
             },
-            rules:{
-              Hardware:[
-                    { required: true, message: "功能项目不能为空！", trigger: "blur"  },
-                  ],
-            }
+            rulesRequired: [(v) => !!v || "Required"],
+             
         }
         },
         created(){
