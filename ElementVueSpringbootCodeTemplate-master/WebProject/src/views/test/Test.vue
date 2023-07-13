@@ -45,14 +45,13 @@
             <el-menu-item index="1-11" @click="addTab('编写测试方案', 'TestSch')">编写测试方案</el-menu-item>
           </el-menu-item-group>
           </el-submenu>
-        <el-submenu index="1">
+        <el-submenu index="2">
           <template slot="title" collapse=false>
             <i class="el-icon-location" @click="isCollapse = !isCollapse"></i>
-            <span> 审核/提交</span>
+            <span> 测试报告</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-13" @click="addTab('样品验收', 'TestResultTable')"> 审核测试报告</el-menu-item>
-            <!--<el-menu-item index="1-12" @click="addTab('发送测试报告','TestReportTable')">发送测试报告</el-menu-item>-->
+            <el-menu-item index="1-13" @click="addTab('编写测试报告', 'TReport')"> 编写测试报告</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 

@@ -318,7 +318,6 @@
     span.lt1{
       font-size: 30px;
       font-weight: bold;
-      margin-left: -350px;
     }
     .demo-date-picker {
       display: flex;

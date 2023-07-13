@@ -26,6 +26,10 @@ import CheckAuditInforFailedMarket from './views/apply/CheckAuditInforFailedMark
 import CheckAuditInforTest from './views/apply/CheckAuditInforTest'
 import CheckAuditInforFailedTest from './views/apply/CheckAuditInforFailedTest'
 import Report from './views/report/Report'
+import ReportChange from './views/report/ReportChange'
+import ClientReportCheck from './views/client/ClientReportCheck'
+import SignatoryReportCheck from './views/merge/SignatoryReportCheck'
+import TDReportCheck from './views/merge/TDReportCheck'
 import Personal from "./views/client/Personal";
 import ProQurey from "./views/client/ProQurey";
 import Info from "./views/client/Info";
@@ -59,6 +63,10 @@ import Defectlist from './views/test/Defectlist'
 import SoftwareDocumentReviewForm1 from './views/report/SoftwareDocumentReviewForm1'
 import SoftwareDocumentReviewForm2 from './views/report/SoftwareDocumentReviewForm2'
 import TestReportCover from './views/report/TestReportCover'
+import TDTestReportCoverCheck from './views/merge/TDTestReportCoverCheck'
+import STestReportCoverCheck from './views/merge/STestReportCoverCheck'
+import QualityAuditTSRF from './views/merge/QualityAuditTSRF'
+import CTestReportCoverCheck from './views/client/CTestReportCoverCheck'
 import TestEnvironment from './views/report/TestEnvironment'
 import SoftwareProjectTestChecklist from './views/test/SoftwareProjectTestChecklist'
 import DataSubmit from './views/client/DataSubmit'
@@ -109,6 +117,10 @@ export default new VueRouter({
         {
             path: '/quality',     // 路径
             component: Quality    // 跳转到的组件
+        },
+        {
+            path: '/QualityAuditTSRF',     // 路径
+            component: QualityAuditTSRF    // 跳转到的组件
         },
         {
             path: '/TestDirector',     // 路径
@@ -177,6 +189,22 @@ export default new VueRouter({
         {
             path: '/report',     // 路径
             component: Report    // 跳转到的组件
+        },
+        {
+            path: '/Clientreportcheck',     // 路径
+            component: ClientReportCheck    // 跳转到的组件
+        },
+        {
+            path: '/Signatoryreportcheck',     // 路径
+            component: SignatoryReportCheck    // 跳转到的组件
+        },
+        {
+            path: '/TDreportcheck',     // 路径
+            component: TDReportCheck    // 跳转到的组件
+        },
+        {
+            path: '/reportchange',     // 路径
+            component: ReportChange    // 跳转到的组件
         },
         {
             path: '/marketaudituser',     // 路径
@@ -289,6 +317,18 @@ export default new VueRouter({
         {
             path: '/TestReportCover',      // 路径
             component: TestReportCover     // 跳转到的组件
+        },
+        {
+            path: '/CTestReportCovercheck',      // 路径
+            component: CTestReportCoverCheck     // 跳转到的组件
+        },
+        {
+            path: '/TDTestReportCovercheck',      // 路径
+            component: TDTestReportCoverCheck     // 跳转到的组件
+        },
+        {
+            path: '/STestReportCovercheck',      // 路径
+            component: STestReportCoverCheck     // 跳转到的组件
         },
         {
             path: '/TestEnvironment',      // 路径

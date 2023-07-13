@@ -48,7 +48,7 @@ author：李晨博
 ```
 输出示例：
 ```
-[{"RID":1,"Client":"","ProjectNum":"''","SampleName":"''","Version":"''","SampleDate":"''","TypeTest":"''","TestTime":"''","DevelopmentCompany":"''","SampleStatus":"''","NeededStandard":"''","SampleList":"''","TestConclusion":"''","Organizer":"''","SampleDate1":"''","Auditor":"''","SampleDate2":"","Approver":"''","SampleDate3":"''"}]
+[{"PID":"1","RID":1,"Client":"","ProjectNum":"''","SampleName":"''","Version":"''","SampleDate":"''","TypeTest":"''","TestTime":"''","DevelopmentCompany":"''","SampleStatus":"''","NeededStandard":"''","SampleList":"''","TestConclusion":"''","Organizer":"''","SampleDate1":"''","Auditor":"''","SampleDate2":"","Approver":"''","SampleDate3":"''"}]
 ```
 
 ## /reportmain/update
