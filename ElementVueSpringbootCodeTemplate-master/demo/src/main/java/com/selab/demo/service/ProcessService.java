@@ -25,7 +25,7 @@ public class ProcessService {
         System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
-        int UID = -1;
+        Integer UID = -1;
         try {
             UID = jsonObject.getInteger("UID");
         }catch (Exception e){
@@ -54,7 +54,7 @@ public class ProcessService {
         System.out.println(postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
-        int UID= jsonObject.getInteger("UID");
+        Integer UID= jsonObject.getInteger("UID");
 
         return processDao.findByUID(UID);
 
@@ -63,7 +63,7 @@ public class ProcessService {
         System.out.println(postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
-        int PID = jsonObject.getInteger("PID");
+        Integer PID = jsonObject.getInteger("PID");
         return processDao.findByPID(PID);
     }
     // 返回AID
@@ -84,7 +84,7 @@ public class ProcessService {
     public List<ProcessModel> findByAID(String postJson){
         System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        int AID = jsonObject.getInteger("AID");
+        Integer AID = jsonObject.getInteger("AID");
         return processDao.findByAID(AID);
     }
     public List<ProcessModel> findAll(){
@@ -142,7 +142,7 @@ public class ProcessService {
         System.out.println("内容：" + postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
 
-        int PID = jsonObject.getInteger("PID");
+        Integer PID = jsonObject.getInteger("PID");
         Integer checker = processDao.findByPID2(PID);
 
         if(checker == null){

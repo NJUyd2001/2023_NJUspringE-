@@ -23,7 +23,7 @@ public class TestReviewService {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         JSONArray tableData = jsonObject.getJSONArray("tableData");
         //System.out.println(tableData.get(0));
-        for(int i = 0; i < tableData.size(); i++){
+        for(Integer i = 0; i < tableData.size(); i++){
             JSONObject j =  tableData.getJSONObject(i);
             String Duty = j.getString("Duty");
             String Sign = j.getString("Sign");
@@ -137,7 +137,7 @@ public class TestReviewService {
         if (HumanResourcesArrangement != null) testReviewModel.setHumanResourcesArrangement(HumanResourcesArrangement);
 
         JSONArray tableData = jsonObject.getJSONArray("tableData");
-        for(int i = 0; i < tableData.size(); i++) {
+        for(Integer i = 0; i < tableData.size(); i++) {
 
             JSONObject j = tableData.getJSONObject(i);
             String Duty = j.getString("Duty");

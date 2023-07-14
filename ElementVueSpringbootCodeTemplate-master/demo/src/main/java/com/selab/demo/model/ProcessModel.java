@@ -9,133 +9,127 @@ import javax.persistence.Table;
 
 @Table
 public class ProcessModel {
-    private int PID;
+    private Integer PID;
     private String notes;
-    private int RID;
-    private int RCID;
-    private int SID;
-    private int RTID;
-    private int TID;
-    private int TEID;
-    private int TCID;
-    private int TRID;
-    private int CHID;
+    private Integer RID;
+    private Integer RCID;
+    private Integer SID;
+    private Integer RTID;
+    private Integer TID;
+    private Integer TEID;
+    private Integer TCID;
+    private Integer TRID;
+    private Integer CHID;
+    private Integer SCID;
+    private Integer SDRID;
 
-    @Override
-    public String toString() {
-        return "ProcessModel{" +
-                "PID=" + PID +
-                ", notes='" + notes + '\'' +
-                ", RID=" + RID +
-                ", RCID=" + RCID +
-                ", SID=" + SID +
-                ", RTID=" + RTID +
-                ", TID=" + TID +
-                ", TEID=" + TEID +
-                ", TCID=" + TCID +
-                ", TRID=" + TRID +
-                ", CHID=" + CHID +
-                ", STID=" + STID +
-                ", AgID=" + AgID +
-                ", CID=" + CID +
-                ", QID=" + QID +
-                ", UID=" + UID +
-                ", AID=" + AID +
-                ", state='" + state + '\'' +
-                '}';
+    public Integer getSCID() {
+        return SCID;
     }
 
-    public int getTCID() {
+    public void setSCID(Integer SCID) {
+        this.SCID = SCID;
+    }
+
+    public Integer getSDRID() {
+        return SDRID;
+    }
+
+    public void setSDRID(Integer SDRID) {
+        this.SDRID = SDRID;
+    }
+
+    public Integer getTCID() {
         return TCID;
     }
 
-    public void setTCID(int TCID) {
+    public void setTCID(Integer TCID) {
         this.TCID = TCID;
     }
 
-    public int getTRID() {
+    public Integer getTRID() {
         return TRID;
     }
 
-    public void setTRID(int TRID) {
+    public void setTRID(Integer TRID) {
         this.TRID = TRID;
     }
 
-    public int getCHID() {
+    public Integer getCHID() {
         return CHID;
     }
 
-    public void setCHID(int CHID) {
+    public void setCHID(Integer CHID) {
         this.CHID = CHID;
     }
 
-    public int getTID() {
+    public Integer getTID() {
         return TID;
     }
 
-    public void setTID(int TID) {
+    public void setTID(Integer TID) {
         this.TID = TID;
     }
 
-    public int getTEID() {
+    public Integer getTEID() {
         return TEID;
     }
 
-    public void setTEID(int TEID) {
+    public void setTEID(Integer TEID) {
         this.TEID = TEID;
     }
 
-    private int STID;
+    private Integer STID;
 
-    public int getSTID() {
+    public Integer getSTID() {
         return STID;
     }
 
-    public void setSTID(int STID) {
+    public void setSTID(Integer STID) {
         this.STID = STID;
     }
 
 
 
-    public int getRID() {
+    public Integer getRID() {
         return RID;
     }
 
-    public void setRID(int RID) {
+    public void setRID(Integer RID) {
         this.RID = RID;
     }
 
-    public int getRCID() {
+    public Integer getRCID() {
         return RCID;
     }
 
-    public void setRCID(int RCID) {
+    public void setRCID(Integer RCID) {
         this.RCID = RCID;
     }
 
-    public int getSID() {
+    public Integer getSID() {
         return SID;
     }
 
-    public void setSID(int SID) {
+    public void setSID(Integer SID) {
         this.SID = SID;
     }
 
-    public int getRTID() {
+    public Integer getRTID() {
         return RTID;
     }
 
-    public void setRTID(int RTID) {
+    public void setRTID(Integer RTID) {
         this.RTID = RTID;
     }
 
-    private int AgID;
+    private Integer AgID;
 
-    public int getAgID() {
+    public Integer getAgID() {
         return AgID;
     }
 
-    public void setAgID(int agID) {
+    public void setAgID(Integer agID) {
         AgID = agID;
     }
 
@@ -155,9 +149,6 @@ public class ProcessModel {
         return PID;
     }
 
-    public void setPID(Integer PID) {
-        this.PID = PID;
-    }
 
 
     public String getNotes() {
@@ -173,7 +164,7 @@ public class ProcessModel {
         return UID;
     }
 
-    public void setPID(int PID) {
+    public void setPID(Integer PID) {
         this.PID = PID;
     }
 

@@ -15,20 +15,20 @@ public interface MessageDao {
     void insert(MessageModel messageModel);
 
     @Select("SELECT * FROM selabspringe.messages WHERE MID = #{MID}")
-    List<MessageModel> findbyMID(int MID);
+    List<MessageModel> findbyMID(Integer MID);
 
     @Select("SELECT * FROM selabspringe.messages WHERE sender_id = #{sender_id}")
-    List<MessageModel> finfbysender_id(int sender_id);
+    List<MessageModel> finfbysender_id(Integer sender_id);
 
     @Select("SELECT * FROM selabspringe.messages WHERE receiver_id = #{receiver_id}")
-    List<MessageModel> findbyreceiver_id(int receiver_id);
+    List<MessageModel> findbyreceiver_id(Integer receiver_id);
 
     @Select("SELECT message FROM selabspringe.messages WHERE MID = #{MID}")
-    String findbyMID2(int MID);
+    String findbyMID2(Integer MID);
 
     @Update("UPDATE selabspringe.messages SET sender_id = #{sender_id}, receiver_id = #{receiver_id}, regTime = #{regTime}, message = #{message}, doc_ex_path = #{doc_ex_path} WHERE MID = #{MID}")
     void update(MessageModel messageModel);
 
     @Delete("DELETE FROM selabspringe.messages WHERE MID = #{MID}")
-    void delete(int MID);
+    void delete(Integer MID);
 }

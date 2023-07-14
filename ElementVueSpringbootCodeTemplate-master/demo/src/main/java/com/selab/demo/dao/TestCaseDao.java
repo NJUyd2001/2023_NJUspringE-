@@ -11,14 +11,14 @@ public interface TestCaseDao {
     void insert(TestCaseModel testCaseModel);
 
     @Select("SELECT * FROM selabspringe.testcase WHERE TCID = #{TCID}")
-    List<TestCaseModel> select(int TCID);
+    List<TestCaseModel> select(Integer TCID);
 
     @Select("SELECT TCID FROM selabspringe.testcase WHERE TCID = #{TCID}")
-    Integer select2(int TCID);
+    Integer select2(Integer TCID);
 
     @Update("UPDATE selabspringe.testcase SET tableid=#{tableid} WHERE TCID = #{TCID}")
     void update(TestCaseModel testCaseModel);
 
     @Delete("DELETE FROM selabspringe.testcase WHERE TCID = #{TCID}")
-    void delete(int TCID);
+    void delete(Integer TCID);
 }

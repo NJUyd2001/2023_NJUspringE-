@@ -28,7 +28,7 @@ public class SoftwareDocReviewService {
         softwareDocReviewModel.setReviewer(jsonObject.getString("Reviewer"));
         softwareDocReviewModel.setExaminer(jsonObject.getString("Examiner"));
 
-        for(int i = 0; i < table.size(); i++) {
+        for(Integer i = 0; i < table.size(); i++) {
             JSONObject j = table.getJSONObject(i);
             Integer ReviewCategories = j.getInteger("ReviewCategories");
             String ReviewItem = j.getString("ReviewItem");
@@ -67,7 +67,7 @@ public class SoftwareDocReviewService {
     }
     public String updateMain(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        
+
         return "";
     }
     public String updateItem(String postJson){

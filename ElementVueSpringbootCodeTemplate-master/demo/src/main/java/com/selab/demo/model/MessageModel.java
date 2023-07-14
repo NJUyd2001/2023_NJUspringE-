@@ -37,7 +37,7 @@ public class MessageModel {
         this.MID = MID;
     }
 
-    public int getSender_id() {
+    public Integer getSender_id() {
         return sender_id;
     }
 
@@ -45,7 +45,7 @@ public class MessageModel {
         this.sender_id = sender_id;
     }
 
-    public int getReceiver_id() {
+    public Integer getReceiver_id() {
         return receiver_id;
     }
 
