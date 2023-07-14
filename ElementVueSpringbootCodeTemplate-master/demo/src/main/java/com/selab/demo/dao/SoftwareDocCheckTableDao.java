@@ -12,7 +12,7 @@ public interface SoftwareDocCheckTableDao {
     void insert(SoftwareDocCheckTableModel softwareDocCheckTableModel);
 
     @Select("SELECT * FROM selabspringe.softwaredocchecktable WHERE tableid = #{tableid}")
-    List<SoftwareDocCheckTableDao> select(Integer tableid);
+    List<SoftwareDocCheckTableModel> select(Integer tableid);
 
     @Select("SELECT tableid FROM selabspringe.softwaredocchecktable WHERE tableid = #{tableid}")
     Integer select2(Integer tableid);

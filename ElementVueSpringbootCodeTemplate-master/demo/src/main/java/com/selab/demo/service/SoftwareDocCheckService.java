@@ -116,5 +116,121 @@ public class SoftwareDocCheckService {
         res2.add(res);
         return JSON.toJSONString(res2);
     }
+    public String update(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer PID = jsonObject.getInteger("PID");
+        if(PID == null ||processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
+        Integer SCID = findSCID(PID);
+        if(softwareDocCheckDao.select2(SCID) == null){
+            return "the SoftwareDocCheck dest not exist";
+        }
+        JSONObject oldjsonobject = JSON.parseArray(JSON.toJSONString(softwareDocCheckDao.select(SCID))).getJSONObject(0);
+        JSONArray failedid = new JSONArray();
+        JSONArray idarray1 = oldjsonobject.getJSONArray("tableid");
+        JSONArray tabledata1 = jsonObject.getJSONArray("tableData");
+        if(tabledata1!=null){
+            Integer r= tabledata1.size();
+            Integer i=0;
+            while(i<r){
+                JSONObject jsonObject1 = tabledata1.getJSONObject(i);
+                Integer tableid = jsonObject1.getInteger("tableid");
+                String delete = jsonObject1.getString("delete");
+                String reviewcategories = jsonObject1.getString("ReviewCategories");
+                String reviewitem = jsonObject1.getString("Reviewitem");
+                String reviewcontent = jsonObject1.getString("ReviewContent");
+                String revieweresultexplanation = jsonObject1.getString("ReviewResultExplanation");
+                String radio = jsonObject1.getString("radio");
+                SoftwareDocCheckTableModel softwareDocCheckTableModel= new SoftwareDocCheckTableModel(0,reviewcategories,reviewitem,reviewcontent,revieweresultexplanation,radio);
+
+                if(tableid == null){
+                    softwareDocCheckTableDao.insert(softwareDocCheckTableModel);
+                    idarray1.add(softwareDocCheckTableModel.getTableid().toString());
+                }
+                else{
+                    if(softwareDocCheckTableDao.select2(tableid)==null||idarray1==null||idarray1==new JSONArray()) {
+                        failedid.add(tableid);
+                    }
+                    else {
+                        Integer check =0;
+                        Integer r2= idarray1.size();
+                        Integer i2=0;
+                        while(i2<r2) {
+                            if(tableid==idarray1.getInteger(i2)) {
+                                check =1;
+                                break;
+                            }
+                            i2++;
+                        }
+                        if(check == 0) {
+                            failedid.add(tableid);
+                        }
+                        else {
+                            if (delete == null || !delete.equals("T")) {
+                                JSONObject oldtest = JSON.parseArray(JSON.toJSONString(softwareDocCheckTableDao.select(tableid))).getJSONObject(0);
+                                if(reviewcategories == null){
+                                    reviewcategories = oldtest.getString("reviewcategories");
+                                }
+                                if(reviewitem == null){
+                                    reviewitem = oldtest.getString("reviewitem");
+                                }
+                                if(reviewcontent == null){
+                                    reviewcontent = oldtest.getString("reviewcontent");
+                                }
+                                if(revieweresultexplanation == null){
+                                    revieweresultexplanation = oldtest.getString("revieweresultexplanation");
+                                }
+                                if(radio == null){
+                                    radio = oldtest.getString("radio");
+                                }
+
+                                softwareDocCheckTableModel = new SoftwareDocCheckTableModel(0,reviewcategories,reviewitem,reviewcontent,revieweresultexplanation,radio);
+                                softwareDocCheckTableDao.update(softwareDocCheckTableModel);
+                            } else {
+                                softwareDocCheckTableDao.delete(tableid);
+                                idarray1.remove(tableid.toString());
+                            }
+                        }
+                    }
+                }
+                i++;
+            }
+        }
+
+        SoftwareDocCheckModel softwareDocCheckModel=new SoftwareDocCheckModel(SCID,idarray1.toJSONString());
+        softwareDocCheckDao.update(softwareDocCheckModel);
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("FailedTableDataID",failedid);
+        return JSON.toJSONString(jsonObject1);
+    }
+
+    public String delete(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer PID = jsonObject.getInteger("PID");
+        if(PID == null ||processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
+        Integer SCID = findSCID(PID);
+        if(softwareDocCheckDao.select2(SCID) == null){
+            return "the SoftwareDocCheck dest not exist";
+        }
+
+        JSONObject oldjsonobject = JSON.parseArray(JSON.toJSONString(softwareDocCheckDao.select(SCID))).getJSONObject(0);
+        JSONArray idarray1 = oldjsonobject.getJSONArray("tableid");
+        if(idarray1!=new JSONArray()&&idarray1!=null){
+            Integer r=idarray1.size();
+            Integer i = 0;
+            while(i<r){
+                Integer id = idarray1.getInteger(i);
+                softwareDocCheckDao.delete(id);
+                ++i;
+            }
+        }
+        softwareDocCheckDao.delete(SCID);
+        return "SoftwareDocCheck delete completed";
+    }
+
+
 
 }
