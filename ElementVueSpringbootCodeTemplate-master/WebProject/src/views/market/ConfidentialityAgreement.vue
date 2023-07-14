@@ -69,7 +69,7 @@
             </el-form-item>
             <el-row >
             <el-col :span="6">
-            <el-form-item label="日期 :" style="font-weight: bold;" label-width="400px" prop="Date1">
+            <el-form-item label="日期:" style="font-weight: bold;" label-width="400px" prop="Date1">
                 <el-date-picker
                 v-model="ruleForm.Date1"
                 type="date"
@@ -78,7 +78,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="日期 :" style="font-weight: bold;" label-width="550px">
+          <el-form-item label="日期:" style="font-weight: bold;" label-width="550px">
                 <el-date-picker
                 v-model="ruleForm.Date2"
                 type="date"
@@ -98,9 +98,16 @@
     export default {
     data(){
            return{
+            useruid:{
+                UID:"",
+              },
+              userpid:{
+                PID:"",
+              },
                 ruleForm:{
+                    PID:"",
                     Client:'',
-                    Trustee:'南京大学软件测试中心',
+                    Trustee:'',
                     LegalRepresentative1:'',
                     LegalRepresentative2:'',
                     Name:'',
@@ -155,9 +162,18 @@
   window.addEventListener('beforeunload', this.handleBeforeUnload);
   window.addEventListener('unload', this.handleUnload);
       },
-created(){
+      created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data)
+                this.userpid.PID=ret.data.PID;
+              })
+    this.ruleForm.PID=this.userpid.PID;
   },
   methods:{
     handleBeforeUnload() {
@@ -178,16 +194,19 @@ created(){
               return false;
             }
           });*/
-          Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-            console.log(ret.data)
-          })
-          .catch(function (error) { // 请求失败处理
-            console.log(error);
-            
-          });
-          this.stepNumber+=2;
-          this.info("提交成功，正在返回市场部界面！");
-          setTimeout(() => {this.$router.push({path: "../market", replace:true});}, 2000);
+          Axios.post("http://localhost:9090/api/agreement/insert",JSON.stringify(this.ruleForm),{
+                  headers:{
+                    'content-type': 'text/plain'}
+                }).then(ret=>{
+                  this.$message.success("提交成功，正在返回测试部界面！");
+                  this.StepNumber+=2;
+                setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+                })
+                .catch(function (error) { // 请求失败处理
+                  console.log(error);
+                }) 
+          // this.info("提交成功，正在返回用户界面！");
+          // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
         }
       },
     
