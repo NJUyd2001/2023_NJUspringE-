@@ -13,7 +13,7 @@
   </el-breadcrumb>
 </el-col>
 <el-col :span="1">
-  <el-button style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+  <el-button  @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
   </el-col> 
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
@@ -110,6 +110,13 @@ export default {
     handleUnload() {
       sessionStorage.setItem("store",JSON.stringify(this.$store.state))
             },
+    Logout(){
+          this.$store.state.user.id=-1;
+          this.$store.state.user.name="null";
+          this.$store.state.user.password=-1;
+          this.$store.state.user.Permissions="null";
+      this.$router.push({path: "./home", replace:true});
+    },
     submitForm(formName) {
       this.$confirm("是否确认该操作","提示",{
         iconClass: "el-icon-question",//自定义图标样式
