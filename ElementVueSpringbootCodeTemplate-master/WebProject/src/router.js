@@ -50,7 +50,9 @@ import CTestContentCheck from './views/client/CTestContentCheck'
 import TestScheme from './views/test/TestScheme'
 import TestSchemeChange from './views/test/TestSchemeChange'
 import TestDocument1 from './views/report/TestDocument1'
+import TestDocument1Change from './views/report/TestDocument1Change'
 import TestDocument2 from './views/report/TestDocument2'
+import TestDocument2Change from './views/report/TestDocument2Change'
 import MarketContract from './views/market/Contract'
 import ChangeContract from './views/market/ContractChange'
 import ClientContract from './views/client/Contract'
@@ -278,8 +280,16 @@ export default new VueRouter({
             component: TestDocument1  // 跳转到的组件
         },
         {
+            path: '/testdocument1change',   // 路径
+            component: TestDocument1Change  // 跳转到的组件
+        },
+        {
             path: '/testdocument2',   // 路径
             component: TestDocument2  // 跳转到的组件
+        },
+        {
+            path: '/testdocument2change',   // 路径
+            component: TestDocument2Change  // 跳转到的组件
         },
         {
             path: '/Personal',     // 路径
