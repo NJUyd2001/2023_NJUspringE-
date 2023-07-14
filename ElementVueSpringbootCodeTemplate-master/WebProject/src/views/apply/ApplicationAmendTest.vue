@@ -325,6 +325,10 @@ export default {
         userid:{
           applicantID:this.$store.state.user.id,
         },
+        GOB:{
+              PID:this.$store.state.user.process.PID,
+              state:"10",
+            },
         ruleForm:{
           applicantID:this.$store.state.user.id,
           processID:'1',
@@ -727,7 +731,7 @@ created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.userid.applicantID=this.$store.state.user.id;
-    Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.userid),{
+    Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.process),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
@@ -748,6 +752,11 @@ created(){
       this.$refs[formName].validate((valid) => {
         if (valid) {
         console.log(this.ruleForm)
+        Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.GOB),{
+        headers:{
+          'content-type': 'text/plain'}
+        }).then(ret=>{
+      })
         Axios.post("http://localhost:9090/api/application/updateapplication",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}

@@ -264,7 +264,7 @@ export default {
     },
     J2Report() {
       //this.$router.push('/client/ConfidentialityAgreement');
-      this.$router.push('/report');
+      this.$router.push('/ccheckreport');
     },
      hideInfo(){
             setTimeout(()=>{

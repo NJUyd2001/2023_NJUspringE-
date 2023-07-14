@@ -1,8 +1,3 @@
-/**
- * 表格组件范例
- * 
- * 黄大伟修改
- */
 <template>
   <div>
     <el-input
@@ -39,8 +34,9 @@
       </el-table-column>
       <el-table-column
         sortable
-        prop="processID"
-        label="pid">
+        prop="applicantID"
+        label="用户ID"
+        width="250">
       </el-table-column>
       <el-table-column
         sortable
@@ -65,30 +61,22 @@
       </el-table-column>
     </el-table>
     
-    <Pagination ref="page1" url="http://localhost:9090/api/application/checkbyapplicant" :keyword="keyword" :sort="sort" v-model="datas"/>
   </div>
 </template>
 
 <script>
 import Axios from "axios"
 export default {
-    addTab(targetName, commentName) {
-      this.$set(this.tabs, commentName, {
-        title: targetName,
-        name: commentName,
-        currentView: commentName
-      });
-
-      this.selectTabName = commentName;
-      this.selectTabName = commentName;
-    },
   data() {
     return {
       keyword:"",
-      processes:[],
       datas:[],
-      ruleForm:
-      { processID:1 },
+      ruleForm:{
+        processID:"",
+      },
+      State70:{
+        state:'70',
+      },
       sort: {},
       passwordDlg:{
         row: null,
@@ -96,40 +84,21 @@ export default {
         form:{
           password:""
         }
-      },
-      userid:{
-        UID:"",
-      },
-      appID:{
-        applicantID:"",
-      },
+      }
     };
   },
-  created(){
-    if (sessionStorage.getItem("store") ) {
-    //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
-    //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
-      this.$store.replaceState(Object.assign({}, this.$store.state,JSON.parse(sessionStorage.getItem("store"))))
-      sessionStorage.removeItem('store');
-    }
-    this.userid.UID=this.$store.state.user.id;
-    console.log(this.userid)
-    this.appID.applicantID=this.$store.state.user.id;
-
-    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+created(){
+    Axios.post("http://localhost:9090/api/process/byState/selectPID",JSON.stringify(this.State70),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        console.log(ret.data)
-        var i=0;
-        for(;i<ret.data.length;i++)
-         {
-          this.processes.push(ret.data[i].pid);
-         }
-         console.log(this.processes[2])
-        })
-    
-    Axios.post("http://localhost:9090/api/application/checkbyapplicant",JSON.stringify(this.appID),{
+          console.log(ret.data);
+          var k=0;
+    for(;k<ret.data.length;k++)
+    {
+      this.ruleForm.processID=ret.data[k];  
+      console.log(this.ruleForm.processID)
+      Axios.post("http://localhost:9090/api/application/checkbyprocess",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
@@ -140,17 +109,20 @@ export default {
          {
           this.datas.push(ret.data[i]);
          }  
+      }) 
+    }
       })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });
+    
   },
   methods: {
     SolvePro(row){
       // console.log(row);
       //sessionStorage.setItem
+        this.$store.state.user.process.UID=row.applicantID;
+        this.$store.state.user.process.AID=row.AID;
         this.$store.state.user.process.PID=row.PID;
-        this.$router.push({path: "./ProQurey", replace:true})
+        console.log(this.$store.state.user.process.UID);
+        this.$router.push({path: "./tdreportcheck", replace:true})
     },
     handleClick(row) {
      
@@ -167,7 +139,7 @@ export default {
     },
     refreshConfig(){
       this.$refs.page1.reload();
-    },
+    }
   },
   computed:{
   filterdatas(){

@@ -17,6 +17,9 @@ import MyApp from './table/MyApp';
 import ProgressQuery from './table/ProgressQuery';
 import CheckContr from './table/CheckContr';
 import CheckTS from './table/CheckTS';
+import TCheckReport from './table/TCheckReport';
+import SCheckReport from './table/SCheckReport';
+import CCheckReport from './table/CCheckReport';
 
 import LoginDialog from './LoginDialog';
 import ConfigTableSimple from './table/ConfigTableSimple';
@@ -60,6 +63,9 @@ function registerComponents(){
     Vue.component('CheckTS', CheckTS);
     Vue.component('ProgressQuery', ProgressQuery);
     Vue.component('CheckContr', CheckContr);
+    Vue.component('CCheckReport', CCheckReport);
+    Vue.component('SCheckReport', SCheckReport);
+    Vue.component('TCheckReport', TCheckReport);
 
     Vue.component('LoginDialog', LoginDialog);
     Vue.component('TestSch', TestSch);

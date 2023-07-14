@@ -63,20 +63,17 @@
     </el-container>
     </template>
     <el-backtop :right="50" :bottom="50" />
-    <script>
+    <script>    
     import Axios from 'axios'
-
     export default {
         data(){
            return{
-            userpid:{
-              PID:"",
-            },
-            useruid:{
-              UID:""
-            },
+                TDo:{
+                  PID:this.$store.state.user.process.PID,
+                  state:"60",
+                },
                 ruleForm:{
-                  PID:"",
+                  PID:this.$store.state.user.process.PID,
                     TableData:[
                       {
                         TestClassification:'',
@@ -118,7 +115,7 @@
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=17;
+    //this.useruid.UID=17;
     // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
     //             headers:{
     //               'content-type': 'text/plain'}
@@ -126,8 +123,8 @@
     //             console.log(ret.data)
     //             this.userpid.PID=ret.data.PID;
     //           })
-    this.userpid.PID=20;
-    this.ruleForm.PID=this.userpid.PID;
+    //this.userpid.PID=20;
+    //this.ruleForm.PID=this.userpid.PID;
   },  
     mounted(){
   window.addEventListener('beforeunload', this.handleBeforeUnload);
@@ -167,6 +164,20 @@
             )
         },
         submitForm(formName) {
+          /*this.$refs[formName].validate((valid) => {
+            if (valid) {
+              alert("submit!");
+              this.$router.push({path: "./client", replace:true});
+            } else {
+              return false;
+            }
+          });*/
+          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TDo),{
+              headers:{
+                'content-type': 'text/plain'}
+              }).then(ret=>{
+             })
+          console.log(this.ruleForm);          
           Axios.post("http://localhost:9090/api/testcase/insert",JSON.stringify(this.ruleForm),{
                 headers:{
                   'content-type': 'text/plain'}
