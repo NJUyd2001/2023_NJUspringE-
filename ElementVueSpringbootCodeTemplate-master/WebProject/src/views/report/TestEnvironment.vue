@@ -112,7 +112,7 @@
               PID:"",
             },
             ruleForm:{
-              PID:"",
+              PID:this.$store.state.user.process.PID,
               tableData1: [{
                   HardwareCategory: '',
                   HardwareName: '',
@@ -172,17 +172,6 @@
         created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.useruid.UID=this.$store.state.user.id;
-    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-                console.log(ret.data)
-                this.userpid.PID=ret.data.PID;
-                this.ruleForm.PID=this.uerpid.PID;
-              })
-    //this.userpid.PID=20;
-    //this.ruleForm.PID=20;
   },
         mounted(){
         window.addEventListener('beforeunload', this.handleBeforeUnload);
@@ -233,7 +222,7 @@
         },
         submitForm(formName) {
           console.log(this.ruleForm);
-              Axios.post("http://localhost:9090/testenvironment/insert",JSON.stringify(this.ruleForm),{
+              Axios.post("http://localhost:9090/api/testenvironment/insert",JSON.stringify(this.ruleForm),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{

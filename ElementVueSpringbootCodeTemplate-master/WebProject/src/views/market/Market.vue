@@ -63,7 +63,7 @@
           </el-menu-item-group>
         </el-submenu>
 
-        <el-submenu index="9">
+        <el-submenu index="6">
           <template slot="title" collapse=false>
             <i class="el-icon-user"></i>
             <span>我的</span>
