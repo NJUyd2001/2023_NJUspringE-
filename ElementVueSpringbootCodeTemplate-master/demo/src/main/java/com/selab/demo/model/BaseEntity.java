@@ -8,7 +8,7 @@ public class BaseEntity {
     /*
     * @Id
     * @GeneratedValue(strategy = GenerationType.IDENTITY)
-    * private int id; UID由mysql数据库管理
+    * private Integer id; UID由mysql数据库管理
     */
 
 }

@@ -10,15 +10,15 @@ public interface ReportCheckDao {
     void insert(ReportCheckModel reportCheckModel);
 
     @Select("SELECT * FROM selabspringe.reportcheck WHERE CHID = #{CHID}")
-    List<ReportCheckModel> select(int CHID);
+    List<ReportCheckModel> select(Integer CHID);
 
     @Select("SELECT CHID FROM selabspringe.reportcheck WHERE CHID = #{CHID}")
-    Integer select2(int CHID);
+    Integer select2(Integer CHID);
 
     @Update("UPDATE selabspringe.reportcheck SET tableid = #{tableid}, softwarename = #{softwarename},client=#{client},examiner=#{examiner},date=#{date} WHERE CHID = #{CHID}")
     void update(ReportCheckModel reportCheckModel);
 
     @Delete("DELETE FROM selabspringe.reportcheck WHERE CHID = #{CHID}")
-    void delete(int CHID);
+    void delete(Integer CHID);
 
 }

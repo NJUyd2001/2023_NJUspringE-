@@ -11,14 +11,14 @@ public interface TestRecordDao {
     void insert(TestRecordModel testRecordModel);
 
     @Select("SELECT * FROM selabspringe.testrecord WHERE TRID = #{TRID}")
-    List<TestRecordModel> select(int TRID);
+    List<TestRecordModel> select(Integer TRID);
 
     @Select("SELECT TRID FROM selabspringe.testrecord WHERE TRID = #{TRID}")
-    Integer select2(int TRID);
+    Integer select2(Integer TRID);
 
     @Update("UPDATE selabspringe.testrecord SET tableid = #{tableid} WHERE TRID = #{TRID}")
     void update(TestRecordModel testRecordModel);
 
     @Delete("DELETE FROM selabspringe.testrecord WHERE TRID = #{TRID}")
-    void delete(int TRID);
+    void delete(Integer TRID);
 }

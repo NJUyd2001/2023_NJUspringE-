@@ -11,15 +11,15 @@ public interface TesttheContentDao {
     void insert(TesttheContentModel TesttheContentModel);
 
     @Select("SELECT * FROM selabspringe.testthecontent WHERE TID = #{TID}")
-    List<TesttheContentModel> select(int TID);
+    List<TesttheContentModel> select(Integer TID);
 
     @Select("SELECT TID FROM selabspringe.testthecontent WHERE TID = #{TID}")
-    Integer select2(int TID);
+    Integer select2(Integer TID);
 
     @Update("UPDATE selabspringe.testthecontent SET testid1 = #{testid1}, testid2 = #{testid2},testid3=#{testid3},testid4=#{testid4},testid5=#{testid5},testid6=#{testid6} WHERE TID = #{TID}")
     void update(TesttheContentModel TesttheContentModel);
 
     @Delete("DELETE FROM selabspringe.testthecontent WHERE TID = #{TID}")
-    void delete(int TID);
+    void delete(Integer TID);
 
 }

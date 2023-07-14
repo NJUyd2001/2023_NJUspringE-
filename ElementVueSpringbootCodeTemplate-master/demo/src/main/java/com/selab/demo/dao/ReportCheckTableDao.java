@@ -10,14 +10,14 @@ public interface ReportCheckTableDao {
     void insert(ReportCheckTableModel reportCheckTableModel);
 
     @Select("SELECT * FROM selabspringe.reportchecktable WHERE tableid = #{tableid}")
-    List<ReportCheckTableModel> select(int TRID);
+    List<ReportCheckTableModel> select(Integer TRID);
 
     @Select("SELECT tableid FROM selabspringe.reportchecktable WHERE tableid = #{tableid}")
-    Integer select2(int tableid);
+    Integer select2(Integer tableid);
 
     @Update("UPDATE selabspringe.reportchecktable SET num = #{num}, checkcontent = #{checkcontent},description=#{description},radio=#{radio} WHERE tableid = #{tableid}")
     void update(ReportCheckTableModel reportCheckTableModel);
 
     @Delete("DELETE FROM selabspringe.reportchecktable WHERE tableid = #{tableid}")
-    void delete(int tableid);
+    void delete(Integer tableid);
 }
