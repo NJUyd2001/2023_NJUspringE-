@@ -5,11 +5,11 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-        <el-breadcrumb-item :to="{ path: '../#/Test' }">测试主页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestEnvironment">测试环境</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/testcontent">测试内容</a></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '../client' }">主页</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/ctestreportcovercheck">测试报告声明</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/clientreportcheckreport">测试报告</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/ctestenvironmentcheck">测试环境</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/ctestcontentcheck">测试内容</a></el-breadcrumb-item>
        </el-breadcrumb>
        </el-col>
        <el-col :span="2">
@@ -18,7 +18,7 @@
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/TestEnvironment">
+            <router-link to="/ctestenvironmentcheck">
             <el-button size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
@@ -174,7 +174,6 @@
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=29;
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}
@@ -280,18 +279,7 @@
       }
         },
         submitForm(formName) {
-      console.log(this.ruleForm);
-          Axios.post("http://localhost:9090/api/testcontent/insert",JSON.stringify(this.ruleForm),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-        console.log(ret.data);
-        this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });   
+          setTimeout(() => {this.$router.push({path: "./cauditreport", replace:true});}, 2000);
         },
       }
     }

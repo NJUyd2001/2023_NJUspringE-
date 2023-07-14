@@ -44,6 +44,10 @@
               <i class="el-icon-edit"></i>
               <span slot="title" @click="edit">编辑</span>
             </el-menu-item>
+            <el-menu-item>
+              <i class="el-icon-house"></i>
+              <span slot="title" @click="house()">返回</span>
+            </el-menu-item>
           </el-menu>
         </el-card>
       </div>
@@ -190,6 +194,9 @@ export default {
     edit() {
       this.$refs.dia.open();
     },
+    house(){
+      this.$router.go(-1);
+    }
   },
 };
 </script>

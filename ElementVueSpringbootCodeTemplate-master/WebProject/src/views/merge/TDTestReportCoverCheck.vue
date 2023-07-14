@@ -122,8 +122,7 @@
       created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=29;
+    this.useruid.UID=this.$store.state.user.process.UID;
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}

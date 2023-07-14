@@ -15,15 +15,15 @@
                <table width="90%" border="0" cellspacing="0" cellpadding="0" class="processing_content" >
                          <tr v-if="item.id=='1'">
                             <td v-if="pstate=='10'" style="color:#98A6BE" >
-                            	<div class="processing_content_detail" style="float:left;width:70%"><span >人员分配中...</span></div> 
-                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
-                            </td>
-                            <td v-if="pstate=='11'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
-                            <td v-if="pstate=='12'" style="color:#98A6BE" >
+                            <td v-if="pstate=='11'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >测试部审核中...</span></div> 
+                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
+                            </td>
+                            <td v-if="pstate=='12'" style="color:#98A6BE" >
+                            	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部生成报价...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
                           </tr>
@@ -48,7 +48,7 @@
                             </td>
                           </tr>
                           <tr v-if="item.id=='4'">
-                            <td v-if="pstate=='71'" style="color:#98A6BE" >
+                            <td v-if="pstate=='72'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >授权签字人审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
@@ -60,14 +60,15 @@
            </el-step>
         </el-steps>
         <div>
-         <el-button v-if="pstate=='10'" style="margin-top: 12px;" @click="jump2application()">发起委托</el-button>
+         <el-button v-if="pstate=='0'" style="margin-top: 12px;" @click="jump2application()">发起委托</el-button>
          <el-button v-else-if="pstate=='15'" style="margin-top: 12px;" @click="J2AppMenMar()">修改委托(市场部驳回)</el-button>
          <el-button v-else-if="pstate=='16'" style="margin-top: 12px;" @click="J2AppMenTest()">修改委托(测试部驳回)</el-button>
          <el-button v-else-if="pstate=='20'" style="margin-top: 12px;" @click="J2Auditquote()">查看报价</el-button>
-         <el-button v-else-if="pstate=='30'" style="margin-top: 12px;" @click="next">填写合同</el-button>
-         <el-button v-else-if="pstate=='32'" style="margin-top: 12px;" @click="next">发送样品</el-button>
+         <el-button v-else-if="pstate=='30'" style="margin-top: 12px;" @click="J2Contract()">填写合同</el-button>
+         <el-button v-else-if="pstate=='32'" style="margin-top: 12px;" @click="J2SamSend()">发送样品</el-button>
          <el-button v-else-if="pstate=='71'" style="margin-top: 12px;" @click="J2Report()">查看测试报告</el-button>
-         <el-button v-else-if="pstate=='80'" style="margin-top: 12px;" @click="Confirmed()">确认接收</el-button>
+         <el-button v-else-if="pstate=='73'" style="margin-top: 12px;" @click="Confirmed()">确认接收</el-button>
+         <el-button v-else-if="pstate=='81'" style="margin-top: 12px;" @click="goBack()">完结，撒花！</el-button>
          </div>
   </div>
 </div>
@@ -89,14 +90,21 @@ export default {
   //},
   created(){
     //在页面加载时读取sessionStorage里的状态信息
+    console.log(this.SelectForm);
       Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.SelectForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        //console.log(ret.data.state)
+        console.log(ret.data)
         this.pstate=ret.data.state;
         console.log(this.pstate)
-        this.active=this.pstate/10;
+        if(this.pstate<35)
+          this.npstate=this.pstate;
+        else if(this.pstate > 35 && this.pstate < 45)
+          this.npstate=this.pstate - 10;
+        else if(this.pstate > 45)
+          this.npstate=this.pstate - 30;
+        this.active=this.npstate/10;
         console.log(this.active)
       })
         
@@ -104,9 +112,10 @@ export default {
   props: ['data', 'defaultActive'],
   data() {
     return {
-       active: this.pstate/10,
+       active: this.npstate/10,
+       npstate: '',
        approvalProcessProject:[
-          {id:'0',label: "您尚未发起委托"},
+          {id:'0',label: "已发起委托"},
           {id:'1',label: "委托已发起，等待审核"},
           { id:'2',label: "委托已通过，请查看报价"},
           { id:'3',label: "请填写合同，并上传样品"},
@@ -197,6 +206,9 @@ export default {
       this.$message.success("确认成功，正在返回用户界面！");
       setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000)
     },
+    goBack() {
+      this.$router.go(-1);
+    },
     loginOut() {
       //this.showLogin = true;
       // 移除本地用户登录信息
@@ -224,6 +236,9 @@ export default {
     },
     J2AppMenTest(){
       this.$router.push('/applicationamendtest');
+    },
+    J2Contract(){
+      this.$router.push('/ClientContract');
     },
     addTab(targetName, commentName) {
       // 如果已经存在
@@ -254,9 +269,13 @@ export default {
       //this.$router.push('/client/ConfidentialityAgreement');
       this.$router.push('/auditquote');
     },
+    J2SamSend() {
+      //this.$router.push('/client/ConfidentialityAgreement');
+      this.$router.push('/samplesend');
+    },
     J2Report() {
       //this.$router.push('/client/ConfidentialityAgreement');
-      this.$router.push('/report');
+      this.$router.push('/ctestreportcovercheck');
     },
      hideInfo(){
             setTimeout(()=>{
@@ -267,10 +286,6 @@ export default {
         showInfo(){
             this.userInfo=true
         },
-    next() {
-        this.active=this.pstate/10;
-        console.log(this.pstate)
-      },
   }
 };
 </script>

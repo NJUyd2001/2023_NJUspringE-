@@ -5,9 +5,9 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-          <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
-          <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
-          <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/client' }">用户主页</el-breadcrumb-item>
+          <el-breadcrumb-item><a href="/ctestreportcovercheck">测试报告声明</a></el-breadcrumb-item>
+          <el-breadcrumb-item><a href="/clientreportcheckreport">测试报告</a></el-breadcrumb-item>
         </el-breadcrumb>
         </el-col>
         <el-col :span="2">
@@ -262,8 +262,7 @@ import Axios from 'axios'
 created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=29;
+    this.useruid.UID=this.$store.state.user.process.UID;
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}
@@ -283,7 +282,7 @@ created(){
   },
   methods:{
     submitForm(formName) {
-      this.$router.push({path: "./testenvironment", replace:true});
+      this.$router.push({path: "./ctestenvironmentcheck", replace:true});
     },
   handleBeforeUnload() {
       sessionStorage.setItem("store",JSON.stringify(this.$store.state))

@@ -5,11 +5,11 @@
     <el-row>
     <el-col :span="23">
     <el-breadcrumb separator="->">
-    <el-breadcrumb-item :to="{ path: '/market' }">市场部主页-审核委托</el-breadcrumb-item>
-    <el-breadcrumb-item :to="{ path: '/marketaudituser' }">客户信息查看</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/marketauditapplication">申请表查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/marketauditfunctionlist">功能列表查看</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/#/marketapplication">审核信息填写</a></el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '../client' }">主页</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/ctestreportcovercheck">测试报告声明</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/clientreportcheckreport">测试报告</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/ctestenvironmentcheck">测试环境</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/ctestcontentcheck">测试内容</a></el-breadcrumb-item>
   </el-breadcrumb>
 </el-col>
 <el-col :span="1">
@@ -18,7 +18,7 @@
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="5">
-        <router-link to="/marketauditfunctionlist">
+        <router-link to="/ctestcontentcheck">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
@@ -48,7 +48,7 @@
         </el-form-item>
         <el-form-item label="受理意见：" prop="ConfirmOpinion"  required>
           <el-radio-group v-model="ruleForm.ConfirmOpinion">
-            <el-radio label="受理-进入测试部审核阶段" value="11"></el-radio>
+            <el-radio label="受理" value="11"></el-radio>
             <el-radio label="不受理" value="15"></el-radio>
             <el-radio label="进一步联系" value="15"></el-radio>
           </el-radio-group>
@@ -121,19 +121,19 @@ export default {
       }).then(() => {
         this.$refs[formName].validate((valid) => {
         if (valid) {
-          if(this.ruleForm.ConfirmOpinion == "受理-进入测试部审核阶段")
-            this.Pid.state="11";
+          if(this.ruleForm.ConfirmOpinion == "受理")
+            this.Pid.state="73";
           else if(this.ruleForm.ConfirmOpinion == "不受理")
-            this.Pid.state="15";
+            this.Pid.state="77";
           else if(this.ruleForm.ConfirmOpinion == "进一步联系")
-            this.Pid.state="15";
+            this.Pid.state="77";
       Axios.post("http://localhost:9090/api/application/insertopinion",JSON.stringify(this.ruleForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        this.$message.success("提交成功，正在返回市场部界面！");
+        this.$message.success("提交成功，正在返回主界面！");
         this.StepNumber+=2;
-        setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
+        setTimeout(() => {this.$router.push({path: "./signatory", replace:true});}, 2000);
       })
       
       Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.Pid),{

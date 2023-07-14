@@ -5,8 +5,8 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-        <el-breadcrumb-item :to="{ path: '/test' }">客户主页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestReportCover">测试报告查看</a></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/client' }">客户主页</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/ctestreportcovercheck">测试报告查看</a></el-breadcrumb-item>
       </el-breadcrumb>
       </el-col>
       <el-col :span="2">
