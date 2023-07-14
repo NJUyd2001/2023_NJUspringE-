@@ -100,6 +100,7 @@ public class ApplicationService {
             newjsonObject.put("AID",jsonObject.getString("aID"));
             newjsonObject.put("applicantID",jsonObject.getString("applicantID"));
             newjsonObject.put("PID",jsonObject.getString("processID"));
+            newjsonObject.put("processID",jsonObject.getString("processID"));
             String t =  jsonObject.getString("time");
             if(t!=null)
                 newjsonObject.put("time",t);
