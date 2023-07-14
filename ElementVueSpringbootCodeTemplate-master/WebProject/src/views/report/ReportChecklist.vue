@@ -31,7 +31,7 @@
               </el-steps>
             </el-col>
           <el-col :span="6">
-            <el-button size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
+            <el-button size="middle" @click="submitForm('ruleForm')" type="success">下一步</el-button>
           </el-col>
         </el-row>
       </el-header>
@@ -87,13 +87,20 @@
         </el-main>
     </el-container>
     </template>
-
     <script>
+    import Axios from 'axios'
     export default {
         data(){
            return{
             number:1,
+            useruid:{
+              UID:"",
+            },
+            userpid:{
+              PID:"",
+            },
             ruleForm:{
+            PID:"",
             SoftWareName:'',
             Client:'',
             Examiner:'',
@@ -213,7 +220,32 @@
         }
       }
     },
-      methods: {
+    created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    this.useruid.UID=17;
+    // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+    //             headers:{
+    //               'content-type': 'text/plain'}
+    //           }).then(ret=>{
+    //             console.log(ret.data)
+    //             this.userpid.PID=ret.data.PID;
+    //           })
+    this.userpid.PID=20;
+    this.ruleForm.PID=this.userpid.PID;
+  },  
+    mounted(){
+  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('unload', this.handleUnload);
+},
+      methods:{
+        handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+        },
+        handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+          },
         handleClick() {
         console.log('click');
       },
@@ -225,19 +257,15 @@
         console.log('1');
       },
       submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
-            } else {
-              return false;
-            }
-          });*/
-          console.log(this.ruleForm);
-          this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
-        }
-
+          Axios.post("http://localhost:9090/api/reportcheck/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+            console.log(ret.data);
+            this.$message.success("提交成功！");
+          setTimeout(() => {this.$router.push({path: "./testdocument2", replace:true});}, 2000);
+            })
+          }
     }
   }
 

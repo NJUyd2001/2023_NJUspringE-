@@ -60,7 +60,7 @@ public class ContractService {
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         String itemname =  jsonObject.getString("ItemName");
@@ -165,14 +165,22 @@ public class ContractService {
 
     public String select(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        Integer CID = findCID(jsonObject.getInteger("PID"));
+        Integer PID = jsonObject.getInteger("PID");
+        if(PID == null ||processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
+        Integer CID = findCID(PID);
         return JSONrepack(JSON.toJSONString(contractDao.select(CID)),jsonObject.getInteger("PID"));
 
     }
 
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        Integer CID = findCID(jsonObject.getInteger("PID")) ;
+        Integer PID = jsonObject.getInteger("PID");
+        if(PID == null ||processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
+        Integer CID = findCID(PID) ;
         String itemname =  jsonObject.getString("ItemName");
         String client = jsonObject.getString("Client");
         String trustee = jsonObject.getString("Trustee");
@@ -234,7 +242,11 @@ public class ContractService {
 
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
-        Integer CID = findCID(jsonObject.getInteger("PID"));
+        Integer PID = jsonObject.getInteger("PID");
+        if(PID == null ||processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
+        Integer CID = findCID(PID);
         if(contractDao.select2(CID)  == null){
             return ("the contract does not exist");
         }

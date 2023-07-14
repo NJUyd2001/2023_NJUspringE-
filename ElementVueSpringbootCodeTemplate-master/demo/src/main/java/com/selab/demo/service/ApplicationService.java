@@ -186,6 +186,9 @@ public class ApplicationService {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer applicantID = jsonObject.getInteger("applicantID");
         Integer processID = jsonObject.getInteger("PID");
+        if(processID == null ||processDao.findByPID(processID) == null){
+            return "the process does not exist";
+        }
         String time = jsonObject.getString("time");
         String phone = jsonObject.getString("phone");
         String testTYPE  = new String();
@@ -449,7 +452,9 @@ public class ApplicationService {
     public String checkbyprocess(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer username = jsonObject.getInteger("PID");
-        username = jsonObject.getInteger("processID");
+        if(username == null) {
+            username = jsonObject.getInteger("processID");
+        }
         return JSONrepack(JSON.toJSONString(applicationDao.findbyprocess(username)));
     }
     public String checkbyAID(String postJson){

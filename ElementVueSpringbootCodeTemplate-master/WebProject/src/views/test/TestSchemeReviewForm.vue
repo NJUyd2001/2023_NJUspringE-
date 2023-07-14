@@ -229,7 +229,22 @@ import Axios from 'axios';
             }
         }
     },
+    created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    console.log(this.$store.state.user.process.PID)
+  },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
       methods: {
+        handleBeforeUnload() {
+            sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+          },
+          handleUnload() {
+            sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+          },
         handleClick() {
         console.log('click');
         },
@@ -245,15 +260,6 @@ import Axios from 'axios';
            });
         },
         submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
-            } else {
-              return false;
-            }
-          });*/
-          
           Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TSRF),{
             headers:{
               'content-type': 'text/plain'}
