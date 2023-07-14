@@ -185,34 +185,36 @@ created(){
         headers:{
           'content-type': 'text/plain'}
         }).then(ret=>{
-          console.log(ret.data);
+          console.log(ret);
           this.Fileid1.FID=ret.data;
-        })
+          console.log(this.Fileid1.FID);
+        });
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid1),{
           headers:{
           'content-type': 'text/plain'},
       }).then(ret=>{
-        console.log(ret.data);
+        //console.log(ret.data);
         this.filename=ret.data;
       });
+        //console.log(this.Fileid1);
         Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid1),{
           headers:{
           'content-type': 'text/plain'},
+          responseType: 'blob'
       }).then(ret=>{
-        let data = ret.data
+        let data = ret.data;
       if (!data) {
             return
-       }
-       let url = window.URL.createObjectURL(new Blob([data]))
-      console.log(ret.headers)
-       let a = document.createElement('a')
-       a.style.display = 'none'
-       a.href = url
-       a.setAttribute('download',decodeURIComponent(this.filename))
-       document.body.appendChild(a)
-       a.click() //执行下载
-       window.URL.revokeObjectURL(a.href)
-       document.body.removeChild(a)
+       };
+       let url = window.URL.createObjectURL(new Blob([data]));
+       let a = document.createElement('a');
+       a.style.display = 'none';
+       a.href = url;
+       a.setAttribute('download',decodeURIComponent(this.filename));
+       document.body.appendChild(a);
+       a.click(); //执行下载
+       window.URL.revokeObjectURL(a.href);
+       document.body.removeChild(a);
       })
       },
       download2(){
