@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface SoftwareDocReviewDao {
-    @Insert("INSERT INTO selabspringe.softwaredocreview(SoftWareName, Client, ReviewCompleteDate, Reviewer, Examiner) VALUES"+
-            " (#{SoftWareName}, #{Client}, #{ReviewCompleteDate}, #{Reviewer}, #{Examiner})")
+    @Insert("INSERT INTO selabspringe.softwaredocreview(PID, SoftWareName, Client, ReviewCompleteDate, Reviewer, Examiner) VALUES"+
+            " (#{PID}, #{SoftWareName}, #{Client}, #{ReviewCompleteDate}, #{Reviewer}, #{Examiner})")
     @SelectKey(keyColumn = "SDRID", before = false, resultType = Integer.class, statement = {"select last_insert_id()"}, keyProperty = "SDRID")
     public void insert(SoftwareDocReviewModel softwareDocReviewModel);
     @Select("SELECT * FROM softwaredocreview WHERE SDRID=#{SDRID}")

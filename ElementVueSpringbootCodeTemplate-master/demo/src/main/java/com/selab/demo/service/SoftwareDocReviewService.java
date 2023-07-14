@@ -2,6 +2,7 @@ package com.selab.demo.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.selab.demo.dao.ProcessDao;
 import com.selab.demo.dao.SoftwareDocReviewDao;
 import com.selab.demo.model.SoftwareDocReviewModel;
 import com.selab.demo.dao.SdrItemDao;
@@ -15,17 +16,25 @@ public class SoftwareDocReviewService {
     SoftwareDocReviewDao softwareDocReviewDao;
     @Autowired
     SdrItemDao sdrItemDao;
+    @Autowired
+    ProcessDao processDao;
     public Integer insert(String postJson) {
         System.out.println(postJson);
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         JSONArray table = jsonObject.getJSONArray("tableData");
-
+        Integer PID = jsonObject.getInteger("PID");
+        if(processDao.findByPID2(PID) == null) {
+            System.out.println("进程不存在");
+            return -1;
+        }
         SoftwareDocReviewModel softwareDocReviewModel = new SoftwareDocReviewModel();
         softwareDocReviewModel.setSoftWareName(jsonObject.getString("SoftWareName"));
         softwareDocReviewModel.setVersionNumber(jsonObject.getString("VersionNumber"));
         softwareDocReviewModel.setClient(jsonObject.getString("Client"));
         softwareDocReviewModel.setReviewCompleteDate(jsonObject.getString("ReviewCompleteDate"));
         softwareDocReviewModel.setReviewer(jsonObject.getString("Reviewer"));
+        softwareDocReviewModel.setPID(PID);
+
         softwareDocReviewModel.setExaminer(jsonObject.getString("Examiner"));
 
         for(Integer i = 0; i < table.size(); i++) {
@@ -45,7 +54,13 @@ public class SoftwareDocReviewService {
                 return -1;
             }
         }
-        softwareDocReviewDao.insert(softwareDocReviewModel);
+        try {
+            softwareDocReviewDao.insert(softwareDocReviewModel);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return -1;
+        }
+        processDao.setSDRID(PID, softwareDocReviewModel.getSDRID());
         return softwareDocReviewModel.getSDRID();
     }
 
@@ -67,11 +82,49 @@ public class SoftwareDocReviewService {
     }
     public String updateMain(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer SDRID = jsonObject.getInteger("SDRID");
+        SoftwareDocReviewModel s = softwareDocReviewDao.selectBySDRID(SDRID);
+        String SoftWareName = jsonObject.getString("SoftWareName");
+        String VersionNumber = jsonObject.getString("VersionNumber");
+        String Client = jsonObject.getString("Client");
+        String ReviewCompleteDate = jsonObject.getString("ReviewCompleteDate");
+        String Reviewer = jsonObject.getString("Reviewer");
+        String Examiner = jsonObject.getString("Examiner");
 
-        return "";
+        if(SoftWareName != null) s.setSoftWareName(SoftWareName);
+        if(VersionNumber != null) s.setVersionNumber(VersionNumber);
+        if(Client != null) s.setClient(Client);
+        if(ReviewCompleteDate != null) s.setReviewCompleteDate(ReviewCompleteDate);
+        if(Reviewer != null) s.setReviewer(Reviewer);
+        if(Examiner != null) s.setExaminer(Examiner);
+        try{
+            softwareDocReviewDao.update(s);
+        }catch (Exception e){
+            return e.getMessage();
+        }
+        return "更新成功";
     }
     public String updateItem(String postJson){
-        return "";
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer ID = jsonObject.getInteger("ID");
+        SoftwareDocReviewModel.SdrItem sdrItem = sdrItemDao.selectByID(ID);
+        if(sdrItem == null) return "ID不存在";
+        Integer ReviewCategories = jsonObject.getInteger("ReviewCategories");
+        String ReviewItem = jsonObject.getString("ReviewItem");
+        String ReviewContent = jsonObject.getString("ReviewContent");
+        String ReviewResultExplanation = jsonObject.getString("ReviewResultExplanation");
+        String radio = jsonObject.getString("radio");
+        if(ReviewCategories != null) sdrItem.setReviewCategories(ReviewCategories);
+        if(ReviewItem != null) sdrItem.setReviewItem(ReviewItem);
+        if(ReviewContent != null) sdrItem.setReviewContent(ReviewContent);
+        if(ReviewResultExplanation != null) sdrItem.setReviewResultExplanation(ReviewResultExplanation);
+        if(radio != null) sdrItem.setRadio(radio);
+        try{
+            sdrItemDao.update(sdrItem);
+        }catch (Exception e){
+            return e.getMessage();
+        }
+        return "更新成功";
     }
 
     public String delete(String postJson){
