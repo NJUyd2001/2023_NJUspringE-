@@ -16,7 +16,7 @@ public interface AgreementDao {
     @Select("SELECT AgID FROM selabspringe.agreement WHERE AgID=#{AgID}")
     public Integer select2(Integer AgID);
 
-    @Update("UPDATE selabspringe.agreement SET client=#{client},trustee=#{trustee}, legalrepresentative1=#{legalrepresentative1}, legalrepresentative2=#{legalrepresentative2}, name=#{name},date1=#{date1},date2=#{date2}")
+    @Update("UPDATE selabspringe.agreement SET client=#{client},trustee=#{trustee}, legalrepresentative1=#{legalrepresentative1}, legalrepresentative2=#{legalrepresentative2}, name=#{name},date1=#{date1},date2=#{date2} WHERE AgID = #{AgID}")
     public void update (AgreementModel agreementModel);
 
     @Delete("DELETE FROM selabspringe.agreement WHERE AgID = #{AgID}")

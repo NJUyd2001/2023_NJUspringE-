@@ -21,7 +21,7 @@ public class AgreementService {
         ProcessModel processModel = processDao.findByPID(PID);
         return processModel.getAgID();
     }
-    public String JSONrepack(String postJson){
+    public String JSONrepack(String postJson,Integer PID){
         //System.out.print(postJson);
         JSONArray jsonArray = JSONArray.parseArray(postJson);
         Integer r = jsonArray.size();
@@ -34,13 +34,14 @@ public class AgreementService {
             JSONObject result = new JSONObject();
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(jsonArray.get(i)));
             result.put("AgID", jsonObject.getInteger("agID"));
+            result.put("PID",PID);
             result.put("Client", jsonObject.getString("client"));
             result.put("Trustee",jsonObject.getString("trustee"));
             result.put("LegalRepresentative1", jsonObject.getString("legalrepresentative1"));
             result.put("LegalRepresentative2", jsonObject.getString("legalrepresentative2"));
             result.put("Name", jsonObject.getString("name"));
-            result.put("Date1", jsonObject.getString("Date1"));
-            result.put("Date2", jsonObject.getString("Date2"));
+            result.put("Date1", jsonObject.getString("date1"));
+            result.put("Date2", jsonObject.getString("date2"));
 
             result2.add(result);
             ++i;
@@ -74,7 +75,7 @@ public class AgreementService {
     public String select(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer AgID = findAgID(jsonObject.getInteger("PID"));
-        return JSONrepack(JSON.toJSONString(agreementDao.select(AgID)));
+        return JSONrepack(JSON.toJSONString(agreementDao.select(AgID)),jsonObject.getInteger("PID"));
 
     }
 
@@ -114,6 +115,7 @@ public class AgreementService {
             date2 = oldjsonObject.getString("date2");
         }
         AgreementModel agreementModel = new AgreementModel(findAgID(PID),client,trustee,legalrepresentative1,legalrepresentative2,name,date1,date2);
+        agreementDao.update(agreementModel);
         return ("agreement update complete");
 
 
@@ -132,7 +134,7 @@ public class AgreementService {
     public String select_(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer AgID = jsonObject.getInteger("AgID");
-        return JSONrepack(JSON.toJSONString(agreementDao.select(AgID)));
+        return JSONrepack(JSON.toJSONString(agreementDao.select(AgID)),0);
 
     }
 
@@ -169,6 +171,7 @@ public class AgreementService {
             date2 = oldjsonObject.getString("date2");
         }
         AgreementModel agreementModel = new AgreementModel(AgID,client,trustee,legalrepresentative1,legalrepresentative2,name,date1,date2);
+        agreementDao.update(agreementModel);
         return ("agreement update complete");
 
 
