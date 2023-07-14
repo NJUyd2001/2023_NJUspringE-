@@ -147,6 +147,7 @@ import Axios from 'axios';
               state:"50",
             },
              ruleForm:{
+                PID:this.$store.state.user.process.PID,
                 SoftWareName:'',
                 VersionNumber:'',
                 ProjectNum:'',
@@ -261,6 +262,11 @@ import Axios from 'axios';
         },
         submitForm(formName) {
           Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TSRF),{
+            headers:{
+              'content-type': 'text/plain'}
+            }).then(ret=>{
+          })
+          Axios.post("http://localhost:9090/api/testReview/insert",JSON.stringify(this.ruleForm),{
             headers:{
               'content-type': 'text/plain'}
             }).then(ret=>{

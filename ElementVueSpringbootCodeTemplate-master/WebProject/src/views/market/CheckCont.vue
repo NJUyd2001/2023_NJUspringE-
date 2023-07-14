@@ -19,7 +19,6 @@
         <el-col :span="10">
         <el-steps :space="200" :active="stepNumber" finish-status="success">
           <el-step title="合同草稿审核"></el-step>
-          <el-step title="保密协议填写"></el-step>
           <el-step title="完成"></el-step>
         </el-steps>
       </el-col>  
@@ -154,7 +153,7 @@ export default {
     data(){
        return{
             userid:{
-              PID:"",
+              PID:this.$store.state.user.process.PID,
             },
             fileatt1:{
               state:"30",
@@ -199,6 +198,7 @@ export default {
 },created(){
       this.KeepInfor();
       this.userid.PID=this.$store.state.user.process.PID;
+      console.log(this.userid.PID);
        Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
                  headers:{
                    'content-type': 'text/plain'}
@@ -234,15 +234,6 @@ export default {
           }).then(ret=>{
               console.log(this.Pid.state)
          })
-       //   this.$message.success("提交成功，正在返回市场部界面！");
-        //  setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
-        
-      Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-        console.log(ret.data)
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });
       this.stepNumber+=1;
       this.info("提交成功，正在返回市场部界面！");
       setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
@@ -255,7 +246,7 @@ export default {
         }).then(ret=>{
           console.log(ret.data);
           this.Fileid1.FID=ret.data;
-        })
+        });
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid1),{
           headers:{
           'content-type': 'text/plain'},
@@ -266,6 +257,7 @@ export default {
         Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid1),{
           headers:{
           'content-type': 'text/plain'},
+          responseType: 'blob'
       }).then(ret=>{
         let data = ret.data
       if (!data) {

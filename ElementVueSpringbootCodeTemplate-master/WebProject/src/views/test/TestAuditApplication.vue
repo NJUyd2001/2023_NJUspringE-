@@ -311,7 +311,7 @@
         }).then(ret=>{
           console.log(ret.data);
           this.Fileid1.FID=ret.data;
-        })
+        });
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid1),{
           headers:{
           'content-type': 'text/plain'},
@@ -322,6 +322,7 @@
         Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid1),{
           headers:{
           'content-type': 'text/plain'},
+          responseType: 'blob'
       }).then(ret=>{
         let data = ret.data
       if (!data) {
@@ -347,7 +348,7 @@
         }).then(ret=>{
           console.log(ret.data)
           this.Fileid2.FID=ret.data;
-        })
+        });
         console.log(this.Fileid2)
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid2),{
           headers:{
@@ -359,6 +360,7 @@
         Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid2),{
           headers:{
           'content-type': 'text/plain'},
+          responseType: 'blob'
       }).then(ret=>{
         let data = ret.data
       if (!data) {
@@ -384,7 +386,7 @@
         }).then(ret=>{
           console.log(ret.data);
           this.Fileid3.FID=ret.data;
-        })
+        });
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid3),{
           headers:{
           'content-type': 'text/plain'},
@@ -395,6 +397,7 @@
         Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid3),{
           headers:{
           'content-type': 'text/plain'},
+          responseType: 'blob'
       }).then(ret=>{
         let data = ret.data
       if (!data) {
@@ -420,7 +423,7 @@
         }).then(ret=>{
           console.log(ret.data);
           this.Fileid4.FID=ret.data;
-        })
+        });
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid4),{
           headers:{
           'content-type': 'text/plain'},
@@ -431,6 +434,7 @@
         Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid4),{
           headers:{
           'content-type': 'text/plain'},
+          responseType: 'blob'
       }).then(ret=>{
         let data = ret.data
       if (!data) {

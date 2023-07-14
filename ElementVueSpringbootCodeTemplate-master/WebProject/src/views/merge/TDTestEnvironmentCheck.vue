@@ -5,10 +5,10 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-        <el-breadcrumb-item :to="{ path: '/test' }">测试部主页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestEnvironment">测试环境</a></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/testdirector' }">测试部主管主页</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/TDTestReportCoverCheck">测试报告声明</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/tdreportcheckreport">测试报告</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/tdtestenvironmentcheck">测试环境</a></el-breadcrumb-item>
         </el-breadcrumb>
         </el-col>
         <el-col :span="2">
@@ -17,7 +17,7 @@
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="10">
-            <router-link to="/report">
+            <router-link to="/tdreportcheck">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
@@ -26,10 +26,10 @@
             </div></el-col>
             <el-col :span="20">
           <el-steps :space="200" :active="2" finish-status="success">
-          <el-step title="测试报告信息填写"></el-step>
-          <el-step title="测试报告填写"></el-step>
-          <el-step title="测试环境填写"></el-step>
-          <el-step title="测试内容填写"></el-step>
+          <el-step title="测试报告信息查看"></el-step>
+          <el-step title="测试报告查看"></el-step>
+          <el-step title="测试环境查看"></el-step>
+          <el-step title="测试内容查看"></el-step>
           <el-step title="完成"></el-step>
           </el-steps>
           </el-col>
@@ -109,7 +109,7 @@
                 UID:"",
             },
             userpid:{
-              PID:"",
+              PID:this.$store.state.user.process.PID,
             },
             ruleForm:{
               PID:"",
@@ -174,19 +174,12 @@
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
     this.useruid.UID=29;
-    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-                console.log(ret.data[0].pid);
-                this.userpid.PID=ret.data[0].pid;
-                Axios.post("http://localhost:9090/api/testenvironment/find",JSON.stringify(this.userpid),{
+    Axios.post("http://localhost:9090/api/testenvironment/find",JSON.stringify(this.userpid),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
                 console.log(ret.data)
                 this.ruleForm=ret.data[0];
-              })
               })
     
   },
@@ -245,7 +238,7 @@
               }).then(ret=>{
                   console.log(ret.data);
                   this.$message.success("提交成功！");
-                  setTimeout(() => {this.$router.push({path: "./testcontent", replace:true});}, 2000);
+                  setTimeout(() => {this.$router.push({path: "./tdtestcontentcheck", replace:true});}, 2000);
               })
       .catch(function (error) { // 请求失败处理
         console.log(error);

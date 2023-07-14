@@ -15,15 +15,15 @@
                <table width="90%" border="0" cellspacing="0" cellpadding="0" class="processing_content" >
                          <tr v-if="item.id=='1'">
                             <td v-if="pstate=='10'" style="color:#98A6BE" >
-                            	<div class="processing_content_detail" style="float:left;width:70%"><span >人员分配中...</span></div> 
-                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
-                            </td>
-                            <td v-if="pstate=='11'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
-                            <td v-if="pstate=='12'" style="color:#98A6BE" >
+                            <td v-if="pstate=='11'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >测试部审核中...</span></div> 
+                              <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
+                            </td>
+                            <td v-if="pstate=='12'" style="color:#98A6BE" >
+                            	<div class="processing_content_detail" style="float:left;width:70%"><span >市场部生成报价...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
                           </tr>

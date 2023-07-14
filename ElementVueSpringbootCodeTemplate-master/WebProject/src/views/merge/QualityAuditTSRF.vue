@@ -41,7 +41,7 @@
             <el-row>
             <el-col :span="12">
             <el-form-item  label="软件名称:" prop="SoftWareName"> 
-                <el-input v-model="ruleForm.SoftWareName" style="width:200px; padding:10px;"  ></el-input>
+                <el-input v-model="ruleForm.SoftwareName" style="width:200px; padding:10px;"  ></el-input>
             </el-form-item> 
             </el-col>
             <el-col :span="4">
@@ -114,9 +114,9 @@
             </el-form-item>
             <el-table :data="ruleForm.tableData"  style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="Duty" label="职责" width="110"></el-table-column>
-            <el-table-column prop="EvalutionOpinion" label="评审意见" width="400">
+            <el-table-column prop="EvaluationOpinion" label="评审意见" width="400">
               <template slot-scope="scope">
-                <el-input :type="input_type" ref="enterInput" v-model="scope.row.EvalutionOpinion" :rows="2"  placeholder="评审意见"/>
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.EvaluationOpinion" :rows="2"  placeholder="评审意见"/>
               </template>
             </el-table-column>
             <el-table-column prop="Sign" label="签字" width="100">
@@ -130,7 +130,14 @@
               </template>
             </el-table-column>
             </el-table>
-            <br><br>
+            <br>
+            <el-form  :model="Suggestion" ref="Suggestion">
+        <el-row type="flex" justify="center">
+        <el-radio-group v-model="Suggestion.Pass" :span="3">
+          <el-radio  label="false">拒绝</el-radio>
+          <el-radio  label="true">同意</el-radio>
+        </el-radio-group>
+        </el-row></el-form><br>
           </el-form>
         </el-main>
     </el-container>
@@ -144,8 +151,14 @@ import Axios from 'axios';
              input_type:'text',
              TSRF:{
               PID:this.$store.state.user.process.PID,
-              state:"51",
+              state:"",
             },
+            Pid:{
+                PID:"",
+            },
+            Suggestion:{
+                  Pass:"false",
+                },
              ruleForm:{
               },
             rules:{
@@ -188,6 +201,24 @@ import Axios from 'axios';
             }
         }
     },
+    created(){
+        // console.log(this.$store.state.user.id)
+      this.KeepInfor();
+      this.Pid.PID=this.$store.state.user.process.PID;
+      console.log(this.Pid.PID)
+      Axios.post("http://localhost:9090/api/testReview/select/byPID",JSON.stringify(this.Pid),{
+        headers:{
+          'content-type': 'text/plain'}
+      }).then(ret=>{
+          this.ruleForm=ret.data;
+          //this.$store.state.user.process.AID=ret.data[0].AID;
+          console.log(this.ruleForm)
+      }).catch(function (error)
+        {
+          console.log(error);
+        }
+      )
+    },
       methods: {
         handleClick() {
         console.log('click');
@@ -204,14 +235,10 @@ import Axios from 'axios';
            });
         },
         submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
-            } else {
-              return false;
-            }
-          });*/
+          if(this.Suggestion.Pass == "true")
+            this.TSRF.state="51";
+          else if(this.Suggestion.Pass == "false")
+            this.TSRF.state="55";
           
           Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TSRF),{
             headers:{

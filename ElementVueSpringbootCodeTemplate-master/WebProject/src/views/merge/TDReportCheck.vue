@@ -15,7 +15,7 @@
         </el-row>
         <el-row>
           <el-col :span="2">
-            <router-link to="/TestReportCover">
+            <router-link to="/TDTestReportCoverCheck">
             <el-button size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
@@ -302,7 +302,7 @@ created(){
   },
   methods:{
     submitForm(formName) {
-      setTimeout(() => {this.$router.push({path: "./testenvironment", replace:true});}, 2000);
+      setTimeout(() => {this.$router.push({path: "./tdtestenvironmentcheck", replace:true});}, 2000);
     },
   handleBeforeUnload() {
       sessionStorage.setItem("store",JSON.stringify(this.$store.state))

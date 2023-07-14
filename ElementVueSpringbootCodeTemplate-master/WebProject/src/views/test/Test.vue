@@ -51,7 +51,7 @@
             <span> 进行测试</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-13" @click="addTab('编写测试方案', 'TDocu')"> 编写测试方案</el-menu-item>
+            <el-menu-item index="1-13" @click="addTab('编写测试文档', 'TDocu')"> 编写测试文档</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
             <el-menu-item index="1-14" @click="addTab('编写测试报告', 'TReport')"> 编写测试报告</el-menu-item>

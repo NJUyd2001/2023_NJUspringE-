@@ -72,7 +72,7 @@
               :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:this.$store.state.user.process.PID, state:'30', fileType:'contract' }"
+              :data="{ PID:userid.PID, state:'30', fileType:'contract' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
@@ -204,9 +204,8 @@ export default {
 },    
 created(){
       this.KeepInfor();
-      this.userid.UID=this.$store.state.user.process.UID;
-      
-      
+      //this.mypid=this.$store.state.user.process.PID;
+      console.log(this.userid.PID)
     },
     mounted() {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
