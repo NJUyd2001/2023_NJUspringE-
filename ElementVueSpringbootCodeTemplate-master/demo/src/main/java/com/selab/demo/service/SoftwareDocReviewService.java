@@ -36,7 +36,12 @@ public class SoftwareDocReviewService {
         softwareDocReviewModel.setPID(PID);
 
         softwareDocReviewModel.setExaminer(jsonObject.getString("Examiner"));
-
+        try {
+            softwareDocReviewDao.insert(softwareDocReviewModel);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return -1;
+        }
         for(Integer i = 0; i < table.size(); i++) {
             JSONObject j = table.getJSONObject(i);
             Integer ReviewCategories = j.getInteger("ReviewCategories");
@@ -54,12 +59,7 @@ public class SoftwareDocReviewService {
                 return -1;
             }
         }
-        try {
-            softwareDocReviewDao.insert(softwareDocReviewModel);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return -1;
-        }
+
         processDao.setSDRID(PID, softwareDocReviewModel.getSDRID());
         return softwareDocReviewModel.getSDRID();
     }
