@@ -105,14 +105,7 @@
                 PID:"",
               },
                 ruleForm:{
-                    PID:"",
-                    Client:'',
-                    Trustee:'南京大学软件测试中心',
-                    LegalRepresentative1:'',
-                    LegalRepresentative2:'',
-                    Name:'',
-                    Date1:'',
-                    Date2:'',
+                  PID:"",
                 },
                 rules:{
                   Client:[
@@ -169,15 +162,16 @@
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
-                console.log(ret.data)
-                this.userpid.PID=ret.data.PID;
+                console.log(ret.data[0].pid);
+                this.userpid.PID=ret.data[0].pid;
                 Axios.post("http://localhost:9090/api/agreement/find",JSON.stringify(this.userpid),{
                 headers:{
                   'content-type': 'text/plain'}
                 }).then(ret=>{
-                console.log(ret.data)
-                this.userpid.PID=ret.data.pid;
+                this.ruleForm=ret.data[0];
+                this.userpid.PID=ret.data[0].PID;
                 this.ruleForm.PID=this.userpid.PID;
+                console.log(this.ruleForm.PID);
               })
               })
     
@@ -193,13 +187,15 @@
           //alert(JSON.stringify(this.ruleForm));
         },
         submitForm(formName) {
+          console.log(this.ruleForm);
           Axios.post("http://localhost:9090/api/agreement/update",JSON.stringify(this.ruleForm),{
                   headers:{
                     'content-type': 'text/plain'}
                 }).then(ret=>{
+                  console.log(ret.data);
                   this.$message.success("提交成功，正在返回测试部界面！");
                   this.StepNumber+=2;
-                setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+                  setTimeout(() => {this.$router.push({path: "/client", replace:true});}, 2000);
                 })
                 .catch(function (error) { // 请求失败处理
                   console.log(error);
