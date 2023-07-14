@@ -24,7 +24,7 @@
     <el-main>
       <br>
       <el-form label-width=40% :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item label="传真:" prop="fax">
+        <el-form-item label="传真:" prop="userfax">
           <el-input v-model="ruleForm.userfax" style="width: 200px;"></el-input>
         </el-form-item>
         <el-form-item label="地址:" prop="address">
@@ -75,7 +75,7 @@ export default {
             ruleForm:{
             },
             rules:{
-              fax:[
+              userfax:[
               {  required: true, message: "不能为空！", trigger: "blur" },
               ],
               address:[
@@ -115,7 +115,7 @@ export default {
       }).then(ret=>{
         console.log(ret.data)
         this.$message.success("提交成功，正在返回用户界面！");
-       //setTimeout(() => {this.$router.push({path: "../client", replace:true});}, 2000);
+        setTimeout(() => {this.$router.push({path: "../client", replace:true});}, 2000);
       })
     },
   },

@@ -111,12 +111,12 @@ created(){
     this.KeepInfor()
     this.userid.AID=this.$store.state.user.process.AID;
     // this.ruleForm.applicantID=this.$store.state.user.id;
-    console.log(this.$store.state.user.process.AID)
+    //console.log(this.$store.state.user.process.AID)
     Axios.post("http://localhost:9090/api/application/gettabledata",JSON.stringify(this.userid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        console.log(ret.data)
+        console.log(ret.data.AID)
         this.ruleForm=ret.data;
       })
   },
