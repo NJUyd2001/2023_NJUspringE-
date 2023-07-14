@@ -4,14 +4,15 @@ import javax.persistence.Table;
 @Table
 public class TabledataModel {
     private Integer TID;
-    private Integer id;
     private String name;
+    private Integer id;
+
     private String functions;
 
-    public TabledataModel (Integer TID,Integer id, String name, String functions){
+    public TabledataModel(Integer TID, String name, Integer id, String functions) {
         this.TID = TID;
-        this.id = id;
         this.name = name;
+        this.id = id;
         this.functions = functions;
     }
 
@@ -23,14 +24,6 @@ public class TabledataModel {
         this.TID = TID;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -39,11 +32,19 @@ public class TabledataModel {
         this.name = name;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getFunctions() {
         return functions;
     }
 
-    public void setFunctions(String function) {
+    public void setFunctions(String functions) {
         this.functions = functions;
     }
 }

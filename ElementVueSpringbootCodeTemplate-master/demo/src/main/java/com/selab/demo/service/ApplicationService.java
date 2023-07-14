@@ -881,7 +881,7 @@ public class ApplicationService {
                 Integer id = table.getInteger("id");
                 String name = table.getString("name");
                 String functions =table.getString("function");
-                TabledataModel tabledataModel = new TabledataModel(0,id,name,functions);
+                TabledataModel tabledataModel = new TabledataModel(0,name,id,functions);
                 tabledataDao.insert(tabledataModel);
                 String TID = tabledataModel.getTID().toString();
                 tableid  += TID;
@@ -943,7 +943,7 @@ public class ApplicationService {
                     if(functions == null){
                         functions = oldtable.getString("functions");
                     }
-                    TabledataModel tabledataModel = new TabledataModel(TID, id, name, functions);
+                    TabledataModel tabledataModel = new TabledataModel(TID, name, id, functions);
                     tabledataDao.update(tabledataModel);
                 }
             }
