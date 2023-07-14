@@ -29,8 +29,8 @@ public class SoftwareDocReviewController {
     public String updateItem(@RequestBody String postJson){
         return softwareDocReviewService.updateItem(postJson);
     }
-    @RequestMapping("/select/byTRID")
-    public SoftwareDocReviewModel selectByTRID(@RequestBody String postJson){
+    @RequestMapping("/select/bySDRID")
+    public SoftwareDocReviewModel selectBySDRID(@RequestBody String postJson){
         return softwareDocReviewService.selectBySDRID(postJson);
     }
     @RequestMapping("/select/byPID")

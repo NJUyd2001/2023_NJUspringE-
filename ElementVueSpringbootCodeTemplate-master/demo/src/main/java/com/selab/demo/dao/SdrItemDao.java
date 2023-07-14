@@ -5,8 +5,8 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface SdrItemDao {
-    @Insert("INSERT INTO selabspringe.sdrtableitem(ReviewCategories, ReviewItem, ReviewContent, ReviewResultExplanation, radio) VALUES"+
-            " (#{ReviewCategories}, #{ReviewItem}, #{ReviewContent}, #{ReviewResultExplanation}, #{radio})")
+    @Insert("INSERT INTO selabspringe.sdrtableitem(SDRID, ReviewCategories, ReviewItem, ReviewContent, ReviewResultExplanation, radio) VALUES"+
+            " (#{SDRID}, #{ReviewCategories}, #{ReviewItem}, #{ReviewContent}, #{ReviewResultExplanation}, #{radio})")
     @SelectKey(keyColumn = "ID", before = false, resultType = Integer.class, statement = {"select last_insert_id()"}, keyProperty = "ID")
     public void insert(SoftwareDocReviewModel.SdrItem sdrItem);
     @Select("SELECT * FROM sdrtableitem WHERE ID=#{ID}")
