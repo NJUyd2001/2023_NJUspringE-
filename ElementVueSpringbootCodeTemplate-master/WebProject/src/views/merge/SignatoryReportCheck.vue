@@ -302,7 +302,7 @@ created(){
   },
   methods:{
     submitForm(formName) {
-      setTimeout(() => {this.$router.push({path: "./testenvironment", replace:true});}, 2000);
+      setTimeout(() => {this.$router.push({path: "./STestEnvironmentCheck", replace:true});}, 2000);
     },
   handleBeforeUnload() {
       sessionStorage.setItem("store",JSON.stringify(this.$store.state))

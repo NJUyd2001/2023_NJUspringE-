@@ -89,11 +89,12 @@ export default {
   //},
   created(){
     //在页面加载时读取sessionStorage里的状态信息
+    console.log(this.SelectForm);
       Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.SelectForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        //console.log(ret.data.state)
+        console.log(ret.data)
         this.pstate=ret.data.state;
         console.log(this.pstate)
         this.active=this.pstate/10;
@@ -263,7 +264,7 @@ export default {
     },
     J2Report() {
       //this.$router.push('/client/ConfidentialityAgreement');
-      this.$router.push('/report');
+      this.$router.push('/ccheckreport');
     },
      hideInfo(){
             setTimeout(()=>{

@@ -43,7 +43,7 @@
     <br><br><br>
     <el-main>
       <br>
-      <el-form label-position="top" disabled label-width="550px">
+      <el-form label-width="550px" :label-position="top" disabled >
         <el-form-item label="审核意见：">
           <el-input style="width:700px;" :rows="5" v-model="ruleform.Views" type="textarea" ></el-input>
         </el-form-item>
@@ -56,7 +56,6 @@
         </el-form-item>
     </el-form>
     </el-main>
-  <LoginDialog :show='showLogin'/>
   <template>
   <el-backtop :right="50" :bottom="50" />
 </template>

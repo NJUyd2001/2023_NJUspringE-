@@ -89,7 +89,7 @@
               UID:""
             },
             ruleForm:{
-                  PID:"",
+                  PID:this.$store.state.user.process.PID,
                     TableData:[
                       {
                         TestClassification:'',
@@ -155,7 +155,7 @@
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=17;
+    //this.useruid.UID=17;
     // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
     //             headers:{
     //               'content-type': 'text/plain'}
@@ -163,8 +163,8 @@
     //             console.log(ret.data)
     //             this.userpid.PID=ret.data.PID;
     //           })
-    this.userpid.PID=20;
-    this.ruleForm.PID=this.userpid.PID;
+    //this.userpid.PID=20;
+    //this.ruleForm.PID=this.userpid.PID;
   },  
     mounted(){
   window.addEventListener('beforeunload', this.handleBeforeUnload);
@@ -210,16 +210,14 @@
             )
         },
         submitForm(formName) {
+          this.$message.success("提交成功，正在返回测试部界面！");
           Axios.post("http://localhost:9090/api/testrecord/insert",JSON.stringify(this.ruleForm),{
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
-        console.log(ret.data);
-        this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./testdocument2", replace:true});}, 2000);
             })
-          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
-        }
+          setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
+        },
       },
     
     }

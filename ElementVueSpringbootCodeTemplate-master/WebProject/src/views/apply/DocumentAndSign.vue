@@ -17,7 +17,7 @@
     </el-row>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="2">
-        <router-link to="/application">
+        <router-link to="/functionlist">
         <el-button  size="middle" type="danger">上一步</el-button>
         </router-link>
       </el-col>
@@ -128,18 +128,6 @@ export default {
               PID:"",
             },
             StepNumber:3,
-            ruleForm:{
-              AID:"",
-              SoftwareName:'',
-              Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-            },
-          ],
-            },
     }
 },
 mounted(){
@@ -179,23 +167,9 @@ created(){
           showClose: true,//是否显示右上角关闭按钮
           type: "warning",//提示类型  success/info/warning/error
       }).then(() => {
-        this.$refs[formName].validate((valid) => {
-        if (valid) {
-        Axios.post("http://localhost:9090/api/application/inserttabledata",JSON.stringify(this.ruleForm),{
-        headers:{
-          'content-type': 'text/plain'}
-      }).then(ret=>{
         this.StepNumber+=2;
         this.$message.success("提交成功，正在返回用户界面！");
         setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      }) 
-        } else {
-          return false;
-        }
-      });
       })
       .catch(function (err) {
         //捕获异常
