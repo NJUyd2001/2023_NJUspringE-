@@ -288,17 +288,7 @@
       this.KeepInfor();
       this.Aid.AID=this.$store.state.user.process.AID
       this.Pid.PID=this.$store.state.user.process.PID
-      Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.Pid),{
-        headers:{
-          'content-type': 'text/plain'}
-      }).then(ret=>{
-          //console.log(ret.data)
-          this.Fid.FID1=ret.data.fileIDs;
-      }).catch(function (error)
-        {
-          console.log(error);
-        }
-      )
+      
       Axios.post("http://localhost:9090/api/application/checkbyAID",JSON.stringify(this.Aid),{
         headers:{
           'content-type': 'text/plain'}

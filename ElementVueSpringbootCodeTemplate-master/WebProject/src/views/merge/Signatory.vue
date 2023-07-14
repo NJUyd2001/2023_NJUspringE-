@@ -1,10 +1,10 @@
 <template>
-<div class ="Person">
-<el-container style="height: 90%;">
-  <el-header style="height: 10%;">
+<div class="Person">
+<el-container style="height:880px;">
+  <el-header style="height: 10%">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
-        <span class="lt3">{{user.uname}},您好(授权签字人)</span>
+        <span style="font-size: 30px; font-weight: 1000;">{{user.uname}},您好（授权签字人）</span>
         </div></el-col>
         <el-col :span="12">
           <img src="../../assets/l3.png" style="height:80px"/>
@@ -15,10 +15,11 @@
       </el-col>
     </el-row>
   </el-header>
-  <br>
+
   <el-container>
+    <el-container>
     <el-main>      
-      <el-tabs v-model="selectTabName" type="card" closable @tab-remove="removeTab">
+      <el-tabs v-model="selectTabName" type="card" @tab-remove="removeTab">
         <el-tab-pane
           v-for="item in tabs"
           :key="item.name"
@@ -35,61 +36,49 @@
   电话025-89683467  传真025-89686596   Email: keysoftlab@nju.edu.cn</p>
   </el-footer>
 </el-container>
-  <LoginDialog :show='showLogin'/>
 </el-container>
-</div>
+  <LoginDialog :show='showLogin'/>
+</el-container></div>
 </template>
-
-
 <script>
 import Vue from "vue";
 
 export default {
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'margin:0;')
+  },
   created() {
     // 载入config数据
     //this.$store.dispatch("config/reload");
-    this.$bus.on("login-open", this.loginOut);
-    this.$bus.on("login-success", this.loginSuccess);
-    this.$bus.on("login-cancel", this.loginCancel);
+    this.KeepInfor();
   },
   data() {
     return {
-      // 步骤
-      active: 0,
-      // 已选步骤
-      stepSuc: [0],
-      // 步骤标题
-      stepTitle: ['发起委托', '报价处理', '合同处理', '样品发送', '确认接收', '测试报告'],
       showLogin: false,
-      user:{
+      user: {
         uname:this.$store.state.user.name,
+        password:""
       },
       keyword: "",
       isCollapse: false,
-      showModal: false,
       menus: [{}],
-
+      user:{
+        uname:this.$store.state.user.name,
+        utype:this.$store.state.user.Permissions,
+      },
+      data: [{}],
       //Tabs
-      selectTabName: "ConfigTableQ",
+      selectTabName: "SCheckReport",
       tabs: {
         ConfigAdd: {
-        title: "测试方案审核",
-        name: "ConfigTableQ",
-        currentView: "ConfigTableQ"
+          title: "测试报告审核",
+          name: "SCheckReport",
+          currentView: "SCheckReport"
         }
       }
     };
   },
   computed: {
-    // 动态给步骤加样式
-    stepClassObj(val) {
-      return (val) => {
-        return {
-          stepSuc: this.stepSuc.includes(val),
-          stepErr: !this.stepSuc.includes(val)
-        }
-      }
-    },
     lang: {
       get: function() {
         console.log("config", Vue.config);
@@ -102,34 +91,24 @@ export default {
     }
   },
   mounted() {
-    // this.$nextTick(function() {
-    //   this.ajax.post("/app/user").then(result => {
-    //     if (result.code == 0) {
-    //       this.user = result.data;
-    //     }
-    //   });
-    // });
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
   },
   methods: {
-    // 点击步骤条
-    handleStep(val) {
-      if (this.stepSuc.includes(val) === true) {
-        this.active = val
-      }
-    },
-    // 组件点击上一步
-    handleLastStep() {
-      if (--this.active === 0) { this.active = 0 }
-    },
-    // 组件点击下一步
-    handleNextStep() {
-      this.stepSuc.push(++this.active)
-    },
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+    handleNodeClick(data) {
+        console.log(data);
+      },
     switchLang(command) {
       this.lang = command;
     },
     handleStart() {
-      this.$router.push('Personal');
+      this.$router.push('/Personal');
     },
     loginOut() {
       //this.showLogin = true;
@@ -140,14 +119,19 @@ export default {
     },
     loginSuccess(user) {
       console.log("success", user);
-
       this.showLogin = false;
       this.user = user;
     },
-    loginCancel() {
-      console.log("loginCancel");
-      this.showLogin = false;
+    jump2application() {
+      this.$router.push('/testaudituser');
     },
+    jump2report() {
+      this.$router.push('/report');
+    },
+    // loginCancel() {
+    //   console.log("loginCancel");
+    //   this.showLogin = false;
+    // },
     logout() {
       this.ajax.post("/app/logout").then(result => {
         if (result.code == 0) {
@@ -157,18 +141,12 @@ export default {
         }
       });
     },
-    jump2application() {
-      this.$router.push('/application');
-    },
-    jump2myinf(){
-      this.$router.push('/myinf');
-    },
     addTab(targetName, commentName) {
       // 如果已经存在
-      if (this.tabs[commentName]) {
+      /*if (this.tabs[commentName]) {
         this.selectTabName = commentName;
         return;
-      }
+      }*/
 
       // add table
       this.$set(this.tabs, commentName, {
@@ -187,46 +165,24 @@ export default {
         this.selectTabName = key;
         break;
       }
-    },
-     hideInfo(){
-            setTimeout(()=>{
-                this.userInfo=false
-            },3000)
-        },
-//当触发mouseover时调用的方法       
-        showInfo(){
-            this.userInfo=true
-        },
+    }
   }
 };
 </script>
 
 <style>
-.stepSuc :hover{
-  cursor: pointer;
-}
-.stepErr :hover{
-  cursor: not-allowed;
-}
-
 #logo{
-  background: url("../../assets/b3.jpg");
+    background: url("../../assets/b3.jpg");
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
-    width: 100%
+    width: 100%;
+    margin: 0 auto;
   }
 
 .text-right {
   padding-right: 0px;
   text-align: right;
-}
-
-.hei{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-    height: 100%;
 }
 
 .user {
@@ -243,7 +199,12 @@ export default {
   margin: 10px 0 10px 0;  
 }
 
-
+.el-footer {
+    color: #333;
+    text-align: center;
+    font-size:3px;
+    line-height: 20px;
+}
 
 .header .nav {
   height: 40px;
@@ -258,7 +219,6 @@ export default {
 }
 
 .el-container .el-main{
-  
   padding: 0px 5px 5px 5px;
 }
 
@@ -271,47 +231,14 @@ export default {
   outline: 1px solid;
 }
 */
-.el-aside::-webkit-scrollbar{
-  display:none;
-}
 
-
-.el-footer {
-    color: #333;
-    text-align: center;
-    font-size:3px;
-    line-height: 20px;
-}
-
-span.lt3{
-  font-size: 30px;
-  font-weight: 1000;
-}
-
-.mask {
-  background-color: #000;
-  opacity: 0.3;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
   height: 100%;
-  z-index: 1
-}
-.pop {
-  background-color: #fff;
-  position: fixed;
-  top: 100px;
-  left: 100px;
-  width: calc(70%);
-  height:calc(70%);
-  z-index: 2
-}
-.btn {
-  background-color: #fff;
-  border-radius: 4px;
-  border: 1px solid blue;
-  padding: 4px 12px;
 }
 
+span.logo-title{
+  font-size: 30px;
+  font-weight: bold;
+}
 </style>

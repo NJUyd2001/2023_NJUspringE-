@@ -149,7 +149,7 @@ export default {
     SolvePro(row){
       // console.log(row);
       //sessionStorage.setItem
-        this.$store.state.user.process.PID=row.processID;
+        this.$store.state.user.process.PID=row.PID;
         console.log(row.processID);
         this.$router.push({path: "./ProQurey", replace:true})
     },

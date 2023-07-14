@@ -20,9 +20,16 @@
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
-          <el-col :span="24">
+          <el-col :span="14">
             <span class="logo-title3">测试记录</span>
           </el-col>
+          <el-col :span="10" >
+              <el-steps :space="200" :active="1" finish-status="success">
+                <el-step title="测试用例填写"></el-step>
+                <el-step title="测试记录填写"></el-step>
+                <el-step title="完成"></el-step>
+              </el-steps>
+            </el-col>
           <el-col :span="1">
             <el-button  size="middle" @click="submitForm('ruleForm')" type="success">完成</el-button>
           </el-col>
@@ -31,27 +38,23 @@
         <br><br>
         <el-main style="margin-top:45px;">
             <el-form style="border-bottom-style:double; border-color: rgb(199, 196, 196); width:1560px; margin-top: 20px; margin-left: 100px; height: 35px;">
-              <el-label style="margin-left: 10px;">测试分类</el-label>
-              <el-label style="margin-left: 40px;">序号</el-label>
-              <el-label style="margin-left: 35px;">测试用例设计说明</el-label>
-              <el-label style="margin-left: 20px;">与本测试用例有关的规约说明</el-label>
-              <el-label style="margin-left: 25px;">前提条件</el-label>
-              <el-label style="margin-left: 30px;">测试用例执行过程</el-label>
-              <el-label style="margin-left: 30px;">预期的结果</el-label>
-              <el-label style="margin-left: 30px;">测试用例设计者</el-label>
-              <el-label style="margin-left: 30px;">实际结果</el-label>
-              <el-label style="margin-left: 30px;">是否与预期结果一致</el-label>
-              <el-label style="margin-left: 25px;">相关的BUG编号</el-label>
-              <el-label style="margin-left: 25px;">用例执行者</el-label><br><br>
-              <el-label style="margin-left: 10px;">执行测试时间</el-label>
-              <el-label style="margin-left: 35px;">确认人</el-label>
+              <span style="margin-left: 10px;">测试分类</span>
+              <span style="margin-left: 40px;">序号</span>
+              <span style="margin-left: 35px;">测试用例设计说明</span>
+              <span style="margin-left: 20px;">与本测试用例有关的规约说明</span>
+              <span style="margin-left: 25px;">前提条件</span>
+              <span style="margin-left: 30px;">测试用例执行过程</span>
+              <span style="margin-left: 30px;">预期的结果</span>
+              <span style="margin-left: 30px;">测试用例设计者</span>
+              <span style="margin-left: 30px;">实际结果</span>
+              <span style="margin-left: 30px;">是否与预期结果一致</span>
+              <span style="margin-left: 25px;">相关的BUG编号</span>
+              <span style="margin-left: 25px;">用例执行者</span><br><br>
+              <span style="margin-left: 10px;">执行测试时间</span>
+              <span style="margin-left: 35px;">确认人</span>
             </el-form>
             <el-form style="padding-top:40px;" label-width="100px" :model="ruleForm" :rules="rules" ref="ruleForm">
-            <el-form-item style="width:1750px;" v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :rules="{
-            required: true,
-            message: '功能项目不能为空！',
-            trigger: 'blur',
-          }" :label='"测试记录"+index+":"' :key="index" >
+            <el-form-item style="width:1750px;" v-for="(Table,index) in ruleForm.TableData" :prop="'TableData.' + index + '.name'" :label='"测试记录"+index+":"' :key="index" >
               <el-input placeholder="测试分类" style="width: 90px;padding-right:10px;" v-model="Table.TestClassification"></el-input>
               <el-input placeholder="序号" style="width: 60px;padding-right:10px;" v-model="Table.SerialNum"></el-input>
               <el-input placeholder="测试用例设计说明" style="width: 145px;padding-right:10px;" v-model="Table.DesignSpecification"></el-input>
@@ -66,8 +69,8 @@
               <el-input placeholder="用例执行者" style="width: 100px;padding-right:10px;" v-model="Table.UsecaseExecutor"></el-input>
               <el-input placeholder="执行测试时间" style="width: 120px;padding-right:10px;margin-top:10px;" v-model="Table.TestingTime"></el-input>
               <el-input placeholder="确认人" style="width: 75px;padding-right:10px;margin-top:10px;" v-model="Table.ConfirmPerson"></el-input>
-              <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
-              <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
+              <el-button @click="removefatherItem(Table)" type="primary" size="small" plain>删除</el-button>
+              <el-button @click="addfatherItem()" type="primary" size="small" plain>增加功能项目</el-button>
             </el-form-item>
           </el-form>
         </el-main>
@@ -79,7 +82,14 @@
     export default {
         data(){
            return{
-                ruleForm:{
+            userpid:{
+              PID:"",
+            },
+            useruid:{
+              UID:""
+            },
+            ruleForm:{
+                  PID:this.$store.state.user.process.PID,
                     TableData:[
                       {
                         TestClassification:'',
@@ -141,9 +151,32 @@
                   }
         }
     }, 
+    created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    //this.useruid.UID=17;
+    // Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.userid),{
+    //             headers:{
+    //               'content-type': 'text/plain'}
+    //           }).then(ret=>{
+    //             console.log(ret.data)
+    //             this.userpid.PID=ret.data.PID;
+    //           })
+    //this.userpid.PID=20;
+    //this.ruleForm.PID=this.userpid.PID;
+  },  
+    mounted(){
+  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('unload', this.handleUnload);
+},
       methods:{
-        goback(){
+        handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
         },
+        handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+          },
         addfatherItem(){
           this.ruleForm.TableData.push({
             id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
@@ -177,30 +210,14 @@
             )
         },
         submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
-            } else {
-              return false;
-            }
-          });*/
-          console.log(this.ruleForm);
-          this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
+          this.$message.success("提交成功，正在返回测试部界面！");
+          Axios.post("http://localhost:9090/api/testrecord/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+            })
+          setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
         },
-        saveForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
-            } else {
-              return false;
-            }
-          });*/
-          this.$message.success("提交成功，正在返回用户界面！");
-          setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
-        }
       },
     
     }

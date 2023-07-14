@@ -168,7 +168,7 @@ public class TestEnvironmentService {
     public String insert(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         JSONArray hard = jsonObject.getJSONArray("tableData1");
@@ -221,11 +221,16 @@ public class TestEnvironmentService {
     public String select(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer TEID = findTEID(PID);
-        JSONObject table = JSON.parseArray(JSON.toJSONString(testEnvironmentDao.select(TEID))).getJSONObject(0);
+        JSONArray ie = JSON.parseArray(JSON.toJSONString(testEnvironmentDao.select(TEID)));
+        JSONObject table = new JSONObject();
+        if(testEnvironmentDao.select2(TEID) == null){
+            return new JSONArray().toString();
+        }
+        table = ie.getJSONObject(0);
         JSONArray hardid = table.getJSONArray("hardid");
         JSONArray tabledata1 = new JSONArray();
         if(hardid != null){
@@ -263,7 +268,7 @@ public class TestEnvironmentService {
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer TEID = findTEID(PID);
@@ -418,7 +423,7 @@ public class TestEnvironmentService {
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer TEID = findTEID(PID);

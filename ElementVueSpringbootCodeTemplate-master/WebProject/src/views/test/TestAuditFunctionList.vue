@@ -76,15 +76,13 @@ export default {
               AID:"", 
             },
         ruleForm:
-        {
-
-            },
+        { },
     }
 }, 
-  methods:{
-    created(){
+  created(){
       this.KeepInfor();
-      this.user.AID=this.$store.state.user.process.AID
+      this.user.AID=this.$store.state.user.process.AID;
+      console.log(this.user.AID)
       Axios.post("http://localhost:9090/api/application/gettabledata",JSON.stringify(this.user),{
         headers:{
           'content-type': 'text/plain'}
@@ -97,6 +95,8 @@ export default {
         }
       )
     },
+  methods:{
+    
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {
         if (valid) {

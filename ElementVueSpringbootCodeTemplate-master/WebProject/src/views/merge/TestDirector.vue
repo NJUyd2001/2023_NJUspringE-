@@ -4,7 +4,7 @@
   <el-header style="height: 10%;">
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="8"><div class="grid-content bg-purple">
-        <span class="logo-title">{{user.uname}},您好(测试部主管)</span>
+        <span class="tlc">{{user.uname}},您好(测试部主管)</span>
         </div></el-col>
         <el-col :span="12">
           <img src="../../assets/l3.png" style="height:80px"/>
@@ -70,12 +70,12 @@ export default {
       menus: [{}],
 
       //Tabs
-      selectTabName: "ConfigTableQ",
+      selectTabName: "TCheckReport",
       tabs: {
         ConfigAdd: {
-        title: "测试方案审核",
-        name: "ConfigTableQ",
-        currentView: "ConfigTableQ"
+          title: "测试报告审核",
+          name: "TCheckReport",
+          currentView: "TCheckReport"
         }
       }
     };
@@ -283,7 +283,7 @@ export default {
     line-height: 20px;
 }
 
-span.logo-title{
+span.tlc{
   font-size: 30px;
   font-weight: 1000;
 }

@@ -75,7 +75,7 @@ public class TesttheContentService {
     public String insert(String postJson) {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if (processDao.findByPID(PID) == null) {
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         JSONArray table1 = jsonObject.getJSONArray("TableData1");
@@ -193,10 +193,13 @@ public class TesttheContentService {
     public String select(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer TID = findTID(PID);
+        if(testtheContentDao.select2(TID) == null){
+            return new JSONArray().toString();
+        }
         JSONObject table = JSON.parseArray(JSON.toJSONString(testtheContentDao.select(TID))).getJSONObject(0);
         JSONArray testid1 = table.getJSONArray("testid1");
         JSONArray tabledata1 = new JSONArray();
@@ -280,7 +283,7 @@ public class TesttheContentService {
     public String update(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer TID = findTID(PID);
@@ -328,7 +331,7 @@ public class TesttheContentService {
                             i2++;
                         }
                         if(check == 0) {
-                            idarray1.add(testid);
+                            failedid1.add(testid);
                         }
                         else {
                             if (delete == null || !delete.equals("T")) {
@@ -670,7 +673,7 @@ public class TesttheContentService {
     public String delete(String postJson){
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
-        if(processDao.findByPID(PID) == null){
+        if(PID == null ||processDao.findByPID(PID) == null){
             return "the process does not exist";
         }
         Integer TID = findTID(PID);
