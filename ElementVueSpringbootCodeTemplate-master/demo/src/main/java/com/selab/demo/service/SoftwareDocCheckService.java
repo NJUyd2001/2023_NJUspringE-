@@ -80,10 +80,41 @@ public class SoftwareDocCheckService {
         Integer SCID = softwareDocCheckModel.getSCID();
         processDao.setSCID(PID,SCID);
         JSONObject res = new JSONObject();
-        res.put("TRID",TRID);
+        res.put("SCID",SCID);
         res.put("PID",PID);
         res.put("tableid",tableid);
         return res.toJSONString();
+    }
+
+    public String select(String postJson){
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer PID = jsonObject.getInteger("PID");
+        if(PID == null ||processDao.findByPID(PID) == null){
+            return "the process does not exist";
+        }
+        Integer SCID = findSCID(PID);
+        if(softwareDocCheckDao.select2(SCID) == null){
+            return new JSONArray().toString();
+        }
+        JSONObject table = JSON.parseArray(JSON.toJSONString(softwareDocCheckDao.select(SCID))).getJSONObject(0);
+        JSONArray tableid = table.getJSONArray("tableid");
+        JSONArray tabledata = new JSONArray();
+        if(tableid != null){
+            Integer r=tableid.size();
+            Integer i = 0;
+            while(i<r){
+                Integer tableid_ = tableid.getInteger(i);
+                tabledata.add(JSON.parseArray(JSONrepack1(JSON.toJSONString(softwareDocCheckTableDao.select(tableid_)))).get(0));
+                ++i;
+            }
+        }
+        JSONObject res = new JSONObject();
+        res.put("PID",PID);
+        res.put("SCID",SCID);
+        res.put("tableData",tabledata);
+        JSONArray res2 = new JSONArray();
+        res2.add(res);
+        return JSON.toJSONString(res2);
     }
 
 }
