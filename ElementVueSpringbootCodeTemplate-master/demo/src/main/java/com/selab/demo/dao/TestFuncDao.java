@@ -11,14 +11,14 @@ public interface TestFuncDao {
     void insert(TestFuncModel testFuncModel);
 
     @Select("SELECT * FROM selabspringe.testfunc WHERE testid = #{testid}")
-    List<TestFuncModel> select(int testid);
+    List<TestFuncModel> select(Integer testid);
 
     @Select("SELECT testid FROM selabspringe.testfunc WHERE testid = #{testid}")
-    Integer select2(int testid);
+    Integer select2(Integer testid);
 
     @Update("UPDATE selabspringe.testfunc SET functionmodule = #{functionmodule}, functionrequirement = #{functionrequirement},testresult=#{testresult} WHERE testid = #{testid}")
     void update(TestFuncModel testFuncModel);
 
     @Delete("DELETE FROM selabspringe.testfunc WHERE testid = #{testid}")
-    void delete(int testid);
+    void delete(Integer testid);
 }

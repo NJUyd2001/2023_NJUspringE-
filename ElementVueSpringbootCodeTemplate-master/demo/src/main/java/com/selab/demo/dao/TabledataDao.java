@@ -12,16 +12,16 @@ public interface TabledataDao {
     void insert(TabledataModel tablemodel);
 
     @Select("SELECT * FROM selabspringe.tabledata WHERE TID = #{TID}")
-    List<TabledataModel> findbyTID(int TID);
+    List<TabledataModel> findbyTID(Integer TID);
 
     @Select("SELECT TID FROM selabspringe.tabledata WHERE TID = #{TID}")
-    Integer findbyTID2(int TID);
+    Integer findbyTID2(Integer TID);
 
     @Update("UPDATE selabspringe.tabledata SET id = #{id}, name = #{name}, functions =#{functions} WHERE TID = #{TID}")
     void update(TabledataModel tabledataModel);
 
     @Delete("DELETE FROM selabspringe.tabledata WHERE TID = #{TID}")
-    void delete(int TID);
+    void delete(Integer TID);
 
 
 }

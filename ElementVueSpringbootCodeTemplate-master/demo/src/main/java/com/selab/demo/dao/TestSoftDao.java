@@ -11,14 +11,14 @@ public interface TestSoftDao {
     void insert(TestSoftModel testSoftModel);
 
     @Select("SELECT * FROM selabspringe.testsoft WHERE softid = #{softid}")
-    List<TestSoftModel> select(int softid);
+    List<TestSoftModel> select(Integer softid);
 
     @Select("SELECT softid FROM selabspringe.testsoft WHERE softid = #{softid}")
-    Integer select2(int softid);
+    Integer select2(Integer softid);
 
     @Update("UPDATE selabspringe.testsoft SET softwarecategory = #{softwarecategory}, softwarename = #{softwarename},edition=#{edition} WHERE softid = #{softid}")
     void update(TestSoftModel testSoftModel);
 
     @Delete("DELETE FROM selabspringe.testsoft WHERE softid = #{softid}")
-    void delete(int softid);
+    void delete(Integer softid);
 }
