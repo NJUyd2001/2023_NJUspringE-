@@ -112,7 +112,7 @@
               PID:"",
             },
             ruleForm:{
-              PID:"",
+              PID:this.$store.state.user.process.PID,
               tableData1: [{
                   HardwareCategory: '',
                   HardwareName: '',
@@ -173,7 +173,7 @@
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
     this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=17;
+    //this.useruid.UID=17;
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}
@@ -186,7 +186,7 @@
     //this.ruleForm.PID=20;
   },
         mounted(){
-        window.addEventListener('beforeunload', this.handleBeforeUnload);
+        window.addEventListener('beforeunload', this.handleBeforeUnload());
         window.addEventListener('unload', this.handleUnload);
       },
       methods:{

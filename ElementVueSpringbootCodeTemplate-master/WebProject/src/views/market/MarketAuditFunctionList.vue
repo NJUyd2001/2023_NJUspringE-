@@ -97,7 +97,7 @@ export default {
     }
 },
   mounted() {
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('beforeunload', this.handleBeforeUnload());
     window.addEventListener('unload', this.handleUnload);
   },
   methods:{
@@ -115,7 +115,7 @@ export default {
         } else {
           return false;
         }
-      });*/
+      });*/ 
       setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
     }
   },

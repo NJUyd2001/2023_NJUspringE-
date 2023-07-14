@@ -12,7 +12,7 @@
         </el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
         <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
-        <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
+        <el-button type="primary"  size="mini" @click="logout()">登出</el-button></div>
       </el-col>
     </el-row>
   </el-header>
@@ -163,7 +163,7 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('beforeunload', this.handleBeforeUnload());
     window.addEventListener('unload', this.handleUnload);
   },
   methods: {

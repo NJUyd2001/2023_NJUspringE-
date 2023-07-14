@@ -103,7 +103,7 @@ export default {
     }
 },
 mounted(){
-  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('beforeunload', this.handleBeforeUnload());
   window.addEventListener('unload', this.handleUnload);
 },
 created(){
@@ -116,7 +116,7 @@ created(){
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        console.log(ret.data.AID)
+        console.log(ret.data)
         this.ruleForm=ret.data;
       })
   },

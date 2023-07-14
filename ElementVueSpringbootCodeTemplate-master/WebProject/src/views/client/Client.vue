@@ -84,7 +84,7 @@ export default {
     this.user.utype=this.$store.state.user.Permissions;
   },
   mounted(){
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('beforeunload', this.handleBeforeUnload());
     window.addEventListener('unload', this.handleUnload);
   },
   data() {
