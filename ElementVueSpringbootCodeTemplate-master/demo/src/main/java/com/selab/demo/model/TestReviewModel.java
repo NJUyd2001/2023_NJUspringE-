@@ -1,5 +1,11 @@
 package com.selab.demo.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+
+import java.util.Arrays;
+
 /**
  * @author 刘轩昂
  * @time 2023/7/12
@@ -9,13 +15,15 @@ package com.selab.demo.model;
 public class TestReviewModel {
     // 签字信息
     public static class SignClass {
-        private String duty;
+        //@JsonProperty("Duty")
 
-        public SignClass(String duty, String evaluationOpinion, String sign, String date) {
-            this.duty = duty;
-            this.evaluationOpinion = evaluationOpinion;
-            this.sign = sign;
-            this.date = date;
+        private String Duty;
+
+        public SignClass(String Duty, String EvaluationOpinion, String Sign, String Date) {
+            this.Duty = Duty;
+            this.EvaluationOpinion = EvaluationOpinion;
+            this.Sign = Sign;
+            this.Date = Date;
         }
 
         public SignClass() {
@@ -24,56 +32,61 @@ public class TestReviewModel {
         @Override
         public String toString() {
             return "SignClass{" +
-                    "duty='" + duty + '\'' +
-                    ", evaluationOpinion='" + evaluationOpinion + '\'' +
-                    ", sign='" + sign + '\'' +
-                    ", date='" + date + '\'' +
+                    "Duty='" + Duty + '\'' +
+                    ", EvaluationOpinion='" + EvaluationOpinion + '\'' +
+                    ", Sign='" + Sign + '\'' +
+                    ", Date='" + Date + '\'' +
                     '}';
         }
 
-        private String evaluationOpinion;
-        private String sign;
+        private String EvaluationOpinion;
 
+        private String Sign;
+        @JsonProperty("Duty")
         public String getDuty() {
-            return duty;
+            return Duty;
         }
 
         public void setDuty(String duty) {
-            this.duty = duty;
+            this.Duty = duty;
         }
-
+        @JsonProperty("EvaluationOpinion")
         public String getEvaluationOpinion() {
-            return evaluationOpinion;
+            return EvaluationOpinion;
         }
 
         public void setEvaluationOpinion(String evaluationOpinion) {
-            this.evaluationOpinion = evaluationOpinion;
+            this.EvaluationOpinion = evaluationOpinion;
         }
-
+        @JsonProperty("Sign")
         public String getSign() {
-            return sign;
+            return Sign;
         }
 
         public void setSign(String sign) {
-            this.sign = sign;
+            this.Sign = sign;
         }
-
+        @JsonProperty("Date")
         public String getDate() {
-            return date;
+            return Date;
         }
 
         public void setDate(String date) {
-            this.date = date;
+            this.Date = date;
         }
 
-        private String date;
+        private String Date;
 
     }
-    private String SoftwareName;
-    private String VersionNumber;
-    private String ProjectNum;
-    private Integer PID;
 
+    private String SoftwareName;
+
+    private String VersionNumber;
+
+    private String ProjectNum;
+
+    private Integer PID;
+    @JsonProperty("PID")
     public Integer getPID() {
         return PID;
     }
@@ -81,7 +94,7 @@ public class TestReviewModel {
     public void setPID(Integer PID) {
         this.PID = PID;
     }
-
+    @JsonProperty("TRID")
     public Integer getTRID() {
         return TRID;
     }
@@ -91,18 +104,29 @@ public class TestReviewModel {
     }
 
     private Integer TRID;
-    private String TestCategory;
-    private String WritingNormality;
-    private String TestEnvironment;
-    private String Completeness;
-    private String SelectMethod;
-    private String TestcaseCover;
-    private String InputOutputData;
-    private String Timing;
-    private String HumanResourcesArrangement;
-    private String TE_Opinion;
-    private String TRM_Opinion;
 
+    private String TestCategory;
+
+    private String WritingNormality;
+
+    private String TestEnvironment;
+
+    private String Completeness;
+
+    private String SelectMethod;
+
+    private String TestcaseCover;
+
+    private String InputOutputData;
+
+    private String Timing;
+
+    private String HumanResourcesArrangement;
+
+    private String TE_Opinion;
+
+    private String TRM_Opinion;
+    @JsonProperty("TE_Opinion")
     public String getTE_Opinion() {
         return TE_Opinion;
     }
@@ -110,15 +134,14 @@ public class TestReviewModel {
     public void setTE_Opinion(String TE_Opinion) {
         this.TE_Opinion = TE_Opinion;
     }
-
+    @JsonProperty("TRM_Opinion")
     public String getTRM_Opinion() {
         return TRM_Opinion;
     }
-
     public void setTRM_Opinion(String TRM_Opinion) {
         this.TRM_Opinion = TRM_Opinion;
     }
-
+    @JsonProperty("QM_Opinion")
     public String getQM_Opinion() {
         return QM_Opinion;
     }
@@ -126,7 +149,7 @@ public class TestReviewModel {
     public void setQM_Opinion(String QM_Opinion) {
         this.QM_Opinion = QM_Opinion;
     }
-
+    @JsonProperty("TD_Opinion")
     public String getTD_Opinion() {
         return TD_Opinion;
     }
@@ -134,7 +157,7 @@ public class TestReviewModel {
     public void setTD_Opinion(String TD_Opinion) {
         this.TD_Opinion = TD_Opinion;
     }
-
+    @JsonProperty("SI_Opinion")
     public String getSI_Opinion() {
         return SI_Opinion;
     }
@@ -144,15 +167,17 @@ public class TestReviewModel {
     }
 
     private String QM_Opinion;
+
     private String TD_Opinion;
+
     private String SI_Opinion;
     public SignClass[] tableData;
     // signClass与opinion转化
     public String classToOpinion(SignClass signClass){
-        return signClass.duty + "|"
-                + signClass.evaluationOpinion + "|"
-                + signClass.sign + "|"
-                + signClass.date;
+        return signClass.Duty + "|"
+                + signClass.EvaluationOpinion + "|"
+                + signClass.Sign + "|"
+                + signClass.Date;
     }
     public SignClass opinionToClass(String opinion){
         String[] split = opinion.split("\\|");
@@ -169,7 +194,7 @@ public class TestReviewModel {
     public TestReviewModel() {
         this.tableData = new SignClass[5];
     }
-
+    @JsonProperty("VersionNumber")
     public String getVersionNumber() {
         return VersionNumber;
     }
@@ -177,7 +202,7 @@ public class TestReviewModel {
     public void setVersionNumber(String versionNumber) {
         this.VersionNumber = versionNumber;
     }
-
+    @JsonProperty("ProjectNum")
     public String getProjectNum() {
         return ProjectNum;
     }
@@ -185,7 +210,7 @@ public class TestReviewModel {
     public void setProjectNum(String projectNum) {
         ProjectNum = projectNum;
     }
-
+    @JsonProperty("TestCategory")
     public String getTestCategory() {
         return TestCategory;
     }
@@ -193,7 +218,7 @@ public class TestReviewModel {
     public void setTestCategory(String testCategory) {
         TestCategory = testCategory;
     }
-
+    @JsonProperty("WritingNormality")
     public String getWritingNormality() {
         return WritingNormality;
     }
@@ -201,7 +226,7 @@ public class TestReviewModel {
     public void setWritingNormality(String writingNormality) {
         WritingNormality = writingNormality;
     }
-
+    @JsonProperty("TestEnvironment")
     public String getTestEnvironment() {
         return TestEnvironment;
     }
@@ -209,7 +234,7 @@ public class TestReviewModel {
     public void setTestEnvironment(String testEnvironment) {
         TestEnvironment = testEnvironment;
     }
-
+    @JsonProperty("Completeness")
     public String getCompleteness() {
         return Completeness;
     }
@@ -217,7 +242,7 @@ public class TestReviewModel {
     public void setCompleteness(String completeness) {
         Completeness = completeness;
     }
-
+    @JsonProperty("SelectMethod")
     public String getSelectMethod() {
         return SelectMethod;
     }
@@ -225,7 +250,7 @@ public class TestReviewModel {
     public void setSelectMethod(String selectMethod) {
         SelectMethod = selectMethod;
     }
-
+    @JsonProperty("TestcaseCover")
     public String getTestcaseCover() {
         return TestcaseCover;
     }
@@ -233,7 +258,7 @@ public class TestReviewModel {
     public void setTestcaseCover(String testcaseCover) {
         TestcaseCover = testcaseCover;
     }
-
+    @JsonProperty("InputOutputData")
     public String getInputOutputData() {
         return InputOutputData;
     }
@@ -241,15 +266,41 @@ public class TestReviewModel {
     public void setInputOutputData(String inputOutputData) {
         InputOutputData = inputOutputData;
     }
-
+    @JsonProperty("Timing")
     public String getTiming() {
         return Timing;
+    }
+
+    @Override
+    public String toString() {
+        return "TestReviewModel{" +
+                "SoftwareName='" + SoftwareName + '\'' +
+                ", VersionNumber='" + VersionNumber + '\'' +
+                ", ProjectNum='" + ProjectNum + '\'' +
+                ", PID=" + PID +
+                ", TRID=" + TRID +
+                ", TestCategory='" + TestCategory + '\'' +
+                ", WritingNormality='" + WritingNormality + '\'' +
+                ", TestEnvironment='" + TestEnvironment + '\'' +
+                ", Completeness='" + Completeness + '\'' +
+                ", SelectMethod='" + SelectMethod + '\'' +
+                ", TestcaseCover='" + TestcaseCover + '\'' +
+                ", InputOutputData='" + InputOutputData + '\'' +
+                ", Timing='" + Timing + '\'' +
+                ", HumanResourcesArrangement='" + HumanResourcesArrangement + '\'' +
+                ", TE_Opinion='" + TE_Opinion + '\'' +
+                ", TRM_Opinion='" + TRM_Opinion + '\'' +
+                ", QM_Opinion='" + QM_Opinion + '\'' +
+                ", TD_Opinion='" + TD_Opinion + '\'' +
+                ", SI_Opinion='" + SI_Opinion + '\'' +
+                ", tableData=" + Arrays.toString(tableData) +
+                '}';
     }
 
     public void setTiming(String timing) {
         Timing = timing;
     }
-
+    @JsonProperty("HumanResourcesArrangement")
     public String getHumanResourcesArrangement() {
         return HumanResourcesArrangement;
     }
@@ -265,7 +316,7 @@ public class TestReviewModel {
     public void setTableData(SignClass[] tableData) {
         this.tableData = tableData;
     }
-
+    @JsonProperty("SoftwareName")
     public String getSoftwareName() {
         return SoftwareName;
     }

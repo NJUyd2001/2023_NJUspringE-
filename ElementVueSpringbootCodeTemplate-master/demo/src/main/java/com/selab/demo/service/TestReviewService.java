@@ -2,6 +2,7 @@ package com.selab.demo.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.TypeUtils;
 import com.selab.demo.dao.ProcessDao;
 import com.selab.demo.dao.TestReviewDao;
 import com.selab.demo.model.TestReviewModel;
@@ -14,6 +15,7 @@ public class TestReviewService {
     ProcessDao processDao;
     @Autowired
     TestReviewDao testReviewDao;
+
 
     public Integer insert(String postJson) {
         // System.out.println(postJson);
@@ -68,6 +70,7 @@ public class TestReviewService {
         testReviewModel.setTiming(jsonObject.getString("Timing"));
         testReviewModel.setHumanResourcesArrangement(jsonObject.getString("HumanResourcesArrangement"));
         try{
+            if (processDao.findByPID(testReviewModel.getPID()) == null) return -2; // 不存在PID
             testReviewDao.insert(testReviewModel);
             processDao.setTRID(testReviewModel.getPID(), testReviewModel.getTRID());
         }catch (Exception e){
@@ -77,6 +80,7 @@ public class TestReviewService {
         return testReviewModel.getTRID();
     }
     public TestReviewModel selectByTRID(String postJson){
+
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer TRID = jsonObject.getInteger("TRID");
         TestReviewModel testReviewModel = testReviewDao.selectByTRID(TRID);
@@ -85,9 +89,11 @@ public class TestReviewService {
         testReviewModel.tableData[2] = testReviewModel.opinionToClass(testReviewModel.getQM_Opinion());
         testReviewModel.tableData[3] = testReviewModel.opinionToClass(testReviewModel.getTD_Opinion());
         testReviewModel.tableData[4] = testReviewModel.opinionToClass(testReviewModel.getSI_Opinion());
+        // System.out.println(testReviewModel);
         return  testReviewModel;
     }
     public TestReviewModel selectByPID(String postJson){
+
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
         TestReviewModel testReviewModel = testReviewDao.selectByPID(PID);
