@@ -18,12 +18,12 @@ public class TestReviewService {
 
 
     public Integer insert(String postJson) {
-        // System.out.println(postJson);
+        System.out.println(postJson);
         TestReviewModel testReviewModel = new TestReviewModel();
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         JSONArray tableData = jsonObject.getJSONArray("tableData");
-        //System.out.println(tableData.get(0));
-        for(int i = 0; i < tableData.size(); i++){
+        System.out.println(tableData);
+        for(Integer i = 0; i < tableData.size(); i++){
             JSONObject j =  tableData.getJSONObject(i);
             String Duty = j.getString("Duty");
             String Sign = j.getString("Sign");
@@ -84,6 +84,10 @@ public class TestReviewService {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer TRID = jsonObject.getInteger("TRID");
         TestReviewModel testReviewModel = testReviewDao.selectByTRID(TRID);
+        if(testReviewModel == null) {
+            System.out.println("不存在TRID = " + TRID.toString() + " 的测试方案评审表");
+            return testReviewModel;
+        }
         testReviewModel.tableData[0] = testReviewModel.opinionToClass(testReviewModel.getTE_Opinion());
         testReviewModel.tableData[1] = testReviewModel.opinionToClass(testReviewModel.getTRM_Opinion());
         testReviewModel.tableData[2] = testReviewModel.opinionToClass(testReviewModel.getQM_Opinion());
@@ -97,6 +101,10 @@ public class TestReviewService {
         JSONObject jsonObject = JSONObject.parseObject(postJson);
         Integer PID = jsonObject.getInteger("PID");
         TestReviewModel testReviewModel = testReviewDao.selectByPID(PID);
+        if(testReviewModel == null) {
+            System.out.println("不存在PID = " + PID.toString() + " 的测试方案评审表");
+            return testReviewModel;
+        }
         testReviewModel.tableData[0] = testReviewModel.opinionToClass(testReviewModel.getTE_Opinion());
         testReviewModel.tableData[1] = testReviewModel.opinionToClass(testReviewModel.getTRM_Opinion());
         testReviewModel.tableData[2] = testReviewModel.opinionToClass(testReviewModel.getQM_Opinion());
@@ -137,7 +145,7 @@ public class TestReviewService {
         if (HumanResourcesArrangement != null) testReviewModel.setHumanResourcesArrangement(HumanResourcesArrangement);
 
         JSONArray tableData = jsonObject.getJSONArray("tableData");
-        for(int i = 0; i < tableData.size(); i++) {
+        for(Integer i = 0; i < tableData.size(); i++) {
 
             JSONObject j = tableData.getJSONObject(i);
             String Duty = j.getString("Duty");

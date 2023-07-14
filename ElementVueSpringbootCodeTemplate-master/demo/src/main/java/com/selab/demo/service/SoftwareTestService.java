@@ -312,7 +312,7 @@ public class SoftwareTestService {
                         failedid.add(stableid.toString());
                     }
                     else{
-                        int check = 0;
+                        Integer check = 0;
                         Integer i2 = 0;
                         if(tabledata!=null){
                             Integer r2 = softtable.size();

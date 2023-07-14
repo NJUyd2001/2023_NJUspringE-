@@ -6,7 +6,7 @@ import java.util.List;
 
 @Mapper
 public interface AgreementDao {
-    @Insert("INSERT INTO selabspringe.agreement (client,legalrepresentative1,legalrepresentative2,name,date1,date2) VALUES (#{client},#{legalrepresentative1},#{legalrepresentative2},#{name},#{date1},#{date2})")
+    @Insert("INSERT INTO selabspringe.agreement (client,trustee,legalrepresentative1,legalrepresentative2,name,date1,date2) VALUES (#{client},#{trustee},#{legalrepresentative1},#{legalrepresentative2},#{name},#{date1},#{date2})")
     @Options(useGeneratedKeys=true, keyProperty="AgID", keyColumn="AgID")
     public void insert(AgreementModel agreementModel);
 
@@ -16,7 +16,7 @@ public interface AgreementDao {
     @Select("SELECT AgID FROM selabspringe.agreement WHERE AgID=#{AgID}")
     public Integer select2(Integer AgID);
 
-    @Update("UPDATE selabspringe.agreement SET client=#{client}, legalrepresentative1=#{legalrepresentative1}, legalrepresentative2=#{legalrepresentative2}, name=#{name},date1=#{date1},date2=#{date2}")
+    @Update("UPDATE selabspringe.agreement SET client=#{client},trustee=#{trustee}, legalrepresentative1=#{legalrepresentative1}, legalrepresentative2=#{legalrepresentative2}, name=#{name},date1=#{date1},date2=#{date2} WHERE AgID = #{AgID}")
     public void update (AgreementModel agreementModel);
 
     @Delete("DELETE FROM selabspringe.agreement WHERE AgID = #{AgID}")
