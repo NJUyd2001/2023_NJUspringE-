@@ -151,6 +151,7 @@ public class QuoteService {
         }
 
         QuoteModel quoteModel = new QuoteModel(0,time,softwarename,item,description,unitprice,ps,subtotalprice,tax,totalprice,provider);
+        quoteDao.update(quoteModel);
         return("quote update complete");
 
     }
@@ -226,6 +227,7 @@ public class QuoteService {
         }
 
         QuoteModel quoteModel = new QuoteModel(0,time,softwarename,item,description,unitprice,ps,subtotalprice,tax,totalprice,provider);
+            quoteDao.update(quoteModel);
         return("quote update complete");
 
     }
