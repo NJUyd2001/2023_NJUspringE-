@@ -11,7 +11,7 @@
        </el-breadcrumb>
        </el-col>
        <el-col :span="2">
-          <el-button  size="mini" type="primary">登出</el-button>
+           <el-button @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
@@ -147,7 +147,7 @@ import Axios from 'axios';
               state:"50",
             },
              ruleForm:{
-                PID:this.$store.state.user.process.PID,
+                PID:"",
                 SoftWareName:'',
                 VersionNumber:'',
                 ProjectNum:'',
@@ -252,6 +252,13 @@ import Axios from 'axios';
         operation(row){
         console.log(row);
         },
+        Logout(){
+          this.$store.state.user.id=-1;
+          this.$store.state.user.name="null";
+          this.$store.state.user.password=-1;
+          this.$store.state.user.Permissions="null";
+      this.$router.push({path: "./home", replace:true});
+    },
         list(){
           this.input_type = 'textarea'
            this.$nextTick(function () { 
@@ -262,11 +269,6 @@ import Axios from 'axios';
         },
         submitForm(formName) {
           Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TSRF),{
-            headers:{
-              'content-type': 'text/plain'}
-            }).then(ret=>{
-          })
-          Axios.post("http://localhost:9090/api/testReview/insert",JSON.stringify(this.ruleForm),{
             headers:{
               'content-type': 'text/plain'}
             }).then(ret=>{

@@ -126,7 +126,7 @@ created(){
     },
     addfatherItem(){
       this.ruleForm.TableData.push({
-        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1]+1,
+        id:this.ruleForm.TableData[this.ruleForm.TableData.length-1].id+1,
         name:'',
         function:'',
         children:[],
@@ -162,6 +162,7 @@ created(){
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
+        
         this.StepNumber+=2;
         this.$message.success("提交成功！");
         setTimeout(() => {this.$router.push({path: "./DocumentAndSign", replace:true});}, 2000);

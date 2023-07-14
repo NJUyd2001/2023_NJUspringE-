@@ -11,7 +11,7 @@
        </el-breadcrumb>
        </el-col>
        <el-col :span="2">
-          <el-button  size="mini" type="primary">登出</el-button>
+           <el-button @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
         </el-col>
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
