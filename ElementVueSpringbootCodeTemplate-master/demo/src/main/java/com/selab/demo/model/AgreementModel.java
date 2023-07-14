@@ -5,15 +5,17 @@ import javax.persistence.Table;
 public class AgreementModel {
     private Integer AgID;
     private String client;
+    private String trustee;
     private String legalrepresentative1;
     private String legalrepresentative2;
     private String name;
     private String date1;
     private String date2;
 
-    public AgreementModel(Integer agID, String client, String legalrepresentative1, String legalrepresentative2, String name, String date1, String date2) {
+    public AgreementModel(Integer agID, String client, String trustee, String legalrepresentative1, String legalrepresentative2, String name, String date1, String date2) {
         AgID = agID;
         this.client = client;
+        this.trustee = trustee;
         this.legalrepresentative1 = legalrepresentative1;
         this.legalrepresentative2 = legalrepresentative2;
         this.name = name;
@@ -35,6 +37,14 @@ public class AgreementModel {
 
     public void setClient(String client) {
         this.client = client;
+    }
+
+    public String getTrustee() {
+        return trustee;
+    }
+
+    public void setTrustee(String trustee) {
+        this.trustee = trustee;
     }
 
     public String getLegalrepresentative1() {

@@ -13,14 +13,14 @@ public interface TestRecordTableDao {
     void insert(TestRecordTableModel testRecordTableModel);
 
     @Select("SELECT * FROM selabspringe.testrecordtable WHERE tableid = #{tableid}")
-    List<TestRecordTableModel> select(int tableid);
+    List<TestRecordTableModel> select(Integer tableid);
 
     @Select("SELECT tableid FROM selabspringe.testrecordtable WHERE tableid = #{tableid}")
-    Integer select2(int tableid);
+    Integer select2(Integer tableid);
 
     @Update("UPDATE selabspringe.testrecordtable SET testclassification = #{testclassification}, serialnum = #{serialnum},designspecification=#{designspecification},regulation=#{regulation},precondition=#{precondition},executionprocess=#{executionprocess},expectedresult=#{expectedresult},designer=#{designer},actualresult=#{actualresult},bugnum=#{bugnum},usecaseexecutor#{usecaseexecutor},testingtime=#{testingtime},confirmperson=#{confirmperson} WHERE tableid = #{tableid}")
     void update(TestRecordTableModel testSoftModel);
 
     @Delete("DELETE FROM selabspringe.testrecordtable WHERE tableid = #{tableid}")
-    void delete(int tableid);
+    void delete(Integer tableid);
 }

@@ -12,14 +12,14 @@ public interface TestHardDao {
     void insert(TestHardModel testHardModel);
 
     @Select("SELECT * FROM selabspringe.testhard WHERE hardid = #{hardid}")
-    List<TestHardModel> select(int hardid);
+    List<TestHardModel> select(Integer hardid);
 
     @Select("SELECT hardid FROM selabspringe.testhard WHERE hardid = #{hardid}")
-    Integer select2(int hardid);
+    Integer select2(Integer hardid);
 
     @Update("UPDATE selabspringe.testhard SET hardwarecategory = #{hardwarecategory}, hardwarename = #{hardwarename},setting=#{setting},quantity=#{quantity} WHERE hardid = #{hardid}")
     void update(TestHardModel testHardModel);
 
     @Delete("DELETE FROM selabspringe.testhard WHERE hardid = #{hardid}")
-    void delete(int hardid);
+    void delete(Integer hardid);
 }

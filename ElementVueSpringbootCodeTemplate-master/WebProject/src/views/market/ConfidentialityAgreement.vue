@@ -55,21 +55,21 @@
                  本协议自双方授权代表签字盖章之日起生效，但有效期不限于合同有效期。</p>
           <br>
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" >
-              <el-form-item style="font-weight: bold;" label="甲方 :" label-width="400px" prop="Client"> 
-            <el-input v-model="ruleForm.Client" style="width: 200px;" disabled></el-input>
-            <el-form-item label="乙方 :" label-width="550px" style="margin-top: -40px;" >
+              <el-form-item style="font-weight: bold;" label="甲方 :" label-width="400px" > 
+            <el-input v-model="ruleForm.Client" style="width: 200px;" disabled ></el-input>
+            <el-form-item label="乙方 :" label-width="550px" style="margin-top: -40px;" prop="Trustee">
               <el-input v-model="ruleForm.Trustee" style="width: 200px;" ></el-input>
             </el-form-item>
             </el-form-item>
-            <el-form-item  style="font-weight: bold;" label="法人代表：" label-width="400px" prop="LegalRepresentative1">
+            <el-form-item  style="font-weight: bold;" label="法人代表：" label-width="400px" >
               <el-input v-model="ruleForm.LegalRepresentative1" style="width: 200px;" disabled></el-input>
-            <el-form-item  label="法人代表：" label-width="550px" style="margin-top: -40px;" >
+            <el-form-item  label="法人代表：" label-width="550px" style="margin-top: -40px;" prop="LegalRepresentative2">
               <el-input v-model="ruleForm.LegalRepresentative2" style="width: 200px;" ></el-input>
             </el-form-item>
             </el-form-item>
             <el-row >
             <el-col :span="6">
-            <el-form-item label="日期 :" style="font-weight: bold;" label-width="400px" prop="Date1">
+            <el-form-item label="日期:" style="font-weight: bold;" label-width="400px" >
                 <el-date-picker
                 v-model="ruleForm.Date1"
                 type="date"
@@ -78,7 +78,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="日期 :" style="font-weight: bold;" label-width="550px">
+          <el-form-item label="日期:" style="font-weight: bold;" label-width="550px" prop="Date2">
                 <el-date-picker
                 v-model="ruleForm.Date2"
                 type="date"
@@ -98,9 +98,16 @@
     export default {
     data(){
            return{
+            useruid:{
+                UID:"",
+              },
+              userpid:{
+                PID:"",
+              },
                 ruleForm:{
+                    PID:"",
                     Client:'',
-                    Trustee:'南京大学软件测试中心',
+                    Trustee:'',
                     LegalRepresentative1:'',
                     LegalRepresentative2:'',
                     Name:'',
@@ -124,6 +131,9 @@
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   Date1:[
+                  { required: true, message: "请选择日期！", trigger: "change" },
+                  ],
+                  Date2:[
                   { required: true, message: "请选择日期！", trigger: "change" },
                   ]
                   },
@@ -155,9 +165,19 @@
   window.addEventListener('beforeunload', this.handleBeforeUnload);
   window.addEventListener('unload', this.handleUnload);
       },
-created(){
+      created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data[0])
+                this.userpid.PID=ret.data[0].pid;
+                this.ruleForm.PID=this.userpid.PID;
+              })
+    
   },
   methods:{
     handleBeforeUnload() {
@@ -170,24 +190,21 @@ created(){
           //alert(JSON.stringify(this.ruleForm));
         },
         submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
-            } else {
-              return false;
-            }
-          });*/
-          Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-            console.log(ret.data)
-          })
-          .catch(function (error) { // 请求失败处理
-            console.log(error);
-            
-          });
-          this.stepNumber+=2;
-          this.info("提交成功，正在返回市场部界面！");
-          setTimeout(() => {this.$router.push({path: "../market", replace:true});}, 2000);
+          console.log(this.ruleForm);
+          Axios.post("http://localhost:9090/api/agreement/insert",JSON.stringify(this.ruleForm),{
+                  headers:{
+                    'content-type': 'text/plain'}
+                }).then(ret=>{
+                  console.log(ret);
+                  this.$message.success("提交成功，正在返回测试部界面！");
+                  this.StepNumber+=2;
+                  setTimeout(() => {this.$router.push({path: "/market", replace:true});}, 2000);
+                })
+                .catch(function (error) { // 请求失败处理
+                  console.log(error);
+                }) 
+          // this.info("提交成功，正在返回用户界面！");
+          // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
         }
       },
     

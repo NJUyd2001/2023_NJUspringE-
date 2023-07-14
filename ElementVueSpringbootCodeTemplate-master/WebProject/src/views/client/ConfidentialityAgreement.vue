@@ -98,14 +98,14 @@
     export default {
     data(){
            return{
+            useruid:{
+                UID:"",
+              },
+              userpid:{
+                PID:"",
+              },
                 ruleForm:{
-                    Client:'',
-                    Trustee:'南京大学软件测试中心',
-                    LegalRepresentative1:'',
-                    LegalRepresentative2:'',
-                    Name:'',
-                    Date1:'',
-                    Date2:'',
+                  PID:"",
                 },
                 rules:{
                   Client:[
@@ -154,9 +154,27 @@
   window.addEventListener('beforeunload', this.handleBeforeUnload);
   window.addEventListener('unload', this.handleUnload);
       },
-created(){
+      created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data[0].pid);
+                this.userpid.PID=ret.data[0].pid;
+                Axios.post("http://localhost:9090/api/agreement/find",JSON.stringify(this.userpid),{
+                headers:{
+                  'content-type': 'text/plain'}
+                }).then(ret=>{
+                this.ruleForm=ret.data[0];
+                this.userpid.PID=ret.data[0].PID;
+                this.ruleForm.PID=this.userpid.PID;
+                console.log(this.ruleForm.PID);
+              })
+              })
+    
   },
   methods:{
     handleBeforeUnload() {
@@ -169,24 +187,21 @@ created(){
           //alert(JSON.stringify(this.ruleForm));
         },
         submitForm(formName) {
-          /*this.$refs[formName].validate((valid) => {
-            if (valid) {
-              alert("submit!");
-              this.$router.push({path: "./client", replace:true});
-            } else {
-              return false;
-            }
-          });*/
-          Axios.post("http://localhost:1234/user/insert",JSON.stringify(this.ruleForm)).then(ret=>{
-            console.log(ret.data)
-          })
-          .catch(function (error) { // 请求失败处理
-            console.log(error);
-            
-          });
-          this.stepNumber+=2;
-          this.info("提交成功，正在返回用户界面！");
-          setTimeout(() => {this.$router.push({path: "../client", replace:true});}, 2000);
+          console.log(this.ruleForm);
+          Axios.post("http://localhost:9090/api/agreement/update",JSON.stringify(this.ruleForm),{
+                  headers:{
+                    'content-type': 'text/plain'}
+                }).then(ret=>{
+                  console.log(ret.data);
+                  this.$message.success("提交成功，正在返回测试部界面！");
+                  this.StepNumber+=2;
+                  setTimeout(() => {this.$router.push({path: "/client", replace:true});}, 2000);
+                })
+                .catch(function (error) { // 请求失败处理
+                  console.log(error);
+                }) 
+          // this.info("提交成功，正在返回用户界面！");
+          // setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
         }
       },
     
