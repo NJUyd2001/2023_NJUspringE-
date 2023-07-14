@@ -111,7 +111,7 @@
             SoftWareName:'',
             VersionNumber:'',
             Client:'',
-            Value1:'',
+            ReviewCompleteDate:'',
             Reviewer:'',
             Examiner:'',
             tableData: [{
