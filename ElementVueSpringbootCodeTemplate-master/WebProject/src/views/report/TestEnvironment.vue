@@ -113,6 +113,7 @@
             },
             ruleForm:{
               PID:this.$store.state.user.process.PID,
+              PID:this.$store.state.user.process.PID,
               tableData1: [{
                   HardwareCategory: '',
                   HardwareName: '',
