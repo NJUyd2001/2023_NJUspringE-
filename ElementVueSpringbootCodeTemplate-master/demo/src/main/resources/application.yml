@@ -18,6 +18,7 @@ server:
 
 
 spring:
+
   servlet:
     multipart:
       max-file-size: 31457280          # 30MB

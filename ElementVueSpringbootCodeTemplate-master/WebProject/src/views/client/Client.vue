@@ -80,7 +80,7 @@ export default {
   created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    console.log(this.$store.state.user.id);
+    console.log(this.$store.state.user.process.PID);
     this.user.uname=this.$store.state.user.name;
     this.user.utype=this.$store.state.user.Permissions;
   },

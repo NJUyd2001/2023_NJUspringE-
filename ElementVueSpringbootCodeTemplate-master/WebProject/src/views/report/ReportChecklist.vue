@@ -87,7 +87,6 @@
         </el-main>
     </el-container>
     </template>
-
     <script>
     import Axios from 'axios'
     export default {
@@ -262,8 +261,8 @@
                 headers:{
                   'content-type': 'text/plain'}
               }).then(ret=>{
-          console.log(ret.data);
-          this.$message.success("提交成功！");
+            console.log(ret.data);
+            this.$message.success("提交成功！");
           setTimeout(() => {this.$router.push({path: "./testdocument2", replace:true});}, 2000);
             })
           }
