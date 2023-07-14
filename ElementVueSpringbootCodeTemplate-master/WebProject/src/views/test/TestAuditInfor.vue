@@ -203,7 +203,25 @@ export default {
           console.log(this.$store.state.user.process.AID)
       })
     },
-    methods:{
+    mounted() {
+    //this.$forceUpdate();
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
+  methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+      Logout(){
+          this.$store.state.user.id=-1;
+          this.$store.state.user.name="null";
+          this.$store.state.user.password=-1;
+          this.$store.state.user.Permissions="null";
+      this.$router.push({path: "./home", replace:true});
+    },
       submitForm(formName) {
         console.log(this.ruleForm)
         this.$refs[formName].validate((valid) => {

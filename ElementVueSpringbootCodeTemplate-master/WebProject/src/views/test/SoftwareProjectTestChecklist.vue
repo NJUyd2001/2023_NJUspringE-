@@ -297,7 +297,18 @@
           }
       }
     },
-      methods: {
+    mounted() {
+    //this.$forceUpdate();
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
+  methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
         handleClick() {
         console.log('click');
       },

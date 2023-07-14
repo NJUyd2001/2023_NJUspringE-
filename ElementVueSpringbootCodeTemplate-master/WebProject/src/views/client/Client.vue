@@ -10,7 +10,7 @@
         </el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
         <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
-        <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
+        <el-button type="primary"  size="mini" @click="Logout()">登出</el-button></div>
       </el-col>
     </el-row>
   </el-header>
@@ -80,7 +80,6 @@ export default {
   created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    console.log(this.$store.state.user.process.PID);
     this.user.uname=this.$store.state.user.name;
     this.user.utype=this.$store.state.user.Permissions;
   },
@@ -145,6 +144,13 @@ export default {
   handleUnload() {
     sessionStorage.setItem("store",JSON.stringify(this.$store.state))
   },
+  Logout(){
+          this.$store.state.user.id=-1;
+          this.$store.state.user.name="null";
+          this.$store.state.user.password=-1;
+          this.$store.state.user.Permissions="null";
+      this.$router.push({path: "./home", replace:true});
+    },
     // 点击步骤条
     handleStep(val) {
       if (this.stepSuc.includes(val) === true) {
