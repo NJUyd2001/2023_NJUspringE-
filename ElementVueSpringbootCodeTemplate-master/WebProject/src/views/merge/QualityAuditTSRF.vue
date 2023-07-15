@@ -210,6 +210,7 @@ import Axios from 'axios';
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
+          console.log(ret.data);
           this.ruleForm=ret.data;
           //this.$store.state.user.process.AID=ret.data[0].AID;
           console.log(this.ruleForm)
