@@ -75,6 +75,9 @@ import QualityAuditTSRF from './views/merge/QualityAuditTSRF'
 import CTestReportCoverCheck from './views/client/CTestReportCoverCheck'
 import STestEnvironmentCheck from './views/merge/STestEnvironmentCheck'
 import TDTestEnvironmentCheck from './views/merge/TDTestEnvironmentCheck'
+import TDAuditreport from './views/merge/TDAuditreport'
+import CAuditreport from './views/client/CAuditreport'
+import SAuditreport from './views/merge/SAuditreport'
 import CTestEnvironmentCheck from './views/client/CTestEnvironmentCheck'
 import TestEnvironment from './views/report/TestEnvironment'
 import SoftwareProjectTestChecklist from './views/test/SoftwareProjectTestChecklist'
@@ -174,6 +177,18 @@ export default new VueRouter({
         {
             path: '/functionlistamendtest',       // 路径
             component: FunctionListAmendTest      // 跳转到的组件 
+        },
+        {
+            path: '/TDAuditreport',       // 路径
+            component: TDAuditreport      // 跳转到的组件 
+        },
+        {
+            path: '/CAuditreport',       // 路径
+            component: CAuditreport      // 跳转到的组件 
+        },
+        {
+            path: '/SAuditreport',       // 路径
+            component: SAuditreport      // 跳转到的组件 
         },
         {
             path: '/checkauditinformarket',     // 路径

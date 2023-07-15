@@ -48,7 +48,7 @@
                             </td>
                           </tr>
                           <tr v-if="item.id=='4'">
-                            <td v-if="pstate=='71'" style="color:#98A6BE" >
+                            <td v-if="pstate=='72'" style="color:#98A6BE" >
                             	<div class="processing_content_detail" style="float:left;width:70%"><span >授权签字人审核中...</span></div> 
                               <div class="processing_content_detail" style="float:right;"><span ><i class="el-icon-time"></i>&nbsp;&nbsp;昨天12:24</span> </div>
                             </td>
@@ -67,7 +67,8 @@
          <el-button v-else-if="pstate=='30'" style="margin-top: 12px;" @click="J2Contract()">填写合同</el-button>
          <el-button v-else-if="pstate=='32'" style="margin-top: 12px;" @click="J2SamSend()">发送样品</el-button>
          <el-button v-else-if="pstate=='71'" style="margin-top: 12px;" @click="J2Report()">查看测试报告</el-button>
-         <el-button v-else-if="pstate=='80'" style="margin-top: 12px;" @click="Confirmed()">确认接收</el-button>
+         <el-button v-else-if="pstate=='73'" style="margin-top: 12px;" @click="Confirmed()">确认接收</el-button>
+         <el-button v-else-if="pstate=='81'" style="margin-top: 12px;" @click="goBack()">完结，撒花！</el-button>
          </div>
   </div>
 </div>
@@ -89,23 +90,46 @@ export default {
   //},
   created(){
     //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    console.log(this.$store.state.user.process.PID);
+    this.Conf.PID=this.$store.state.user.process.PID;
+    this.SelectForm.PID=this.$store.state.user.process.PID;
     console.log(this.SelectForm);
       Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.SelectForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        console.log(ret.data)
+        //console.log(ret.data)
         this.pstate=ret.data.state;
-        console.log(this.pstate)
-        this.active=this.pstate/10;
-        console.log(this.active)
-      })
+        //console.log(this.pstate)
+        if(this.pstate<35)
+          this.npstate=this.pstate;
+        else if(this.pstate > 35 && this.pstate < 45)
+          this.npstate=this.pstate - 10;
+        else if(this.pstate > 45)
+          this.npstate=this.pstate - 30;
+        this.active=this.npstate/10;
+        //console.log(this.active)
+      });
         
+  },
+  mounted(){
+    window.addEventListener('beforeunload', this.handleBeforeUnload()());
+    window.addEventListener('unload', this.handleUnload());
+  },
+  methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
   },
   props: ['data', 'defaultActive'],
   data() {
     return {
-       active: this.pstate/10,
+       active: this.npstate/10,
+       npstate: '',
        approvalProcessProject:[
           {id:'0',label: "已发起委托"},
           {id:'1',label: "委托已发起，等待审核"},
@@ -126,6 +150,7 @@ export default {
               PID:this.$store.state.user.process.PID
             },
     };
+    
   },
   //Tabs
       selectTabName: "ConfigAdd",
@@ -198,6 +223,9 @@ export default {
       this.$message.success("确认成功，正在返回用户界面！");
       setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000)
     },
+    goBack() {
+      this.$router.go(-1);
+    },
     loginOut() {
       //this.showLogin = true;
       // 移除本地用户登录信息
@@ -264,7 +292,7 @@ export default {
     },
     J2Report() {
       //this.$router.push('/client/ConfidentialityAgreement');
-      this.$router.push('/ccheckreport');
+      this.$router.push('/ctestreportcovercheck');
     },
      hideInfo(){
             setTimeout(()=>{
@@ -275,10 +303,6 @@ export default {
         showInfo(){
             this.userInfo=true
         },
-    next() {
-        this.active=this.pstate/10;
-        console.log(this.pstate)
-      },
   }
 };
 </script>

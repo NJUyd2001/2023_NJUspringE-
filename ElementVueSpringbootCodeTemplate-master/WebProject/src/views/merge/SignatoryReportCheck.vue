@@ -5,17 +5,17 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-          <el-breadcrumb-item :to="{ path: '/Test' }">授权签字人主页</el-breadcrumb-item>
-          <el-breadcrumb-item><a href="/report">测试报告查看</a></el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/signatory' }">授权签字人主页</el-breadcrumb-item>
+          <el-breadcrumb-item><a href="/signatoryreportcheck">测试报告查看</a></el-breadcrumb-item>
         </el-breadcrumb>
         </el-col>
         <el-col :span="2">
-          <el-button  size="mini" type="primary">登出</el-button>
+           <el-button @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
         </el-col>
         </el-row>
         <el-row>
           <el-col :span="2">
-            <router-link to="/TestReportCover">
+            <router-link to="/stestreportcovercheck">
             <el-button size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
@@ -275,14 +275,13 @@ import Axios from 'axios'
         }
     },
     mounted(){
-  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('beforeunload', this.handleBeforeUnload());
   window.addEventListener('unload', this.handleUnload);
 },
 created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=29;
+    this.useruid.UID=this.$store.state.user.process.UID;
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}

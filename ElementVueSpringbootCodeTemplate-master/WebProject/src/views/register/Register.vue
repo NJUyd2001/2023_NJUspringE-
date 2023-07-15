@@ -61,6 +61,9 @@
 <script>
 import Axios from 'axios';
 export default {
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'margin:0;')
+  },
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === "") {

@@ -2,15 +2,13 @@
 <el-container class="logo">
   <el-header style="height: 30px " >
     <el-breadcrumb separator="->">
-    <el-breadcrumb-item :to="{ path: '/Client' }">用户主页</el-breadcrumb-item>
+    <el-breadcrumb-item >主页</el-breadcrumb-item>
     <el-breadcrumb-item><a/>个人信息完善</el-breadcrumb-item>
   </el-breadcrumb>
   <br>
     <el-row  type="flex" justify="center" align="middle">
       <el-col :span="2">
-        <router-link to="/client">
-        <el-button  size="middle" type="danger">上一步</el-button>
-        </router-link>
+        <el-button  @click="goBack()" size="middle" type="danger">上一步</el-button>
       </el-col>
       <el-col :span="20" ><div class="grid-content bg-purple">
         <span class="logo-title">个人信息完善</span>
@@ -64,7 +62,7 @@ export default {
       })
   },
   mounted(){
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('beforeunload', this.handleBeforeUnload());
     window.addEventListener('unload', this.handleUnload);
   },
     data(){
@@ -103,11 +101,12 @@ export default {
     handleBeforeUnload() {
       sessionStorage.setItem("store",JSON.stringify(this.$store.state))
     },
+    goBack() {
+      this.$router.go(-1);
+    },
     handleUnload() {
     sessionStorage.setItem("store",JSON.stringify(this.$store.state))
   },
-    goback(){
-    },
     submitForm(formName) {
       Axios.post("http://localhost:9090/api/user/update",JSON.stringify(this.ruleForm),{
         headers:{

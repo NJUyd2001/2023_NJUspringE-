@@ -12,7 +12,7 @@
   </el-breadcrumb>
   </el-col>
   <el-col :span="1">
-    <el-button style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+    <el-button @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
   </el-col>
 </el-row>
     <el-row  type="flex" justify="center" align="middle">
@@ -95,8 +95,25 @@ export default {
         }
       )
     },
+    mounted() {
+    //this.$forceUpdate();
+    window.addEventListener('beforeunload', this.handleBeforeUnload());
+    window.addEventListener('unload', this.handleUnload);
+  },
   methods:{
-    
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  Logout(){
+          this.$store.state.user.id=-1;
+          this.$store.state.user.name="null";
+          this.$store.state.user.password=-1;
+          this.$store.state.user.Permissions="null";
+      this.$router.push({path: "./home", replace:true});
+    },
     submitForm(formName) {
       /*this.$refs[formName].validate((valid) => {
         if (valid) {

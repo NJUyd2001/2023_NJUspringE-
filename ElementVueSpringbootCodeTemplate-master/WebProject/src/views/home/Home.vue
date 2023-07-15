@@ -32,6 +32,9 @@ export default {
       },
     };
   },
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'margin:0;')
+  },
   methods: {
     logout(){
       // 移除本地用户登录信息

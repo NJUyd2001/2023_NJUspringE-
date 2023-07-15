@@ -135,6 +135,27 @@
     </template>
     <script>
     export default {
+      created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.process.UID;
+    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data[0].pid);
+                this.userpid.PID=ret.data[0].pid;
+                
+                Axios.post("http://localhost:1234/reportmain/find",JSON.stringify(this.userpid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data)
+                this.ruleForm=ret.data[0];
+              })
+              })
+    
+  },
         data(){
            return{
                 ruleForm:{

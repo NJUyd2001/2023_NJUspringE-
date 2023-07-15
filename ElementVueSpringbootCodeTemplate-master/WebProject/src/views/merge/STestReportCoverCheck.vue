@@ -5,8 +5,8 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-        <el-breadcrumb-item :to="{ path: '/test' }">测试部主页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/signatory' }">主页</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/stestreportcovercheck">测试报告声明</a></el-breadcrumb-item>
       </el-breadcrumb>
       </el-col>
       <el-col :span="2">
@@ -15,7 +15,7 @@
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="2">
-            <router-link to="/test">
+            <router-link to="/signatory">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
@@ -115,14 +115,13 @@
         }
     },
     mounted(){
-        window.addEventListener('beforeunload', this.handleBeforeUnload);
+        window.addEventListener('beforeunload', this.handleBeforeUnload());
         window.addEventListener('unload', this.handleUnload);
       },
     created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=29;
+    this.useruid.UID=this.$store.state.user.process.UID;
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}
@@ -151,7 +150,7 @@
           //alert(JSON.stringify(this.ruleForm));
         },
         submitForm(formName) {
-          this.$router.push({path: "./report", replace:true});
+          this.$router.push({path: "./signatoryreportcheck", replace:true});
     },
       },
     

@@ -173,8 +173,7 @@
     created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=29;
+    this.useruid.UID=this.$store.state.user.process.UID;
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}
@@ -280,18 +279,7 @@
       }
         },
         submitForm(formName) {
-      console.log(this.ruleForm);
-          Axios.post("http://localhost:9090/api/testcontent/insert",JSON.stringify(this.ruleForm),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-        console.log(ret.data);
-        this.$message.success("提交成功！");
-        setTimeout(() => {this.$router.push({path: "./signatory", replace:true});}, 2000);
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });   
+          setTimeout(() => {this.$router.push({path: "./sauditreport", replace:true});}, 2000);
         },
       }
     }

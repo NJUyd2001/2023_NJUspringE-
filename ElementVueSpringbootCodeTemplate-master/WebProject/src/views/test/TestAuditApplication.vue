@@ -302,8 +302,19 @@
         }
       )
     },
-    methods:{
-      download1(){
+    mounted() {
+    //this.$forceUpdate();
+    window.addEventListener('beforeunload', this.handleBeforeUnload());
+    window.addEventListener('unload', this.handleUnload);
+  },
+  methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  download1(){
         // formdata.append('FID' ,'103');
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt1),{
         headers:{

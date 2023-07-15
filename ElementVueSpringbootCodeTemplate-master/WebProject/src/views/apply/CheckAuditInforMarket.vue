@@ -94,7 +94,7 @@ export default {
       })
     },
     mounted(){
-  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('beforeunload', this.handleBeforeUnload());
   window.addEventListener('unload', this.handleUnload);
   },
     methods:{

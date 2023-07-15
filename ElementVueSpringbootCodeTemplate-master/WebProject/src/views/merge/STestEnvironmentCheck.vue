@@ -5,10 +5,10 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-        <el-breadcrumb-item :to="{ path: '/test' }">测试部主页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestReportCover">测试报告声明</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/report">测试报告</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestEnvironment">测试环境</a></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/signatory' }">主页</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/stestreportcovercheck">测试报告声明</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/signatoryreportcheck">测试报告</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/STestEnvironmentCheck">测试环境</a></el-breadcrumb-item>
         </el-breadcrumb>
         </el-col>
         <el-col :span="2">
@@ -17,7 +17,7 @@
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="10">
-            <router-link to="/report">
+            <router-link to="/signatoryreportcheck">
             <el-button  size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
@@ -172,8 +172,7 @@
         created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=29;
+    this.useruid.UID=this.$store.state.user.process.UID;
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}
@@ -238,21 +237,7 @@
       }
         },
         submitForm(formName) {
-          console.log(this.ruleForm);
-              Axios.post("http://localhost:9090/api/testenvironment/insert",JSON.stringify(this.ruleForm),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-                  console.log(ret.data);
-                  this.$message.success("提交成功！");
-                  setTimeout(() => {this.$router.push({path: "./stestcontentcheck", replace:true});}, 2000);
-              })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      });
-          //console.log(this.ruleForm);
-          //this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./testcontent", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./stestcontentcheck", replace:true});}, 1000);
         },
     }
     }

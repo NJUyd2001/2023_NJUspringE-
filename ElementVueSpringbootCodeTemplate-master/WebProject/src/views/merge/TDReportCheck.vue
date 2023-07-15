@@ -10,7 +10,7 @@
         </el-breadcrumb>
         </el-col>
         <el-col :span="2">
-          <el-button  size="mini" type="primary">登出</el-button>
+           <el-button @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
         </el-col>
         </el-row>
         <el-row>
@@ -275,14 +275,13 @@ import Axios from 'axios'
         }
     },
     mounted(){
-  window.addEventListener('beforeunload', this.handleBeforeUnload);
+  window.addEventListener('beforeunload', this.handleBeforeUnload());
   window.addEventListener('unload', this.handleUnload);
 },
 created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.useruid.UID=this.$store.state.user.id;
-    this.useruid.UID=29;
+    this.useruid.UID=this.$store.state.user.process.UID;
     Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
                 headers:{
                   'content-type': 'text/plain'}

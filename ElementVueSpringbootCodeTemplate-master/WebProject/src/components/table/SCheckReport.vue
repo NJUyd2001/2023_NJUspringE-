@@ -122,7 +122,7 @@ created(){
         this.$store.state.user.process.AID=row.AID;
         this.$store.state.user.process.PID=row.PID;
         console.log(this.$store.state.user.process.UID);
-        this.$router.push({path: "./signatoryreportcheck", replace:true})
+        this.$router.push({path: "./stestreportcovercheck", replace:true})
     },
     handleClick(row) {
      
