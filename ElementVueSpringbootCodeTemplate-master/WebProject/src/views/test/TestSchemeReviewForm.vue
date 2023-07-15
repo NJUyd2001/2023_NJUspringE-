@@ -233,6 +233,7 @@ import Axios from 'axios';
     created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
+    this.TSRF.PID=this.$store.state.user.process.PID;
     console.log(this.$store.state.user.process.PID)
   },
     mounted() {
