@@ -175,7 +175,6 @@
           </el-form>
       </el-form>
       </el-main>
-    <LoginDialog :show='showLogin'/>
     <template>
     <el-backtop :right="50" :bottom="50" />
   </template>
@@ -187,19 +186,8 @@
     created(){
       // console.log(this.$store.state.user.id)
       this.KeepInfor();
-      this.Aid.AID=this.$store.state.user.process.AID
-      this.Pid.PID=this.$store.state.user.process.UID
-      Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.Pid),{
-        headers:{
-          'content-type': 'text/plain'}
-      }).then(ret=>{
-          //console.log(ret.data)
-          this.Fid.FID=ret.data.fileIDs;
-      }).catch(function (error)
-        {
-          console.log(error);
-        }
-      )
+      this.Aid.AID=this.$store.state.user.process.AID;
+      this.Pid.PID=this.$store.state.user.process.PID;
       Axios.post("http://localhost:9090/api/application/checkbyAID",JSON.stringify(this.Aid),{
         headers:{
           'content-type': 'text/plain'}
@@ -236,80 +224,30 @@
           },
           fileatt1:{
             PID:"",
-            state:"",
-            fileType:"",
+            state:"10",
+            fileType:"demand",
           },
           fileatt2:{
             PID:"",
-            state:"",
-            fileType:"",
+            state:"10",
+            fileType:"user",
           },
           fileatt3:{
             PID:"",
-            state:"",
-            fileType:"",
+            state:"10",
+            fileType:"operation",
           },
           fileatt4:{
             PID:"",
-            state:"",
-            fileType:"",
+            state:"10",
+            fileType:"sign",
           },
           tempForm:{},
-          ruleForm:{
-              TypeTest:{},
-              SoftWareName:'',
-              ClientChinese:'',
-              ClientEnglish:'',
-              DevelopmentCompany:'',
-              AttributeOfCompany:{},
-              SoftwareUserObjectDescription:'',
-              MainFunction:'',
-              NeededStandard:[],
-              NeededTechnicalIndex:[],
-              SoftWareSize:{
-                Number:0,
-                Point:0,
-                RowNumber:0,
-              },
-              SoftWareType:'',
-              RuntimeEnvironment:{
-                  Client:{
-                  OS:{
-                    Windows:'',
-                    Linux:'',
-                    Other:''
-                },
-                Mermory:'',
-                Other:''
-                },
-                Server:{
-                  HardWare:{
-                  FrameWork:[],  
-                  Mermory:'',
-                  HardDisk:'',
-                  OtherDisk:''
-                },
-                SoftWare:{
-                  OS:'',
-                  Versions:'',
-                  PL:'',
-                  FrameWork:[],
-                  DataBase:'',
-                  MiddleWare:'',
-                  Other:''
-                },
-                },
-                NetWork:'',  
-                 },
-              SoftwareMedium:[],
-              Document:'',
-              SamplesSubmitted:[],
-              WantedFinishTime:'',
-          },
+          ruleForm:{},
       }
   },
   mounted() {
-    window.addEventListener('beforeunload', this.handleBeforeUnload());
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
     window.addEventListener('unload', this.handleUnload);
   },
     methods:{
@@ -321,6 +259,7 @@
             },
       download1(){
         // formdata.append('FID' ,'103');
+        this.fileatt1.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt1),{
         headers:{
           'content-type': 'text/plain'}
@@ -358,6 +297,7 @@
       },
       download2(){
         // formdata.append('FID' ,'103');
+        this.fileatt2.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt2),{
         headers:{
           'content-type': 'text/plain'}
@@ -394,6 +334,7 @@
       },
       download3(){
         // formdata.append('FID' ,'103');
+        this.fileatt3.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt3),{
         headers:{
           'content-type': 'text/plain'}
@@ -430,6 +371,7 @@
       },
       download4(){
         // formdata.append('FID' ,'103');
+        this.fileatt4.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt4),{
         headers:{
           'content-type': 'text/plain'}

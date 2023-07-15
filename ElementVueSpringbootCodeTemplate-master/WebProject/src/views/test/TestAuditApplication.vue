@@ -286,9 +286,8 @@
   created(){
       // console.log(this.$store.state.user.id)
       this.KeepInfor();
-      this.Aid.AID=this.$store.state.user.process.AID
-      this.Pid.PID=this.$store.state.user.process.PID
-      
+      this.Aid.AID=this.$store.state.user.process.AID;
+      this.Pid.PID=this.$store.state.user.process.PID;
       Axios.post("http://localhost:9090/api/application/checkbyAID",JSON.stringify(this.Aid),{
         headers:{
           'content-type': 'text/plain'}
@@ -304,7 +303,7 @@
     },
     mounted() {
     //this.$forceUpdate();
-    window.addEventListener('beforeunload', this.handleBeforeUnload());
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
     window.addEventListener('unload', this.handleUnload);
   },
   methods:{
@@ -314,8 +313,9 @@
   handleUnload() {
     sessionStorage.setItem("store",JSON.stringify(this.$store.state))
   },
-  download1(){
+      download1(){
         // formdata.append('FID' ,'103');
+        this.fileatt1.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt1),{
         headers:{
           'content-type': 'text/plain'}
@@ -344,15 +344,16 @@
        let a = document.createElement('a')
        a.style.display = 'none'
        a.href = url
-       a.setAttribute('download',decodeURIComponent(this.filename))
-       document.body.appendChild(a)
-       a.click() //执行下载
-       window.URL.revokeObjectURL(a.href)
-       document.body.removeChild(a)
+       a.setAttribute('download',decodeURIComponent(this.filename));
+       document.body.appendChild(a);
+       a.click(); //执行下载
+       window.URL.revokeObjectURL(a.href);
+       document.body.removeChild(a);
       })
       },
       download2(){
         // formdata.append('FID' ,'103');
+        this.fileatt2.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt2),{
         headers:{
           'content-type': 'text/plain'}
@@ -391,6 +392,7 @@
       },
       download3(){
         // formdata.append('FID' ,'103');
+        this.fileatt3.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt3),{
         headers:{
           'content-type': 'text/plain'}
@@ -428,6 +430,7 @@
       },
       download4(){
         // formdata.append('FID' ,'103');
+        this.fileatt4.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt4),{
         headers:{
           'content-type': 'text/plain'}

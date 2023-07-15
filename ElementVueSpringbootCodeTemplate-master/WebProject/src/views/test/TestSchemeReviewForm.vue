@@ -147,7 +147,7 @@ import Axios from 'axios';
               state:"50",
             },
              ruleForm:{
-                PID:"",
+                PID:this.$store.state.user.process.PID,
                 SoftWareName:'',
                 VersionNumber:'',
                 ProjectNum:'',
@@ -236,7 +236,7 @@ import Axios from 'axios';
     console.log(this.$store.state.user.process.PID)
   },
     mounted() {
-    window.addEventListener('beforeunload', this.handleBeforeUnload());
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
     window.addEventListener('unload', this.handleUnload);
   },
       methods: {
@@ -272,6 +272,12 @@ import Axios from 'axios';
             headers:{
               'content-type': 'text/plain'}
             }).then(ret=>{
+              Axios.post("http://localhost:9090/api/testReview/insert",JSON.stringify(this.ruleForm),{
+            headers:{
+              'content-type': 'text/plain'}
+            }).then(ret=>{
+                console.log(ret.data);
+            })
           })
           console.log(this.ruleForm);
           this.$message.success("提交成功,！");

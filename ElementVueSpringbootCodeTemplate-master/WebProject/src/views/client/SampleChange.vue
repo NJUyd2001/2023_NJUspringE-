@@ -97,6 +97,10 @@ export default {
             process:{
               PID:"",
             },
+            GenQ:{
+              PID:this.$store.state.user.process.PID,
+              state:"40",
+            },
             ruleForm:{
               Views:"",
               Pass:"",
@@ -105,7 +109,7 @@ export default {
     }
 },
 mounted(){
-  window.addEventListener('beforeunload', this.handleBeforeUnload());
+  window.addEventListener('beforeunload', this.handleBeforeUnload);
   window.addEventListener('unload', this.handleUnload);
 },
 created(){
@@ -141,6 +145,11 @@ created(){
       this.$router.push({path: "./home", replace:true});
     },
     submitForm(formName) {
+      Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.GenQ),{
+              headers:{
+                'content-type': 'text/plain'}
+              }).then(ret=>{
+             });
       console.log(this.ruleForm)
       this.$confirm("是否确认该操作","提示",{
         iconClass: "el-icon-question",//自定义图标样式

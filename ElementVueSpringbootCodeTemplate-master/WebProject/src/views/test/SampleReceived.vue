@@ -101,13 +101,13 @@ export default {
     }
 },
 mounted(){
-  window.addEventListener('beforeunload', this.handleBeforeUnload());
+  window.addEventListener('beforeunload', this.handleBeforeUnload);
   window.addEventListener('unload', this.handleUnload);
 },
 created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.ruleForm.PID=this.$store.state.user.process.PID
+    this.ruleForm.PID=this.$store.state.user.process.PID;
     console.log(this.$store.state.user.process.PID)
   },
   methods:{
@@ -181,6 +181,7 @@ created(){
       },
       download1(){
         // formdata.append('FID' ,'103');
+        this.fileatt1.PID=this.ruleForm.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt1),{
         headers:{
           'content-type': 'text/plain'}
@@ -220,6 +221,7 @@ created(){
       },
       download2(){
         // formdata.append('FID' ,'103');
+        this.fileatt2.PID=this.ruleForm.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt2),{
         headers:{
           'content-type': 'text/plain'
