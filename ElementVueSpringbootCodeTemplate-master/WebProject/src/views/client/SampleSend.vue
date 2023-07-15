@@ -42,7 +42,7 @@
               multiple
               :limit="1"
               :on-exceed="handleExceed"
-              :data="{ PID:this.process.PID }"
+              :data="{ PID:this.$store.state.user.process.PID, state:'40', fileType:'sample' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
   <div slot="tip" class="el-upload__tip"><strong>注：与《委托测试软件功能列表》一致
@@ -58,10 +58,10 @@
               :on-remove="handleRemove"
               :before-upload="beforeUploadword"
               multiple
-              :limit="3"
+              :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
-              :data="{ PID:this.process.PID }"
+              :data="{ PID:this.$store.state.user.process.PID, state:'40', fileType:'samenv' }"
               >
   <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
@@ -80,6 +80,10 @@ export default {
        return{
             process:{
               PID:"",
+            },
+            GenQ:{
+              PID:this.$store.state.user.process.PID,
+              state:"40",
             },
             StepNumber:2,
     }
@@ -113,35 +117,14 @@ created(){
       this.$router.push({path: "./home", replace:true});
     },
     submitForm(formName) {
-      console.log(this.ruleForm)
-      this.$confirm("是否确认该操作","提示",{
-        iconClass: "el-icon-question",//自定义图标样式
-          confirmButtonText: "确认",//确认按钮文字更换
-          cancelButtonText: "取消",//取消按钮文字更换
-          showClose: true,//是否显示右上角关闭按钮
-          type: "warning",//提示类型  success/info/warning/error
-      }).then(() => {
-        this.$refs[formName].validate((valid) => {
-        if (valid) {
-        Axios.post("http://localhost:9090/api/samplecheck/insert",JSON.stringify(this.ruleForm),{
-        headers:{
-          'content-type': 'text/plain'}
-      }).then(ret=>{
-        this.StepNumber+=2;
-        this.$message.success("提交成功，正在返回用户界面！");
+      Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.GenQ),{
+              headers:{
+                'content-type': 'text/plain'}
+              }).then(ret=>{
+             });
+      this.$message.success("提交成功，正在返回用户界面！");
         setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
-      })
-      .catch(function (error) { // 请求失败处理
-        console.log(error);
-      }) 
-        } else {
-          return false;
-        }
-      });
-      })
-      .catch(function (err) {
-        //捕获异常
-      });
+
     },
     handleRemove(file, fileList) {
         console.log(file, fileList);

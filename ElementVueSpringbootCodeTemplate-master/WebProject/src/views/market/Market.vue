@@ -73,16 +73,6 @@
           </el-menu-item-group>
         </el-submenu>
 
-        <el-submenu index="4">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span>使用记录</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="4-1" @click="addTab('委托处理记录', 'UploadFile')">委托处理记录</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-
       </el-menu>
     </el-aside>
     <el-main>      

@@ -236,7 +236,7 @@ export default {
               console.log(this.Pid.state)
          })
       this.stepNumber+=1;
-      this.info("提交成功，正在返回市场部界面！");
+      this.$message.success("提交成功，正在返回市场部界面！");
       setTimeout(() => {this.$router.push({path: "./market", replace:true});}, 2000);
     },
     download1(){

@@ -196,7 +196,7 @@
                     'content-type': 'text/plain'}
                 }).then(ret=>{
                   console.log(ret);
-                  this.$message.success("提交成功，正在返回测试部界面！");
+                  this.$message.success("提交成功，正在返回市场部界面！");
                   this.StepNumber+=2;
                   setTimeout(() => {this.$router.push({path: "/market", replace:true});}, 2000);
                 })
