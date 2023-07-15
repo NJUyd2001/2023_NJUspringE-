@@ -6,7 +6,7 @@
         v-model="keyword">
     </el-input>
     <p/>
-    <el-table
+   <el-table
       :data="filterdatas"
       size = "mini"
       border
@@ -24,13 +24,13 @@
         prop="SoftWareName"
         sortable
         label="name"
-        width="300">
+        width="250">
       </el-table-column>
       <el-table-column
         sortable
         prop="time"
         label="time"
-        width="250">
+        width="200">
       </el-table-column>
       <el-table-column
         sortable
@@ -40,20 +40,20 @@
       </el-table-column>
       <el-table-column
         sortable
-        prop="phone"
-        label="电话"
-        width="150">
+        prop="TypeTest"
+        label="测试类型"
+        width="200">
       </el-table-column>
       <el-table-column
         sortable
-        prop="process"
-        label="当前进度"
-        width="180">
+        prop="processID"
+        label="PID"
+        width="150">
       </el-table-column>
       <el-table-column
         fixed="right"
         label="操作"
-        width="100"
+        width="138"
         align="center">
         <template slot-scope="scope">
           <el-button @click="SolvePro(scope.row)" type="text" size="small">处理</el-button>

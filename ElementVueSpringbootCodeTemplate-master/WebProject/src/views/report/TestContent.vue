@@ -110,6 +110,10 @@
                 userpid:{
                   PID:this.$store.state.user.process.PID,
                 },
+                GenQ:{
+              PID:this.$store.state.user.process.PID,
+              state:"70",
+            },
                 ruleForm:{
                   PID:this.$store.state.user.process.PID,
                   TableData1:[
@@ -264,6 +268,11 @@
         },
         submitForm(formName) {
       console.log(this.ruleForm);
+      Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.GenQ),{
+              headers:{
+                'content-type': 'text/plain'}
+              }).then(ret=>{
+             });
           Axios.post("http://localhost:9090/api/testcontent/insert",JSON.stringify(this.ruleForm),{
                 headers:{
                   'content-type': 'text/plain'}
