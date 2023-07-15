@@ -23,42 +23,36 @@
         sortable
         prop="AID"
         label="AID"        
-        width="100">
+        width="198">
       </el-table-column>
       <el-table-column
         prop="SoftWareName"
         sortable
         label="name"
-        width="300">
+        width="200">
       </el-table-column>
       <el-table-column
         sortable
         prop="time"
-        label="time"
+        label="时间"
+        width="240">
+      </el-table-column>
+       <el-table-column
+        sortable
+        prop="TypeTest"
+        label="测试类型"
         width="250">
       </el-table-column>
       <el-table-column
         sortable
         prop="applicantID"
         label="用户ID"
-        width="250">
-      </el-table-column>
-      <el-table-column
-        sortable
-        prop="phone"
-        label="电话"
-        width="150">
-      </el-table-column>
-      <el-table-column
-        sortable
-        prop="process"
-        label="当前进度"
-        width="180">
+        width="200">
       </el-table-column>
       <el-table-column
         fixed="right"
         label="操作"
-        width="100"
+        width="200"
         align="center">
         <template slot-scope="scope">
           <el-button @click="SolvePro(scope.row)" type="text" size="small">处理</el-button>

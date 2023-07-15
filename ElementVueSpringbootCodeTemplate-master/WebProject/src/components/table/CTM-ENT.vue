@@ -29,7 +29,7 @@
         prop="SoftWareName"
         sortable
         label="name"
-        width="300">
+        width="250">
       </el-table-column>
       <el-table-column
         sortable
@@ -41,13 +41,13 @@
         sortable
         prop="applicantID"
         label="用户ID"
-        width="250">
+        width="200">
       </el-table-column>
       <el-table-column
         sortable
-        prop="phone"
-        label="电话"
-        width="150">
+        prop="TypeTest"
+        label="测试类型"
+        width="200">
       </el-table-column>
       <el-table-column
         sortable
@@ -58,7 +58,7 @@
       <el-table-column
         fixed="right"
         label="操作"
-        width="100"
+        width="138"
         align="center">
         <template slot-scope="scope">
           <el-button @click="SolvePro(scope.row)" type="text" size="small">处理</el-button>
