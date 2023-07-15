@@ -198,6 +198,7 @@ export default {
 },created(){
       this.KeepInfor();
       this.userid.PID=this.$store.state.user.process.PID;
+      this.Pid.PID=this.$store.state.user.process.PID;
       console.log(this.userid.PID);
        Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
                  headers:{
@@ -240,6 +241,7 @@ export default {
     },
     download1(){
         // formdata.append('FID' ,'103');
+        this.fileatt1.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt1),{
         headers:{
           'content-type': 'text/plain'}

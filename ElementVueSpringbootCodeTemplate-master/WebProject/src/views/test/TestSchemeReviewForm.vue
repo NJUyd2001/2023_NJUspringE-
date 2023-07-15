@@ -236,7 +236,7 @@ import Axios from 'axios';
     console.log(this.$store.state.user.process.PID)
   },
     mounted() {
-    window.addEventListener('beforeunload', this.handleBeforeUnload());
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
     window.addEventListener('unload', this.handleUnload);
   },
       methods: {
