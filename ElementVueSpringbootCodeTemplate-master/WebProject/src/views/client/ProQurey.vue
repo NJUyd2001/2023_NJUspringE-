@@ -90,14 +90,18 @@ export default {
   //},
   created(){
     //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    console.log(this.$store.state.user.process.PID);
+    this.Conf.PID=this.$store.state.user.process.PID;
+    this.SelectForm.PID=this.$store.state.user.process.PID;
     console.log(this.SelectForm);
       Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.SelectForm),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        console.log(ret.data)
+        //console.log(ret.data)
         this.pstate=ret.data.state;
-        console.log(this.pstate)
+        //console.log(this.pstate)
         if(this.pstate<35)
           this.npstate=this.pstate;
         else if(this.pstate > 35 && this.pstate < 45)
@@ -105,9 +109,21 @@ export default {
         else if(this.pstate > 45)
           this.npstate=this.pstate - 30;
         this.active=this.npstate/10;
-        console.log(this.active)
-      })
+        //console.log(this.active)
+      });
         
+  },
+  mounted(){
+    window.addEventListener('beforeunload', this.handleBeforeUnload());
+    window.addEventListener('unload', this.handleUnload());
+  },
+  methods:{
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
   },
   props: ['data', 'defaultActive'],
   data() {
@@ -134,6 +150,7 @@ export default {
               PID:this.$store.state.user.process.PID
             },
     };
+    
   },
   //Tabs
       selectTabName: "ConfigAdd",

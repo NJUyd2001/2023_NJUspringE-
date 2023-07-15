@@ -58,7 +58,7 @@
               :on-remove="handleRemove"
               :before-upload="beforeUploadword"
               multiple
-              :limit="3"
+              :limit="1"
               :on-exceed="handleExceed"
               accept=".doc, .docx"
               :data="{ PID:this.$store.state.user.process.PID, state:'40', fileType:'samenv' }"
@@ -81,23 +81,11 @@ export default {
             process:{
               PID:"",
             },
-            SamSd:{
+            GenQ:{
               PID:this.$store.state.user.process.PID,
               state:"40",
             },
             StepNumber:2,
-            ruleForm:{
-              AID:"",
-              SoftwareName:'',
-              Versions:'',
-            TableData:[
-              {
-                id:1,
-                name:'',
-                function:'',
-            },
-          ],
-            },
     }
 },
 mounted(){
@@ -129,13 +117,14 @@ created(){
       this.$router.push({path: "./home", replace:true});
     },
     submitForm(formName) {
-      Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.SamSd),{
-        headers:{
-          'content-type': 'text/plain'}
-        }).then(ret=>{
-      })
+      Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.GenQ),{
+              headers:{
+                'content-type': 'text/plain'}
+              }).then(ret=>{
+             });
       this.$message.success("提交成功，正在返回用户界面！");
-      setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+        setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
+
     },
     handleRemove(file, fileList) {
         console.log(file, fileList);

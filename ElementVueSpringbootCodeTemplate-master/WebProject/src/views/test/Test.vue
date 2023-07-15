@@ -12,7 +12,7 @@
         </el-col>
       <el-col :span="4"><div class="grid-content bg-purple-light">
         <el-button  plain type="primary" class="el-icon-user" @click="handleStart">{{user.uname}}</el-button>
-        <el-button type="primary"  size="mini" @click="loginOut">登出</el-button></div>
+        <el-button type="primary"  size="mini" @click="logout()">登出</el-button></div>
       </el-col>
     </el-row>
   </el-header>
@@ -58,33 +58,16 @@
           </el-menu-item-group>
         </el-submenu>
 
-        <el-submenu index="0">
+        <el-submenu index="6">
           <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span> 审核委托</span>
-          </template>
-          <el-menu-item-group title="审核发起的委托">
-            <el-menu-item index="0-3" @click="addTab('委托进度及处理', 'ImmediateProcessing')">委托进度及处理</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="9">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span>设置</span>
+            <i class="el-icon-user"></i>
+            <span>我的</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="9-1" @click="addTab('用户信息', 'ConfigTable2')">用户信息</el-menu-item>
+            <el-menu-item index="9-1" @click="jump2myinf()">用户信息</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="4">
-          <template slot="title" collapse=false>
-            <i class="el-icon-setting"></i>
-            <span>使用记录</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="4-1" @click="addTab('填写测试文档', 'UploadFile')">测试文档处理记录</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
+        
 
       </el-menu>
     </el-aside>
@@ -205,13 +188,7 @@ export default {
     //   this.showLogin = false;
     // },
     logout() {
-      this.ajax.post("/app/logout").then(result => {
-        if (result.code == 0) {
-          this.user = null;
-        } else {
-          this.error(result.msg);
-        }
-      });
+      this.$router.push('/login');
     },
     addTab(targetName, commentName) {
       // 如果已经存在

@@ -197,7 +197,6 @@
     created(){
       this.KeepInfor();
       this.useruid.UID=this.$store.state.user.process.UID;
-      
       this.userpid.PID=this.$store.state.user.process.PID;
       console.log(this.userpid)
       Axios.post("http://localhost:9090/api/quote/find",JSON.stringify(this.userpid),{

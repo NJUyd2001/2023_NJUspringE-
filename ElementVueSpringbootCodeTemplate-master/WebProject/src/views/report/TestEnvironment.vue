@@ -40,8 +40,8 @@
       </el-header>
         <br><br>
         <el-main>
-            <el-form ref="ruleForm" label-position="middle" label-width="40%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
-            <el-label style="margin-left: 320px; margin-top: 20px;">硬件环境</el-label>
+            <el-form ref="ruleForm" label-position="middle" label-width="30%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;">
+            <span style="margin-left: 320px; margin-top: 20px;">硬件环境</span>
             <el-table :data="ruleForm.tableData1" style="width: 50%; margin-left: 25%;">
             <el-table-column fixed prop="HardwareCategory" label="硬件类别" width="90">
                 <template slot-scope="scope">
@@ -65,7 +65,7 @@
             </el-table-column>
           </el-table>
 
-            <el-label style="margin-left: 320px; margin-top: 20px;">软件环境</el-label>
+            <span style="margin-left: 320px; margin-top: 20px;">软件环境</span>
                 <el-table :data="ruleForm.tableData2"  style="width: 50%; margin-left: 25%;">
                 <el-table-column fixed prop="SoftwareCategory" label="软件类别" width="90">
                 </el-table-column>
@@ -80,16 +80,16 @@
                 </template>
                 </el-table-column>
             </el-table>
-            <el-label style="margin-left: 320px; margin-top: 20px;">网络环境</el-label>
+            <span style="margin-left: 320px; margin-top: 20px;">网络环境</span>
             <el-form-item>
               二、测试依据和参考资料
             </el-form-item>
-            <el-form-item v-for="(Table,index) in ruleForm.TableData1"  style="margin-left:-15%;" :label='"测试依据"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData1"   :label='"测试依据"+index+":"' :key="index" >
               <el-input placeholder="测试依据" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.NeededStandard"></el-input>
               <el-button @click="removefatherItem(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem()" type="primary" size="small">增加功能项目</el-button>
             </el-form-item>
-            <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData.' + index + '.name'" style="margin-left:-15%;" :label='"参考资料"+index+":"' :key="index" >
+            <el-form-item v-for="(Table,index) in ruleForm.TableData2" :prop="'TableData.' + index + '.name'" :label='"参考资料"+index+":"' :key="index" >
               <el-input placeholder="参考资料" style="width:400px;padding-right:20px;" type="textarea" v-model="Table.ReferenceMaterial"></el-input>
               <el-button @click="removefatherItem1(Table)" type="primary" size="small">删除</el-button>
               <el-button @click="addfatherItem1()" type="primary" size="small">增加功能项目</el-button>
@@ -112,6 +112,7 @@
               PID:"",
             },
             ruleForm:{
+              PID:this.$store.state.user.process.PID,
               PID:this.$store.state.user.process.PID,
               tableData1: [{
                   HardwareCategory: '',
@@ -172,6 +173,18 @@
         created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
+    this.useruid.UID=this.$store.state.user.id;
+    //this.useruid.UID=17;
+    Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                console.log(ret.data[0].pid)
+                this.userpid.PID=ret.data[0].pid;
+                this.ruleForm.PID=this.userpid.PID;
+              });
+    //this.userpid.PID=20;
+    //this.ruleForm.PID=20;
   },
         mounted(){
         window.addEventListener('beforeunload', this.handleBeforeUnload);
@@ -228,7 +241,7 @@
               }).then(ret=>{
                   console.log(ret.data);
                   this.$message.success("提交成功！");
-                  setTimeout(() => {this.$router.push({path: "./testcontent", replace:true});}, 2000);
+                  //setTimeout(() => {this.$router.push({path: "./testcontent", replace:true});}, 2000);
               })
       .catch(function (error) { // 请求失败处理
         console.log(error);

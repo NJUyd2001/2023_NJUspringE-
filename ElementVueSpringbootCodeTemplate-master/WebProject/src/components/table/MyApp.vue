@@ -106,6 +106,7 @@ export default {
     };
   },
   created(){
+    this.KeepInfor();
     if (sessionStorage.getItem("store") ) {
     //this.$store.replaceState是vue官方提供的一个api表示替换 store 的根状态
     //里面的Object.assign()表示将store中的状态和sessionStorage中的状态进行合并
@@ -145,7 +146,17 @@ export default {
         console.log(error);
       });
   },
+  mounted(){
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
   methods: {
+    handleBeforeUnload() {
+      sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
+  handleUnload() {
+    sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+  },
     SolvePro(row){
       // console.log(row);
       //sessionStorage.setItem

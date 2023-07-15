@@ -268,6 +268,19 @@ import Axios from 'axios';
     window.addEventListener('unload', this.handleUnload);
   },
       methods:{
+        Logout(){
+          this.$store.state.user.id=-1;
+          this.$store.state.user.name="null";
+          this.$store.state.user.password=-1;
+          this.$store.state.user.Permissions="null";
+      this.$router.push({path: "./home", replace:true});
+    },
+    handleBeforeUnload() {
+        sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+        },
+      handleUnload() {
+        sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+        },
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {

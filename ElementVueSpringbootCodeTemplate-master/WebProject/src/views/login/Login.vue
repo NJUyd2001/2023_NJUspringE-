@@ -59,6 +59,9 @@ export default {
       },
     };
   },
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'margin:0;')
+  },
   methods: {
     submitForm(formName) {
       Axios.post("http://localhost:9090/api/user/login/staff",JSON.stringify(this.ruleForm),{

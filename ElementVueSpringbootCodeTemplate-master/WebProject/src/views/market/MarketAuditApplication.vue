@@ -146,10 +146,10 @@
             <el-button size="small" type="primary" @click="download1">点击下载</el-button>
           </el-form-item>
           <el-form-item label="用户文档:" label-width="550px" >
-            <el-button size="small" type="primary" @click="download3">点击下载</el-button>
+            <el-button size="small" type="primary" @click="download2">点击下载</el-button>
           </el-form-item>
           <el-form-item label="操作文档:" label-width="550px" >
-            <el-button size="small" type="primary" @click="download4">点击下载</el-button>
+            <el-button size="small" type="primary" @click="download3">点击下载</el-button>
           </el-form-item>
           </el-form>
           <el-form-item label="提交的样品（硬拷贝资料、硬件）五年保存期满:" prop="SamplesSubmitted">
@@ -170,12 +170,11 @@
         </el-form-item>
         <el-form>
           <el-form-item label="申请人签字下载:" label-width="550px" >
-            <el-button size="small" type="primary" @click="download2">点击下载</el-button>
+            <el-button size="small" type="primary" @click="download4">点击下载</el-button>
           </el-form-item>
           </el-form>
       </el-form>
       </el-main>
-    <LoginDialog :show='showLogin'/>
     <template>
     <el-backtop :right="50" :bottom="50" />
   </template>
@@ -189,17 +188,6 @@
       this.KeepInfor();
       this.Aid.AID=this.$store.state.user.process.AID;
       this.Pid.PID=this.$store.state.user.process.PID;
-      Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.Pid),{
-        headers:{
-          'content-type': 'text/plain'}
-      }).then(ret=>{
-          //console.log(ret.data)
-          this.Fid.FID=ret.data.fileIDs;
-      }).catch(function (error)
-        {
-          console.log(error);
-        }
-      )
       Axios.post("http://localhost:9090/api/application/checkbyAID",JSON.stringify(this.Aid),{
         headers:{
           'content-type': 'text/plain'}
@@ -235,77 +223,27 @@
             FID:"",
           },
           fileatt1:{
-            PID:this.$store.state.user.process.PID,
+            PID:"",
             state:"10",
             fileType:"demand",
           },
           fileatt2:{
-            PID:this.$store.state.user.process.PID,
+            PID:"",
             state:"10",
             fileType:"user",
           },
           fileatt3:{
-            PID:this.$store.state.user.process.PID,
+            PID:"",
             state:"10",
             fileType:"operation",
           },
           fileatt4:{
-            PID:this.$store.state.user.process.PID,
+            PID:"",
             state:"10",
             fileType:"sign",
           },
           tempForm:{},
-          ruleForm:{
-              TypeTest:{},
-              SoftWareName:'',
-              ClientChinese:'',
-              ClientEnglish:'',
-              DevelopmentCompany:'',
-              AttributeOfCompany:{},
-              SoftwareUserObjectDescription:'',
-              MainFunction:'',
-              NeededStandard:[],
-              NeededTechnicalIndex:[],
-              SoftWareSize:{
-                Number:0,
-                Point:0,
-                RowNumber:0,
-              },
-              SoftWareType:'',
-              RuntimeEnvironment:{
-                  Client:{
-                  OS:{
-                    Windows:'',
-                    Linux:'',
-                    Other:''
-                },
-                Mermory:'',
-                Other:''
-                },
-                Server:{
-                  HardWare:{
-                  FrameWork:[],  
-                  Mermory:'',
-                  HardDisk:'',
-                  OtherDisk:''
-                },
-                SoftWare:{
-                  OS:'',
-                  Versions:'',
-                  PL:'',
-                  FrameWork:[],
-                  DataBase:'',
-                  MiddleWare:'',
-                  Other:''
-                },
-                },
-                NetWork:'',  
-                 },
-              SoftwareMedium:[],
-              Document:'',
-              SamplesSubmitted:[],
-              WantedFinishTime:'',
-          },
+          ruleForm:{},
       }
   },
   mounted() {
@@ -319,15 +257,16 @@
   handleUnload() {
     sessionStorage.setItem("store",JSON.stringify(this.$store.state))
             },
-     download1(){
+      download1(){
         // formdata.append('FID' ,'103');
+        this.fileatt1.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt1),{
         headers:{
           'content-type': 'text/plain'}
         }).then(ret=>{
           console.log(ret.data);
           this.Fileid1.FID=ret.data;
-        });
+        })
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid1),{
           headers:{
           'content-type': 'text/plain'},
@@ -338,15 +277,15 @@
         Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid1),{
           headers:{
           'content-type': 'text/plain'},
-          responseType: 'blob'
+          responseType:'blob',
       }).then(ret=>{
         let data = ret.data
       if (!data) {
             return
        }
-       let url = window.URL.createObjectURL(new Blob([data]))
-      console.log(ret.headers)
-       let a = document.createElement('a')
+       let url = window.URL.createObjectURL(new Blob([data]));
+      console.log(ret.headers);
+       let a = document.createElement('a');
        a.style.display = 'none'
        a.href = url
        a.setAttribute('download',decodeURIComponent(this.filename))
@@ -358,14 +297,14 @@
       },
       download2(){
         // formdata.append('FID' ,'103');
+        this.fileatt2.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt2),{
         headers:{
           'content-type': 'text/plain'}
         }).then(ret=>{
-          console.log(ret.data)
+          console.log(ret.data);
           this.Fileid2.FID=ret.data;
-        });
-        console.log(this.Fileid2)
+        })
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid2),{
           headers:{
           'content-type': 'text/plain'},
@@ -376,7 +315,6 @@
         Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid2),{
           headers:{
           'content-type': 'text/plain'},
-          responseType: 'blob'
       }).then(ret=>{
         let data = ret.data
       if (!data) {
@@ -396,13 +334,14 @@
       },
       download3(){
         // formdata.append('FID' ,'103');
+        this.fileatt3.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt3),{
         headers:{
           'content-type': 'text/plain'}
         }).then(ret=>{
           console.log(ret.data);
           this.Fileid3.FID=ret.data;
-        });
+        })
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid3),{
           headers:{
           'content-type': 'text/plain'},
@@ -413,7 +352,6 @@
         Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid3),{
           headers:{
           'content-type': 'text/plain'},
-          responseType: 'blob'
       }).then(ret=>{
         let data = ret.data
       if (!data) {
@@ -433,13 +371,14 @@
       },
       download4(){
         // formdata.append('FID' ,'103');
+        this.fileatt4.PID=this.Pid.PID;
         Axios.post("http://localhost:9090/api/file/select/byState",JSON.stringify(this.fileatt4),{
         headers:{
           'content-type': 'text/plain'}
         }).then(ret=>{
           console.log(ret.data);
           this.Fileid4.FID=ret.data;
-        });
+        })
         Axios.post("http://localhost:9090/api/file/select/fileName",JSON.stringify(this.Fileid4),{
           headers:{
           'content-type': 'text/plain'},
@@ -450,7 +389,6 @@
         Axios.post("http://localhost:9090/api/file/download",JSON.stringify(this.Fileid4),{
           headers:{
           'content-type': 'text/plain'},
-          responseType: 'blob'
       }).then(ret=>{
         let data = ret.data
       if (!data) {

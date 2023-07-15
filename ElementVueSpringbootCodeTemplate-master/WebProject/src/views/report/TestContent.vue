@@ -270,7 +270,7 @@
               }).then(ret=>{
         console.log(ret.data);
         this.$message.success("提交成功！");
-          //setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);

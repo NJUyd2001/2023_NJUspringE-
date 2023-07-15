@@ -163,7 +163,7 @@ created(){
           'content-type': 'text/plain'}
       }).then(ret=>{
         
-        this.StepNumber+=2;
+        this.StepNumber+=1;
         this.$message.success("提交成功！");
         setTimeout(() => {this.$router.push({path: "./DocumentAndSign", replace:true});}, 2000);
       })

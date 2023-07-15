@@ -115,7 +115,7 @@ export default {
         } else {
           return false;
         }
-      });*/
+      });*/ 
       setTimeout(() => {this.$router.push({path: "./client", replace:true});}, 2000);
     }
   },
