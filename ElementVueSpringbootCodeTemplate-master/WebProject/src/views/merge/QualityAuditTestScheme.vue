@@ -16,13 +16,13 @@
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
             <router-link to="/Test">
-            <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
+            <el-button size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
           <el-col :span="8"><div class="grid-content bg-purple">
             <span class="logo-title">软件测试方案</span>
             </div></el-col>
-            <el-col :span="10">
+            <el-col :span="12">
               <el-steps :space="200" :active="0" finish-status="success">
                 <el-step title="软件测试方案填写"></el-step>
                 <el-step title="测试方案评审表填写"></el-step>
@@ -34,9 +34,9 @@
             </el-col>
         </el-row>
       </el-header>
-        <br><br>
+        <br><br> <br>
         <el-main>
-          <el-form  disabled style="margin-left: 200px; margin-top: 70px;" label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
+          <el-form  disabled  label-width="550px" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-form-item label="1 引言" prop="Introduction" style="font-weight: bold; font-size: 15px; ">
             </el-form-item>
             <el-form-item label="1.1标识:" prop="Mark">
@@ -201,14 +201,14 @@ import Axios from 'axios';
       this.KeepInfor();
       this.Aid.AID=this.$store.state.user.process.AID;
       this.Pid.PID=this.$store.state.user.process.PID;
-      console.log(this.Pid.PID)
+      console.log(this.Pid.PID);
       Axios.post("http://localhost:9090/api/softwaretest/find",JSON.stringify(this.Pid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
           this.ruleForm=ret.data[0];
           //this.$store.state.user.process.AID=ret.data[0].AID;
-          console.log(this.ruleForm)
+          console.log(this.ruleForm);
       }).catch(function (error)
         {
           console.log(error);

@@ -272,6 +272,12 @@ import Axios from 'axios';
             headers:{
               'content-type': 'text/plain'}
             }).then(ret=>{
+              Axios.post("http://localhost:9090/api/testreview/insert",JSON.stringify(this.ruleForm),{
+            headers:{
+              'content-type': 'text/plain'}
+            }).then(ret=>{
+                console.log(ret.data);
+            })
           })
           console.log(this.ruleForm);
           this.$message.success("提交成功,！");
