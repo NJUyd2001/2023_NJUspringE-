@@ -1,0 +1,114 @@
+## 文件上传下载
+
+### 实现概述
+
+文件上传下载是本次项目的核心功能，除了需要实现服务器本地文件IO，还要通过以http协议与前端通信，是
+本次实验的技术难点。
+
+- **文件上传**
+
+文件上传通过Spring框架中的`MultipartFile`实现。
+
+- `FileController`接收前端传参，转发给`Service`层处理
+``` java
+@CrossOrigin
+@RequestMapping(value="/upload", method = RequestMethod.POST)
+public Integer upload(@RequestParam("file") MultipartFile file,
+                      @RequestParam("PID") Integer PID,
+                      @RequestParam("state") String state,
+                      @RequestParam("fileType") String fileType){
+                        ...
+                        return fileService.upload(file, PID, state, fileType);
+                        ...
+                      }
+```
+
+- `Service`层调用`Dao`层和`FileUtil`分别上传数据库和储存到本地
+
+``` java
+    public Integer upload(MultipartFile file, Integer PID, String state, String fileType) throws Exception{
+        ...
+        String fileName = file.getOriginalFilename();
+        String filePath = fileUtil.uploadWithFileInfo(file, PID, state, fileType);
+        //fileUtil将文件存储到本地并返回文件本地存储路径
+        FileModel fileModel = new FileModel(filePath, PID, fileName);
+        ...
+        fileDao.upload(fileModel); //将文件信息经由DAO层上传到数据库
+        return fileModel.getFID();
+        ...
+    }
+```
+
+- `FileUtil`将文件储存到本地
+
+```java
+    @ResponseBody
+    public  String uploadWithFileInfo(@RequestPart(value = "file") MultipartFile mf,
+                                      @RequestParam(value = "PID") Integer PID,
+                                      @RequestParam(value = "state") String state,
+                                      @RequestParam(value = "fileType") String fileType) throws IOException {
+        //将文件上传到指定文件夹
+        if (!mf.isEmpty()){
+            String fileName=mf.getOriginalFilename();
+            //文件上传
+            String finalPath = UPLOAD_FILEPATH + PID.toString() + "\\" + state + fileType +  "_" + fileName ;
+            // finalPath将文件信息写入文件名，避免重复命名覆盖
+            File finalFile = new File(finalPath);
+            if (!finalFile.exists())
+                finalFile.mkdirs();
+            mf.transferTo(new File(finalPath));
+            return finalPath;
+        }
+        return "";
+    }
+```
+
+- `FileDao` 将信息上传到mysql数据库
+``` java
+    @Insert("INSERT INTO selabspringe.file(filePath, PID, fileName, state, fileType) VALUES (#{filePath}, #{PID}, #{fileName}, #{state}, #{fileType})")
+    @SelectKey(keyColumn = "FID", before = false, resultType = Integer.class, statement = {"select last_insert_id()"}, keyProperty = "FID")
+    void upload(FileModel fileModel);
+```
+
+- **文件下载**
+
+文件下载完全通过`FileController`处理
+``` java
+@CrossOrigin
+    @RequestMapping(value = "/download", method = RequestMethod.POST)
+    public String download(@RequestBody String postJson, HttpServletResponse response){
+        //  新建文件流，从磁盘读取文件流
+        JSONObject jsonObject = JSONObject.parseObject(postJson);
+        Integer FID = jsonObject.getInteger("FID");
+        FileModel fileModel = fileDao.selectByFID(FID);
+        System.out.println(fileModel);
+        if(fileModel == null) return "不存在FID为 "+FID.toString() + " 的文件";
+        try (FileInputStream fis = new FileInputStream(fileModel.getFilePath());
+             BufferedInputStream bis = new BufferedInputStream(fis);
+             OutputStream os = response.getOutputStream()) {    //  OutputStream 是文件写出流，将文件下载到浏览器客户端
+            // 新建字节数组，长度是文件的大小，比如文件 6kb, bis.available() = 1024 * 6
+            byte[] bytes = new byte[bis.available()];
+            // 从文件流读取字节到字节数组中
+            bis.read(bytes);
+            // 重置 response
+            response.reset();
+            // 设置 response 的下载响应头
+            response.setHeader("Access-Control-Allow-Origin","*");
+            response.setHeader("Access-Control-Expose-Headers", "Content-disposition");
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-disposition", "attachment;filename="
+                    + URLEncoder.encode(fileModel.getFileName(), StandardCharsets.UTF_8));
+            // 写出字节数组到输出流
+            os.write(bytes);
+            // 刷新输出流
+            os.flush();
+        } catch (Exception e) {
+
+            return e.getMessage();
+        }
+        return "下载任务创建成功";
+    }
+```
+
+### 流程示意图
+
