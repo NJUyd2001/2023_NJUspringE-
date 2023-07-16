@@ -5,21 +5,21 @@ author：李晨博
 插入一个agreement
 
 输入示例：
-```
+```js
 {
     "PID":1,
-    "Client":"1",
-    "Trustee":"a",
-    "LegalRepresentative1":"a",
-    "LegalRepresentative2":"'a",
-    "Name":"'a",
-    "Date1":"a'",
-    "Date2":"a"     
+    "Client":"黄大伟",
+    "Trustee":"南京大学",
+    "LegalRepresentative1":"李先生",
+    "LegalRepresentative2":"王先生",
+    "Name":"学生数据管理系统测试",
+    "Date1":"2023-07-16T16:00:00.000Z",
+    "Date2":"2023-07-26T16:00:00.000Z"     
 }
 ```
 
 输出示例：
-```
+```js
 {"PID":"1","AgID":"1"}
 ```
 
@@ -27,30 +27,30 @@ author：李晨博
 查找一个agreement
 
 输入示例：
-```
+```js
 {
     "QID":"1"
 }
 ```
 输出示例：
-```
-[{"AgID":1,"Client":"1","Trustee":"a","LegalRepresentative1":"a","LegalRepresentative2":"'a","Name":"'a","Date1":"a'","Date2":"a" }]
+```js
+[{"AgID":1,"Client":"黄大伟","Trustee":"南京大学","LegalRepresentative1":"李先生","LegalRepresentative2":"王先生","Name":"学生数据管理系统测试","Date1":"2023-07-16T16:00:00.000Z","Date2":"2023-07-26T16:00:00.000Z" }]
 ```
 
 ## /agreement/update
 更新agreement
 
 输入示例:
-```
+```js
 {
     "PID":1,
-    "Client":"1",
-    "Trustee":"a",
-    "LegalRepresentative1":"a",
-    "LegalRepresentative2":"'a",
-    "Name":"'a",
-    "Date1":"a'",
-    "Date2":"a"     
+    "Client":"黄大伟",
+    "Trustee":"南京大学",
+    "LegalRepresentative1":"李先生",
+    "LegalRepresentative2":"王先生",
+    "Name":"学生数据管理系统测试",
+    "Date1":"2023-07-16T16:00:00.000Z",
+    "Date2":"2023-07-26T16:00:00.000Z"     
 }
 ```
 
@@ -67,7 +67,7 @@ agreement update complete
 删除agreement
 
 输入示例：
-```
+```js
 {
     "PID":"1"
 }
