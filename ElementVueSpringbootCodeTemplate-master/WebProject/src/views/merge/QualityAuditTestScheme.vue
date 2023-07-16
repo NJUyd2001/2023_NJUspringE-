@@ -5,7 +5,7 @@
         <el-row>
         <el-col :span="22">
         <el-breadcrumb separator="->">
-            <el-breadcrumb-item :to="{ path: '/Test' }">测试主页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/Quality' }">质量部主页</el-breadcrumb-item>
             <el-breadcrumb-item><a href="/TestScheme">软件测试方案</a></el-breadcrumb-item>
         </el-breadcrumb>
         </el-col>
@@ -15,7 +15,7 @@
         </el-row>
         <el-row  type="flex" justify="center" align="middle">
           <el-col :span="6">
-            <router-link to="/Test">
+            <router-link to="/Quality">
             <el-button size="middle" type="danger">上一步</el-button>
             </router-link>
           </el-col>
@@ -24,7 +24,7 @@
             </div></el-col>
             <el-col :span="12">
               <el-steps :space="200" :active="0" finish-status="success">
-                <el-step title="软件测试方案填写"></el-step>
+                <el-step title="软件测试方案查看"></el-step>
                 <el-step title="测试方案评审表填写"></el-step>
                 <el-step title="完成"></el-step>
               </el-steps>
@@ -250,8 +250,7 @@ import Axios from 'axios';
             }
           });*/
           console.log(this.ruleForm);
-          this.$message.success("提交成功！");
-          setTimeout(() => {this.$router.push({path: "./QualityAuditTSRF", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./QualityTSRF", replace:true});}, 2000);
         }
       },
     

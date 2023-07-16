@@ -1,0 +1,395 @@
+<!-- 文炫添加 -->
+<template>
+  <el-container style="height:100%">
+    <el-header style="height: 30px " >
+      <el-row>
+      <el-col :span="23">
+      <el-breadcrumb separator="->">
+          <el-breadcrumb-item :to="{ path: '/Quality' }">质量部主页</el-breadcrumb-item>
+          <el-breadcrumb-item><a href="/TestScheme">软件测试方案</a></el-breadcrumb-item>
+      </el-breadcrumb>
+      </el-col>
+      <el-col :span="1">
+         <el-button @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+      </el-col>
+      </el-row>
+      <el-row  type="flex" justify="center" align="middle">
+        <el-col :span="2">
+          <router-link to="/QualityAuditTestScheme">
+          <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
+          </router-link>
+        </el-col>
+        <el-col :span="10"><div class="grid-content bg-purple">
+          <span class="logo-title">软件测试方案评审表</span>
+          </div></el-col>
+          <el-col :span="10">
+            <el-steps :space="200" :active="1" finish-status="success">
+              <el-step title="软件测试方案查看"></el-step>
+              <el-step title="方案评审表填写"></el-step>
+              <el-step title="完成"></el-step>
+            </el-steps>
+          </el-col>
+          <el-col :span="2">
+          <el-button style="margin-left: 40px;" @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
+          </el-col>
+        </el-row>
+      </el-header>
+        <br><br><br>
+        <el-main>
+          <el-form  label-width="50%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-row>
+            <el-col :span="12">
+            <el-form-item  label="软件名称:" prop="SoftWareName"> 
+                <el-input v-model="ruleForm.SoftWareName" style="width:200px; padding:10px;"  ></el-input>
+            </el-form-item> 
+            </el-col>
+            <el-col :span="4">
+                <el-form-item label="版本号:" prop="VersionNumber"> 
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.VersionNumber"></el-input>
+                </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+            <el-form-item  label="项目编号:" prop="ProjectNum"> 
+                <el-input style="width:200px; padding:10px;" v-model="ruleForm.ProjectNum"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="4">
+                <el-form-item  label="测试类别:" prop="TestCategory"> 
+                    <el-input style="width:200px; padding:10px;" v-model="ruleForm.TestCategory"></el-input>
+                </el-form-item>
+            </el-col>
+          </el-row>
+            <el-form-item label="评审内容:" prop="OverallDesign" style="font-weight: bold; font-size: 15px;">
+            </el-form-item>
+                <el-form-item label="《测试方案》书写规范性：">
+                    <el-radio-group v-model="ruleForm.WritingNormality">
+                        <el-radio label="通过"></el-radio>
+                        <el-radio label="不通过"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item  label="测试环境是否具有典型意义以及是否符合用户要求：">
+                    <el-radio-group v-model="ruleForm.TestEnvironment">
+                        <el-radio label="通过"></el-radio>
+                        <el-radio label="不通过"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="测试内容的完整性，是否覆盖了整个系统：">
+                    <el-radio-group v-model="ruleForm.Completeness">
+                <el-radio label="通过"></el-radio>
+                <el-radio label="不通过"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item  label="测试方法的选取是否合理：">
+              <el-radio-group v-model="ruleForm.SelectMethod">
+                <el-radio label="通过"></el-radio>
+                <el-radio label="不通过"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item  label="测试用例能否覆盖问题：">
+              <el-radio-group v-model="ruleForm.TestcaseCover">
+                <el-radio label="通过"></el-radio>
+                <el-radio label="不通过"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item  label="输入、输出数据设计合理性：">
+              <el-radio-group v-model="ruleForm.InputOutputData">
+                <el-radio label="通过"></el-radio>
+                <el-radio label="不通过"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item  label="测试时间安排是否合理：">
+              <el-radio-group v-model="ruleForm.Timing">
+                <el-radio label="通过"></el-radio>
+                <el-radio label="不通过"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item  label="测试人力资源安排是否合理：">
+              <el-radio-group v-model="ruleForm.HumanResourcesArrangement">
+                <el-radio label="通过"></el-radio>
+                <el-radio label="不通过"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-table :data="ruleForm.tableData"  style="width: 50%; margin-left: 25%;">
+            <el-table-column fixed prop="Duty" label="职责" width="110"></el-table-column>
+            <el-table-column prop="EvaluationOpinion" label="评审意见" width="400">
+              <template slot-scope="scope">
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.EvaluationOpinion" :rows="2"  placeholder="评审意见"/>
+              </template>
+            </el-table-column>
+            <el-table-column prop="Sign" label="签字" width="100">
+              <template slot-scope="scope">
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Sign" :rows="2"  placeholder="签字"/>
+              </template>
+            </el-table-column>
+            <el-table-column prop="Date" label="日期" width="100">
+                <template slot-scope="scope">
+                <el-input :type="input_type" ref="enterInput" v-model="scope.row.Date" :rows="2"  placeholder="日期"/>
+              </template>
+            </el-table-column>
+            </el-table>
+            <br><br><br>
+          </el-form>
+          <el-form  :model="Suggestion" ref="Suggestion">
+        <el-row type="flex" justify="center">
+        <el-radio-group v-model="Suggestion.Pass" :span="3">
+          <el-radio  label="false">拒绝</el-radio>
+          <el-radio  label="true">同意</el-radio>
+        </el-radio-group>
+        </el-row></el-form>
+        </el-main>
+    </el-container>
+    </template>
+    <el-backtop :right="50" :bottom="50" />
+    <script>
+import Axios from 'axios';
+    export default {
+        data(){
+          return{
+            useruid:{
+              UID:"",
+            },
+            TSRF:{
+              PID:this.$store.state.user.process.PID,
+              state:"",},
+            userpid:{
+              PID:"",
+            },
+            Suggestion:{
+                  Pass:"false",
+                },
+                ruleForm:{
+                PID:this.$store.state.user.process.PID,
+                SoftWareName:'',
+                VersionNumber:'',
+                ProjectNum:'',
+                TestCategory:'',
+                WritingNormality:'',
+                TestEnvironment:'',
+                Completeness:'',
+                SelectMethod:'',
+                TestcaseCover:'',
+                InputOutputData:'',
+                Timing:'',
+                HumanResourcesArrangement:'',
+                tableData: [{
+                  Duty: '测试工程师',
+                  EvaluationOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '测试室负责人',
+                  EvaluationOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '质量负责人',
+                  EvaluationOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '技术负责人',
+                  EvaluationOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }, {
+                  Duty: '监督人',
+                  EvaluationOpinion: '',
+                  Sign: '',
+                  Date: '',
+                  }],
+              },
+              rules:{
+                  SoftWareName:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  VersionNumber:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  ProjectNum:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  TestCategory:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  WritingNormality:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  TestEnvironment:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Completeness:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  SelectMethod:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  TestcaseCover:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  InputOutputData:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  Timing:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+                  HumanResourcesArrangement:[
+                    { required: true, message: "不能为空！", trigger: "blur"  },
+                  ],
+            }
+        }
+    },
+    created(){
+    //在页面加载时读取sessionStorage里的状态信息
+    this.KeepInfor();
+    this.userpid.PID=this.$store.state.user.process.PID;
+    this.ruleForm.PID=this.$store.state.user.process.PID;
+    // Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.userpid),{
+    //             headers:{
+    //               'content-type': 'text/plain'}
+    //           }).then(ret=>{
+    //             console.log(ret.data);
+    //             this.userpid.PID=ret.data.pid;
+    //             Axios.post("http://localhost:9090/api/softwaretest/find",JSON.stringify(this.userpid),{
+    //             headers:{
+    //               'content-type': 'text/plain'}
+    //           }).then(ret=>{
+    //             console.log(ret.data)
+    //             this.ruleForm=ret.data[0];
+    //           })
+    //           })
+    
+  },
+    mounted() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+    window.addEventListener('unload', this.handleUnload);
+  },
+      methods:{
+        Logout(){
+          this.$store.state.user.id=-1;
+          this.$store.state.user.name="null";
+          this.$store.state.user.password=-1;
+          this.$store.state.user.Permissions="null";
+      this.$router.push({path: "./home", replace:true});
+    },
+    handleBeforeUnload() {
+        sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+        },
+      handleUnload() {
+        sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+        },
+        submitForm(formName) {
+          
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              console.log(this.ruleForm);
+              if(this.Suggestion.Pass == "true")
+            this.TSRF.state="51";
+              else if(this.Suggestion.Pass == "false")
+              this.TSRF.state="55";
+              Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TSRF),{
+            headers:{
+              'content-type': 'text/plain'}
+            }).then(ret=>{
+              
+              Axios.post("http://localhost:1234/testReview/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                    console.log(ret.data);
+                    this.$message.success("提交成功！");
+                    setTimeout(() => {this.$router.push({path: "./Quality", replace:true});}, 2000);
+              })
+            })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+            } else {
+              return false;
+            }
+          });
+          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+        }
+      },
+    
+    }
+    
+    </script>
+    <style>
+    .text-right {
+      padding-right: 0px;
+      text-align: right;
+    }
+    
+    .user {
+      margin: 10px;
+      font-size: 12px;
+    }
+    
+    .header {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .el-header{
+      margin: 10px 0 10px 0;  
+    }
+    .header .nav {
+      height: 40px;
+      color: #fff;
+      text-align: center;
+    }
+    .banner {
+      position: relative;
+      z-index: 0;
+      margin: 3px auto;
+      height: 200px;
+    }
+    
+    .el-container .el-main{
+      padding: 0px 5px 5px 5px;
+    }
+    
+    .index {
+      padding-left: 10px;
+    }
+    .el-input{
+        padding:15px,
+        
+    }
+    
+    .el-menu-vertical-demo:not(.el-menu--collapse) {
+      width: 200px;
+      height: 100%;
+    }
+    
+    span.logo-title{
+      font-size: 30px;
+      font-weight: bold;
+    }
+    .demo-date-picker {
+      display: flex;
+      width: 100%;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+    
+    .demo-date-picker .block {
+      padding: 30px 0;
+      text-align: left;
+      border-right: solid 1px var(--el-border-color);
+      flex: 1;
+    }
+    
+    .demo-date-picker .block:last-child {
+      border-right: none;
+    }
+    
+    .demo-date-picker .demonstration {
+      display: block;
+      color: var(--el-text-color-secondary);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    </style>
