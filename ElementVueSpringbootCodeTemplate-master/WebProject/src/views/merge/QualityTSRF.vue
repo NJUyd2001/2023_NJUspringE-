@@ -1,41 +1,40 @@
- <!-- 文炫添加 -->
+<!-- 文炫添加 -->
 <template>
-    <el-container style="height:100%">
-      <el-header style="height: 30px">
-        <el-row>
-        <el-col :span="22">
-        <el-breadcrumb separator="->">
-        <el-breadcrumb-item :to="{ path: '../#/Test' }">测试主页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestScheme">软件测试方案</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/TestSchemeReviewForm">测试方案评审表</a></el-breadcrumb-item>
-       </el-breadcrumb>
-       </el-col>
-       <el-col :span="2">
-           <el-button @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+  <el-container style="height:100%">
+    <el-header style="height: 30px " >
+      <el-row>
+      <el-col :span="23">
+      <el-breadcrumb separator="->">
+          <el-breadcrumb-item :to="{ path: '/Quality' }">质量部主页</el-breadcrumb-item>
+          <el-breadcrumb-item><a href="/TestScheme">软件测试方案</a></el-breadcrumb-item>
+      </el-breadcrumb>
+      </el-col>
+      <el-col :span="1">
+         <el-button @click="Logout()" style="margin-bottom: 5px;" size="mini" type="primary">登出</el-button>
+      </el-col>
+      </el-row>
+      <el-row  type="flex" justify="center" align="middle">
+        <el-col :span="2">
+          <router-link to="/QualityAuditTestScheme">
+          <el-button style="margin-top: 10px;" size="middle" type="danger">上一步</el-button>
+          </router-link>
         </el-col>
-        </el-row>
-        <el-row  type="flex" justify="center" align="middle">
-          <el-col :span="6">
-            <router-link to="/testscheme">
-            <el-button size="middle" type="danger">上一步</el-button>
-            </router-link>
+        <el-col :span="10"><div class="grid-content bg-purple">
+          <span class="logo-title">软件测试方案评审表</span>
+          </div></el-col>
+          <el-col :span="10">
+            <el-steps :space="200" :active="1" finish-status="success">
+              <el-step title="软件测试方案查看"></el-step>
+              <el-step title="方案评审表填写"></el-step>
+              <el-step title="完成"></el-step>
+            </el-steps>
           </el-col>
-          <el-col :span="8"><div class="grid-content bg-purple">
-            <span class="logo-title">测试方案评审表</span>
-            </div></el-col>
-            <el-col :span="10">
-              <el-steps :space="200" :active="1" finish-status="success">
-                <el-step title="软件测试方案填写"></el-step>
-                <el-step title="测试方案评审表填写"></el-step>
-                <el-step title="完成"></el-step>
-              </el-steps>
-            </el-col>
-            <el-col :span="1">
-            <el-button @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
+          <el-col :span="2">
+          <el-button style="margin-left: 40px;" @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
           </el-col>
         </el-row>
       </el-header>
-        <br><br><br><br>
+        <br><br><br>
         <el-main>
           <el-form  label-width="50%" style="margin-top: 70px; margin-left: 70px; font-weight: bold;" :model="ruleForm" :rules="rules" ref="ruleForm">
             <el-row>
@@ -132,21 +131,35 @@
             </el-table>
             <br><br><br>
           </el-form>
+          <el-form  :model="Suggestion" ref="Suggestion">
+        <el-row type="flex" justify="center">
+        <el-radio-group v-model="Suggestion.Pass" :span="3">
+          <el-radio  label="false">拒绝</el-radio>
+          <el-radio  label="true">同意</el-radio>
+        </el-radio-group>
+        </el-row></el-form>
         </el-main>
     </el-container>
     </template>
-
+    <el-backtop :right="50" :bottom="50" />
     <script>
 import Axios from 'axios';
     export default {
         data(){
-           return{
-             input_type:'text',
-             TSRF:{
-              PID:this.$store.state.user.process.PID,
-              state:"50",
+          return{
+            useruid:{
+              UID:"",
             },
-             ruleForm:{
+            TSRF:{
+              PID:this.$store.state.user.process.PID,
+              state:"",},
+            userpid:{
+              PID:"",
+            },
+            Suggestion:{
+                  Pass:"false",
+                },
+                ruleForm:{
                 PID:this.$store.state.user.process.PID,
                 SoftWareName:'',
                 VersionNumber:'',
@@ -187,7 +200,7 @@ import Axios from 'axios';
                   Date: '',
                   }],
               },
-            rules:{
+              rules:{
                   SoftWareName:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
@@ -198,9 +211,6 @@ import Axios from 'axios';
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   TestCategory:[
-                    { required: true, message: "不能为空！", trigger: "blur"  },
-                  ],
-                  OverallDesign:[
                     { required: true, message: "不能为空！", trigger: "blur"  },
                   ],
                   WritingNormality:[
@@ -233,26 +243,29 @@ import Axios from 'axios';
     created(){
     //在页面加载时读取sessionStorage里的状态信息
     this.KeepInfor();
-    this.TSRF.PID=this.$store.state.user.process.PID;
-    console.log(this.$store.state.user.process.PID)
+    this.userpid.PID=this.$store.state.user.process.PID;
+    this.ruleForm.PID=this.$store.state.user.process.PID;
+    // Axios.post("http://localhost:9090/api/process/findByPID",JSON.stringify(this.userpid),{
+    //             headers:{
+    //               'content-type': 'text/plain'}
+    //           }).then(ret=>{
+    //             console.log(ret.data);
+    //             this.userpid.PID=ret.data.pid;
+    //             Axios.post("http://localhost:9090/api/softwaretest/find",JSON.stringify(this.userpid),{
+    //             headers:{
+    //               'content-type': 'text/plain'}
+    //           }).then(ret=>{
+    //             console.log(ret.data)
+    //             this.ruleForm=ret.data[0];
+    //           })
+    //           })
+    
   },
     mounted() {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
     window.addEventListener('unload', this.handleUnload);
   },
-      methods: {
-        handleBeforeUnload() {
-            sessionStorage.setItem("store",JSON.stringify(this.$store.state))
-          },
-          handleUnload() {
-            sessionStorage.setItem("store",JSON.stringify(this.$store.state))
-          },
-        handleClick() {
-        console.log('click');
-        },
-        operation(row){
-        console.log(row);
-        },
+      methods:{
         Logout(){
           this.$store.state.user.id=-1;
           this.$store.state.user.name="null";
@@ -260,47 +273,123 @@ import Axios from 'axios';
           this.$store.state.user.Permissions="null";
       this.$router.push({path: "./home", replace:true});
     },
-        list(){
-          this.input_type = 'textarea'
-           this.$nextTick(function () { 
-               if (this.$refs.enterInput) {
-               this.$refs.enterInput.resizeTextarea();
-               } 
-           });
+    handleBeforeUnload() {
+        sessionStorage.setItem("store",JSON.stringify(this.$store.state))
+        },
+      handleUnload() {
+        sessionStorage.setItem("store",JSON.stringify(this.$store.state))
         },
         submitForm(formName) {
-          Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TSRF),{
+          
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              console.log(this.ruleForm);
+              if(this.Suggestion.Pass == "true")
+            this.TSRF.state="51";
+              else if(this.Suggestion.Pass == "false")
+              this.TSRF.state="55";
+              Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TSRF),{
             headers:{
               'content-type': 'text/plain'}
             }).then(ret=>{
-              Axios.post("http://localhost:9090/api/testReview/insert",JSON.stringify(this.ruleForm),{
-            headers:{
-              'content-type': 'text/plain'}
-            }).then(ret=>{
-                console.log(ret.data);
+              
+              Axios.post("http://localhost:1234/testReview/insert",JSON.stringify(this.ruleForm),{
+                headers:{
+                  'content-type': 'text/plain'}
+              }).then(ret=>{
+                    console.log(ret.data);
+                    this.$message.success("提交成功！");
+                    setTimeout(() => {this.$router.push({path: "./Quality", replace:true});}, 2000);
+              })
             })
-          })
-          console.log(this.ruleForm);
-          this.$message.success("提交成功,！");
-          setTimeout(() => {this.$router.push({path: "./Test", replace:true});}, 2000);
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+            } else {
+              return false;
+            }
+          });
+          //setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
         }
+      },
+    
     }
+    
+    </script>
+    <style>
+    .text-right {
+      padding-right: 0px;
+      text-align: right;
     }
-
-   </script>
-
-   <style>
-   .logo-title {
-     margin-left: 40%;
-   }
-
-   .block {
-     margin-left: 55%;
-     margin-top: -75px;
-   }
-
-   .span .logo-title {
-     width: 200px;
-   }
-
-   </style>
+    
+    .user {
+      margin: 10px;
+      font-size: 12px;
+    }
+    
+    .header {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .el-header{
+      margin: 10px 0 10px 0;  
+    }
+    .header .nav {
+      height: 40px;
+      color: #fff;
+      text-align: center;
+    }
+    .banner {
+      position: relative;
+      z-index: 0;
+      margin: 3px auto;
+      height: 200px;
+    }
+    
+    .el-container .el-main{
+      padding: 0px 5px 5px 5px;
+    }
+    
+    .index {
+      padding-left: 10px;
+    }
+    .el-input{
+        padding:15px,
+        
+    }
+    
+    .el-menu-vertical-demo:not(.el-menu--collapse) {
+      width: 200px;
+      height: 100%;
+    }
+    
+    span.logo-title{
+      font-size: 30px;
+      font-weight: bold;
+    }
+    .demo-date-picker {
+      display: flex;
+      width: 100%;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+    
+    .demo-date-picker .block {
+      padding: 30px 0;
+      text-align: left;
+      border-right: solid 1px var(--el-border-color);
+      flex: 1;
+    }
+    
+    .demo-date-picker .block:last-child {
+      border-right: none;
+    }
+    
+    .demo-date-picker .demonstration {
+      display: block;
+      color: var(--el-text-color-secondary);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    </style>
