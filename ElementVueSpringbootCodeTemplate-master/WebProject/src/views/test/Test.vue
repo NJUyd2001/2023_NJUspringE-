@@ -191,13 +191,6 @@ export default {
       this.$router.push('/login');
     },
     addTab(targetName, commentName) {
-      // 如果已经存在
-      /*if (this.tabs[commentName]) {
-        this.selectTabName = commentName;
-        return;
-      }*/
-
-      // add table
       this.$set(this.tabs, commentName, {
         title: targetName,
         name: commentName,

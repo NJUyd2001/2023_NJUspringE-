@@ -121,7 +121,7 @@
               UID:"",
             },
             userpid:{
-              PID:"",
+              PID:this.$store.state.user.process.PID,
             },
             GenQ:{
               PID:this.$store.state.user.process.PID,
@@ -198,15 +198,7 @@
     },
     created(){
       this.KeepInfor();
-      this.useruid.UID=this.$store.state.user.process.UID;
-      Axios.post("http://localhost:9090/api/process/findByUID",JSON.stringify(this.useruid),{
-                headers:{
-                  'content-type': 'text/plain'}
-              }).then(ret=>{
-                
-                this.userpid.PID=ret.data.PID;
-              })
-          this.userpid.PID=1;
+      
       Axios.post("http://localhost:9090/api/quote/find",JSON.stringify(this.userpid),{
                 headers:{
                   'content-type': 'text/plain'}
