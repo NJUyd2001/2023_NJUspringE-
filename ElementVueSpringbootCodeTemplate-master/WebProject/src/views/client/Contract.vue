@@ -193,6 +193,7 @@ export default {
 },created(){
       this.KeepInfor();
       this.userid.PID=this.$store.state.user.process.PID;
+      console.log(this.userid.PID);
        Axios.post("http://localhost:9090/api/contract/find",JSON.stringify(this.userid),{
                  headers:{
                    'content-type': 'text/plain'}
