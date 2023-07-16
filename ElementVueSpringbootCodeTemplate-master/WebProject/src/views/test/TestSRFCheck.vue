@@ -24,14 +24,14 @@
             <span class="logo-title">测试方案评审表</span>
             </div></el-col>
             <el-col :span="10">
-              <el-steps :space="200" :active="1" finish-status="success">
-                <el-step title="软件测试方案填写"></el-step>
-                <el-step title="测试方案评审表填写"></el-step>
+              <el-steps :space="200" :active="0" finish-status="success">
+                <el-step title="测试方案评审表查看"></el-step>
+                <el-step title="测试方案修改"></el-step>
                 <el-step title="完成"></el-step>
               </el-steps>
             </el-col>
             <el-col :span="1">
-            <el-button @click="submitForm('ruleForm')" size="middle" type="success">完成</el-button>
+            <el-button @click="submitForm('ruleForm')" size="middle" type="success">下一步</el-button>
           </el-col>
         </el-row>
       </el-header>
@@ -130,15 +130,8 @@
               </template>
             </el-table-column>
             </el-table>
+            </el-form>
             <br>
-            <el-form  :model="Suggestion" ref="Suggestion">
-        <el-row type="flex" justify="center">
-        <el-radio-group v-model="Suggestion.Pass" :span="3">
-          <el-radio  label="false">拒绝</el-radio>
-          <el-radio  label="true">同意</el-radio>
-        </el-radio-group>
-        </el-row></el-form><br>
-          </el-form>
         </el-main>
     </el-container>
     </template>
@@ -156,9 +149,6 @@ import Axios from 'axios';
             Pid:{
                 PID:"",
             },
-            Suggestion:{
-                  Pass:"false",
-                },
              ruleForm:{
               },
             rules:{
@@ -205,7 +195,8 @@ import Axios from 'axios';
         // console.log(this.$store.state.user.id)
       this.KeepInfor();
       this.Pid.PID=this.$store.state.user.process.PID;
-      console.log(this.Pid.PID)
+      this.Pid.PID=30;
+      console.log(this.Pid.PID);
       Axios.post("http://localhost:9090/api/testReview/select/byPID",JSON.stringify(this.Pid),{
         headers:{
           'content-type': 'text/plain'}
@@ -236,19 +227,17 @@ import Axios from 'axios';
            });
         },
         submitForm(formName) {
-          if(this.Suggestion.Pass == "true")
-            this.TSRF.state="51";
-          else if(this.Suggestion.Pass == "false")
-            this.TSRF.state="55";
-          
+          // if(this.Suggestion.Pass == "true")
+          //   this.TSRF.state="51";
+          // else if(this.Suggestion.Pass == "false")
+          //   this.TSRF.state="55";
           Axios.post("http://localhost:9090/api/process/updateState",JSON.stringify(this.TSRF),{
             headers:{
               'content-type': 'text/plain'}
             }).then(ret=>{
           })
           console.log(this.ruleForm);
-          this.$message.success("提交成功,！");
-          setTimeout(() => {this.$router.push({path: "./quality", replace:true});}, 2000);
+          setTimeout(() => {this.$router.push({path: "./testschemechange", replace:true});}, 2000);
         }
     }
     }
