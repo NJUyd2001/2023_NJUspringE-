@@ -102,8 +102,8 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item  label-width="60px" label="日期:" prop="SampleDate1"> 
-                      <div class="block1" style="margin-top: 8px; margin-left: 0px;">
+                  <el-form-item  label-width="100px" label="日期:" prop="SampleDate1"> 
+                      <div class="block1">
                           <el-date-picker
                           v-model="ruleForm.SampleDate1"
                           type="date"
@@ -123,8 +123,8 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label-width="60px" label="日期:" prop="SampleDate2"> 
-                <div class="block2" style="margin-top: 8px; margin-left: 0px;">
+                  <el-form-item label-width="100px" label="日期:" prop="SampleDate2"> 
+                <div class="block2">
                     <el-date-picker
                     v-model="ruleForm.SampleDate2"
                     type="date"
@@ -144,8 +144,8 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item label-width="60px" label="日期:" prop="SampleDate3"> 
-                <div class="block3" style="margin-top: 8px; margin-left: 0px;">
+                  <el-form-item label-width="100px" label="日期:" prop="SampleDate3"> 
+                <div class="block3" >
                     <el-date-picker
                     v-model="ruleForm.SampleDate3"
                     type="date"
