@@ -249,10 +249,10 @@ export default {
       this.$router.push('/myinf');
     },
     J2AppMenMar(){
-      this.$router.push('/applicationamendmarket');
+      this.$router.push('/checkauditinformarket');
     },
     J2AppMenTest(){
-      this.$router.push('/applicationamendtest');
+      this.$router.push('/checkauditinfortest');
     },
     J2Contract(){
       this.$router.push('/ClientContract');

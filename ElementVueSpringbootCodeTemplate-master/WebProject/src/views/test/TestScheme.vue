@@ -25,7 +25,6 @@
           <el-col :span="10">
             <el-steps :space="200" :active="0" finish-status="success">
               <el-step title="软件测试方案填写"></el-step>
-              <el-step title="方案评审表填写"></el-step>
               <el-step title="完成"></el-step>
             </el-steps>
           </el-col>
@@ -278,7 +277,7 @@ import Axios from 'axios';
               }).then(ret=>{
                     console.log(ret.data);
                     this.$message.success("提交成功！");
-                    setTimeout(() => {this.$router.push({path: "./TestSchemeReviewForm", replace:true});}, 2000);
+                    setTimeout(() => {this.$router.push({path: "./test", replace:true});}, 2000);
               })
       .catch(function (error) { // 请求失败处理
         console.log(error);

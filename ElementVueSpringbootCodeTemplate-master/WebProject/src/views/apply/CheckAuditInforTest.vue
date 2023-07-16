@@ -108,7 +108,6 @@
         </el-form-item>
     </el-form>
     </el-main>
-  <LoginDialog :show='showLogin'/>
   <template>
   <el-backtop :right="50" :bottom="50" />
 </template>
@@ -119,6 +118,12 @@ import Axios from 'axios'
 export default {
     data(){
        return{
+        userUid:{
+          UID:"",
+        },
+        userAid:{
+          AID:"",
+        },
         ruleForm:{ 
           Security:'',    
           VirusDetection:{
@@ -148,14 +153,14 @@ export default {
       }).then(ret=>{
         console.log(ret.data)
         this.$store.state.user.AID=ret.data[0].aid;
-      })
+      });
       this.userAid.AID=this.$store.state.user.AID;
-      console.log(this.$store.state.user.AID);
+      console.log(this.userAid.AID);
       Axios.post("http://localhost:9090/api/application/findauditinformation",JSON.stringify(this.userAid),{
         headers:{
           'content-type': 'text/plain'}
       }).then(ret=>{
-        console.log(ret.data)
+        console.log(ret)
         this.ruleForm=ret.data;
       })
     },

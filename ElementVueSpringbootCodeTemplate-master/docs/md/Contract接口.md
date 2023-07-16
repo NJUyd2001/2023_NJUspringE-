@@ -5,29 +5,29 @@ author：李晨博
 插入一个contract
 
 输入示例：
-```
+```js
 {
     "PID":"1",
-    "ItemName":"",
-    "Client":"豪大大2鸡排",
-    "Trustee":"''",
-    "QC":"''",
-    "date":"''",
-    "PeriodOfValidity":"''",
+    "ItemName":"测试0715",
+    "Client":"南京大学",
+    "Trustee":"E组",
+    "QC":"特级",
+    "date":"2023-06-25T16:00:00.000Z",
+    "PeriodOfValidity":"2023-07-10T16:00:00.000Z",
     "ddl":"0",
     "ChangeNumber":"0",
     "ChangeDay":"0",
-    "money":"1",
-    "Pass":"a",
-    "Views":"q"
+    "money":"200",
+    "Pass":"通过",
+    "Views":"无"
 }
 ```
 输出示例1：
-```
+```js
 the process does not exist
 ```
 输出示例2：
-```
+```js
 {"CID":"1","PID","1"}
 ```
 
@@ -35,15 +35,15 @@ the process does not exist
 查找一个contract
 
 输入示例：
-```
+```js
 {
     "PID":"1"
 }
 ```
 输出示例：
-```
-[{"PID":"1","CID":"1","ItemName":"","Client":"豪大大鸡排","Trustee":"''","QC":"''","date":"''",
-"PeriodOfValidity":"''","ddl":"0","ChangeNumber":"0","ChangeDay":"0","money":"1","Pass":"a","Views":"q"}]
+```js
+[{"PID":"1","CID":"1","ItemName":"测试0715","Client":"南京大学","Trustee":"E组","QC":"特级","date":"2023-06-25T16:00:00.000Z",
+"PeriodOfValidity":"2023-07-10T16:00:00.000Z","ddl":"0","ChangeNumber":"0","ChangeDay":"0","money":"200","Pass":"通过","Views":"无"}]
 
 ```
 
@@ -51,31 +51,30 @@ the process does not exist
 更新contract
 
 输入示例:
-```
+```js
 {
     "PID":"1",
-    "ItemName":"",
-    "Client":"豪大大2鸡排",
-    "Trustee":"''",
-    "QC":"''",
-    "date":"''",
-    "PeriodOfValidity":"''",
+    "ItemName":"测试0715",
+    "Client":"南京大学",
+    "Trustee":"E组",
+    "QC":"特级",
+    "date":"2023-06-25T16:00:00.000Z",
+    "PeriodOfValidity":"2023-07-10T16:00:00.000Z",
     "ddl":"0",
     "ChangeNumber":"0",
     "ChangeDay":"0",
-    "money":"1",
-    "Pass":"a",
-    "Views":"q"
+    "money":"200",
+    "Pass":"通过",
+    "Views":"无"
 }
-
 ```
 
 输出示例1：
-```
+```js
 the contract does not exist
 ```
 输出示例2：
-```
+```js
 contract update complete
 ```
 
@@ -83,16 +82,16 @@ contract update complete
 删除contract
 
 输入示例：
-```
+```js
 {
     "PID":"1"
 }
 ```
 输出示例1：
-```
+```js
 the contract does not exist
 ```
 输出示例2：
-```
+```js
 contract delete complete
 ```

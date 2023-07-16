@@ -473,7 +473,7 @@ public class ApplicationService {
         if(oldobject==null ||oldobject == new JSONArray()){
             return  JSON.toJSONString(oldobject);
         }
-        return JSON.toJSONString(JSONrepack(JSON.toJSONString(oldobject)));
+        return JSONrepack(JSON.toJSONString(oldobject));
     }
     public String updateapplication(String postJson) {
         JSONObject jsonObject = JSONObject.parseObject(postJson);

@@ -1,0 +1,1848 @@
+@startuml
+class com.selab.demo.service.ReportMainService {
+~ ReportMainDao reportMainDao
+~ ProcessDao processDao
++ Integer findRID(Integer)
++ String JSONrepack(String,Integer)
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.model.TestCharModel {
+- Integer testid
+- String testcharacteristic
+- String testspecification
+- String testresult
++ Integer getTestid()
++ void setTestid(Integer)
++ String getTestcharacteristic()
++ void setTestcharacteristic(String)
++ String getTestspecification()
++ void setTestspecification(String)
++ String getTestresult()
++ void setTestresult(String)
+}
+class com.selab.demo.controller.TestRecordController {
+
+enum com.selab.demo.model.enums.open_to_curr {
++  A
++  B
++  C
++  D
++  E
++  F
++  G
++  H
+}
+class com.selab.demo.service.ApplicationService {
+~ ApplicationDao applicationDao
+~ TabledataDao tabledataDao
+~ AuditinformationDao auditinformationDao
+~ ProcessDao processDao
+- JSONArray StringtoArray(String,JSONArray)
+- JSONArray StringtoArray2(String)
+- String ArraytoString(String,JSONArray)
+- String JSONrepack(String)
++ String insert(String)
++ String checkbyuserA(String)
++ String checkbyprocess(String)
++ String checkbyAID(String)
++ String findAID(String)
++ String findALL(String)
++ String updateapplication(String)
++ String deleteapplication(String)
++ String insertruleform(String)
++ String updateruleform(String)
++ String getruleform(String)
++ String deleteruleform(String)
++ String insertopinion(String)
++ String findopinion(String)
++ String insertauditinformation(String)
++ String findauditinformation(String)
++ String deleteauditinformation(String)
+}
+class com.selab.demo.model.FileModel {
+- Integer FID
+- String filePath
+- Integer PID
+- String state
+- String fileType
+- String fileName
+- String uploadTime
++ String getState()
++ void setState(String)
++ String toString()
++ String getFileType()
++ void setFileType(String)
++ String getFileName()
++ void setFileName(String)
++ String getUploadTime()
++ void setUploadTime(String)
++ Integer getFID()
++ void setFID(Integer)
++ String getFilePath()
++ void setFilePath(String)
++ Integer getPID()
++ void setPID(Integer)
+}
+class com.selab.demo.service.SoftwareDocReviewService {
+~ SoftwareDocReviewDao softwareDocReviewDao
+~ SdrItemDao sdrItemDao
+~ ProcessDao processDao
++ Integer insert(String)
++ SoftwareDocReviewModel selectBySDRID(String)
++ SoftwareDocReviewModel selectByPID(String)
++ String updateMain(String)
++ String updateItem(String)
++ String delete(String)
+}
+class com.selab.demo.service.MessageService {
+~ MessageDao messageDao
++ String insert(String)
++ String findbyMID(String)
++ String findbysender_id(String)
++ String findbyreceiver_id(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.model.TestFuncModel {
+- Integer testid
+- String functionmodule
+- String functionrequirement
+- String testresult
++ Integer getTestid()
++ void setTestid(Integer)
++ String getFunctionmodule()
++ void setFunctionmodule(String)
++ String getFunctionrequirement()
++ void setFunctionrequirement(String)
++ String getTestresult()
++ void setTestresult(String)
+}
+class com.selab.demo.model.TestCaseModel {
+- Integer TCID
+- String tableid
++ Integer getTCID()
++ void setTCID(Integer)
++ String getTableid()
++ void setTableid(String)
+}
+class com.selab.demo.model.StateModel {
+- Integer SID
+- Integer PID
+- Integer UID
+- Integer AID
+- String state
+}
+enum com.selab.demo.model.enums.sARCHITECTURE {
++  C
++  B
++  E
+}
+class com.selab.demo.service.ContractService {
+~ ContractDao contractDao
+~ ProcessDao processDao
++ Integer findCID(Integer)
++ String JSONrepack(String,Integer)
++ String insert(String)
++ String select_(String)
++ String update_(String)
++ String delete_(String)
++ String select(String)
++ String update(String)
++ String delete(String)
+}
+interface com.selab.demo.dao.TestRecordTableDao {
+~ void insert(TestRecordTableModel)
+~ List<TestRecordTableModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(TestRecordTableModel)
+~ void delete(Integer)
+}
+class com.selab.demo.model.ContractModel {
+- Integer CID
+- String itemname
+- String client
+- String trustee
+- String qc
+- String date
+- String periodofvalidity
+- String ddl
+- String changenumber
+- String changeday
+- String money
+- String pass
+- String views
++ Integer getCID()
++ void setCID(Integer)
++ String getItemname()
++ void setItemname(String)
++ String getClient()
++ void setClient(String)
++ String getTrustee()
++ void setTrustee(String)
++ String getQc()
++ void setQc(String)
++ String getDate()
++ void setDate(String)
++ String getPeriodofvalidity()
++ void setPeriodofvalidity(String)
++ String getDdl()
++ void setDdl(String)
++ String getChangenumber()
++ void setChangenumber(String)
++ String getChangeday()
++ void setChangeday(String)
++ String getMoney()
++ void setMoney(String)
++ String getPass()
++ void setPass(String)
++ String getViews()
++ void setViews(String)
+}
+class com.selab.demo.controller.SoftwareTestController {
+~ SoftwareTestService softwareTestService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.controller.ReportMainController {
+~ ReportMainService reportMainService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.model.TestSoftModel {
+- Integer softid
+- String softwarecategory
+- String softwarename
+- String edition
++ Integer getSoftid()
++ void setSoftid(Integer)
++ String getSoftwarecategory()
++ void setSoftwarecategory(String)
++ String getSoftwarename()
++ void setSoftwarename(String)
++ String getEdition()
++ void setEdition(String)
+}
+interface com.selab.demo.dao.SoftwareDocReviewDao {
++ void insert(SoftwareDocReviewModel)
++ SoftwareDocReviewModel selectBySDRID(Integer)
++ SoftwareDocReviewModel selectByPID(Integer)
++ void update(SoftwareDocReviewModel)
++ void delete(Integer)
+}
+enum com.selab.demo.model.enums.ProcessPrev {
+}
+interface com.selab.demo.dao.ContractDao {
++ void insert(ContractModel)
++ List<ContractModel> select(Integer)
++ Integer select2(Integer)
++ void update(ContractModel)
++ void delete(Integer)
+}
+interface com.selab.demo.dao.ReportMainDao {
++ void insert(ReportMainModel)
+~ List<ReportMainModel> select(Integer)
+~ Integer select2(Integer)
++ void update(ReportMainModel)
++ void delete(Integer)
+}
+class com.selab.demo.service.SoftwareDocCheckService {
+~ SoftwareDocCheckTableDao softwareDocCheckTableDao
+~ SoftwareDocCheckDao softwareDocCheckDao
+~ ProcessDao processDao
++ Integer findSCID(Integer)
++ String JSONrepack1(String)
++ String insert(String)
++ String select(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.controller.UserController {
+~ UserService userService
++ String insert(String)
++ User staffLogin(String)
++ User customerLogin(String)
++ List<User> selectAll()
++ User selectByUID(String)
++ List<User> selectAllCustomer()
++ List<User> selectAllStaff()
++ String update(String)
++ String delete(String)
+}
+interface com.selab.demo.dao.TestHardDao {
+~ void insert(TestHardModel)
+~ List<TestHardModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(TestHardModel)
+~ void delete(Integer)
+}
+class com.selab.demo.controller.TesttheContentController {
+~ TesttheContentService testtheContentService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
+}
+enum com.selab.demo.model.enums.ARCHITECTURE {
++  P
++  U
++  E
+}
+class com.selab.demo.model.ApplicationModel {
+- Integer AID
+- Integer applicantID
+- Integer processID
+- String time
+- String phone
+- String testTYPE
+- String sNAME
+- String PA
+- String PAE
+- String PB
+- String PB_type
+- String USS
+- String sDES
+- String stestBASIS
+- String elsestestBASIS
+- String elseINDEX
+- String TESTINDEX
+- Integer scale_num
+- Integer scale_score
+- Integer scale_lines
+- String sTYPE
+- String ENVIRONMENTW
+- String ENVIRONMENTL
+- String ENVIRONMENTN
+- String ENVIRONMENTE
+- String ENVIRONMENT
+- ARCHITECTURE ARCHITECTURE
+- String hOPERATINGENVIRONMENT
+- String hMEMORY
+- String hHARDDISK
+- String hELSEDEMAND
+- String sOS
+- String sVERSION
+- String sLANGUAGE
+- String sARCHITECTURE
+- String sDATABASE
+- String sMIDDLEWARE
+- String sELSEDEMAND
+- String sOPERATINGENVIRONMENT
+- String MEDIUM
+- String doc_path1
+- String doc_path2
+- String doc_path3
+- String doc_path4
+- String SAMPLEDELETE
+- String EXDATE
+- String auditinfor
+- String version_num
+- String mainfunction
+- String tableid
+- String version
+- String confirmopinion
+- Integer auditID
++ Integer getAID()
++ void setAID(Integer)
++ Integer getApplicantID()
++ void setApplicantID(Integer)
++ Integer getProcessID()
++ void setProcessID(Integer)
++ String getTime()
++ void setTime(String)
++ String getPhone()
++ void setPhone(String)
++ String getTestTYPE()
++ void setTestTYPE(String)
++ String getsNAME()
++ void setsNAME(String)
++ String getPA()
++ void setPA(String)
++ String getPAE()
++ void setPAE(String)
++ String getPB()
++ void setPB(String)
++ String getPB_type()
++ void setPB_type(String)
++ String getUSS()
++ void setUSS(String)
++ String getsDES()
++ void setsDES(String)
++ String getStestBASIS()
++ void setStestBASIS(String)
++ String getElsestestBASIS()
++ void setElsestestBASIS(String)
++ String getElseINDEX()
++ void setElseINDEX(String)
++ String getTESTINDEX()
++ void setTESTINDEX(String)
++ Integer getScale_num()
++ void setScale_num(Integer)
++ Integer getScale_score()
++ void setScale_score(Integer)
++ Integer getScale_lines()
++ void setScale_lines(Integer)
++ String getsTYPE()
++ void setsTYPE(String)
++ String getENVIRONMENTW()
++ void setENVIRONMENTW(String)
++ String getENVIRONMENTL()
++ void setENVIRONMENTL(String)
++ String getENVIRONMENTN()
++ void setENVIRONMENTN(String)
++ String getENVIRONMENTE()
++ void setENVIRONMENTE(String)
++ String getENVIRONMENT()
++ void setENVIRONMENT(String)
++ com.selab.demo.model.enums.ARCHITECTURE getARCHITECTURE()
++ void setARCHITECTURE(com.selab.demo.model.enums.ARCHITECTURE)
++ String gethOPERATINGENVIRONMENT()
++ void sethOPERATINGENVIRONMENT(String)
++ String gethMEMORY()
++ void sethMEMORY(String)
++ String gethHARDDISK()
++ void sethHARDDISK(String)
++ String gethELSEDEMAND()
++ void sethELSEDEMAND(String)
++ String getsOS()
++ void setsOS(String)
++ String getsVERSION()
++ void setsVERSION(String)
++ String getsLANGUAGE()
++ void setsLANGUAGE(String)
++ String getsARCHITECTURE()
++ void setsARCHITECTURE(String)
++ String getsDATABASE()
++ void setsDATABASE(String)
++ String getsMIDDLEWARE()
++ void setsMIDDLEWARE(String)
++ String getsELSEDEMAND()
++ void setsELSEDEMAND(String)
++ String getsOPERATINGENVIRONMENT()
++ void setsOPERATINGENVIRONMENT(String)
++ String getMEDIUM()
++ void setMEDIUM(String)
++ String getDoc_path1()
++ void setDoc_path1(String)
++ String getDoc_path2()
++ void setDoc_path2(String)
++ String getDoc_path3()
++ void setDoc_path3(String)
++ String getDoc_path4()
++ void setDoc_path4(String)
++ String getSAMPLEDELETE()
++ void setSAMPLEDELETE(String)
++ String getEXDATE()
++ void setEXDATE(String)
++ String getAuditinfor()
++ void setAuditinfor(String)
++ String getVersion_num()
++ void setVersion_num(String)
++ String getMainfunction()
++ void setMainfunction(String)
++ String getTableid()
++ void setTableid(String)
++ String getVersion()
++ void setVersion(String)
++ String getConfirmopinion()
++ void setConfirmopinion(String)
++ Integer getAuditID()
++ void setAuditID(Integer)
+}
+class com.selab.demo.model.BaseEntity {
+}
+class com.selab.demo.model.TesttheContentModel {
+- Integer TID
+- String testid1
+- String testid2
+- String testid3
+- String testid4
+- String testid5
+- String testid6
++ Integer getTID()
++ void setTID(Integer)
++ String getTestid1()
++ void setTestid1(String)
++ String getTestid2()
++ void setTestid2(String)
++ String getTestid3()
++ void setTestid3(String)
++ String getTestid4()
++ void setTestid4(String)
++ String getTestid5()
++ void setTestid5(String)
++ String getTestid6()
++ void setTestid6(String)
+}
+enum com.selab.demo.model.enums.Gender {
++  F
++  M
+}
+class com.selab.demo.model.ReportTitleModel {
+- Integer RTID
+- String softwarename
+- String versionnumber
+- String client
+- String typetest
+- String date
++ Integer getRTID()
++ void setRTID(Integer)
++ String getSoftwarename()
++ void setSoftwarename(String)
++ String getVersionnumber()
++ void setVersionnumber(String)
++ String getClient()
++ void setClient(String)
++ String getTypetest()
++ void setTypetest(String)
++ String getDate()
++ void setDate(String)
+}
+interface com.selab.demo.dao.SdrItemDao {
++ void insert(SoftwareDocReviewModel.SdrItem)
++ SoftwareDocReviewModel.SdrItem selectByID(Integer)
++ SoftwareDocReviewModel.SdrItem[] selectBySDRID(Integer)
++ void update(SoftwareDocReviewModel.SdrItem)
++ void delete(Integer)
++ void deleteAll(Integer)
+}
+class com.selab.demo.model.QuoteModel {
+- Integer QID
+- String time
+- String softwarename
+- String item
+- String description
+- String unitprice
+- String ps
+- String subtotalprice
+- String tax
+- String totalprice
+- String provider
++ Integer getQID()
++ void setQID(Integer)
++ String getTime()
++ void setTime(String)
++ String getSoftwarename()
++ void setSoftwarename(String)
++ String getItem()
++ void setItem(String)
++ String getDescription()
++ void setDescription(String)
++ String getUnitprice()
++ void setUnitprice(String)
++ String getPs()
++ void setPs(String)
++ String getSubtotalprice()
++ void setSubtotalprice(String)
++ String getTax()
++ void setTax(String)
++ String getTotalprice()
++ void setTotalprice(String)
++ String getProvider()
++ void setProvider(String)
+}
+class com.selab.demo.DemoApplication {
++ {static} void main(String[])
+}
+interface com.selab.demo.dao.TestFuncDao {
+~ void insert(TestFuncModel)
+~ List<TestFuncModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(TestFuncModel)
+~ void delete(Integer)
+}
+interface com.selab.demo.dao.TestReviewDao {
++ void insert(TestReviewModel)
++ TestReviewModel selectByTRID(Integer)
++ TestReviewModel selectByPID(Integer)
++ void update(TestReviewModel)
++ void delete(Integer)
+}
+class com.selab.demo.model.AuditinformationModel {
+- Integer auditID
+- String security
+- String finish
+- String tool
+- String testsample
+- String requirementdocument
+- String userdocument
+- String operationducument
+- String other
+- String confirmopinion
+- String opinionofacceptance
+- String number
+- String ps
++ Integer getAuditID()
++ void setAuditID(Integer)
++ String getSecurity()
++ void setSecurity(String)
++ String getFinish()
++ void setFinish(String)
++ String getTool()
++ void setTool(String)
++ String getTestsample()
++ void setTestsample(String)
++ String getRequirementdocument()
++ void setRequirementdocument(String)
++ String getUserdocument()
++ void setUserdocument(String)
++ String getOperationducument()
++ void setOperationducument(String)
++ String getOther()
++ void setOther(String)
++ String getConfirmopinion()
++ void setConfirmopinion(String)
++ String getOpinionofacceptance()
++ void setOpinionofacceptance(String)
++ String getNumber()
++ void setNumber(String)
++ String getPs()
++ void setPs(String)
+}
+class com.selab.demo.model.TabledataModel {
+- Integer TID
+- String name
+- Integer id
+- String functions
++ Integer getTID()
++ void setTID(Integer)
++ String getName()
++ void setName(String)
++ Integer getId()
++ void setId(Integer)
++ String getFunctions()
++ void setFunctions(String)
+}
+class com.selab.demo.model.ProcessModel {
+- Integer PID
+- String notes
+- Integer RID
+- Integer RCID
+- Integer SID
+- Integer RTID
+- Integer TID
+- Integer TEID
+- Integer TCID
+- Integer TRID
+- Integer CHID
+- Integer SCID
+- Integer SDRID
+- Integer STID
+- Integer AgID
+- Integer CID
+- Integer QID
+- Integer UID
+- Integer AID
+- String state
++ Integer getSCID()
++ void setSCID(Integer)
++ Integer getSDRID()
++ void setSDRID(Integer)
++ Integer getTCID()
++ void setTCID(Integer)
++ Integer getTRID()
++ void setTRID(Integer)
++ Integer getCHID()
++ void setCHID(Integer)
++ Integer getTID()
++ void setTID(Integer)
++ Integer getTEID()
++ void setTEID(Integer)
++ Integer getSTID()
++ void setSTID(Integer)
++ Integer getRID()
++ void setRID(Integer)
++ Integer getRCID()
++ void setRCID(Integer)
++ Integer getSID()
++ void setSID(Integer)
++ Integer getRTID()
++ void setRTID(Integer)
++ Integer getAgID()
++ void setAgID(Integer)
++ Integer getPID()
++ String getNotes()
++ void setNotes(String)
++ Integer getUID()
++ void setPID(Integer)
++ Integer getCID()
++ void setCID(Integer)
++ Integer getQID()
++ void setQID(Integer)
++ void setUID(Integer)
++ Integer getAID()
++ void setAID(Integer)
++ String getState()
++ void setState(String)
+}
+class com.selab.demo.service.SoftwareTestService {
+~ SoftwareTestDao softwareTestDao
+~ StableDao stableDao
+~ ProcessDao processDao
+- JSONArray StringtoArray(String,JSONArray)
+- JSONArray StringtoArray2(String)
+- String ArraytoString(String,JSONArray)
++ Integer findSTID(Integer)
++ String JSONrepack(String,Integer)
++ String JSONrepack_(String)
++ String insert(String)
++ String select(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.controller.SampleCheckController {
+~ SampleCheckService sampleCheckService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
+}
+interface com.selab.demo.dao.MessageDao {
+~ void insert(MessageModel)
+~ List<MessageModel> findbyMID(Integer)
+~ List<MessageModel> finfbysender_id(Integer)
+~ List<MessageModel> findbyreceiver_id(Integer)
+~ String findbyMID2(Integer)
+~ void update(MessageModel)
+~ void delete(Integer)
+}
+class com.selab.demo.model.TestEnvironmentModel {
+- Integer TEID
+- String hardid
+- String softid
+- String neededstandard
+- String referencematerial
++ Integer getTEID()
++ void setTEID(Integer)
++ String getHardid()
++ void setHardid(String)
++ String getSoftid()
++ void setSoftid(String)
++ String getNeededstandard()
++ void setNeededstandard(String)
++ String getReferencematerial()
++ void setReferencematerial(String)
+}
+class com.selab.demo.model.TestReviewModel {
+- String SoftwareName
+- String VersionNumber
+- String ProjectNum
+- Integer PID
+- Integer TRID
+- String TestCategory
+- String WritingNormality
+- String TestEnvironment
+- String Completeness
+- String SelectMethod
+- String TestcaseCover
+- String InputOutputData
+- String Timing
+- String HumanResourcesArrangement
+- String TE_Opinion
+- String TRM_Opinion
+- String QM_Opinion
+- String TD_Opinion
+- String SI_Opinion
++ SignClass[] tableData
++ Integer getPID()
++ void setPID(Integer)
++ Integer getTRID()
++ void setTRID(Integer)
++ String getTE_Opinion()
++ void setTE_Opinion(String)
++ String getTRM_Opinion()
++ void setTRM_Opinion(String)
++ String getQM_Opinion()
++ void setQM_Opinion(String)
++ String getTD_Opinion()
++ void setTD_Opinion(String)
++ String getSI_Opinion()
++ void setSI_Opinion(String)
++ String classToOpinion(SignClass)
++ SignClass opinionToClass(String)
++ String getVersionNumber()
++ void setVersionNumber(String)
++ String getProjectNum()
++ void setProjectNum(String)
++ String getTestCategory()
++ void setTestCategory(String)
++ String getWritingNormality()
++ void setWritingNormality(String)
++ String getTestEnvironment()
++ void setTestEnvironment(String)
++ String getCompleteness()
++ void setCompleteness(String)
++ String getSelectMethod()
++ void setSelectMethod(String)
++ String getTestcaseCover()
++ void setTestcaseCover(String)
++ String getInputOutputData()
++ void setInputOutputData(String)
++ String getTiming()
++ String toString()
++ void setTiming(String)
++ String getHumanResourcesArrangement()
++ void setHumanResourcesArrangement(String)
++ SignClass[] getTableData()
++ void setTableData(SignClass[])
++ String getSoftwareName()
++ void setSoftwareName(String)
+}
+class com.selab.demo.model.TestReviewModel$SignClass {
+- String Duty
+- String EvaluationOpinion
+- String Sign
+- String Date
++ String toString()
++ String getDuty()
++ void setDuty(String)
++ String getEvaluationOpinion()
++ void setEvaluationOpinion(String)
++ String getSign()
++ void setSign(String)
++ String getDate()
++ void setDate(String)
+}
+class com.selab.demo.model.TestHardModel {
+- Integer hardid
+- String hardwarecategory
+- String hardwarename
+- String setting
+- String quantity
++ Integer getHardid()
++ void setHardid(Integer)
++ String getHardwarecategory()
++ void setHardwarecategory(String)
++ String getHardwarename()
++ void setHardwarename(String)
++ String getSetting()
++ void setSetting(String)
++ String getQuantity()
++ void setQuantity(String)
+}
+class com.selab.demo.controller.ApplicationController {
+~ ApplicationService applicationService
++ String insert(String)
++ String checkbyuserA(String)
++ String checkbyprocess(String)
++ String checkbyAID(String)
++ String findAID(String)
++ String findall(String)
++ String updatrapplication(String)
++ String deleteapplication(String)
++ String insertruleform(String)
++ String updateruleform(String)
++ String getruleform(String)
++ String deleteruleform(String)
++ String insertopinion(String)
++ String findopinion(String)
++ String insertauditinformation(String)
++ String findauditinformation(String)
++ String deleteauditinformation(String)
+}
+class com.selab.demo.controller.QuoteController {
+~ QuoteService quoteService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
++ String find_(String)
++ String update_(String)
++ String delete_(String)
+}
+interface com.selab.demo.dao.SoftwareDocCheckTableDao {
+~ void insert(SoftwareDocCheckTableModel)
+~ List<SoftwareDocCheckTableModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(SoftwareDocCheckTableModel)
+~ void delete(Integer)
+}
+class com.selab.demo.service.ProcessService {
+~ ProcessDao processDao
+~ FileUtil fileUtil
++ Integer insert(String)
++ List<ProcessModel> findByUID(String)
++ ProcessModel findByPID(String)
++ List<Integer> selectAIDsByState(String)
++ List<Integer> selectPIDsByState(String)
++ List<ProcessModel> findByAID(String)
++ List<ProcessModel> findAll()
++ String updateState(String)
++ String clearFiles(Integer)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.service.FileService {
+~ FileDao fileDao
+~ FileUtil fileUtil
++ Integer upload(MultipartFile,Integer,String,String)
++ FileModel[] selectAllFiles()
++ FileModel[] selectByPID(Integer)
++ FileModel selectByFID(Integer)
++ String selectFileName(String)
++ Integer selectByState(String)
+}
+class com.selab.demo.service.AgreementService {
+~ AgreementDao agreementDao
+~ ProcessDao processDao
++ Integer findAgID(Integer)
++ String JSONrepack(String,Integer)
++ String insert(String)
++ String select(String)
++ String update(String)
++ String delete(String)
++ String select_(String)
++ String update_(String)
++ String delete_(String)
+}
+class com.selab.demo.service.TestReviewService {
+~ ProcessDao processDao
+~ TestReviewDao testReviewDao
++ Integer insert(String)
++ TestReviewModel selectByTRID(String)
++ TestReviewModel selectByPID(String)
++ String update(String)
++ String delete(String)
+}
+enum com.selab.demo.model.enums.UserType {
++  C
++  T
++  M
++  TL
++  A
++  Q
+}
+enum com.selab.demo.model.enums.testTYPE {
++  C
++  I
++  A
+}
+class com.selab.demo.controller.ContractController {
+~ ContractService contractService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
++ String find_(String)
++ String update_(String)
++ String delete_(String)
+}
+class com.selab.demo.controller.InsertController {
+~ InsertService insertService
++ String insert(String)
++ String insertID(String)
+}
+enum com.selab.demo.model.enums.PB_type {
++  D
++  F
++  G
++  S
++  O
++  E
+}
+interface com.selab.demo.dao.QuoteDao {
+~ void insert(QuoteModel)
+~ List<QuoteModel> findbyQID(Integer)
+~ Integer select2(Integer)
+~ void update(QuoteModel)
+~ void delete(Integer)
+}
+class com.selab.demo.controller.ReportCheckController {
+~ RecordCheckService recordCheckService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.model.ReportMainModel {
+- Integer RID
+- String client
+- String projectnum
+- String samplename
+- String version
+- String sampledate
+- String typetest
+- String testtime
+- String developmentcompany
+- String samplestatus
+- String neededstandard
+- String samplelist
+- String testconclusion
+- String organizer
+- String sampledate1
+- String auditor
+- String sampledate2
+- String approver
+- String sampledate3
++ Integer getRID()
++ void setRID(Integer)
++ String getClient()
++ void setClient(String)
++ String getProjectnum()
++ void setProjectnum(String)
++ String getSamplename()
++ void setSamplename(String)
++ String getVersion()
++ void setVersion(String)
++ String getSampledate()
++ void setSampledate(String)
++ String getTypetest()
++ void setTypetest(String)
++ String getTesttime()
++ void setTesttime(String)
++ String getDevelopmentcompany()
++ void setDevelopmentcompany(String)
++ String getSamplestatus()
++ void setSamplestatus(String)
++ String getNeededstandard()
++ void setNeededstandard(String)
++ String getSamplelist()
++ void setSamplelist(String)
++ String getTestconclusion()
++ void setTestconclusion(String)
++ String getOrganizer()
++ void setOrganizer(String)
++ String getSampledate1()
++ void setSampledate1(String)
++ String getAuditor()
++ void setAuditor(String)
++ String getSampledate2()
++ void setSampledate2(String)
++ String getApprover()
++ void setApprover(String)
++ String getSampledate3()
++ void setSampledate3(String)
+}
+enum com.selab.demo.model.enums.ProcessCurr_state {
+}
+class com.selab.demo.model.SoftwareDocCheckModel {
+- Integer SCID
+- String tableid
++ Integer getSCID()
++ void setSCID(Integer)
++ String getTableid()
++ void setTableid(String)
+}
+class com.selab.demo.service.TesttheContentService {
+~ TesttheContentDao testtheContentDao
+~ TestFuncDao testFuncDao
+~ TestCharDao testCharDao
+~ ProcessDao processDao
++ Integer findTID(Integer)
++ String JSONrepack1(String)
++ String JSONrepack2(String)
++ String insert(String)
++ String select(String)
++ String update(String)
++ String delete(String)
+}
+enum com.selab.demo.model.enums.state {
++  R
++  W
++  P
++  A
+}
+class com.selab.demo.model.ReportCheckModel {
+- Integer CHID
+- String softwarename
+- String client
+- String examiner
+- String date
+- String tableid
++ Integer getCHID()
++ void setCHID(Integer)
++ String getSoftwarename()
++ void setSoftwarename(String)
++ String getClient()
++ void setClient(String)
++ String getExaminer()
++ void setExaminer(String)
++ String getDate()
++ void setDate(String)
++ String getTableid()
++ void setTableid(String)
+}
+interface com.selab.demo.dao.TabledataDao {
+~ void insert(TabledataModel)
+~ List<TabledataModel> findbyTID(Integer)
+~ Integer findbyTID2(Integer)
+~ void update(TabledataModel)
+~ void delete(Integer)
+}
+class com.selab.demo.model.StableModel {
+- Integer stableid
+- String milestonetasks
+- String workload
+- String start
+- String end
++ Integer getStableid()
++ void setStableid(Integer)
++ String getMilestonetasks()
++ void setMilestonetasks(String)
++ String getWorkload()
++ void setWorkload(String)
++ String getStart()
++ void setStart(String)
++ String getEnd()
++ void setEnd(String)
+}
+enum com.selab.demo.model.enums.ProcessCurr {
+}
+enum com.selab.demo.model.enums.MEDIUM {
++  G
++  U
++  E
+}
+class com.selab.demo.controller.TestEnvironmentController {
+~ TestEnvironmentService testEnvironmentService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
+}
+interface com.selab.demo.dao.TestRecordDao {
+~ void insert(TestRecordModel)
+~ List<TestRecordModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(TestRecordModel)
+~ void delete(Integer)
+}
+class com.selab.demo.model.TestCaseTableModel {
+- Integer tableid
+- String testclassificaion
+- String num
+- String testcasedesign
+- String stockdescription
+- String expectedresult
+- String designer
+- String testtime
++ Integer getTableid()
++ void setTableid(Integer)
++ String getTestclassificaion()
++ void setTestclassificaion(String)
++ String getNum()
++ void setNum(String)
++ String getTestcasedesign()
++ void setTestcasedesign(String)
++ String getStockdescription()
++ void setStockdescription(String)
++ String getExpectedresult()
++ void setExpectedresult(String)
++ String getDesigner()
++ void setDesigner(String)
++ String getTesttime()
++ void setTesttime(String)
+}
+interface com.selab.demo.dao.AgreementDao {
++ void insert(AgreementModel)
++ List<AgreementModel> select(Integer)
++ Integer select2(Integer)
++ void update(AgreementModel)
++ void delete(Integer)
+}
+interface com.selab.demo.dao.TestCaseTableDao {
+~ void insert(TestCaseTableModel)
+~ List<TestCaseTableModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(TestCaseTableModel)
+~ void delete(Integer)
+}
+class com.selab.demo.controller.SoftwareDocReviewController {
+~ SoftwareDocReviewService softwareDocReviewService
++ Integer insert(String)
++ String updateMain(String)
++ String updateItem(String)
++ SoftwareDocReviewModel selectBySDRID(String)
++ SoftwareDocReviewModel selectByPID(String)
++ String delete(String)
+}
+class com.selab.demo.model.SoftwareTestModel {
+- Integer STID
+- String mark
+- String systemoverview
+- String documentationoverview
+- String baseline
+- String hardware
+- String software
+- String other
+- String participatingorganization
+- String personnel
+- String testlevel
+- String testcatagory
+- String generaltestcondition
+- String plannedexecutiontest
+- String testcase
+- String traceabilityodrequirement
+- String softtableid
+- String applicationfile
+- String versionnumber
+- String softwarename
+- String typetest
++ Integer getSTID()
++ void setSTID(Integer)
++ String getMark()
++ void setMark(String)
++ String getSystemoverview()
++ void setSystemoverview(String)
++ String getDocumentationoverview()
++ void setDocumentationoverview(String)
++ String getBaseline()
++ void setBaseline(String)
++ String getHardware()
++ void setHardware(String)
++ String getSoftware()
++ void setSoftware(String)
++ String getOther()
++ void setOther(String)
++ String getParticipatingorganization()
++ void setParticipatingorganization(String)
++ String getPersonnel()
++ void setPersonnel(String)
++ String getTestlevel()
++ void setTestlevel(String)
++ String getTestcatagory()
++ void setTestcatagory(String)
++ String getGeneraltestcondition()
++ void setGeneraltestcondition(String)
++ String getPlannedexecutiontest()
++ void setPlannedexecutiontest(String)
++ String getTestcase()
++ void setTestcase(String)
++ String getTraceabilityodrequirement()
++ void setTraceabilityodrequirement(String)
++ String getSofttableid()
++ void setSofttableid(String)
++ String getApplicationfile()
++ void setApplicationfile(String)
++ String getVersionnumber()
++ void setVersionnumber(String)
++ String getSoftwarename()
++ void setSoftwarename(String)
++ String getTypetest()
++ void setTypetest(String)
+}
+class com.selab.demo.service.QuoteService {
+~ QuoteDao quoteDao
+~ ProcessDao processDao
++ Integer findQID(Integer)
++ String JSONrepack(String,Integer)
++ String insert(String)
++ String findbyPID(String)
++ String update(String)
++ String delete(String)
++ String findbyQID(String)
++ String update_(String)
++ String delete_(String)
+}
+class com.selab.demo.controller.TestReviewController {
+~ TestReviewService testReviewService
++ Integer insert(String)
++ String update(String)
++ TestReviewModel selectByTRID(String)
++ TestReviewModel selectByPID(String)
++ String delete(String)
+}
+enum com.selab.demo.model.enums.ProcessNext {
+}
+interface com.selab.demo.dao.TestEnvironmentDao {
+~ void insert(TestEnvironmentModel)
+~ List<TestEnvironmentModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(TestEnvironmentModel)
+~ void delete(Integer)
+}
+class com.selab.demo.model.ReportCheckTableModel {
+- Integer tableid
+- String num
+- String checkcontent
+- String description
+- String radio
++ Integer getTableid()
++ void setTableid(Integer)
++ String getNum()
++ void setNum(String)
++ String getCheckcontent()
++ void setCheckcontent(String)
++ String getDescription()
++ void setDescription(String)
++ String getRadio()
++ void setRadio(String)
+}
+interface com.selab.demo.dao.InsertDao {
+~ void insertTest(String)
+~ void insertID(Integer)
+}
+class com.selab.demo.model.AgreementModel {
+- Integer AgID
+- String client
+- String trustee
+- String legalrepresentative1
+- String legalrepresentative2
+- String name
+- String date1
+- String date2
++ Integer getAgID()
++ void setAgID(Integer)
++ String getClient()
++ void setClient(String)
++ String getTrustee()
++ void setTrustee(String)
++ String getLegalrepresentative1()
++ void setLegalrepresentative1(String)
++ String getLegalrepresentative2()
++ void setLegalrepresentative2(String)
++ String getName()
++ void setName(String)
++ String getDate1()
++ void setDate1(String)
++ String getDate2()
++ void setDate2(String)
+}
+interface com.selab.demo.dao.ProcessDao {
+~ void insert(ProcessModel)
+~ List<ProcessModel> findByUID(Integer)
+~ ProcessModel findByPID(Integer)
+~ List<ProcessModel> findByAID(Integer)
+~ List<ProcessModel> findAll()
+~ List<Integer> selectAIDsByState(String)
+~ List<Integer> selectPIDsByState(String)
+~ Integer findByPID2(Integer)
+~ void update(ProcessModel)
+~ void updateState(Integer,String)
+~ void setAgID(Integer,Integer)
+~ void setAID(Integer,Integer)
+~ void setSID(Integer,Integer)
+~ void setRID(Integer,Integer)
+~ void setRTID(Integer,Integer)
+~ void setRCID(Integer,Integer)
+~ void setQID(Integer,Integer)
+~ void setCID(Integer,Integer)
+~ void setSTID(Integer,Integer)
+~ void setTID(Integer,Integer)
+~ void setTEID(Integer,Integer)
+~ void setTCID(Integer,Integer)
+~ void setTRID(Integer,Integer)
+~ void setSDRID(Integer,Integer)
+~ void setSCID(Integer,Integer)
+~ void setCHID(Integer,Integer)
+~ void delete(Integer)
+~ void clearFiles(Integer)
+}
+class com.selab.demo.controller.ReportTitleController {
+~ ReportTitleService reportTitleService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
++ String find_(String)
++ String update_(String)
++ String delete_(String)
+}
+interface com.selab.demo.dao.TesttheContentDao {
+~ void insert(TesttheContentModel)
+~ List<TesttheContentModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(TesttheContentModel)
+~ void delete(Integer)
+}
+interface com.selab.demo.dao.StableDao {
+~ void insert(StableModel)
+~ List<StableModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(StableModel)
+~ void delete(Integer)
+}
+class com.selab.demo.service.InsertService {
+~ InsertDao insertDao
++ String insertID(String)
++ String insert(String)
+}
+interface com.selab.demo.dao.SoftwareTestDao {
++ void insert(SoftwareTestModel)
+~ List<SoftwareTestModel> select(Integer)
+~ Integer select2(Integer)
++ void update(SoftwareTestModel)
++ void delete(Integer)
+}
+class com.selab.demo.model.SoftwareDocCheckTableModel {
+- Integer tableid
+- String reviewcategories
+- String reviewitem
+- String reviewcontent
+- String revieweresultexplanation
+- String radio
++ Integer getTableid()
++ void setTableid(Integer)
++ String getReviewcategories()
++ void setReviewcategories(String)
++ String getReviewitem()
++ void setReviewitem(String)
++ String getReviewcontent()
++ void setReviewcontent(String)
++ String getRevieweresultexplanation()
++ void setRevieweresultexplanation(String)
++ String getRadio()
++ void setRadio(String)
+}
+class com.selab.demo.service.UserService {
+~ UserDao userDao
++ String insert(String)
++ User customerLogin(String)
++ User staffLogin(String)
++ List<User> selectAll()
++ User selectByUID(String)
++ List<User> selectAllCustomer()
++ List<User> selectAllStaff()
++ String simplifyErrMsg(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.controller.TestCaseController {
+~ TestCaseService testCaseService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
+}
+interface com.selab.demo.dao.SampleCheckDao {
++ void insert(SampleCheckModel)
++ List<SampleCheckModel> select(Integer)
++ Integer select2(Integer)
++ void update(SampleCheckModel)
++ void delete(Integer)
+}
+interface com.selab.demo.dao.ReportCheckDao {
+~ void insert(ReportCheckModel)
+~ List<ReportCheckModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(ReportCheckModel)
+~ void delete(Integer)
+}
+class com.selab.demo.model.MessageModel {
+- Integer MID
+- Integer sender_id
+- Integer receiver_id
+- Date regTime
+- String message
+- String doc_ex_path
++ Integer getMID()
++ void setMID(Integer)
++ Integer getSender_id()
++ void setSender_id(Integer)
++ Integer getReceiver_id()
++ void setReceiver_id(Integer)
++ Date getRegTime()
++ void setRegTime(Date)
++ String getMessage()
++ void setMessage(String)
++ String getDoc_ex_path()
++ void setDoc_ex_path(String)
+}
+class com.selab.demo.model.User {
+- Integer UID
+- String nickname
+- String regTime
+- String zipcode
+- String address
+- String ip
+- String contact
+- String contactTel
+- String emailAddr
+- String password
+- String phone
+- String usertype
+- String USERFAX
++ String getZipcode()
++ void setZipcode(String)
++ String getAddress()
++ void setAddress(String)
++ String getIp()
++ void setIp(String)
++ String getContact()
++ void setContact(String)
++ String getContactTel()
++ void setContactTel(String)
++ String getUSERFAX()
++ void setUSERFAX(String)
++ Integer getUID()
++ void setUID(Integer)
++ String getRegTime()
++ void setRegTime(String)
++ String getPhone()
++ String getUsertype()
++ void setUsertype(String)
++ void setPhone(String)
++ String getPassword()
++ void setPassword(String)
++ String getEmailAddr()
++ void setEmailAddr(String)
++ String getNickname()
++ void setNickname(String)
+}
+interface com.selab.demo.dao.TestCharDao {
+~ void insert(TestCharModel)
+~ List<TestCharModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(TestCharModel)
+~ void delete(Integer)
+}
+class com.selab.demo.controller.SoftwareDocCheckController {
+~ SoftwareDocCheckService softwareDocCheckService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.model.TestRecordTableModel {
+- Integer tableid
+- String testclassification
+- String serialnum
+- String designspecification
+- String regulation
+- String precondition
+- String executionprocess
+- String expectedresult
+- String designer
+- String actualresult
+- String bugnum
+- String usecaseexecutor
+- String testingtime
+- String confirmperson
++ Integer getTableid()
++ void setTableid(Integer)
++ String getTestclassification()
++ void setTestclassification(String)
++ String getSerialnum()
++ void setSerialnum(String)
++ String getDesignspecification()
++ void setDesignspecification(String)
++ String getRegulation()
++ void setRegulation(String)
++ String getPrecondition()
++ void setPrecondition(String)
++ String getExecutionprocess()
++ void setExecutionprocess(String)
++ String getExpectedresult()
++ void setExpectedresult(String)
++ String getDesigner()
++ void setDesigner(String)
++ String getActualresult()
++ void setActualresult(String)
++ String getBugnum()
++ void setBugnum(String)
++ String getUsecaseexecutor()
++ void setUsecaseexecutor(String)
++ String getTestingtime()
++ void setTestingtime(String)
++ String getConfirmperson()
++ void setConfirmperson(String)
+}
+interface com.selab.demo.dao.AuditinformationDao {
++ void insert(AuditinformationModel)
++ List<AuditinformationModel> find(Integer)
++ void update(AuditinformationModel)
++ void delete(Integer)
+}
+class com.selab.demo.model.SoftwareDocReviewModel {
+- Integer PID
+- Integer SDRID
+- String SoftWareName
+- String VersionNumber
+- String Client
+- String ReviewCompleteDate
+- String Reviewer
+- String Examiner
++ SdrItem[] tableData
++ Integer getPID()
++ void setPID(Integer)
++ Integer getSDRID()
++ void setSDRID(Integer)
++ String getSoftWareName()
++ String getReviewCompleteDate()
++ void setReviewCompleteDate(String)
++ void setSoftWareName(String)
++ String getVersionNumber()
++ void setVersionNumber(String)
++ String getClient()
++ void setClient(String)
++ String getReviewer()
++ void setReviewer(String)
++ String getExaminer()
++ void setExaminer(String)
++ SdrItem[] getTableData()
++ void setTableData(SdrItem[])
+}
+class com.selab.demo.model.SoftwareDocReviewModel$SdrItem {
+- Integer ID
+- Integer ReviewCategories
+- Integer SDRID
+- String ReviewItem
+- String ReviewContent
+- String ReviewResultExplanation
+- String Radio
++ Integer getID()
++ Integer getSDRID()
++ void setSDRID(Integer)
++ void setID(Integer)
++ Integer getReviewCategories()
++ void setReviewCategories(Integer)
++ String getReviewItem()
++ void setReviewItem(String)
++ String getReviewContent()
++ void setReviewContent(String)
++ String getReviewResultExplanation()
++ void setReviewResultExplanation(String)
++ String getRadio()
++ void setRadio(String)
+}
+interface com.selab.demo.dao.ReportTitleDao {
++ void insert(ReportTitleModel)
++ List<ReportTitleModel> select(Integer)
++ Integer select2(Integer)
++ void update(ReportTitleModel)
++ void delete(Integer)
+}
+class com.selab.demo.service.TestCaseService {
+~ TestCaseDao testCaseDao
+~ TestCaseTableDao testCaseTableDao
+~ ProcessDao processDao
++ Integer findTCID(Integer)
++ String JSONrepack1(String)
++ String insert(String)
++ String select(String)
++ String update(String)
++ String delete(String)
+}
+enum com.selab.demo.model.enums.SAMPLEDELETE {
++  A
++  B
+}
+interface com.selab.demo.dao.TestCaseDao {
+~ void insert(TestCaseModel)
+~ List<TestCaseModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(TestCaseModel)
+~ void delete(Integer)
+}
+interface com.selab.demo.dao.ReportCheckTableDao {
+~ void insert(ReportCheckTableModel)
+~ List<ReportCheckTableModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(ReportCheckTableModel)
+~ void delete(Integer)
+}
+class com.selab.demo.service.TestEnvironmentService {
+~ TestHardDao testHardDao
+~ TestSoftDao testSoftDao
+~ TestEnvironmentDao testEnvironmentDao
+~ ProcessDao processDao
+- JSONArray StringtoArray(String,JSONArray)
+- JSONArray StringtoArray2(String)
+- JSONArray JSONArraytoJSONArray(JSONArray,String)
+- JSONArray JSONArraytoJSONArray2(JSONArray,String)
+- String ArraytoString(String,JSONArray)
++ Integer findTEID(Integer)
++ String JSONrepack1(String)
++ String JSONrepack2(String)
++ String insert(String)
++ String select(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.service.TestRecordService {
+~ TestRecordDao testRecordDao
+~ TestRecordTableDao testRecordTableDao
+~ ProcessDao processDao
++ Integer findTRID(Integer)
++ String JSONrepack1(String)
++ String insert(String)
++ String select(String)
++ String update(String)
++ String delete(String)
+}
+interface com.selab.demo.dao.FileDao {
+~ void upload(FileModel)
++ FileModel[] selectAllFiles()
++ FileModel[] selectByPID(Integer)
++ Integer selectByState(FileModel)
++ FileModel selectByFID(Integer)
++ String selectFileName(Integer)
+}
+class com.selab.demo.service.ReportTitleService {
+~ ReportTitleDao reportTitleDao
+~ ProcessDao processDao
++ Integer findRTID(Integer)
++ String JSONrepack(String,Integer)
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
++ String find_(String)
++ String update_(String)
++ String delete_(String)
+}
+class com.selab.demo.service.RecordCheckService {
+~ ReportCheckDao reportCheckDao
+~ ReportCheckTableDao reportCheckTableDao
+~ ProcessDao processDao
++ Integer findCHID(Integer)
++ String JSONrepack1(String)
++ String insert(String)
++ String select(String)
++ String update(String)
++ String delete(String)
+}
+enum com.selab.demo.model.enums.curr_state {
++  R
++  W
++  P
++  A
+}
+class com.selab.demo.controller.ProcessController {
+~ ProcessService processService
++ Integer insert(String)
++ List<ProcessModel> findByUID(String)
++ List<ProcessModel> findByAID(String)
++ List<Integer> selectAIDsByState(String)
++ String updateState(String)
++ List<Integer> selectPIDsByState(String)
++ List<ProcessModel> findAll()
++ ProcessModel findByPID(String)
++ String update(String)
++ String delete(String)
+}
+class com.selab.demo.service.SampleCheckService {
+~ SampleCheckDao sampleCheckDao
+~ ProcessDao processDao
++ Integer findSID(Integer)
++ String JSONrepack(String,Integer)
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
+}
+interface com.selab.demo.dao.UserDao {
+~ void insert(User)
++ User customerLogin(String,String)
++ User staffLogin(String,String)
++ List<User> selectAllCustomer()
++ List<User> selectAllStaff()
++ List<User> selectAll()
++ User selectByUID(Integer)
+~ void update(Integer,String,String,String,String,String,String,String,String,String,String)
+~ void delete(Integer)
++ Integer findByUID(Integer)
+}
+class com.selab.demo.model.SampleCheckModel {
+- Integer SID
+- String views
+- String pass
++ Integer getSID()
++ void setSID(Integer)
++ String getViews()
++ void setViews(String)
++ String getPass()
++ void setPass(String)
+}
+class com.selab.demo.controller.MessageController {
+~ MessageService messageService
++ String insert(String)
++ String findbyMID(String)
++ String findbysender_id(String)
++ String findbyreceiver_id(String)
++ String update(String)
++ String delete(String)
+}
+enum com.selab.demo.model.enums.ApplicationState {
++  R
++  W
++  P
+}
+interface com.selab.demo.dao.TestSoftDao {
+~ void insert(TestSoftModel)
+~ List<TestSoftModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(TestSoftModel)
+~ void delete(Integer)
+}
+interface com.selab.demo.dao.ApplicationDao {
+~ void insertApp(ApplicationModel)
+~ List<ApplicationModel> findbyuserA(Integer)
+~ List<ApplicationModel> findbyprocess(Integer)
+~ List<ApplicationModel> findbyAID(Integer)
+~ Integer findbyAID2(Integer)
+~ List<Integer> findAID()
+~ List<ApplicationModel> findALL()
+~ void updateapplication(ApplicationModel)
+~ void deleteapplication(Integer)
+~ void insertruleform(String,String,String,Integer)
+~ void updateruleform(String,String,String,Integer)
+~ void insertopinion(String,String,Integer)
+~ List<ApplicationModel> findopinion(Integer)
+~ void insertauditinformation(Integer,Integer)
+~ Integer findauditinformation(Integer)
+}
+interface com.selab.demo.dao.SoftwareDocCheckDao {
+~ void insert(SoftwareDocCheckModel)
+~ List<SoftwareDocCheckModel> select(Integer)
+~ Integer select2(Integer)
+~ void update(SoftwareDocCheckModel)
+~ void delete(Integer)
+}
+class com.selab.demo.controller.FileController {
+~ FileService fileService
+~ FileDao fileDao
++ Integer upload(MultipartFile,Integer,String,String)
++ FileModel[] selectAllFiles()
++ FileModel[] selectByPID(String)
++ String selectFileName(String)
++ FileModel selectByFID(String)
++ Integer selectByState(String)
++ String download(String,HttpServletResponse)
+}
+class com.selab.demo.controller.AgreementController {
+~ AgreementService agreementService
++ String insert(String)
++ String find(String)
++ String update(String)
++ String delete(String)
++ String find_(String)
++ String update_(String)
++ String delete_(String)
+}
+class com.selab.demo.utils.FileUtil {
++ {static} String UPLOAD_FILEPATH
++ String getUpload(MultipartFile,Integer)
++ String uploadWithFileInfo(MultipartFile,Integer,String,String)
++ String killProcess(Integer)
++ {static} Boolean deleteFile(File)
+}
+class com.selab.demo.model.TestRecordModel {
+- Integer TRID
+- String tableid
++ Integer getTRID()
++ void setTRID(Integer)
++ String getTableid()
++ void setTableid(String)
+}
+
+
+com.selab.demo.model.BaseEntity <|-- com.selab.demo.model.ApplicationModel
+com.selab.demo.model.TestReviewModel +.. com.selab.demo.model.TestReviewModel$SignClass
+com.selab.demo.model.BaseEntity <|-- com.selab.demo.model.User
+com.selab.demo.model.SoftwareDocReviewModel +.. com.selab.demo.model.SoftwareDocReviewModel$SdrItem
+
+
+scale 8192 width
+scale 8192 height
+
+
+
+
+@enduml
